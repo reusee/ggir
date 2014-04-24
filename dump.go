@@ -5,7 +5,85 @@ import "strings"
 func (self *Repository) dump() {
 	p("package %s\n", self.Package.Name)
 	p("cinlucde %s\n", self.CInclude.Name)
-	p("namespace %s\n", self.Namespace.Name)
+	self.Namespace.dump()
+}
+
+func (self *Namespace) dump() {
+	p("namespace %s\n", self.Name)
+	for _, alias := range self.Aliases {
+		alias.dump()
+	}
+	for _, c := range self.Constants {
+		c.dump()
+	}
+	for _, record := range self.Records {
+		record.dump()
+	}
+	for _, b := range self.Bitfields {
+		b.dump()
+	}
+	for _, f := range self.Functions {
+		f.dump(false)
+	}
+	for _, e := range self.Enums {
+		e.dump()
+	}
+}
+
+func (self *Namespace) dumpNotHandled() {
+	for _, n := range self.NotHandled {
+		n.dump()
+	}
+	for _, e := range self.Aliases {
+		for _, n := range e.NotHandled {
+			n.dump()
+		}
+	}
+	for _, e := range self.Constants {
+		for _, n := range e.NotHandled {
+			n.dump()
+		}
+	}
+	for _, e := range self.Records {
+		for _, n := range e.NotHandled {
+			n.dump()
+		}
+	}
+	for _, e := range self.Bitfields {
+		for _, n := range e.NotHandled {
+			n.dump()
+		}
+	}
+	for _, e := range self.Functions {
+		for _, n := range e.NotHandled {
+			n.dump()
+		}
+	}
+	for _, e := range self.Enums {
+		for _, n := range e.NotHandled {
+			n.dump()
+		}
+	}
+	for _, e := range self.Callbacks {
+		for _, n := range e.NotHandled {
+			n.dump()
+		}
+	}
+	for _, e := range self.Unions {
+		for _, n := range e.NotHandled {
+			n.dump()
+		}
+	}
+	for _, e := range self.Classes {
+		for _, n := range e.NotHandled {
+			n.dump()
+		}
+	}
+	for _, e := range self.Interfaces {
+		for _, n := range e.NotHandled {
+			n.dump()
+		}
+	}
 }
 
 func (f *Function) dump(isMethod bool) {
@@ -41,7 +119,7 @@ func (c *Constant) dump() {
 	p("const %s %s %s %s\n", c.Name, c.Value, c.CName, c.Type.CType)
 }
 
-func (record *Record) dump() {
+func (record *Class) dump() {
 	p("record %s\n", record.CType)
 	for _, field := range record.Fields {
 		p("field %s", field.Name)

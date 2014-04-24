@@ -17,34 +17,45 @@ type CInclude struct {
 }
 
 type Namespace struct {
-	Name      string      `xml:"name,attr"`
-	Aliases   []*Alias    `xml:"alias"`
-	Constants []*Constant `xml:"constant"`
-	Records   []*Record   `xml:"record"`
-	Bitfields []*Bitfield `xml:"bitfield"`
-	Functions []*Function `xml:"function"`
-	Enums     []*Enum     `xml:"enumeration"`
-	Callbacks []*Callback `xml:"callback"`
-	Unions    []*Union    `xml:"union"`
+	Name       string      `xml:"name,attr"`
+	Aliases    []*Alias    `xml:"alias"`
+	Constants  []*Constant `xml:"constant"`
+	Bitfields  []*Bitfield `xml:"bitfield"`
+	Functions  []*Function `xml:"function"`
+	Callbacks  []*Function `xml:"callback"`
+	Enums      []*Enum     `xml:"enumeration"`
+	Unions     []*Union    `xml:"union"`
+	Classes    []*Class    `xml:"class"`
+	Interfaces []*Class    `xml:"interface"`
+	Records    []*Class    `xml:"record"`
 
 	NotHandled []*NotHandled `xml:",any"`
 }
 
 type NotHandled struct {
-	Xml string `xml:",innerxml"`
+	XMLName xml.Name
+	Xml     string `xml:",innerxml"`
 }
 
 type Alias struct {
-	Name  string `xml:"name,attr"`
-	Left  string `xml:"type,attr"`
-	Right *Type  `xml:"type"`
+	Name          string `xml:"name,attr"`
+	Left          string `xml:"type,attr"`
+	Right         *Type  `xml:"type"`
+	Doc           *Doc   `xml:"doc"`
+	DocDeprecated *Doc   `xml:"doc-deprecated"`
+
+	NotHandled []*NotHandled `xml:",any"`
 }
 
 type Constant struct {
-	Name  string `xml:"name,attr"`
-	Value string `xml:"value,attr"`
-	CName string `xml:"type,attr"`
-	Type  *Type  `xml:"type"`
+	Name          string `xml:"name,attr"`
+	Value         string `xml:"value,attr"`
+	CName         string `xml:"type,attr"`
+	Type          *Type  `xml:"type"`
+	Doc           *Doc   `xml:"doc"`
+	DocDeprecated *Doc   `xml:"doc-deprecated"`
+
+	NotHandled []*NotHandled `xml:",any"`
 }
 
 type Type struct {
@@ -52,15 +63,47 @@ type Type struct {
 	CType string `xml:"type,attr"`
 }
 
-type Record struct {
-	Name          string      `xml:"name,attr"`
-	CType         string      `xml:"type,attr"`
-	GlibTypeName  string      `xml:"type-name,attr"`
-	GlibGetType   string      `xml:"get-type,attr"`
-	CSymbolPrefix string      `xml:"symbol-prefix,attr"`
-	Fields        []*Field    `xml:"field"`
-	Functions     []*Function `xml:"function"`
-	Methods       []*Function `xml:"method"`
+type Class struct {
+	Name           string        `xml:"name,attr"`
+	CSymbolPrefix  string        `xml:"symbol-prefix,attr"`
+	CType          string        `xml:"type,attr"`
+	Parent         string        `xml:"parent,attr"`
+	Prerequisite   *Prerequisite `xml:"prerequisite"` // for interface
+	GlibTypeName   string        `xml:"type-name,attr"`
+	GlibGetType    string        `xml:"get-type,attr"`
+	GlibTypeStruct string        `xml:"type-struct,attr"`
+	Implements     []*Implement  `xml:"implements"`
+	Constructors   []*Function   `xml:"constructor"`
+	VirtualMethods []*Function   `xml:"virtual-method"`
+	Methods        []*Function   `xml:"method"`
+	Functions      []*Function   `xml:"function"`
+	Properties     []*Property   `xml:"property"`
+	Union          *Union        `xml:"union"` // for record
+	Fields         []*Field      `xml:"field"`
+	Signals        []*Function   `xml:"signal"`
+	Doc            *Doc          `xml:"doc"`
+	DocDeprecated  *Doc          `xml:"doc-deprecated"`
+
+	NotHandled []*NotHandled `xml:",any"`
+}
+
+type Implement struct {
+	Interface string `xml:"name,attr"`
+}
+
+type Prerequisite struct {
+	Name string `xml:"name,attr"`
+}
+
+type Property struct {
+	Name              string `xml:"name,attr"`
+	Version           string `xml:"version,attr"`
+	Writable          string `xml:"writable,attr"`
+	TransferOwnership string `xml:"transfer-ownership,attr"`
+	Doc               *Doc   `xml:"doc"`
+	DocDeprecated     *Doc   `xml:"doc-deprecated"`
+	Type              *Type  `xml:"type"`
+	Array             *Array `xml:"array"`
 }
 
 type Field struct {
@@ -71,9 +114,15 @@ type Field struct {
 }
 
 type Union struct {
-	Name   string   `xml:"name,attr"`
-	CType  string   `xml:"type,attr"`
-	Fields []*Field `xml:"field"`
+	Name          string      `xml:"name,attr"`
+	CType         string      `xml:"type,attr"`
+	Fields        []*Field    `xml:"field"`
+	Methods       []*Function `xml:"method"`
+	Record        *Class      `xml:"record"`
+	Doc           *Doc        `xml:"doc"`
+	DocDeprecated *Doc        `xml:"doc-deprecated"`
+
+	NotHandled []*NotHandled `xml:",any"`
 }
 
 type Array struct {
@@ -85,10 +134,20 @@ type Array struct {
 }
 
 type Function struct {
-	Name        string   `xml:"name,attr"`
-	CIdentifier string   `xml:"identifier,attr"`
-	Return      *Return  `xml:"return-value"`
-	Params      []*Param `xml:"parameters>parameter"`
+	Name              string   `xml:"name,attr"`
+	CType             string   `xml:"type,attr"` // for callback
+	Version           string   `xml:"version,attr"`
+	Deprecated        string   `xml:"deprecated,attr"`
+	DeprecatedVersion string   `xml:"deprecated-version,attr"`
+	When              string   `xml:"when,attr"` // for signal
+	CIdentifier       string   `xml:"identifier,attr"`
+	Return            *Return  `xml:"return-value"`
+	InstanceParam     *Param   `xml:"parameters>instance-parameter"`
+	Params            []*Param `xml:"parameters>parameter"`
+	Doc               *Doc     `xml:"doc"`
+	DocDeprecated     *Doc     `xml:"doc-deprecated"`
+
+	NotHandled []*NotHandled `xml:",any"`
 }
 
 type Return struct {
@@ -104,9 +163,13 @@ type Param struct {
 }
 
 type Bitfield struct {
-	Name    string    `xml:"name,attr"`
-	CType   string    `xml:"type,attr"`
-	Members []*Member `xml:"member"`
+	Name          string    `xml:"name,attr"`
+	CType         string    `xml:"type,attr"`
+	Members       []*Member `xml:"member"`
+	Doc           *Doc      `xml:"doc"`
+	DocDeprecated *Doc      `xml:"doc-deprecated"`
+
+	NotHandled []*NotHandled `xml:",any"`
 }
 
 type Member struct {
@@ -116,17 +179,19 @@ type Member struct {
 }
 
 type Enum struct {
-	Name            string    `xml:"name,attr"`
-	CType           string    `xml:"type,attr"`
-	GlibErrorDomain string    `xml:"error-domain,attr"`
-	Members         []*Member `xml:"member"`
+	Name            string      `xml:"name,attr"`
+	CType           string      `xml:"type,attr"`
+	GlibErrorDomain string      `xml:"error-domain,attr"`
+	Members         []*Member   `xml:"member"`
+	Functions       []*Function `xml:"function"`
+	Doc             *Doc        `xml:"doc"`
+	DocDeprecated   *Doc        `xml:"doc-deprecated"`
+
+	NotHandled []*NotHandled `xml:",any"`
 }
 
-type Callback struct {
-	Name   string   `xml:"name,attr"`
-	CType  string   `xml:"type,attr"`
-	Return *Return  `xml:"return-value"`
-	Params []*Param `xml:"parameters>parameter"`
+type Doc struct {
+	Text string `xml:",chardata"`
 }
 
 func (self *Generator) Parse(contents []byte) *Repository {
@@ -137,27 +202,7 @@ func (self *Generator) Parse(contents []byte) *Repository {
 
 	// dump
 	repo.dump()
-	for _, alias := range repo.Namespace.Aliases {
-		alias.dump()
-	}
-	for _, c := range repo.Namespace.Constants {
-		c.dump()
-	}
-	for _, record := range repo.Namespace.Records {
-		record.dump()
-	}
-	for _, b := range repo.Namespace.Bitfields {
-		b.dump()
-	}
-	for _, f := range repo.Namespace.Functions {
-		f.dump(false)
-	}
-	for _, e := range repo.Namespace.Enums {
-		e.dump()
-	}
-	for _, n := range repo.Namespace.NotHandled {
-		n.dump()
-	}
+	repo.Namespace.dumpNotHandled()
 
 	return &repo
 }
