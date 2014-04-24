@@ -1,6 +1,35 @@
 package main
 
-import "strings"
+import (
+	"reflect"
+	"strings"
+)
+
+func dumpNotHandled(v reflect.Value) {
+	if !v.IsValid() {
+		return
+	}
+	t := v.Type()
+	kind := t.Kind()
+	if kind == reflect.Ptr {
+		dumpNotHandled(v.Elem())
+	} else if kind == reflect.Slice {
+		for i := 0; i < v.Len(); i++ {
+			dumpNotHandled(v.Index(i))
+		}
+	} else if kind == reflect.Struct {
+		for i := 0; i < v.NumField(); i++ {
+			field := t.Field(i)
+			if field.Name == "NotHandled" {
+				for _, n := range v.Field(i).Interface().([]*NotHandled) {
+					n.dump()
+				}
+			} else {
+				dumpNotHandled(v.Field(i))
+			}
+		}
+	}
+}
 
 func (self *Repository) dump() {
 	p("package %s\n", self.Package.Name)
@@ -27,62 +56,6 @@ func (self *Namespace) dump() {
 	}
 	for _, e := range self.Enums {
 		e.dump()
-	}
-}
-
-func (self *Namespace) dumpNotHandled() {
-	for _, n := range self.NotHandled {
-		n.dump()
-	}
-	for _, e := range self.Aliases {
-		for _, n := range e.NotHandled {
-			n.dump()
-		}
-	}
-	for _, e := range self.Constants {
-		for _, n := range e.NotHandled {
-			n.dump()
-		}
-	}
-	for _, e := range self.Records {
-		for _, n := range e.NotHandled {
-			n.dump()
-		}
-	}
-	for _, e := range self.Bitfields {
-		for _, n := range e.NotHandled {
-			n.dump()
-		}
-	}
-	for _, e := range self.Functions {
-		for _, n := range e.NotHandled {
-			n.dump()
-		}
-	}
-	for _, e := range self.Enums {
-		for _, n := range e.NotHandled {
-			n.dump()
-		}
-	}
-	for _, e := range self.Callbacks {
-		for _, n := range e.NotHandled {
-			n.dump()
-		}
-	}
-	for _, e := range self.Unions {
-		for _, n := range e.NotHandled {
-			n.dump()
-		}
-	}
-	for _, e := range self.Classes {
-		for _, n := range e.NotHandled {
-			n.dump()
-		}
-	}
-	for _, e := range self.Interfaces {
-		for _, n := range e.NotHandled {
-			n.dump()
-		}
 	}
 }
 
@@ -157,6 +130,6 @@ func (e *Enum) dump() {
 }
 
 func (n *NotHandled) dump() {
-	p("%s\n", strings.Repeat("=", 64))
-	p("%v\n", n)
+	p("%s %s\n", n.XMLName.Local, strings.Repeat("=", 64))
+	p("%s\n", n.Xml)
 }
