@@ -62,24 +62,24 @@ type CInclude struct {
 
 type Namespace struct {
 	BaseInfo
-	Name               string       `xml:"name,attr"`
-	SymbolPrefixes     string       `xml:"symbol-prefixes,attr"`
-	IdentifierPrefixes string       `xml:"identifier-prefixes,attr"`
-	SharedLibrary      string       `xml:"shared-library,attr"`
-	CPrefix            string       `xml:"prefix,attr"`
-	CSymbolPrefix      string       `xml:"symbol-prefix,attr"`
-	ErrorDomain        *ErrorDomain `xml:"errordomain"`
-	Aliases            []*Alias     `xml:"alias"`
-	Constants          []*Constant  `xml:"constant"`
-	Bitfields          []*Bitfield  `xml:"bitfield"`
-	Functions          []*Function  `xml:"function"`
-	Callbacks          []*Function  `xml:"callback"`
-	Enums              []*Enum      `xml:"enumeration"`
-	Unions             []*Union     `xml:"union"`
-	Classes            []*Class     `xml:"class"`
-	Interfaces         []*Class     `xml:"interface"`
-	Records            []*Class     `xml:"record"`
-	Boxeds             []*Boxed     `xml:"boxed"`
+	Name               string         `xml:"name,attr"`
+	SymbolPrefixes     string         `xml:"symbol-prefixes,attr"`
+	IdentifierPrefixes string         `xml:"identifier-prefixes,attr"`
+	SharedLibrary      string         `xml:"shared-library,attr"`
+	CPrefix            string         `xml:"prefix,attr"`
+	CSymbolPrefix      string         `xml:"symbol-prefix,attr"`
+	Functions          []*Function    `xml:"function"`
+	Callbacks          []*Function    `xml:"callback"`
+	Classes            []*Class       `xml:"class"`
+	Interfaces         []*Class       `xml:"interface"`
+	Records            []*Class       `xml:"record"`
+	Bitfields          []*Bitfield    `xml:"bitfield"`
+	Enums              []*Enum        `xml:"enumeration"`
+	Unions             []*Union       `xml:"union"`
+	Constants          []*Constant    `xml:"constant"`
+	Boxeds             []*Boxed       `xml:"boxed"`
+	ErrorDomains       []*ErrorDomain `xml:"errordomain"`
+	Aliases            []*Alias       `xml:"alias"`
 }
 
 type ErrorDomain struct {
@@ -225,33 +225,26 @@ type Function struct {
 	NoHooks       string   `xml:"no-hooks,attr"`   // for signal
 	NoRecurse     string   `xml:"no-recurse,attr"` // for signal
 	Detailed      string   `xml:"detailed,attr"`   // for signal
-	Return        *Return  `xml:"return-value"`
+	Return        *Param  `xml:"return-value"`
 	InstanceParam *Param   `xml:"parameters>instance-parameter"`
 	Params        []*Param `xml:"parameters>parameter"`
 }
 
-type Return struct {
-	BaseInfo
-	TransferOwnership string `xml:"transfer-ownership,attr"`
-	Skip              string `xml:"skip,attr"`
-	AllowNone         string `xml:"allow-none,attr"`
-	Array             *Array `xml:"array"`
-	Type              *Type  `xml:"type"`
-}
-
 type Param struct {
 	BaseInfo
-	Name              string   `xml:"name,attr"`
-	TransferOwnership string   `xml:"transfer-ownership,attr"`
-	Direction         string   `xml:"direction,attr"`
-	CallerAllocates   string   `xml:"caller-allocates,attr"`
-	AllowNone         string   `xml:"allow-none,attr"`
-	Scope             string   `xml:"scope,attr"`
-	Destroy           string   `xml:"destroy,attr"`
-	Closure           string   `xml:"closure,attr"`
-	Skip              string   `xml:"skip,attr"`
-	Array             *Array   `xml:"array"`
-	Type              *Type    `xml:"type"`
+	Name              string `xml:"name,attr"`
+	TransferOwnership string `xml:"transfer-ownership,attr"`
+	Direction         string `xml:"direction,attr"`
+	CallerAllocates   string `xml:"caller-allocates,attr"`
+	AllowNone         string `xml:"allow-none,attr"`
+	Scope             string `xml:"scope,attr"`
+	Destroy           string `xml:"destroy,attr"`
+	Closure           string `xml:"closure,attr"`
+	Skip              string `xml:"skip,attr"`
+	GoName            string
+	Array             *Array `xml:"array"`
+	Type              *Type  `xml:"type"`
+	GoType            string
 	Varargs           *Varargs `xml:"varargs"`
 }
 
@@ -261,12 +254,12 @@ type Varargs struct {
 
 type Bitfield struct {
 	BaseInfo
-	Name      string      `xml:"name,attr"`
-	CType     string      `xml:"type,attr"`
-	GetType   string      `xml:"get-type,attr"`
-	TypeName  string      `xml:"type-name,attr"`
-	Members   []*Member   `xml:"member"`
-	Functions []*Function `xml:"function"`
+	Name         string      `xml:"name,attr"`
+	CType        string      `xml:"type,attr"`
+	GlibGetType  string      `xml:"get-type,attr"`
+	GlibTypeName string      `xml:"type-name,attr"`
+	Members      []*Member   `xml:"member"`
+	Functions    []*Function `xml:"function"`
 }
 
 type Member struct {

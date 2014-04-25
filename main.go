@@ -1,9 +1,13 @@
 package main
 
 import (
+	"bytes"
+	"go/format"
+	"io"
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 func main() {
@@ -25,6 +29,7 @@ func main() {
 }
 
 type Generator struct {
+	funcsOutput io.Writer
 }
 
 func Gen(outputDir, girFilePath string) {
@@ -32,7 +37,43 @@ func Gen(outputDir, girFilePath string) {
 	contents, err := ioutil.ReadFile(girFilePath)
 	checkError(err)
 
+	// parse
 	generator := new(Generator)
 	repo := generator.Parse(contents)
-	_ = repo
+
+	// generate
+	ns := repo.Namespace
+	goPackageName := strings.ToLower(ns.Name)
+
+	// functions
+	funcsOutput := new(bytes.Buffer)
+	generator.funcsOutput = funcsOutput
+	w(funcsOutput, "package %s\n\n", goPackageName)
+	w(funcsOutput, "/*\n")
+	w(funcsOutput, "#include <%s>\n", repo.CInclude.Name)
+	w(funcsOutput, "#cgo pkg-config: %s\n", repo.Package.Name)
+	w(funcsOutput, `#cgo linux CFLAGS: -DLINUX
+#ifdef LINUX
+	#include <glib-unix.h>
+#endif
+#include <stdlib.h>
+#include <stdio.h>
+#include <glib-object.h>
+`)
+	w(funcsOutput, "*/\n")
+	w(funcsOutput, "import \"C\"\n\n")
+	for _, fn := range ns.Functions {
+		generator.GenFunction(fn)
+	}
+	f, err := os.Create(filepath.Join(outputDir, goPackageName+"_functions.go"))
+	formatted, err := format.Source(funcsOutput.Bytes())
+	if err != nil {
+		f.Write(funcsOutput.Bytes())
+		f.Close()
+		checkError(err)
+	}
+	checkError(err)
+	f.Write(formatted)
+	f.Close()
+
 }
