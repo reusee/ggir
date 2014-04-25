@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io/ioutil"
 	"os"
 	"path/filepath"
 )
@@ -21,4 +22,17 @@ func main() {
 	checkError(err)
 
 	Gen(outputDir, girFilePath)
+}
+
+type Generator struct {
+}
+
+func Gen(outputDir, girFilePath string) {
+	// read gir file contents
+	contents, err := ioutil.ReadFile(girFilePath)
+	checkError(err)
+
+	generator := new(Generator)
+	repo := generator.Parse(contents)
+	_ = repo
 }
