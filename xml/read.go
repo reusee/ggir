@@ -416,6 +416,7 @@ func (p *Decoder) unmarshal(val reflect.Value, start *StartElement) error {
 
 		// Assign attributes.
 		// Also, determine whether we need to save character data or comments.
+		assignedAttrs := make(map[Attr]bool)
 		for i := range tinfo.fields {
 			finfo := &tinfo.fields[i]
 			switch finfo.flags & fMode {
@@ -427,6 +428,7 @@ func (p *Decoder) unmarshal(val reflect.Value, start *StartElement) error {
 						if err := p.unmarshalAttr(strv, a); err != nil {
 							return err
 						}
+						assignedAttrs[a] = true
 						break
 					}
 				}
@@ -456,6 +458,12 @@ func (p *Decoder) unmarshal(val reflect.Value, start *StartElement) error {
 						saveXMLIndex = p.savedOffset()
 					}
 				}
+			}
+		}
+		// not assigned attributes
+		for _, a := range start.Attr {
+			if !assignedAttrs[a] {
+				fmt.Printf("%s = %s %s\n", a.Name.Local, a.Value, strings.Repeat("=", 64))
 			}
 		}
 	}
