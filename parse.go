@@ -1,20 +1,33 @@
 package main
 
 import (
-	"encoding/xml"
 	"reflect"
+
+	"./xml"
 )
 
 type BaseInfo struct {
-	XMLName       xml.Name
-	Doc           *Doc          `xml:"doc"`
-	DocDeprecated *Doc          `xml:"doc-deprecated"`
-	DocVersion    *Doc          `xml:"doc-version"`
-	NotHandled    []*NotHandled `xml:",any"`
+	XMLName           xml.Name
+	Version           string        `xml:"version,attr"`
+	Deprecated        string        `xml:"deprecated,attr"`
+	DeprecatedVersion string        `xml:"deprecated-version,attr"`
+	Introspectable    string        `xml:"introspectable,attr"`
+	Stability         string        `xml:"stability,attr"`
+	Doc               *Doc          `xml:"doc"`
+	DocDeprecated     *Doc          `xml:"doc-deprecated"`
+	DocVersion        *Doc          `xml:"doc-version"`
+	DocStability      *DocStability `xml:"doc-stability"`
+	NotHandled        []*NotHandled `xml:",any"`
 }
 
 type Doc struct {
-	Text string `xml:",chardata"`
+	Space      string `xml:"space,attr"`
+	Whitespace string `xml:"whitespace,attr"`
+	Text       string `xml:",chardata"`
+}
+
+type DocStability struct {
+	Space string `xml:"space,attr"`
 }
 
 type NotHandled struct {
@@ -24,10 +37,15 @@ type NotHandled struct {
 
 type Repository struct {
 	BaseInfo
-	Package   *Package    `xml:"package"`
-	CInclude  *CInclude   `xml:"include"`
-	Namespace *Namespace  `xml:"namespace"`
-	Constants []*Constant `xml:"constant"`
+	Glib                string      `xml:"glib,attr"`
+	CSymbolPrefixes     string      `xml:"symbol-prefixes,attr"`
+	CIdentifierPrefixes string      `xml:"identifier-prefixes,attr"`
+	C                   string      `xml:"c,attr"`
+	Xmlns               string      `xml:"xmlns,attr"`
+	Package             *Package    `xml:"package"`
+	CInclude            *CInclude   `xml:"include"`
+	Namespace           *Namespace  `xml:"namespace"`
+	Constants           []*Constant `xml:"constant"`
 }
 
 type Package struct {
@@ -43,19 +61,24 @@ type CInclude struct {
 
 type Namespace struct {
 	BaseInfo
-	Name        string       `xml:"name,attr"`
-	ErrorDomain *ErrorDomain `xml:"errordomain"`
-	Aliases     []*Alias     `xml:"alias"`
-	Constants   []*Constant  `xml:"constant"`
-	Bitfields   []*Bitfield  `xml:"bitfield"`
-	Functions   []*Function  `xml:"function"`
-	Callbacks   []*Function  `xml:"callback"`
-	Enums       []*Enum      `xml:"enumeration"`
-	Unions      []*Union     `xml:"union"`
-	Classes     []*Class     `xml:"class"`
-	Interfaces  []*Class     `xml:"interface"`
-	Records     []*Class     `xml:"record"`
-	Boxeds      []*Boxed     `xml:"boxed"`
+	Name               string       `xml:"name,attr"`
+	SymbolPrefixes     string       `xml:"symbol-prefixes,attr"`
+	IdentifierPrefixes string       `xml:"identifier-prefixes,attr"`
+	SharedLibrary      string       `xml:"shared-library,attr"`
+	CPrefix            string       `xml:"prefix,attr"`
+	CSymbolPrefix      string       `xml:"symbol-prefix,attr"`
+	ErrorDomain        *ErrorDomain `xml:"errordomain"`
+	Aliases            []*Alias     `xml:"alias"`
+	Constants          []*Constant  `xml:"constant"`
+	Bitfields          []*Bitfield  `xml:"bitfield"`
+	Functions          []*Function  `xml:"function"`
+	Callbacks          []*Function  `xml:"callback"`
+	Enums              []*Enum      `xml:"enumeration"`
+	Unions             []*Union     `xml:"union"`
+	Classes            []*Class     `xml:"class"`
+	Interfaces         []*Class     `xml:"interface"`
+	Records            []*Class     `xml:"record"`
+	Boxeds             []*Boxed     `xml:"boxed"`
 }
 
 type ErrorDomain struct {
@@ -67,6 +90,7 @@ type ErrorDomain struct {
 }
 
 type Annotation struct {
+	BaseInfo
 	Key   string `xml:"key,attr"`
 	Value string `xml:"value,attr"`
 }
@@ -80,10 +104,11 @@ type Alias struct {
 
 type Constant struct {
 	BaseInfo
-	Name  string `xml:"name,attr"`
-	Value string `xml:"value,attr"`
-	CName string `xml:"type,attr"`
-	Type  *Type  `xml:"type"`
+	Name        string `xml:"name,attr"`
+	Value       string `xml:"value,attr"`
+	CName       string `xml:"type,attr"`
+	CIdentifier string `xml:"identifier,attr"`
+	Type        *Type  `xml:"type"`
 }
 
 type Type struct {
@@ -96,23 +121,32 @@ type Type struct {
 
 type Class struct {
 	BaseInfo
-	Name           string        `xml:"name,attr"`
-	CSymbolPrefix  string        `xml:"symbol-prefix,attr"`
-	CType          string        `xml:"type,attr"`
-	Parent         string        `xml:"parent,attr"`
-	Prerequisite   *Prerequisite `xml:"prerequisite"` // for interface
-	GlibTypeName   string        `xml:"type-name,attr"`
-	GlibGetType    string        `xml:"get-type,attr"`
-	GlibTypeStruct string        `xml:"type-struct,attr"`
-	Implements     []*Implement  `xml:"implements"`
-	Constructors   []*Function   `xml:"constructor"`
-	VirtualMethods []*Function   `xml:"virtual-method"`
-	Methods        []*Function   `xml:"method"`
-	Functions      []*Function   `xml:"function"`
-	Properties     []*Property   `xml:"property"`
-	Union          *Union        `xml:"union"` // for record
-	Fields         []*Field      `xml:"field"`
-	Signals        []*Function   `xml:"signal"`
+	Name             string        `xml:"name,attr"`
+	CSymbolPrefix    string        `xml:"symbol-prefix,attr"`
+	CType            string        `xml:"type,attr"`
+	Parent           string        `xml:"parent,attr"`
+	GlibTypeName     string        `xml:"type-name,attr"`
+	GlibGetType      string        `xml:"get-type,attr"`
+	GlibTypeStruct   string        `xml:"type-struct,attr"`
+	GlibFundamental  string        `xml:"fundamental,attr"`
+	GlibGetValueFunc string        `xml:"get-value-func,attr"` // for Gst.MiniObject
+	GlibSetValueFunc string        `xml:"set-value-func,attr"` // for Gst.MiniObject
+	GlibRefFunc      string        `xml:"ref-func,attr"`       // for Gst.MiniObject
+	GlibUnrefFunc    string        `xml:"unref-func,attr"`     // for Gst.MiniObject
+	Disguised        string        `xml:"disguised,attr"`
+	Foreign          string        `xml:"foreign,attr"`
+	IsGTypeStruct    string        `xml:"is-gtype-struct-for,attr"`
+	Abstract         string        `xml:"abstract,attr"`
+	Prerequisite     *Prerequisite `xml:"prerequisite"` // for interface
+	Implements       []*Implement  `xml:"implements"`
+	Constructors     []*Function   `xml:"constructor"`
+	VirtualMethods   []*Function   `xml:"virtual-method"`
+	Methods          []*Function   `xml:"method"`
+	Functions        []*Function   `xml:"function"`
+	Properties       []*Property   `xml:"property"`
+	Union            *Union        `xml:"union"` // for record
+	Fields           []*Field      `xml:"field"`
+	Signals          []*Function   `xml:"signal"`
 }
 
 type Implement struct {
@@ -128,9 +162,11 @@ type Prerequisite struct {
 type Property struct {
 	BaseInfo
 	Name              string `xml:"name,attr"`
-	Version           string `xml:"version,attr"`
 	Writable          string `xml:"writable,attr"`
 	TransferOwnership string `xml:"transfer-ownership,attr"`
+	Construct         string `xml:"construct,attr"`
+	ConstructOnly     string `xml:"construct-only,attr"`
+	Readable          string `xml:"readable,attr"`
 	Type              *Type  `xml:"type"`
 	Array             *Array `xml:"array"`
 }
@@ -139,6 +175,9 @@ type Field struct {
 	BaseInfo
 	Name     string    `xml:"name,attr"`
 	Writable string    `xml:"writable,attr"`
+	Private  string    `xml:"private,attr"`
+	Readable string    `xml:"readable,attr"`
+	Bits     string    `xml:"bits,attr"`
 	Type     *Type     `xml:"type"`
 	Array    *Array    `xml:"array"`
 	Callback *Function `xml:"callback"`
@@ -146,13 +185,16 @@ type Field struct {
 
 type Union struct {
 	BaseInfo
-	Name         string      `xml:"name,attr"`
-	CType        string      `xml:"type,attr"`
-	Fields       []*Field    `xml:"field"`
-	Methods      []*Function `xml:"method"`
-	Record       *Class      `xml:"record"`
-	Functions    []*Function `xml:"function"`
-	Constructors []*Function `xml:"constructor"`
+	Name          string      `xml:"name,attr"`
+	CType         string      `xml:"type,attr"`
+	GlibTypeName  string      `xml:"type-name,attr"`
+	GlibGetType   string      `xml:"get-type,attr"`
+	CSymbolPrefix string      `xml:"symbol-prefix,attr"`
+	Fields        []*Field    `xml:"field"`
+	Methods       []*Function `xml:"method"`
+	Record        *Class      `xml:"record"`
+	Functions     []*Function `xml:"function"`
+	Constructors  []*Function `xml:"constructor"`
 }
 
 type Array struct {
@@ -161,43 +203,55 @@ type Array struct {
 	ZeroTerminated string `xml:"zero-terminated,attr"`
 	CType          string `xml:"type,attr"`
 	FizedSize      string `xml:"fixed-sized,attr"`
+	Length         string `xml:"length,attr"`
+	FixedSize      string `xml:"fixed-size,attr"`
 	Type           *Type  `xml:"type"`
 	Array          *Array `xml:"array"`
 }
 
 type Function struct {
 	BaseInfo
-	Name              string        `xml:"name,attr"`
-	CType             string        `xml:"type,attr"` // for callback
-	Version           string        `xml:"version,attr"`
-	Deprecated        string        `xml:"deprecated,attr"`
-	DeprecatedVersion string        `xml:"deprecated-version,attr"`
-	When              string        `xml:"when,attr"` // for signal
-	CIdentifier       string        `xml:"identifier,attr"`
-	MovedTo           string        `xml:"moved-to,attr"` // in Gdk-3.0
-	Return            *Return       `xml:"return-value"`
-	InstanceParam     *Param        `xml:"parameters>instance-parameter"`
-	Params            []*Param      `xml:"parameters>parameter"`
-	DocStability      *DocStability `xml:"doc-stability"`
-}
-
-type DocStability struct {
-	Space string `xml:"space,attr"`
+	Name          string   `xml:"name,attr"`
+	CType         string   `xml:"type,attr"` // for callback
+	CIdentifier   string   `xml:"identifier,attr"`
+	MovedTo       string   `xml:"moved-to,attr"` // in Gdk-3.0
+	Throws        string   `xml:"throws,attr"`
+	Shadows       string   `xml:"shadows,attr"`
+	ShadowedBy    string   `xml:"shadowed-by,attr"`
+	Invoker       string   `xml:"invoker,attr"`    // for virtual-method
+	When          string   `xml:"when,attr"`       // for signal
+	Action        string   `xml:"action,attr"`     // for signal
+	NoHooks       string   `xml:"no-hooks,attr"`   // for signal
+	NoRecurse     string   `xml:"no-recurse,attr"` // for signal
+	Detailed      string   `xml:"detailed,attr"`   // for signal
+	Return        *Return  `xml:"return-value"`
+	InstanceParam *Param   `xml:"parameters>instance-parameter"`
+	Params        []*Param `xml:"parameters>parameter"`
 }
 
 type Return struct {
 	BaseInfo
-	Array *Array `xml:"array"`
-	Type  *Type  `xml:"type"`
+	TransferOwnership string `xml:"transfer-ownership,attr"`
+	Skip              string `xml:"skip,attr"`
+	AllowNone         string `xml:"allow-none,attr"`
+	Array             *Array `xml:"array"`
+	Type              *Type  `xml:"type"`
 }
 
 type Param struct {
 	BaseInfo
-	Name     string   `xml:"name,attr"`
-	Transfer string   `xml:"transfer-ownership,attr"`
-	Array    *Array   `xml:"array"`
-	Type     *Type    `xml:"type"`
-	Varargs  *Varargs `xml:"varargs"`
+	Name              string   `xml:"name,attr"`
+	TransferOwnership string   `xml:"transfer-ownership,attr"`
+	Direction         string   `xml:"direction,attr"`
+	CallerAllocates   string   `xml:"caller-allocates,attr"`
+	AllowNone         string   `xml:"allow-none,attr"`
+	Scope             string   `xml:"scope,attr"`
+	Destroy           string   `xml:"destroy,attr"`
+	Closure           string   `xml:"closure,attr"`
+	Skip              string   `xml:"skip,attr"`
+	Array             *Array   `xml:"array"`
+	Type              *Type    `xml:"type"`
+	Varargs           *Varargs `xml:"varargs"`
 }
 
 type Varargs struct {
@@ -208,6 +262,8 @@ type Bitfield struct {
 	BaseInfo
 	Name      string      `xml:"name,attr"`
 	CType     string      `xml:"type,attr"`
+	GetType   string      `xml:"get-type,attr"`
+	TypeName  string      `xml:"type-name,attr"`
 	Members   []*Member   `xml:"member"`
 	Functions []*Function `xml:"function"`
 }
@@ -217,6 +273,7 @@ type Member struct {
 	Name        string `xml:"name,attr"`
 	Value       string `xml:"value,attr"`
 	CIdentifier string `xml:"identifier,attr"`
+	Nick        string `xml:"nick,attr"`
 }
 
 type Enum struct {
@@ -224,11 +281,14 @@ type Enum struct {
 	Name            string      `xml:"name,attr"`
 	CType           string      `xml:"type,attr"`
 	GlibErrorDomain string      `xml:"error-domain,attr"`
+	GlibTypeName    string      `xml:"type-name,attr"`
+	GlibGetType     string      `xml:"get-type,attr"`
 	Members         []*Member   `xml:"member"`
 	Functions       []*Function `xml:"function"`
 }
 
 type Boxed struct {
+	BaseInfo
 	GlibName      string `xml:"name,attr"`
 	CSymbolPrefix string `xml:"symbol-prefix,attr"`
 	GlibTypeName  string `xml:"type-name,attr"`
@@ -242,7 +302,6 @@ func (self *Generator) Parse(contents []byte) *Repository {
 	checkError(err)
 
 	// dump
-	//repo.dump()
 	dumpNotHandled(reflect.ValueOf(repo))
 
 	return &repo

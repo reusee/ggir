@@ -17,8 +17,8 @@ func TestGirParser(t *testing.T) {
 		if !strings.HasSuffix(path, ".gir") {
 			return nil
 		}
-		p("%s\n", path)
 		Gen(tmpDir, path)
+		p("%s\n", path)
 		return nil
 	})
 }
