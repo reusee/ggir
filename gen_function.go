@@ -60,9 +60,9 @@ func (self *Generator) GenFunction(fn *Function) {
 		if param.MappedType != "" {
 			w(self.funcsOutput, "%s %s, ", param.GoName, param.MappedType)
 		} else {
-			typeSpec := fmt.Sprintf("%s %s %s %s %s %s", param.CType, param.CTypeName, param.GoType,
-				param.ElementCType, param.ElementCTypeName, param.ElementGoType)
-			typeStat[typeSpec] = append(typeStat[typeSpec], param.Name+" @ "+fn.Name)
+			// stat not mapped type
+			typeStat[param.TypeSpec] = append(typeStat[param.TypeSpec], param.Name+" @ "+fn.Name)
+			// write function signature
 			w(self.funcsOutput, "%s %s, ", param.GoName, param.GoType)
 		}
 	}
@@ -71,6 +71,8 @@ func (self *Generator) GenFunction(fn *Function) {
 		if param.MappedType != "" {
 			w(self.funcsOutput, "%s %s, ", param.GoName, param.MappedType)
 		} else {
+			//FIXME stat not mapped type
+			// write function signature
 			w(self.funcsOutput, "%s %s, ", param.GoName, param.GoType)
 		}
 	}
@@ -120,6 +122,13 @@ func (self *Param) Convert() {
 		self.CTypeName = self.Type.Name
 	}
 	self.GoType = cTypeToGoType(self.CType)
+	self.TypeSpec = fmt.Sprintf("ARRAY %v GO %s NAME %s EGO %s ENAME %s",
+		self.IsArray,
+		self.GoType,
+		self.CTypeName,
+		self.ElementGoType,
+		self.ElementCTypeName,
+	)
 	// type mapping
 	self.MapType()
 }

@@ -3,6 +3,9 @@ package main
 import "strings"
 
 func cTypeToGoType(t string) string {
+	if t == "" {
+		return ""
+	}
 	t = strings.Replace(t, "const", "", -1) // const and non-const pointer is compatible in Go 1.2
 	t = strings.TrimSpace(t)
 	t = strings.Replace(t, "volatile", "", -1) // no volatile

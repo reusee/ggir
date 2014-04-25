@@ -249,13 +249,13 @@ type Param struct {
 	GoName            string
 	MappedType        string
 	IsArray           bool
-	// type tuple
-	CType            string
-	CTypeName        string
-	GoType           string
-	ElementCType     string // for array
-	ElementCTypeName string // for array
-	ElementGoType    string // for array
+	CType             string
+	CTypeName         string
+	GoType            string
+	ElementCType      string // for array
+	ElementCTypeName  string // for array
+	ElementGoType     string // for array
+	TypeSpec          string
 }
 
 type Varargs struct {
