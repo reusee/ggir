@@ -1,14 +1,20 @@
 package main
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
+
+var typeStat = make(map[string][]string)
 
 func (self *Generator) GenFunction(fn *Function) {
+	// convert
+	fn.Convert()
+
 	// skip varargs functions
-	for _, param := range fn.Params {
-		if param.Varargs != nil {
-			w(self.funcsOutput, "// %s is not generated due to varargs\n\n", fn.CIdentifier)
-			return
-		}
+	if fn.IsVarargs {
+		w(self.funcsOutput, "// %s is not generated due to varargs\n\n", fn.CIdentifier)
+		return
 	}
 
 	// doc
@@ -16,104 +22,104 @@ func (self *Generator) GenFunction(fn *Function) {
 		w(self.funcsOutput, "/*\n%s\n*/\n", fn.Doc.Text)
 	}
 
-	// receiver TODO
+	// receiver FIXME
 
-	// name
-	goFuncName := convertFuncName(fn.Name)
-	w(self.funcsOutput, "func %s", goFuncName)
+	// function name
+	w(self.funcsOutput, "func %s", fn.GoName)
 
 	// collect params
 	var inParams, outParams []*Param
 	for _, param := range fn.Params {
-		param.GoName = convertParamName(param.Name)
-		convertParamType(param)
+		param.Convert()
 		if param.Direction == "out" {
 			outParams = append(outParams, param)
-		} else if param.Direction == "inout" {
-			inParams = append(inParams, param)
-			outParams = append(outParams, param)
-		} else {
+			if param.GoType[0] == '*' {
+				param.GoType = param.GoType[1:]
+			}
+		} else { // inout param is treated as in param
 			inParams = append(inParams, param)
 			param.Direction = "in"
 		}
 	}
-
-	// input param
-	w(self.funcsOutput, "(") // start in param
-	for _, param := range inParams {
-		w(self.funcsOutput, "%s %s, ", param.GoName, param.GoType)
-	}
-	w(self.funcsOutput, ")") // end in param
-
-	// output param
-	w(self.funcsOutput, "(") // start out param
-	for _, param := range outParams {
-		w(self.funcsOutput, "__out__%s %s, ", param.GoName, param.GoType)
-	}
-
-	// return value
-	convertParamType(fn.Return)
+	fn.Return.Convert() // return value
 	if fn.Return.GoType != "C.void" {
-		w(self.funcsOutput, "__return__ %s, ", fn.Return.GoType)
+		fn.Return.GoName = "__return__"
 		outParams = append(outParams, fn.Return) // add return value to out params
 	}
-
-	// throws error
-	throws := fn.Throws == "1"
-	if throws {
-		w(self.funcsOutput, "__err__ error, ")
+	if fn.Throws == "1" { // error value
+		errParam := &Param{
+			GoName: "__err__",
+			GoType: "error",
+		}
+		outParams = append(outParams, errParam)
 	}
-	w(self.funcsOutput, ")") // end out param
+
+	// function signature
+	w(self.funcsOutput, "(")
+	for _, param := range inParams { // in
+		if param.MappedType != "" {
+			w(self.funcsOutput, "%s %s, ", param.GoName, param.MappedType)
+		} else {
+			typeSpec := fmt.Sprintf("%s %s %s %s %s %s", param.CType, param.CTypeName, param.GoType,
+				param.ElementCType, param.ElementCTypeName, param.ElementGoType)
+			typeStat[typeSpec] = append(typeStat[typeSpec], param.Name+" @ "+fn.Name)
+			w(self.funcsOutput, "%s %s, ", param.GoName, param.GoType)
+		}
+	}
+	w(self.funcsOutput, ") (")
+	for _, param := range outParams { // out
+		if param.MappedType != "" {
+			w(self.funcsOutput, "%s %s, ", param.GoName, param.MappedType)
+		} else {
+			w(self.funcsOutput, "%s %s, ", param.GoName, param.GoType)
+		}
+	}
+	w(self.funcsOutput, ")")
 
 	// body
 	w(self.funcsOutput, "{\n") // body start
-	//p("%s\n", fn.CIdentifier) //TODO
+	//p("%s\n", fn.CIdentifier) //FIXME
 	w(self.funcsOutput, "return\n}\n") // body end
 
 	// blank line
 	w(self.funcsOutput, "\n")
 }
 
-func convertFuncName(n string) string {
-	parts := strings.Split(n, "_")
+func (self *Function) Convert() {
+	// varargs
+	for _, param := range self.Params {
+		if param.Varargs != nil || param.Type != nil && param.Type.Name == "va_list" {
+			self.IsVarargs = true
+			break
+		}
+	}
+	// name
+	parts := strings.Split(self.Name, "_")
 	for i, p := range parts {
 		parts[i] = strings.Title(p)
 	}
-	return strings.Join(parts, "")
+	self.GoName = strings.Join(parts, "")
 }
 
-func convertParamName(n string) string {
-	if isGoReservedWord(n) {
-		return n + "_"
+func (self *Param) Convert() {
+	// name
+	self.GoName = self.Name
+	if isGoReservedWord(self.GoName) {
+		self.GoName += "_"
 	}
-	return n
-}
-
-func convertParamType(param *Param) {
-	var cType string
-	if param.Array != nil {
-		cType = param.Array.CType
-	} else if param.Type != nil {
-		cType = param.Type.CType
-	} else {
-		panic("param has no type")
+	// type info
+	if self.Array != nil { // array type
+		self.IsArray = true
+		self.CType = self.Array.CType
+		self.CTypeName = self.Array.Name
+		self.ElementCType = self.Array.Type.CType
+		self.ElementCTypeName = self.Array.Type.Name
+		self.ElementGoType = cTypeToGoType(self.ElementCType)
+	} else if self.Type != nil { // non-array type
+		self.CType = self.Type.CType
+		self.CTypeName = self.Type.Name
 	}
-	param.GoType = cTypeToGoType(cType)
-}
-
-func cTypeToGoType(t string) string {
-	t = strings.Replace(t, "const", "", -1) // const and non-const pointer is compatible in Go 1.2
-	t = strings.TrimSpace(t)
-	t = strings.Replace(t, "volatile", "", -1) // no volatile
-	t = strings.TrimSpace(t)
-	t = strings.Replace(t, "long double", "double", -1) // no long double, FIXME
-	t = strings.TrimSpace(t)
-	pointerDepth := 0 // pointer depth
-	for strings.HasSuffix(t, "*") {
-		pointerDepth++
-		t = t[:len(t)-1]
-	}
-	t = "C." + t                              // cgo type
-	t = strings.Repeat("*", pointerDepth) + t // pointer
-	return strings.TrimSpace(t)
+	self.GoType = cTypeToGoType(self.CType)
+	// type mapping
+	self.MapType()
 }

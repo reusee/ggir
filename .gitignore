@@ -4,3 +4,4 @@ gtk/
 gobject/
 ggir
 log
+gtk-go

@@ -50,8 +50,12 @@ func Gen(outputDir, girFilePath string) {
 	generator.funcsOutput = funcsOutput
 	w(funcsOutput, "package %s\n\n", goPackageName)
 	w(funcsOutput, "/*\n")
-	w(funcsOutput, "#include <%s>\n", repo.CInclude.Name)
-	w(funcsOutput, "#cgo pkg-config: %s\n", repo.Package.Name)
+	if repo.CInclude != nil {
+		w(funcsOutput, "#include <%s>\n", repo.CInclude.Name)
+	}
+	if repo.Package != nil {
+		w(funcsOutput, "#cgo pkg-config: %s\n", repo.Package.Name)
+	}
 	w(funcsOutput, `#cgo linux CFLAGS: -DLINUX
 #ifdef LINUX
 	#include <glib-unix.h>
@@ -76,4 +80,9 @@ func Gen(outputDir, girFilePath string) {
 	f.Write(formatted)
 	f.Close()
 
+	// type mapping stat
+	for typeSpec, funcs := range typeStat {
+		p("TYPE NOT MAPPED %s\n", typeSpec)
+		p("USES %s\n\n", strings.Join(funcs, ", "))
+	}
 }

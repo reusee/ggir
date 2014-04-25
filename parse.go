@@ -225,27 +225,37 @@ type Function struct {
 	NoHooks       string   `xml:"no-hooks,attr"`   // for signal
 	NoRecurse     string   `xml:"no-recurse,attr"` // for signal
 	Detailed      string   `xml:"detailed,attr"`   // for signal
-	Return        *Param  `xml:"return-value"`
+	Return        *Param   `xml:"return-value"`
 	InstanceParam *Param   `xml:"parameters>instance-parameter"`
 	Params        []*Param `xml:"parameters>parameter"`
+	GoName        string
+	IsVarargs     bool
 }
 
 type Param struct {
 	BaseInfo
-	Name              string `xml:"name,attr"`
-	TransferOwnership string `xml:"transfer-ownership,attr"`
-	Direction         string `xml:"direction,attr"`
-	CallerAllocates   string `xml:"caller-allocates,attr"`
-	AllowNone         string `xml:"allow-none,attr"`
-	Scope             string `xml:"scope,attr"`
-	Destroy           string `xml:"destroy,attr"`
-	Closure           string `xml:"closure,attr"`
-	Skip              string `xml:"skip,attr"`
-	GoName            string
-	Array             *Array `xml:"array"`
-	Type              *Type  `xml:"type"`
-	GoType            string
+	Name              string   `xml:"name,attr"`
+	TransferOwnership string   `xml:"transfer-ownership,attr"`
+	Direction         string   `xml:"direction,attr"`
+	CallerAllocates   string   `xml:"caller-allocates,attr"`
+	AllowNone         string   `xml:"allow-none,attr"`
+	Scope             string   `xml:"scope,attr"`
+	Destroy           string   `xml:"destroy,attr"`
+	Closure           string   `xml:"closure,attr"`
+	Skip              string   `xml:"skip,attr"`
+	Array             *Array   `xml:"array"`
+	Type              *Type    `xml:"type"`
 	Varargs           *Varargs `xml:"varargs"`
+	GoName            string
+	MappedType        string
+	IsArray           bool
+	// type tuple
+	CType            string
+	CTypeName        string
+	GoType           string
+	ElementCType     string // for array
+	ElementCTypeName string // for array
+	ElementGoType    string // for array
 }
 
 type Varargs struct {
