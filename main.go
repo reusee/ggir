@@ -84,7 +84,7 @@ func Gen(outputDir, girFilePath string) {
 	i := 1
 	for typeSpec, funcs := range typeStat {
 		p("%3d TYPE NOT MAPPED => %s\n", i, typeSpec)
-		p("USES %s\n\n", strings.Join(funcs, ", "))
+		p("%s\n\n", strings.Join(funcs, "\n"))
 		i++
 	}
 }

@@ -28,7 +28,7 @@ func (self *Generator) GenFunction(fn *Function) {
 	w(self.funcsOutput, "func %s", fn.GoName)
 
 	// collect params
-	var inParams, outParams []*Param
+	var inParams, outParams, inoutParams []*Param
 	for _, param := range fn.Params {
 		param.Convert()
 		if param.Direction == "out" {
@@ -36,7 +36,10 @@ func (self *Generator) GenFunction(fn *Function) {
 			if param.GoType[0] == '*' {
 				param.GoType = param.GoType[1:]
 			}
-		} else { // inout param is treated as in param
+		} else if param.Direction == "inout" {
+			inoutParams = append(inoutParams, param)
+			//p("%s\n", fn.Name)
+		} else {
 			inParams = append(inParams, param)
 			param.Direction = "in"
 		}
@@ -122,13 +125,21 @@ func (self *Param) Convert() {
 		self.CTypeName = self.Type.Name
 	}
 	self.GoType = cTypeToGoType(self.CType)
-	self.TypeSpec = fmt.Sprintf("ARRAY %v GO %s NAME %s EGO %s ENAME %s",
-		self.IsArray,
-		self.GoType,
-		self.CTypeName,
-		self.ElementGoType,
-		self.ElementCTypeName,
-	)
+	// type spec
+	spec := fmt.Sprintf("%v", self.IsArray)
+	if self.GoType != "" {
+		spec += " GoType " + self.GoType
+	}
+	if self.CTypeName != "" {
+		spec += " TypeName " + self.CTypeName
+	}
+	if self.ElementGoType != "" {
+		spec += " ElemType " + self.ElementGoType
+	}
+	if self.ElementCTypeName != "" {
+		spec += " ElemName " + self.ElementCTypeName
+	}
+	self.TypeSpec = spec
 	// type mapping
-	self.MapType()
+	self.MappedType = self.MapType()
 }
