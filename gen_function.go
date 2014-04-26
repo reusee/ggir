@@ -5,6 +5,12 @@ import "strings"
 var typeStat = make(map[string][]string)
 
 func (self *Generator) GenFunction(fn *Function) {
+	// skip deprecated
+	if fn.Deprecated != "" {
+		w(self.funcsOutput, "// %s is not generated due to deprecation\n\n", fn.CIdentifier)
+		return
+	}
+
 	// collect info
 	fn.CollectInfo()
 
@@ -14,11 +20,11 @@ func (self *Generator) GenFunction(fn *Function) {
 		return
 	}
 
-	// skip function with inout param due to broken rule FIXME
+	//FIXME skip function with inout param due to broken rule
 	//base64_decode_inplace的两个inout参数，text不是pointer，out_len是pointer，规则不一
 	for _, param := range fn.Params {
 		if param.Direction == "inout" {
-			w(self.funcsOutput, "// %s is not generated due to inout params\n\n", fn.CIdentifier)
+			w(self.funcsOutput, "// %s is not generated due to inout param\n\n", fn.CIdentifier)
 			return
 		}
 	}
@@ -26,7 +32,15 @@ func (self *Generator) GenFunction(fn *Function) {
 	// collect params and return info
 	for _, param := range fn.Params {
 		param.CollectInfo()
+
+		//FIXME skip functions with long double param
+		if param.CType == "long double" {
+			w(self.funcsOutput, "// %s is not generated due to long double param\n\n", fn.CIdentifier)
+			return
+		}
+
 		if !param.IsVoid && param.MappedType == "" { // add rules for these specs
+			p("%s %s %s\n", fn.Name, param.Name, param.CType)
 			typeStat[param.TypeSpec] = append(typeStat[param.TypeSpec], param.Name+" @ "+fn.Name)
 		}
 	}
@@ -78,7 +92,33 @@ func (self *Generator) GenFunction(fn *Function) {
 
 	// generate body
 	w(self.funcsOutput, "{\n") // body start
-	//FIXME
+
+	for _, param := range fn.Params { // statements before cgo call
+		if param.CgoBeforeStmt != "" {
+			w(self.funcsOutput, "%s\n", param.CgoBeforeStmt)
+		}
+	}
+
+	if !fn.Return.IsVoid { // cgo return value
+		w(self.funcsOutput, "var __cgo_return__ %s\n", fn.Return.GoType)
+		w(self.funcsOutput, "__cgo_return__ = ")
+	}
+
+	w(self.funcsOutput, "C.%s(", fn.CIdentifier) // cgo call
+	for _, param := range fn.Params {
+		if !param.IsVoid {
+			w(self.funcsOutput, "%s,", param.CgoParam)
+		}
+	}
+	w(self.funcsOutput, ")\n")
+
+	for _, param := range fn.Params { // statements after cgo call
+		if param.CgoAfterStmt != "" {
+			w(self.funcsOutput, "%s\n", param.CgoAfterStmt)
+		}
+	}
+
+	// return
 	w(self.funcsOutput, "return\n}\n") // body end
 
 	// blank line

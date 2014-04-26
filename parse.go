@@ -203,7 +203,6 @@ type Array struct {
 	Name           string `xml:"name,attr"`
 	ZeroTerminated string `xml:"zero-terminated,attr"`
 	CType          string `xml:"type,attr"`
-	FizedSize      string `xml:"fixed-sized,attr"`
 	Length         string `xml:"length,attr"`
 	FixedSize      string `xml:"fixed-size,attr"`
 	Type           *Type  `xml:"type"`
@@ -257,7 +256,9 @@ type Param struct {
 	ElementCTypeName  string // for array
 	ElementGoType     string // for array
 	TypeSpec          string
-	CgoParamExpr      string
+	CgoParam          string
+	CgoBeforeStmt     string
+	CgoAfterStmt      string
 }
 
 type Varargs struct {

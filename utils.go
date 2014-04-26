@@ -6,8 +6,9 @@ import (
 )
 
 var (
-	p = fmt.Printf
-	w = fmt.Fprintf
+	p  = fmt.Printf
+	w  = fmt.Fprintf
+	fs = fmt.Sprintf
 )
 
 func checkError(err error) {

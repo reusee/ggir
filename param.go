@@ -68,8 +68,8 @@ func (self *Param) CollectInfo() {
 	// type mapping
 	self.MappedType = self.MapType()
 
-	// cgo param expression
-	self.CgoParamExpr = self.GetCgoParamExpr()
+	// cgo param
+	self.PrepareCgo()
 }
 
 func (self *Param) MapType() (ret string) {
@@ -126,7 +126,7 @@ func (self *Param) MapType() (ret string) {
 		"false GoType C.double TypeName long double":
 		ret = "float64"
 
-	// numeric slice
+	// numeric slice, must be array to get length
 	case "true GoType *C.gint ElemType C.gint ElemName gint",
 		"true GoType *C.int ElemType C.int ElemName gint":
 		ret = "[]int"
@@ -141,10 +141,10 @@ func (self *Param) MapType() (ret string) {
 		"false GoType *C.char TypeName utf8":
 		ret = "string"
 
-	// string slice
+	// string slice, must be array to get length
 	case "true GoType **C.gchar ElemType *C.gchar ElemName utf8",
-		"false GoType **C.gchar TypeName utf8",
 		"true GoType **C.gchar ElemName utf8",
+		"true GoType **C.gchar ElemType **C.gchar ElemName utf8",
 		"true GoType **C.gchar ElemName filename":
 		ret = "[]string"
 
@@ -182,17 +182,114 @@ func (self *Param) MapType() (ret string) {
 		"false GoType **C.gchar TypeName filename",
 		"false GoType *C.gint64 TypeName gint64",
 		"false GoType *C.guint8 TypeName guint8",
-		"false GoType *C.gint TypeName gint":
+		"false GoType *C.gint TypeName gint",
+		"false GoType **C.gchar TypeName utf8":
 		ret = self.GoType
 
 	}
 	return
 }
 
-func (self *Param) GetCgoParamExpr() string {
-	if self.GoType == self.MappedType {
-		return self.GoName
+func (self *Param) PrepareCgo() {
+	// out param, pass pointer
+	if self.Direction == "out" {
+		self.CgoParam = "&__cgo__" + self.GoName
+		self.CgoBeforeStmt = fs("var __cgo__%s %s", self.GoName, self.GoType)
+		//FIXME convert __cgo__ to return value
 	}
-	//p("%s -> %s\n", self.MappedType, self.CType)
-	return ""
+
+	// in param
+	if self.Direction == "in" {
+		if self.GoType == self.MappedType { // not mapped
+			self.CgoParam = self.GoName
+		} else { // do type cast
+
+			// helpers
+			byteSliceToPointer := func(p string) {
+				self.CgoBeforeStmt = fs("__header__%s := (*reflect.SliceHeader)(unsafe.Pointer(&%s))",
+					self.Name, self.Name)
+				self.CgoParam = fs("(%s)(unsafe.Pointer(__header__%s.Data))", p, self.GoName)
+			}
+
+			spec := fmt.Sprintf("%s -> %s", self.MappedType, self.GoType)
+			switch spec {
+			// bool
+			case "bool -> C.gboolean":
+				self.CgoBeforeStmt = fs("__cgo__%s := C.gboolean(0); if %s { __cgo__%s = C.gboolean(1)};",
+					self.GoName, self.GoName, self.GoName)
+				self.CgoParam = fs("&__cgo__%s", self.GoName)
+
+			// char
+			case "byte -> C.char":
+				self.CgoParam = fs("C.char(%s)", self.GoName)
+			case "byte -> C.gchar":
+				self.CgoParam = fs("C.gchar(%s)", self.GoName)
+			case "rune -> C.gunichar":
+				self.CgoParam = fs("C.gunichar(%s)", self.GoName)
+
+			// string
+			case "string -> *C.char":
+				self.CgoBeforeStmt = fs("__cgo__%s := C.CString(%s);", self.GoName, self.GoName)
+				self.CgoParam = fs("__cgo__%s", self.GoName)
+				self.CgoAfterStmt = fs("C.free(unsafe.Pointer(__cgo__%s))", self.GoName)
+			case "string -> *C.gchar":
+				self.CgoBeforeStmt = fs("__cgo__%s := (*C.gchar)(unsafe.Pointer(C.CString(%s)));", self.GoName, self.GoName)
+				self.CgoParam = fs("__cgo__%s", self.GoName)
+				self.CgoAfterStmt = fs("C.free(unsafe.Pointer(__cgo__%s))", self.GoName)
+
+			// int
+			case "int -> C.gint":
+				self.CgoParam = fs("C.gint(%s)", self.GoName)
+			case "int -> C.int":
+				self.CgoParam = fs("C.int(%s)", self.GoName)
+			case "uint -> C.guint":
+				self.CgoParam = fs("C.guint(%s)", self.GoName)
+			case "uint8 -> C.guint8":
+				self.CgoParam = fs("C.guint8(%s)", self.GoName)
+			case "int32 -> C.gint32":
+				self.CgoParam = fs("C.gint32(%s)", self.GoName)
+			case "uint32 -> C.guint32":
+				self.CgoParam = fs("C.guint32(%s)", self.GoName)
+			case "int64 -> C.gint64":
+				self.CgoParam = fs("C.gint64(%s)", self.GoName)
+			case "uint64 -> C.guint64":
+				self.CgoParam = fs("C.guint64(%s)", self.GoName)
+			case "int64 -> C.glong":
+				self.CgoParam = fs("C.glong(%s)", self.GoName)
+			case "int64 -> C.gsize":
+				self.CgoParam = fs("C.gsize(%s)", self.GoName)
+			case "int64 -> C.gssize":
+				self.CgoParam = fs("C.gssize(%s)", self.GoName)
+			case "int64 -> C.gulong":
+				self.CgoParam = fs("C.gulong(%s)", self.GoName)
+
+			// double
+			case "float64 -> C.double":
+				self.CgoParam = fs("C.double(%s)", self.GoName)
+			case "float64 -> C.gdouble":
+				self.CgoParam = fs("C.gdouble(%s)", self.GoName)
+
+			// byte slice
+			case "[]byte -> *C.gchar":
+				byteSliceToPointer("*C.gchar")
+			case "[]byte -> *C.guchar":
+				byteSliceToPointer("*C.guchar")
+			case "[]byte -> *C.guint8":
+				byteSliceToPointer("*C.guint8")
+
+			// slice
+			case "[]string -> **C.gchar":
+				byteSliceToPointer("**C.gchar")
+
+			// untyped pointer
+			case "unsafe.Pointer -> C.gpointer":
+				self.CgoParam = fs("(C.gpointer)(%s)", self.GoName)
+			case "unsafe.Pointer -> *C.void":
+				self.CgoParam = fs("(*C.void)(%s)", self.GoName)
+
+			default:
+				p("==fixme== %s\n", spec)
+			}
+		}
+	}
 }

@@ -63,6 +63,7 @@ func Gen(outputDir, girFilePath string) {
 #include <stdlib.h>
 #include <stdio.h>
 #include <glib-object.h>
+#include <glib/gstdio.h>
 `)
 	w(funcsOutput, "*/\n")
 	w(funcsOutput, "import \"C\"\n\n")
@@ -70,11 +71,15 @@ func Gen(outputDir, girFilePath string) {
 	"unsafe"
 )
 func init() {
-	type UnsafePointer unsafe.Pointer
+	var _ unsafe.Pointer
 }
 `)
 	for _, fn := range ns.Functions {
 		generator.GenFunction(fn)
+	}
+	for typeSpec, funcs := range typeStat {
+		p("===fixme=== %s TYPE NOT MAPPED => %s\n", goPackageName, typeSpec)
+		p("%s\n\n", strings.Join(funcs, "\n"))
 	}
 	f, err := os.Create(filepath.Join(outputDir, goPackageName+"_functions.go"))
 	formatted, err := format.Source(funcsOutput.Bytes())
@@ -87,14 +92,4 @@ func init() {
 	checkError(err)
 	f.Write(formatted)
 	f.Close()
-
-	// type mapping stat
-	if false {
-		i := 1
-		for typeSpec, funcs := range typeStat {
-			p("===fixme=== %3d %s TYPE NOT MAPPED => %s\n", i, goPackageName, typeSpec)
-			p("%s\n\n", strings.Join(funcs, "\n"))
-			i++
-		}
-	}
 }
