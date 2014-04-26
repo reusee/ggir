@@ -56,11 +56,20 @@ func (self *Param) MapType() (ret string) {
 	case "false GoType C.int TypeName gint",
 		"false GoType C.gint TypeName gint":
 		ret = "int"
-	case "false GoType C.guint TypeName guint":
+	case "false GoType C.guint TypeName guint",
+		"false GoType C.uint TypeName guint":
 		ret = "uint"
+	case "false GoType C.gint8 TypeName gint8":
+		ret = "int8"
+	case "false GoType C.uint8_t TypeName guint8",
+		"false GoType C.guint8 TypeName guint8":
+		ret = "uint8"
+	case "false GoType C.uint16_t TypeName guint16":
+		ret = "uint16"
 	case "false GoType C.gint32 TypeName gint32":
 		ret = "int32"
-	case "false GoType C.guint32 TypeName guint32":
+	case "false GoType C.guint32 TypeName guint32",
+		"false GoType C.ulong TypeName gulong":
 		ret = "uint32"
 	case "false GoType C.goffset TypeName gint64",
 		"false GoType C.gsize TypeName gsize",
@@ -71,15 +80,20 @@ func (self *Param) MapType() (ret string) {
 		ret = "int64"
 	case "false GoType C.guint64 TypeName guint64":
 		ret = "uint64"
+	case "false GoType C.gfloat TypeName gfloat":
+		ret = "float32"
 	case "false GoType C.double TypeName gdouble",
 		"false GoType C.gdouble TypeName gdouble",
-		"false GoType C.double TypeName long double",
-		"false GoType C.gfloat TypeName gfloat":
+		"false GoType C.double TypeName long double":
 		ret = "float64"
 
 	// numeric slice
-	case "true GoType *C.gint ElemType C.gint ElemName gint":
+	case "true GoType *C.gint ElemType C.gint ElemName gint",
+		"true GoType *C.int ElemType C.int ElemName gint":
 		ret = "[]int"
+	case "true GoType *C.gfloat ElemType C.gfloat ElemName gfloat",
+		"true GoType *C.float ElemType C.float ElemName gfloat":
+		ret = "[]float32"
 
 	// string
 	case "true GoType *C.gchar ElemType C.gchar ElemName utf8",
@@ -90,7 +104,8 @@ func (self *Param) MapType() (ret string) {
 
 	// string slice
 	case "true GoType **C.gchar ElemType *C.gchar ElemName utf8",
-		"false GoType **C.gchar TypeName utf8":
+		"false GoType **C.gchar TypeName utf8",
+		"true GoType **C.gchar ElemName filename":
 		ret = "[]string"
 
 	// char
@@ -103,6 +118,7 @@ func (self *Param) MapType() (ret string) {
 	// bytes
 	case "true GoType *C.guchar ElemType C.guchar ElemName guint8",
 		"false GoType *C.guchar TypeName guint8",
+		"false GoType *C.uint8_t TypeName guint8",
 		"true GoType *C.guint8 ElemType C.guint8 ElemName guint8",
 		"true GoType *C.guchar ElemName guint8",
 		"true GoType *C.gchar ElemName guint8":

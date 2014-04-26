@@ -88,8 +88,8 @@ func init() {
 	f.Write(formatted)
 	f.Close()
 
-	// type mapping stat
-	if false {
+	// type mapping stat FIXME
+	if true {
 		i := 1
 		for typeSpec, funcs := range typeStat {
 			p("%3d %s TYPE NOT MAPPED => %s\n", i, goPackageName, typeSpec)
