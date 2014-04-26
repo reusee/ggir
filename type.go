@@ -1,17 +1,29 @@
 package main
 
-import "strings"
+import (
+	"strings"
+	"unicode"
+)
 
 func cTypeToGoType(t string) string {
 	if t == "" {
 		return ""
 	}
-	t = strings.Replace(t, "const", "", -1) // const and non-const pointer is compatible in Go 1.2
-	t = strings.TrimSpace(t)
-	t = strings.Replace(t, "volatile", "", -1) // no volatile
-	t = strings.TrimSpace(t)
-	t = strings.Replace(t, "long double", "double", -1) // no long double, FIXME
-	t = strings.TrimSpace(t)
+	replaces := []struct {
+		left  string
+		right string
+	}{
+		{"const", ""},
+		{"volatile", ""},
+		{"unsigned long long", "ulonglong"},
+		{"unsigned long", "ulong"},
+		{"unsigned int", "uint"},
+		{"long double", "double"},
+	}
+	for _, e := range replaces {
+		t = strings.Replace(t, e.left, e.right, -1)
+		t = strings.TrimSpace(t)
+	}
 	pointerDepth := 0 // pointer depth
 	for strings.HasSuffix(t, "*") {
 		pointerDepth++
@@ -23,14 +35,14 @@ func cTypeToGoType(t string) string {
 }
 
 func (self *Param) MapType() (ret string) {
-	// skip G* types
-	if strings.HasPrefix(self.GoType, "C.G") {
+	// skip complex types
+	if strings.HasPrefix(self.GoType, "C.") && unicode.IsUpper(rune(self.GoType[2])) {
 		ret = self.GoType
 	}
-	if strings.HasPrefix(self.GoType, "*C.G") {
+	if strings.HasPrefix(self.GoType, "*C.") && unicode.IsUpper(rune(self.GoType[3])) {
 		ret = self.GoType
 	}
-	if strings.HasPrefix(self.GoType, "**C.G") {
+	if strings.HasPrefix(self.GoType, "**C.") && unicode.IsUpper(rune(self.GoType[4])) {
 		ret = self.GoType
 	}
 
@@ -61,8 +73,13 @@ func (self *Param) MapType() (ret string) {
 		ret = "uint64"
 	case "false GoType C.double TypeName gdouble",
 		"false GoType C.gdouble TypeName gdouble",
-		"false GoType C.double TypeName long double":
+		"false GoType C.double TypeName long double",
+		"false GoType C.gfloat TypeName gfloat":
 		ret = "float64"
+
+	// numeric slice
+	case "true GoType *C.gint ElemType C.gint ElemName gint":
+		ret = "[]int"
 
 	// string
 	case "true GoType *C.gchar ElemType C.gchar ElemName utf8",

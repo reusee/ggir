@@ -62,24 +62,24 @@ type CInclude struct {
 
 type Namespace struct {
 	BaseInfo
-	Name               string         `xml:"name,attr"`
-	SymbolPrefixes     string         `xml:"symbol-prefixes,attr"`
-	IdentifierPrefixes string         `xml:"identifier-prefixes,attr"`
-	SharedLibrary      string         `xml:"shared-library,attr"`
-	CPrefix            string         `xml:"prefix,attr"`
-	CSymbolPrefix      string         `xml:"symbol-prefix,attr"`
-	Functions          []*Function    `xml:"function"`
-	Callbacks          []*Function    `xml:"callback"`
-	Classes            []*Class       `xml:"class"`
-	Interfaces         []*Class       `xml:"interface"`
-	Records            []*Class       `xml:"record"`
-	Bitfields          []*Bitfield    `xml:"bitfield"`
-	Enums              []*Enum        `xml:"enumeration"`
-	Unions             []*Union       `xml:"union"`
-	Constants          []*Constant    `xml:"constant"`
-	Boxeds             []*Boxed       `xml:"boxed"`
-	ErrorDomains       []*ErrorDomain `xml:"errordomain"`
-	Aliases            []*Alias       `xml:"alias"`
+	Name                string         `xml:"name,attr"`
+	CSymbolPrefixes     string         `xml:"symbol-prefixes,attr"`
+	CIdentifierPrefixes string         `xml:"identifier-prefixes,attr"`
+	SharedLibrary       string         `xml:"shared-library,attr"`
+	CPrefix             string         `xml:"prefix,attr"`
+	CSymbolPrefix       string         `xml:"symbol-prefix,attr"`
+	Functions           []*Function    `xml:"function"`
+	Callbacks           []*Function    `xml:"callback"`
+	Classes             []*Class       `xml:"class"`
+	Interfaces          []*Class       `xml:"interface"`
+	Records             []*Class       `xml:"record"`
+	Bitfields           []*Bitfield    `xml:"bitfield"`
+	Enums               []*Enum        `xml:"enumeration"`
+	Unions              []*Union       `xml:"union"`
+	Constants           []*Constant    `xml:"constant"`
+	Boxeds              []*Boxed       `xml:"boxed"`
+	ErrorDomains        []*ErrorDomain `xml:"errordomain"`
+	Aliases             []*Alias       `xml:"alias"`
 }
 
 type ErrorDomain struct {
