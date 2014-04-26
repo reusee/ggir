@@ -249,6 +249,7 @@ type Param struct {
 	GoName            string
 	MappedType        string
 	IsArray           bool
+	IsVoid            bool
 	CType             string
 	CTypeName         string
 	GoType            string
@@ -256,6 +257,7 @@ type Param struct {
 	ElementCTypeName  string // for array
 	ElementGoType     string // for array
 	TypeSpec          string
+	CgoParamExpr      string
 }
 
 type Varargs struct {

@@ -19,6 +19,7 @@ func checkError(err error) {
 //TODO builtins?
 func isGoReservedWord(s string) bool {
 	return map[string]bool{
+		// key words
 		"break":       true,
 		"default":     true,
 		"func":        true,
@@ -44,5 +45,7 @@ func isGoReservedWord(s string) bool {
 		"import":      true,
 		"return":      true,
 		"var":         true,
+		// builtins
+		//FIXME
 	}[s]
 }
