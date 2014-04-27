@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/xml"
 	"go/format"
 	"io"
 	"io/ioutil"
@@ -22,71 +23,74 @@ func main() {
 		err = os.Mkdir(outputDir, 0755)
 		checkError(err)
 	}
-	girFilePath, err := filepath.Abs(os.Args[2])
+	buildFilePath, err := filepath.Abs(os.Args[2])
 	checkError(err)
 
-	Gen(outputDir, girFilePath)
+	Gen(outputDir, buildFilePath)
 }
 
 type Generator struct {
 	funcsOutput io.Writer
+
+	PackageName            string   `xml:"package-name"`
+	GirPath                string   `xml:"gir-path"`
+	Includes               []string `xml:"include"`
+	PkgConfigs             []string `xml:"pkg-config"`
+	FunctionIgnorePatterns []string `xml:"function-ignore-patterns>entry"`
+	FunctionDeprecated     []string `xml:"function-deprecated>entry"`
 }
 
-func Gen(outputDir, girFilePath string) {
+func Gen(outputDir, buildFilePath string) {
+	// read build file
+	buildFileContent, err := ioutil.ReadFile(buildFilePath)
+	checkError(err)
+	generator := new(Generator)
+	err = xml.Unmarshal(buildFileContent, generator)
+	checkError(err)
+
 	// read gir file contents
-	contents, err := ioutil.ReadFile(girFilePath)
+	contents, err := ioutil.ReadFile(generator.GirPath)
 	checkError(err)
 
 	// parse
-	generator := new(Generator)
 	repo := generator.Parse(contents)
 
 	// generate
 	ns := repo.Namespace
-	goPackageName := strings.ToLower(ns.Name)
 
 	// functions
 	funcsOutput := new(bytes.Buffer)
 	generator.funcsOutput = funcsOutput
-	w(funcsOutput, "package %s\n\n", goPackageName)
+	w(funcsOutput, "package %s\n\n", generator.PackageName)
 	w(funcsOutput, "/*\n")
-	if repo.CInclude != nil {
-		w(funcsOutput, "#include <%s>\n", repo.CInclude.Name)
+	for _, include := range generator.Includes {
+		w(funcsOutput, "#include <%s>\n", include)
 	}
-	if repo.Package != nil {
-		w(funcsOutput, "#cgo pkg-config: %s\n", repo.Package.Name)
+	if len(generator.PkgConfigs) > 0 {
+		w(funcsOutput, "#cgo pkg-config: %s\n", strings.Join(generator.PkgConfigs, " "))
 	}
-	w(funcsOutput, `#cgo linux CFLAGS: -DLINUX
-#ifdef LINUX
-	#include <glib-unix.h>
-#endif
-#include <stdlib.h>
-#include <stdio.h>
-#include <glib-object.h>
-#include <glib/gstdio.h>
-`)
 	w(funcsOutput, "*/\n")
 	w(funcsOutput, "import \"C\"\n\n")
-	w(funcsOutput, `import (
-	"unsafe"
-)
+	w(funcsOutput, `import ("unsafe";	"reflect"; "errors")
 func init() {
 	var _ unsafe.Pointer
+	var _ reflect.SliceHeader
+	_ = errors.New("")
 }
 `)
 	for _, fn := range ns.Functions {
 		generator.GenFunction(fn)
 	}
 	for typeSpec, funcs := range typeStat {
-		p("===fixme=== %s TYPE NOT MAPPED => %s\n", goPackageName, typeSpec)
+		p("===fixme=== %s TYPE NOT MAPPED => %s\n", generator.PackageName, typeSpec)
 		p("%s\n\n", strings.Join(funcs, "\n"))
 	}
-	f, err := os.Create(filepath.Join(outputDir, goPackageName+"_functions.go"))
+	f, err := os.Create(filepath.Join(outputDir, generator.PackageName+"_functions.go"))
 	formatted, err := format.Source(funcsOutput.Bytes())
 	if err != nil {
 		f.Write(funcsOutput.Bytes())
 		f.Close()
-		p("==> %s\n", girFilePath)
+		p("==> %s\n", generator.GirPath)
 		checkError(err)
 	}
 	checkError(err)

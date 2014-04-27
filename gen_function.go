@@ -1,14 +1,33 @@
 package main
 
-import "strings"
+import (
+	"regexp"
+	"strings"
+)
 
 var typeStat = make(map[string][]string)
 
 func (self *Generator) GenFunction(fn *Function) {
 	// skip deprecated
 	if fn.Deprecated != "" {
-		w(self.funcsOutput, "// %s is not generated due to deprecation\n\n", fn.CIdentifier)
+		w(self.funcsOutput, "// %s is not generated due to deprecation attr\n\n", fn.CIdentifier)
 		return
+	}
+	for _, f := range self.FunctionDeprecated {
+		if fn.CIdentifier == f {
+			w(self.funcsOutput, "// %s is not generated due to explicit deprecation\n\n", fn.CIdentifier)
+			return
+		}
+	}
+
+	// skip explicit ignored
+	for _, pattern := range self.FunctionIgnorePatterns {
+		matched, err := regexp.MatchString(pattern, fn.CIdentifier)
+		checkError(err)
+		if matched {
+			w(self.funcsOutput, "// %s is not generated due to explicit ignore\n\n", fn.CIdentifier)
+			return
+		}
 	}
 
 	// collect info
@@ -21,7 +40,6 @@ func (self *Generator) GenFunction(fn *Function) {
 	}
 
 	//FIXME skip function with inout param due to broken rule
-	//base64_decode_inplace的两个inout参数，text不是pointer，out_len是pointer，规则不一
 	for _, param := range fn.Params {
 		if param.Direction == "inout" {
 			w(self.funcsOutput, "// %s is not generated due to inout param\n\n", fn.CIdentifier)
@@ -31,7 +49,7 @@ func (self *Generator) GenFunction(fn *Function) {
 
 	// collect params and return info
 	for _, param := range fn.Params {
-		param.CollectInfo()
+		param.CollectInfo(false)
 
 		//FIXME skip functions with long double param
 		if param.CType == "long double" {
@@ -44,13 +62,11 @@ func (self *Generator) GenFunction(fn *Function) {
 			typeStat[param.TypeSpec] = append(typeStat[param.TypeSpec], param.Name+" @ "+fn.Name)
 		}
 	}
-	fn.Return.CollectInfo()
+	fn.Return.CollectInfo(true)
 	if !fn.Return.IsVoid {
 		if fn.Return.MappedType == "" { // add rules for return type
 			typeStat[fn.Return.TypeSpec] = append(typeStat[fn.Return.TypeSpec], fn.Return.Name+" @ "+fn.Name)
 		}
-		fn.Return.GoName = "__return__"
-		fn.Return.Direction = "out"
 	}
 
 	// generate doc
@@ -90,36 +106,63 @@ func (self *Generator) GenFunction(fn *Function) {
 	}
 	w(self.funcsOutput, ")")
 
-	// generate body
-	w(self.funcsOutput, "{\n") // body start
+	// body start
+	w(self.funcsOutput, "{\n")
 
-	for _, param := range fn.Params { // statements before cgo call
+	// statements before cgo call
+	for _, param := range fn.Params {
 		if param.CgoBeforeStmt != "" {
 			w(self.funcsOutput, "%s\n", param.CgoBeforeStmt)
 		}
 	}
 
-	if !fn.Return.IsVoid { // cgo return value
-		w(self.funcsOutput, "var __cgo_return__ %s\n", fn.Return.GoType)
-		w(self.funcsOutput, "__cgo_return__ = ")
+	// error param
+	if fn.Throws != "" {
+		w(self.funcsOutput, "var __cgo_error__ *C.GError\n")
 	}
 
-	w(self.funcsOutput, "C.%s(", fn.CIdentifier) // cgo call
+	// cgo return value
+	if !fn.Return.IsVoid {
+		if fn.Return.GoType != fn.Return.MappedType { // mapped
+			w(self.funcsOutput, "var __cgo__return__ %s\n", fn.Return.GoType)
+			w(self.funcsOutput, "__cgo__return__ = ")
+		} else { // not mapped
+			w(self.funcsOutput, "%s = ", fn.Return.GoName)
+		}
+	}
+
+	// cgo call
+	w(self.funcsOutput, "C.%s(", fn.CIdentifier)
 	for _, param := range fn.Params {
 		if !param.IsVoid {
 			w(self.funcsOutput, "%s,", param.CgoParam)
 		}
 	}
+	if fn.Throws != "" { // error param
+		w(self.funcsOutput, "&__cgo_error__")
+	}
 	w(self.funcsOutput, ")\n")
 
-	for _, param := range fn.Params { // statements after cgo call
+	// statements after cgo call
+	for _, param := range fn.Params {
 		if param.CgoAfterStmt != "" {
 			w(self.funcsOutput, "%s\n", param.CgoAfterStmt)
 		}
 	}
+	if fn.Return.CgoAfterStmt != "" {
+		w(self.funcsOutput, "%s\n", fn.Return.CgoAfterStmt)
+	}
 
-	// return
-	w(self.funcsOutput, "return\n}\n") // body end
+	// convert GError to error
+	if fn.Throws != "" {
+		w(self.funcsOutput, `if __cgo_error__ != nil {
+	__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
+}
+`)
+	}
+
+	// body end
+	w(self.funcsOutput, "return\n}\n")
 
 	// blank line
 	w(self.funcsOutput, "\n")

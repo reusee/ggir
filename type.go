@@ -10,7 +10,7 @@ func cTypeToGoType(t string) string {
 		left  string
 		right string
 	}{
-		{"const", ""},
+		{"const ", ""},
 		{"volatile", ""},
 		{"unsigned long long", "ulonglong"},
 		{"unsigned long", "ulong"},

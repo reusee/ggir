@@ -1,9 +1,6 @@
 package main
 
-import (
-	"fmt"
-	"log"
-)
+import "fmt"
 
 var (
 	p  = fmt.Printf
@@ -13,7 +10,7 @@ var (
 
 func checkError(err error) {
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 }
 
