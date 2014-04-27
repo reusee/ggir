@@ -14,7 +14,6 @@ func checkError(err error) {
 	}
 }
 
-//TODO builtins?
 func isGoReservedWord(s string) bool {
 	return map[string]bool{
 		// key words

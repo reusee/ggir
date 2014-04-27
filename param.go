@@ -369,6 +369,7 @@ func (self *Param) PrepareOutParam() {
 			"C.gdouble -> float64":
 			self.CgoAfterStmt += fs("%s = float64(__cgo__%s);", self.GoName, self.GoName)
 
+		// bytes
 		case "*C.gchar -> []byte",
 			"*C.guchar -> []byte":
 			if self.LenParamName != "" { // len param
