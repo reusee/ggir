@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<generator>
+  <package-name>gtk</package-name>
+  <gir-path>/usr/share/gir-1.0/Gtk-3.0.gir</gir-path>
+
+  <include>gtk/gtk.h</include>
+  <include>stdlib.h</include>
+
+  <pkg-config>gtk+-3.0</pkg-config>
+
+</generator>
