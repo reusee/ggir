@@ -231,7 +231,7 @@ func (self *Param) PrepareInParam() {
 		// helpers
 		byteSliceToPointer := func(p string) {
 			self.CgoBeforeStmt = fs("__header__%s := (*reflect.SliceHeader)(unsafe.Pointer(&%s))",
-				self.Name, self.Name)
+				self.GoName, self.GoName)
 			self.CgoParam = fs("(%s)(unsafe.Pointer(__header__%s.Data))", p, self.GoName)
 		}
 
@@ -379,9 +379,23 @@ func (self *Param) PrepareOutParam() {
 				p("no len param\n")
 			}
 
-		// string slice FIXME
+		// string slice
 		case "**C.gchar -> []string":
-			self.CgoAfterStmt += fs("_ = __cgo__%s;", self.GoName)
+			self.CgoAfterStmt += fs(`var __slice__%s []*C.gchar
+				__header__%s := (*reflect.SliceHeader)(unsafe.Pointer(&__slice__%s))
+				__header__%s.Len = 4294967296
+				__header__%s.Cap = 4294967296
+				__header__%s.Data = uintptr(unsafe.Pointer(__cgo__%s))
+				for _, p := range __slice__%s {
+					if p == nil { break }
+					%s = append(%s, C.GoString((*C.char)(unsafe.Pointer(p))))
+				};`, self.GoName,
+				self.GoName, self.GoName,
+				self.GoName,
+				self.GoName,
+				self.GoName, self.GoName,
+				self.GoName,
+				self.GoName, self.GoName)
 
 		// untyped pointer
 		case "C.gpointer -> unsafe.Pointer":
