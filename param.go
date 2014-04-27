@@ -216,7 +216,13 @@ func (self *Param) MapType() (ret string) {
 		"false GoType *C.gint TypeName gint",
 		"false GoType *C.guchar TypeName guint8",
 		"true GoType *C.gchar ElemName guint8", // no len param nor zero-terminated
+		"true GoType *C.guint ElemType *C.guint ElemName guint",
 		"false GoType **C.gchar TypeName utf8":
+		ret = self.GoType
+
+	// cairo FIXME
+	case "false GoType *C.cairo_t TypeName cairo.Context",
+		"false GoType *C.cairo_surface_t TypeName cairo.Surface":
 		ret = self.GoType
 
 	}

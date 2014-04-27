@@ -22,7 +22,6 @@
     <entry>g_once_init_leave</entry>
     <entry>g_once_init_enter</entry>
     <!-- invalid use of void expression -->
-    <entry>g_once_init_enter</entry>
     <entry>g_clear_pointer</entry>
   </function-ignore-patterns>
 
