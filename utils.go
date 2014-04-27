@@ -45,5 +45,6 @@ func isGoReservedWord(s string) bool {
 		"var":         true,
 		// builtins
 		//FIXME
+		"len": true,
 	}[s]
 }

@@ -49,7 +49,7 @@ func (self *Generator) GenFunction(fn *Function) {
 
 	// collect params and return info
 	for _, param := range fn.Params {
-		param.CollectInfo(false)
+		param.CollectInfo(false, fn)
 
 		//FIXME skip functions with long double param
 		if param.CType == "long double" {
@@ -62,7 +62,7 @@ func (self *Generator) GenFunction(fn *Function) {
 			typeStat[param.TypeSpec] = append(typeStat[param.TypeSpec], param.Name+" @ "+fn.Name)
 		}
 	}
-	fn.Return.CollectInfo(true)
+	fn.Return.CollectInfo(true, fn)
 	if !fn.Return.IsVoid {
 		if fn.Return.MappedType == "" { // add rules for return type
 			typeStat[fn.Return.TypeSpec] = append(typeStat[fn.Return.TypeSpec], fn.Return.Name+" @ "+fn.Name)

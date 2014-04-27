@@ -255,6 +255,8 @@ type Param struct {
 	ElementCType      string // for array
 	ElementCTypeName  string // for array
 	ElementGoType     string // for array
+	LenParamName      string // for array
+	IsZeroTerminated  bool // for array
 	TypeSpec          string
 	CgoParam          string
 	CgoBeforeStmt     string

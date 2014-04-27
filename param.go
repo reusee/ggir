@@ -3,16 +3,22 @@ package main
 import (
 	"fmt"
 	"log"
+	"strconv"
 	"strings"
 	"unicode"
 )
 
-func (self *Param) CollectInfo(isReturn bool) {
-	// name
-	self.GoName = self.Name
-	if isGoReservedWord(self.GoName) {
-		self.GoName += "_"
+func (self *Param) GetGoName() string {
+	goName := self.Name
+	if isGoReservedWord(goName) {
+		goName += "_"
 	}
+	return goName
+}
+
+func (self *Param) CollectInfo(isReturn bool, fn *Function) {
+	// name
+	self.GoName = self.GetGoName()
 	if isReturn {
 		self.GoName = "return__"
 	}
@@ -25,6 +31,14 @@ func (self *Param) CollectInfo(isReturn bool) {
 		self.ElementCType = self.Array.Type.CType
 		self.ElementCTypeName = self.Array.Type.Name // for spec only
 		self.ElementGoType = cTypeToGoType(self.ElementCType)
+		if self.Array.Length != "" { // length param
+			n, err := strconv.Atoi(self.Array.Length)
+			checkError(err)
+			self.LenParamName = fn.Params[n].GetGoName()
+		}
+		if self.Array.ZeroTerminated == "1" {
+			self.IsZeroTerminated = true
+		}
 	} else if self.Type != nil { // non-array type
 		self.CType = self.Type.CType
 		self.CTypeName = self.Type.Name // for spec only
@@ -69,6 +83,12 @@ func (self *Param) CollectInfo(isReturn bool) {
 	if self.ElementCTypeName != "" {
 		spec += " ElemName " + self.ElementCTypeName
 	}
+	if self.LenParamName != "" {
+		spec += " HasLenParam"
+	}
+	if self.IsZeroTerminated {
+		spec += " ZeroTerminated"
+	}
 	self.TypeSpec = spec
 
 	// type mapping
@@ -76,9 +96,9 @@ func (self *Param) CollectInfo(isReturn bool) {
 
 	// cgo
 	if self.Direction == "in" {
-		self.PrepareInParam()
+		self.PrepareInParam() // convert go value to c value
 	} else if self.Direction == "out" {
-		self.PrepareOutParam()
+		self.PrepareOutParam() // convert c value to go value
 	}
 }
 
@@ -155,6 +175,7 @@ func (self *Param) MapType() (ret string) {
 	case "true GoType **C.gchar ElemType *C.gchar ElemName utf8",
 		"true GoType **C.gchar ElemName utf8",
 		"true GoType **C.gchar ElemType **C.gchar ElemName utf8",
+		"true GoType **C.gchar ElemType **C.gchar ElemName utf8 HasLenParam ZeroTerminated",
 		"true GoType **C.gchar ElemName filename":
 		ret = "[]string"
 
@@ -166,12 +187,11 @@ func (self *Param) MapType() (ret string) {
 		ret = "rune"
 
 	// bytes
-	case "true GoType *C.guchar ElemType C.guchar ElemName guint8",
-		"false GoType *C.guchar TypeName guint8",
-		"false GoType *C.uint8_t TypeName guint8",
-		"true GoType *C.guint8 ElemType C.guint8 ElemName guint8",
-		"true GoType *C.guchar ElemName guint8",
-		"true GoType *C.gchar ElemName guint8":
+	case "true GoType *C.guchar ElemName guint8 HasLenParam",
+		"true GoType *C.gchar ElemType C.gchar ElemName utf8 HasLenParam",
+		"true GoType *C.guchar ElemType C.guchar ElemName guint8 HasLenParam",
+		"true GoType *C.gchar ElemName guint8 HasLenParam",
+		"true GoType *C.guint8 ElemType C.guint8 ElemName guint8 HasLenParam":
 		ret = "[]byte"
 
 	// untyped pointer
@@ -194,6 +214,8 @@ func (self *Param) MapType() (ret string) {
 		"false GoType *C.gint64 TypeName gint64",
 		"false GoType *C.guint8 TypeName guint8",
 		"false GoType *C.gint TypeName gint",
+		"false GoType *C.guchar TypeName guint8",
+		"true GoType *C.gchar ElemName guint8", // no len param nor zero-terminated
 		"false GoType **C.gchar TypeName utf8":
 		ret = self.GoType
 
@@ -347,10 +369,15 @@ func (self *Param) PrepareOutParam() {
 			"C.gdouble -> float64":
 			self.CgoAfterStmt += fs("%s = float64(__cgo__%s);", self.GoName, self.GoName)
 
-		// bytes FIXME
 		case "*C.gchar -> []byte",
 			"*C.guchar -> []byte":
-			self.CgoAfterStmt += fs("_ = __cgo__%s;", self.GoName)
+			if self.LenParamName != "" { // len param
+				// defer is needed because length param may be later.
+				self.CgoAfterStmt += fs(`defer func() { %s = C.GoBytes(unsafe.Pointer(__cgo__%s), C.int(%s)) }();`,
+					self.GoName, self.GoName, self.LenParamName)
+			} else {
+				p("no len param\n")
+			}
 
 		// string slice FIXME
 		case "**C.gchar -> []string":
