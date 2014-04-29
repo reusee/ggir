@@ -1,6 +1,7 @@
 package glib
 
 import (
+	"fmt"
 	"strings"
 	"testing"
 )
@@ -57,5 +58,14 @@ func TestReturnStringSlice(t *testing.T) {
 	parts = Strsplit("foo bar baz", " ", -1)
 	if strings.Join(parts, "|") != "foo|bar|baz" {
 		t.Fatal("Strsplit")
+	}
+}
+
+func TestConstants(t *testing.T) {
+	if fmt.Sprintf("%f", float64(E)) != "2.718282" {
+		t.Fatal("E")
+	}
+	if fmt.Sprintf("%f", float64(PI)) != "3.141593" {
+		t.Fatal("PI")
 	}
 }

@@ -35,4 +35,8 @@
     <entry>g_variant_get_gtype</entry>
   </function-deprecated>
 
+  <constant-ignore-patterns>
+    <entry>G_WIN32_MSG_HANDLE</entry>
+  </constant-ignore-patterns>
+
 </generator>
