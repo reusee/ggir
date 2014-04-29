@@ -110,6 +110,7 @@ type Constant struct {
 	CName       string `xml:"type,attr"`
 	CIdentifier string `xml:"identifier,attr"`
 	Type        *Type  `xml:"type"`
+	Ignored     bool
 }
 
 type Type struct {
