@@ -124,7 +124,7 @@ type Type struct {
 type Class struct {
 	BaseInfo
 	Name             string        `xml:"name,attr"`
-	CSymbolPrefix    string        `xml:"symbol-prefix,attr"`
+	CSymbolPrefix    string        `xml:"symbol-prefix,attr"` // for class
 	CType            string        `xml:"type,attr"`
 	Parent           string        `xml:"parent,attr"`
 	GlibTypeName     string        `xml:"type-name,attr"`

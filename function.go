@@ -71,6 +71,13 @@ func (self *Generator) GenFunction(fn *Function, output io.Writer) {
 	// collect info
 	fn.CollectInfo()
 
+	// rename
+	for _, rename := range self.FunctionRenames {
+		if fn.GoName == rename.From {
+			fn.GoName = rename.To
+		}
+	}
+
 	// skip varargs functions
 	if fn.IsVarargs {
 		w(output, "// %s is not generated due to varargs\n\n", fn.CIdentifier)

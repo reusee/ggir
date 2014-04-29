@@ -144,17 +144,17 @@ func (self *Param) MapType() (ret string) {
 		ret = "uint16"
 	case "false GoType C.gint32 TypeName gint32":
 		ret = "int32"
-	case "false GoType C.guint32 TypeName guint32",
-		"false GoType C.ulong TypeName gulong":
+	case "false GoType C.guint32 TypeName guint32":
 		ret = "uint32"
 	case "false GoType C.goffset TypeName gint64",
 		"false GoType C.gsize TypeName gsize",
 		"false GoType C.glong TypeName glong",
-		"false GoType C.gulong TypeName gulong",
 		"false GoType C.gint64 TypeName gint64",
 		"false GoType C.gssize TypeName gssize":
 		ret = "int64"
-	case "false GoType C.guint64 TypeName guint64":
+	case "false GoType C.guint64 TypeName guint64",
+		"false GoType C.gulong TypeName gulong",
+		"false GoType C.ulong TypeName gulong":
 		ret = "uint64"
 	case "false GoType C.gfloat TypeName gfloat":
 		ret = "float32"
@@ -167,6 +167,8 @@ func (self *Param) MapType() (ret string) {
 	case "true GoType *C.gint ElemType C.gint ElemName gint",
 		"true GoType *C.int ElemType C.int ElemName gint":
 		ret = "[]int"
+	case "true GoType *C.guint ElemType C.guint ElemName guint HasLenParam":
+		ret = "[]uint"
 	case "true GoType *C.gfloat ElemType C.gfloat ElemName gfloat",
 		"true GoType *C.float ElemType C.float ElemName gfloat":
 		ret = "[]float32"
@@ -232,6 +234,12 @@ func (self *Param) MapType() (ret string) {
 		"false GoType *C.cairo_surface_t TypeName cairo.Surface":
 		ret = self.GoType
 
+	// gobject FIXME
+	case "false GoType C.gpointer TypeName TypeClass",
+		"false GoType C.gpointer TypeName TypeInterface",
+		"false GoType C.gpointer TypeName Object":
+		ret = self.GoType
+
 	}
 	return
 }
@@ -289,6 +297,8 @@ func (self *Param) PrepareInParam() {
 			self.CgoParam = fs("C.int(%s)", self.GoName)
 		case "uint -> C.guint":
 			self.CgoParam = fs("C.guint(%s)", self.GoName)
+		case "int8 -> C.gint8":
+			self.CgoParam = fs("C.gint8(%s)", self.GoName)
 		case "uint8 -> C.guint8":
 			self.CgoParam = fs("C.guint8(%s)", self.GoName)
 		case "int32 -> C.gint32":
@@ -299,6 +309,8 @@ func (self *Param) PrepareInParam() {
 			self.CgoParam = fs("C.gint64(%s)", self.GoName)
 		case "uint64 -> C.guint64":
 			self.CgoParam = fs("C.guint64(%s)", self.GoName)
+		case "uint64 -> C.gulong":
+			self.CgoParam = fs("C.gulong(%s)", self.GoName)
 		case "int64 -> C.glong":
 			self.CgoParam = fs("C.glong(%s)", self.GoName)
 		case "int64 -> C.gsize":
@@ -308,7 +320,9 @@ func (self *Param) PrepareInParam() {
 		case "int64 -> C.gulong":
 			self.CgoParam = fs("C.gulong(%s)", self.GoName)
 
-		// double
+		// float
+		case "float32 -> C.gfloat":
+			self.CgoParam = fs("C.gfloat(%s)", self.GoName)
 		case "float64 -> C.double":
 			self.CgoParam = fs("C.double(%s)", self.GoName)
 		case "float64 -> C.gdouble":
@@ -392,7 +406,8 @@ func (self *Param) PrepareOutParam() {
 			"C.gssize -> int64",
 			"C.glong -> int64":
 			self.CgoAfterStmt += fs("%s = int64(__cgo__%s);", self.GoName, self.GoName)
-		case "C.guint64 -> uint64":
+		case "C.guint64 -> uint64",
+			"C.gulong -> uint64":
 			self.CgoAfterStmt += fs("%s = uint64(__cgo__%s);", self.GoName, self.GoName)
 		case "C.double -> float64",
 			"C.gdouble -> float64":
@@ -425,6 +440,18 @@ func (self *Param) PrepareOutParam() {
 				self.GoName,
 				self.GoName, self.GoName,
 				self.GoName,
+				self.GoName, self.GoName)
+
+		// uint slice
+		case "*C.guint -> []uint":
+			self.CgoAfterStmt += fs(`defer func() {
+				__header__%s := (*reflect.SliceHeader)(unsafe.Pointer(&%s))
+				__header__%s.Len = int(%s)
+				__header__%s.Cap = int(%s)
+				__header__%s.Data = uintptr(unsafe.Pointer(__cgo__%s))
+			}();`, self.GoName, self.GoName,
+				self.GoName, self.LenParamName,
+				self.GoName, self.LenParamName,
 				self.GoName, self.GoName)
 
 		// untyped pointer

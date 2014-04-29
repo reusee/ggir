@@ -8,13 +8,19 @@ import (
 type Generator struct {
 	outputDir string
 
-	PackageName            string   `xml:"package-name"`
-	GirPath                string   `xml:"gir-path"`
-	Includes               []string `xml:"include"`
-	PkgConfigs             []string `xml:"pkg-config"`
-	FunctionIgnorePatterns []string `xml:"function-ignore-patterns>entry"`
-	ConstantIgnorePatterns []string `xml:"constant-ignore-patterns>entry"`
-	TypesIgnorePatterns    []string `xml:"type-ignore-patterns>entry"`
+	PackageName            string    `xml:"package-name"`
+	GirPath                string    `xml:"gir-path"`
+	Includes               []string  `xml:"include"`
+	PkgConfigs             []string  `xml:"pkg-config"`
+	FunctionIgnorePatterns []string  `xml:"function-ignore-patterns>entry"`
+	FunctionRenames        []*Rename `xml:"function-rename>rename"`
+	ConstantIgnorePatterns []string  `xml:"constant-ignore-patterns>entry"`
+	TypesIgnorePatterns    []string  `xml:"type-ignore-patterns>entry"`
+}
+
+type Rename struct {
+	From string `xml:"from,attr"`
+	To   string `xml:",chardata"`
 }
 
 func Gen(outputDir, buildFilePath string) {
@@ -38,6 +44,9 @@ func Gen(outputDir, buildFilePath string) {
 
 	// struct types
 	generator.GenStructTypes(ns)
+
+	// class types
+	generator.GenClassTypes(ns)
 
 	// functions
 	generator.GenFunctions(ns)
