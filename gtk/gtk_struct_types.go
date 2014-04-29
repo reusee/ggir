@@ -21,9 +21,11 @@ type Gradient C.GtkGradient
 type IMContextInfo C.GtkIMContextInfo
 type IconSet C.GtkIconSet
 type IconSource C.GtkIconSource
+type LabelSelectionInfo C.GtkLabelSelectionInfo
 type PageRange C.GtkPageRange
 type PaperSize C.GtkPaperSize
 type RadioActionEntry C.GtkRadioActionEntry
+type RcContext C.GtkRcContext
 type RcProperty C.GtkRcProperty
 type RecentData C.GtkRecentData
 type RecentFilterInfo C.GtkRecentFilterInfo
@@ -41,10 +43,13 @@ type TargetList C.GtkTargetList
 type TargetPair C.GtkTargetPair
 type TextAppearance C.GtkTextAppearance
 type TextAttributes C.GtkTextAttributes
+type TextBTree C.GtkTextBTree
 type TextIter C.GtkTextIter
+type ThemeEngine C.GtkThemeEngine
 type ToggleActionEntry C.GtkToggleActionEntry
 type TreeIter C.GtkTreeIter
 type TreePath C.GtkTreePath
 type TreeRowReference C.GtkTreeRowReference
 type WidgetAuxInfo C.GtkWidgetAuxInfo
 type WidgetPath C.GtkWidgetPath
+type WindowGeometryInfo C.GtkWindowGeometryInfo
