@@ -87,4 +87,7 @@ func init() {
 
 	// flags
 	generator.GenFlags(ns)
+
+	// enums
+	generator.GenEnums(ns)
 }

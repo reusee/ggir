@@ -73,7 +73,7 @@ type Namespace struct {
 	Classes             []*Class       `xml:"class"`
 	Interfaces          []*Class       `xml:"interface"`
 	Records             []*Class       `xml:"record"`
-	Bitfields           []*Bitfield    `xml:"bitfield"`
+	Bitfields           []*Enum        `xml:"bitfield"`
 	Enums               []*Enum        `xml:"enumeration"`
 	Unions              []*Union       `xml:"union"`
 	Constants           []*Constant    `xml:"constant"`
@@ -266,16 +266,6 @@ type Param struct {
 
 type Varargs struct {
 	BaseInfo
-}
-
-type Bitfield struct {
-	BaseInfo
-	Name         string      `xml:"name,attr"`
-	CType        string      `xml:"type,attr"`
-	GlibGetType  string      `xml:"get-type,attr"`
-	GlibTypeName string      `xml:"type-name,attr"`
-	Members      []*Member   `xml:"member"`
-	Functions    []*Function `xml:"function"`
 }
 
 type Member struct {

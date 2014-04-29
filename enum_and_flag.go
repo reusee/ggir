@@ -8,7 +8,15 @@ import (
 	"strings"
 )
 
+func (self *Generator) GenEnums(ns *Namespace) {
+	self.genEnums(ns.Enums, "enums")
+}
+
 func (self *Generator) GenFlags(ns *Namespace) {
+	self.genEnums(ns.Bitfields, "flags")
+}
+
+func (self *Generator) genEnums(enums []*Enum, file string) {
 	output := new(bytes.Buffer)
 	w(output, "package %s\n\n", self.PackageName)
 	w(output, "/*\n")
@@ -19,7 +27,7 @@ func (self *Generator) GenFlags(ns *Namespace) {
 	w(output, "import \"C\"\n")
 
 	w(output, "var (\n")
-	for _, f := range ns.Bitfields {
+	for _, f := range enums {
 		w(output, "\t// %s\n", f.Name)
 		for _, m := range f.Members {
 			parts := strings.Split(m.CIdentifier, "_")
@@ -30,7 +38,7 @@ func (self *Generator) GenFlags(ns *Namespace) {
 	}
 	w(output, ")\n")
 
-	f, err := os.Create(filepath.Join(self.outputDir, self.PackageName+"_flags.go"))
+	f, err := os.Create(filepath.Join(self.outputDir, self.PackageName+"_"+file+".go"))
 	checkError(err)
 	formatted, err := format.Source(output.Bytes())
 	if err != nil {
