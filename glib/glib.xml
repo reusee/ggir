@@ -39,4 +39,8 @@
     <entry>G_WIN32_MSG_HANDLE</entry>
   </constant-ignore-patterns>
 
+  <type-ignore-patterns>
+    <entry>TestLogMsg</entry>
+  </type-ignore-patterns>
+
 </generator>

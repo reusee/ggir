@@ -346,12 +346,12 @@ func AssertionMessageCmpstr(domain string, file string, line int, func_ string, 
 	return
 }
 
-func AssertionMessageError(domain string, file string, line int, func_ string, expr string, error_ *C.GError, error_domain C.GQuark, error_code int) {
+func AssertionMessageError(domain string, file string, line int, func_ string, expr string, error_ *Error, error_domain C.GQuark, error_code int) {
 	__cgo__domain := C.CString(domain)
 	__cgo__file := C.CString(file)
 	__cgo__func_ := C.CString(func_)
 	__cgo__expr := C.CString(expr)
-	C.g_assertion_message_error(__cgo__domain, __cgo__file, C.int(line), __cgo__func_, __cgo__expr, error_, error_domain, C.int(error_code))
+	C.g_assertion_message_error(__cgo__domain, __cgo__file, C.int(line), __cgo__func_, __cgo__expr, (*C.GError)(unsafe.Pointer(error_)), error_domain, C.int(error_code))
 	C.free(unsafe.Pointer(__cgo__domain))
 	C.free(unsafe.Pointer(__cgo__file))
 	C.free(unsafe.Pointer(__cgo__func_))
@@ -582,12 +582,12 @@ Frees the memory allocated by the #GByteArray. If @free_segment is
 @array is greater than one, the #GByteArray wrapper is preserved but
 the size of @array will be set to zero.
 */
-func ByteArrayFree(array *C.GByteArray, free_segment bool) (return__ *C.guint8) {
+func ByteArrayFree(array *ByteArray, free_segment bool) (return__ *C.guint8) {
 	__cgo__free_segment := C.gboolean(0)
 	if free_segment {
 		__cgo__free_segment = C.gboolean(1)
 	}
-	return__ = C.g_byte_array_free(array, __cgo__free_segment)
+	return__ = C.g_byte_array_free((*C.GByteArray)(unsafe.Pointer(array)), __cgo__free_segment)
 	return
 }
 
@@ -601,16 +601,20 @@ will be set to zero.
 This is identical to using g_bytes_new_take() and g_byte_array_free()
 together.
 */
-func ByteArrayFreeToBytes(array *C.GByteArray) (return__ *C.GBytes) {
-	return__ = C.g_byte_array_free_to_bytes(array)
+func ByteArrayFreeToBytes(array *ByteArray) (return__ *Bytes) {
+	var __cgo__return__ *C.GBytes
+	__cgo__return__ = C.g_byte_array_free_to_bytes((*C.GByteArray)(unsafe.Pointer(array)))
+	return__ = (*Bytes)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
 /*
 Creates a new #GByteArray with a reference count of 1.
 */
-func ByteArrayNew() (return__ *C.GByteArray) {
-	return__ = C.g_byte_array_new()
+func ByteArrayNew() (return__ *ByteArray) {
+	var __cgo__return__ *C.GByteArray
+	__cgo__return__ = C.g_byte_array_new()
+	return__ = (*ByteArray)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -618,9 +622,11 @@ func ByteArrayNew() (return__ *C.GByteArray) {
 Create byte array containing the data. The data will be owned by the array
 and will be freed with g_free(), i.e. it could be allocated using g_strdup().
 */
-func ByteArrayNewTake(data []byte, len_ int64) (return__ *C.GByteArray) {
+func ByteArrayNewTake(data []byte, len_ int64) (return__ *ByteArray) {
 	__header__data := (*reflect.SliceHeader)(unsafe.Pointer(&data))
-	return__ = C.g_byte_array_new_take((*C.guint8)(unsafe.Pointer(__header__data.Data)), C.gsize(len_))
+	var __cgo__return__ *C.GByteArray
+	__cgo__return__ = C.g_byte_array_new_take((*C.guint8)(unsafe.Pointer(__header__data.Data)), C.gsize(len_))
+	return__ = (*ByteArray)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -630,8 +636,8 @@ reference count drops to 0, all memory allocated by the array is
 released. This function is thread-safe and may be called from any
 thread.
 */
-func ByteArrayUnref(array *C.GByteArray) {
-	C.g_byte_array_unref(array)
+func ByteArrayUnref(array *ByteArray) {
+	C.g_byte_array_unref((*C.GByteArray)(unsafe.Pointer(array)))
 	return
 }
 
@@ -765,8 +771,10 @@ Similarly, on POSIX platforms, the @pid passed to this function must
 be greater than 0 (i.e. this function must wait for a specific child,
 and cannot wait for one of many children by using a nonpositive argument).
 */
-func ChildWatchSourceNew(pid C.GPid) (return__ *C.GSource) {
-	return__ = C.g_child_watch_source_new(pid)
+func ChildWatchSourceNew(pid C.GPid) (return__ *Source) {
+	var __cgo__return__ *C.GSource
+	__cgo__return__ = C.g_child_watch_source_new(pid)
+	return__ = (*Source)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -812,9 +820,9 @@ and g_checksum_free().
 
 The hexadecimal string returned will be in lower case.
 */
-func ComputeChecksumForBytes(checksum_type C.GChecksumType, data *C.GBytes) (return__ string) {
+func ComputeChecksumForBytes(checksum_type C.GChecksumType, data *Bytes) (return__ string) {
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_compute_checksum_for_bytes(checksum_type, data)
+	__cgo__return__ = C.g_compute_checksum_for_bytes(checksum_type, (*C.GBytes)(unsafe.Pointer(data)))
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -1262,11 +1270,11 @@ For example, don't expect that using g_date_strftime() would
 make the \%F provided by the C99 strftime() work on Windows
 where the C library only complies to C89.
 */
-func DateStrftime(s string, slen int64, format string, date *C.GDate) (return__ int64) {
+func DateStrftime(s string, slen int64, format string, date *Date) (return__ int64) {
 	__cgo__s := (*C.gchar)(unsafe.Pointer(C.CString(s)))
 	__cgo__format := (*C.gchar)(unsafe.Pointer(C.CString(format)))
 	var __cgo__return__ C.gsize
-	__cgo__return__ = C.g_date_strftime(__cgo__s, C.gsize(slen), __cgo__format, date)
+	__cgo__return__ = C.g_date_strftime(__cgo__s, C.gsize(slen), __cgo__format, (*C.GDate)(unsafe.Pointer(date)))
 	C.free(unsafe.Pointer(__cgo__s))
 	C.free(unsafe.Pointer(__cgo__format))
 	return__ = int64(__cgo__return__)
@@ -2136,8 +2144,8 @@ Equivalent to the UNIX gettimeofday() function, but portable.
 
 You may find g_get_real_time() to be more convenient.
 */
-func GetCurrentTime(result *C.GTimeVal) {
-	C.g_get_current_time(result)
+func GetCurrentTime(result *TimeVal) {
+	C.g_get_current_time((*C.GTimeVal)(unsafe.Pointer(result)))
 	return
 }
 
@@ -2643,9 +2651,9 @@ When a hash table only ever contains keys that have themselves as the
 corresponding value it is able to be stored more efficiently.  See
 the discussion in the section description.
 */
-func HashTableAdd(hash_table *C.GHashTable, key unsafe.Pointer) (return__ bool) {
+func HashTableAdd(hash_table *HashTable, key unsafe.Pointer) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_hash_table_add(hash_table, (C.gpointer)(key))
+	__cgo__return__ = C.g_hash_table_add((*C.GHashTable)(unsafe.Pointer(hash_table)), (C.gpointer)(key))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -2653,9 +2661,9 @@ func HashTableAdd(hash_table *C.GHashTable, key unsafe.Pointer) (return__ bool) 
 /*
 Checks if @key is in @hash_table.
 */
-func HashTableContains(hash_table *C.GHashTable, key unsafe.Pointer) (return__ bool) {
+func HashTableContains(hash_table *HashTable, key unsafe.Pointer) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_hash_table_contains(hash_table, (C.gconstpointer)(key))
+	__cgo__return__ = C.g_hash_table_contains((*C.GHashTable)(unsafe.Pointer(hash_table)), (C.gconstpointer)(key))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -2668,8 +2676,8 @@ notifiers using g_hash_table_new_full(). In the latter case the destroy
 functions you supplied will be called on all keys and values during the
 destruction phase.
 */
-func HashTableDestroy(hash_table *C.GHashTable) {
-	C.g_hash_table_destroy(hash_table)
+func HashTableDestroy(hash_table *HashTable) {
+	C.g_hash_table_destroy((*C.GHashTable)(unsafe.Pointer(hash_table)))
 	return
 }
 
@@ -2683,9 +2691,9 @@ value is freed using that function. If you supplied a
 @key_destroy_func when creating the #GHashTable, the passed
 key is freed using that function.
 */
-func HashTableInsert(hash_table *C.GHashTable, key unsafe.Pointer, value unsafe.Pointer) (return__ bool) {
+func HashTableInsert(hash_table *HashTable, key unsafe.Pointer, value unsafe.Pointer) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_hash_table_insert(hash_table, (C.gpointer)(key), (C.gpointer)(value))
+	__cgo__return__ = C.g_hash_table_insert((*C.GHashTable)(unsafe.Pointer(hash_table)), (C.gpointer)(key), (C.gpointer)(value))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -2700,9 +2708,9 @@ You can actually pass %NULL for @lookup_key to test
 whether the %NULL key exists, provided the hash and equal functions
 of @hash_table are %NULL-safe.
 */
-func HashTableLookupExtended(hash_table *C.GHashTable, lookup_key unsafe.Pointer, orig_key *C.gpointer, value *C.gpointer) (return__ bool) {
+func HashTableLookupExtended(hash_table *HashTable, lookup_key unsafe.Pointer, orig_key *C.gpointer, value *C.gpointer) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_hash_table_lookup_extended(hash_table, (C.gconstpointer)(lookup_key), orig_key, value)
+	__cgo__return__ = C.g_hash_table_lookup_extended((*C.GHashTable)(unsafe.Pointer(hash_table)), (C.gconstpointer)(lookup_key), orig_key, value)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -2715,9 +2723,9 @@ key and value are freed using the supplied destroy functions, otherwise
 you have to make sure that any dynamically allocated values are freed
 yourself.
 */
-func HashTableRemove(hash_table *C.GHashTable, key unsafe.Pointer) (return__ bool) {
+func HashTableRemove(hash_table *HashTable, key unsafe.Pointer) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_hash_table_remove(hash_table, (C.gconstpointer)(key))
+	__cgo__return__ = C.g_hash_table_remove((*C.GHashTable)(unsafe.Pointer(hash_table)), (C.gconstpointer)(key))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -2730,8 +2738,8 @@ the keys and values are freed using the supplied destroy functions,
 otherwise you have to make sure that any dynamically allocated
 values are freed yourself.
 */
-func HashTableRemoveAll(hash_table *C.GHashTable) {
-	C.g_hash_table_remove_all(hash_table)
+func HashTableRemoveAll(hash_table *HashTable) {
+	C.g_hash_table_remove_all((*C.GHashTable)(unsafe.Pointer(hash_table)))
 	return
 }
 
@@ -2744,9 +2752,9 @@ the #GHashTable, the old value is freed using that function.
 If you supplied a @key_destroy_func when creating the
 #GHashTable, the old key is freed using that function.
 */
-func HashTableReplace(hash_table *C.GHashTable, key unsafe.Pointer, value unsafe.Pointer) (return__ bool) {
+func HashTableReplace(hash_table *HashTable, key unsafe.Pointer, value unsafe.Pointer) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_hash_table_replace(hash_table, (C.gpointer)(key), (C.gpointer)(value))
+	__cgo__return__ = C.g_hash_table_replace((*C.GHashTable)(unsafe.Pointer(hash_table)), (C.gpointer)(key), (C.gpointer)(value))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -2754,9 +2762,9 @@ func HashTableReplace(hash_table *C.GHashTable, key unsafe.Pointer, value unsafe
 /*
 Returns the number of elements contained in the #GHashTable.
 */
-func HashTableSize(hash_table *C.GHashTable) (return__ uint) {
+func HashTableSize(hash_table *HashTable) (return__ uint) {
 	var __cgo__return__ C.guint
-	__cgo__return__ = C.g_hash_table_size(hash_table)
+	__cgo__return__ = C.g_hash_table_size((*C.GHashTable)(unsafe.Pointer(hash_table)))
 	return__ = uint(__cgo__return__)
 	return
 }
@@ -2765,9 +2773,9 @@ func HashTableSize(hash_table *C.GHashTable) (return__ uint) {
 Removes a key and its associated value from a #GHashTable without
 calling the key and value destroy functions.
 */
-func HashTableSteal(hash_table *C.GHashTable, key unsafe.Pointer) (return__ bool) {
+func HashTableSteal(hash_table *HashTable, key unsafe.Pointer) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_hash_table_steal(hash_table, (C.gconstpointer)(key))
+	__cgo__return__ = C.g_hash_table_steal((*C.GHashTable)(unsafe.Pointer(hash_table)), (C.gconstpointer)(key))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -2776,8 +2784,8 @@ func HashTableSteal(hash_table *C.GHashTable, key unsafe.Pointer) (return__ bool
 Removes all keys and their associated values from a #GHashTable
 without calling the key and value destroy functions.
 */
-func HashTableStealAll(hash_table *C.GHashTable) {
-	C.g_hash_table_steal_all(hash_table)
+func HashTableStealAll(hash_table *HashTable) {
+	C.g_hash_table_steal_all((*C.GHashTable)(unsafe.Pointer(hash_table)))
 	return
 }
 
@@ -2787,17 +2795,17 @@ If the reference count drops to 0, all keys and values will be
 destroyed, and all memory allocated by the hash table is released.
 This function is MT-safe and may be called from any thread.
 */
-func HashTableUnref(hash_table *C.GHashTable) {
-	C.g_hash_table_unref(hash_table)
+func HashTableUnref(hash_table *HashTable) {
+	C.g_hash_table_unref((*C.GHashTable)(unsafe.Pointer(hash_table)))
 	return
 }
 
 /*
 Destroys a #GHook, given its ID.
 */
-func HookDestroy(hook_list *C.GHookList, hook_id int64) (return__ bool) {
+func HookDestroy(hook_list *HookList, hook_id int64) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_hook_destroy(hook_list, C.gulong(hook_id))
+	__cgo__return__ = C.g_hook_destroy((*C.GHookList)(unsafe.Pointer(hook_list)), C.gulong(hook_id))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -2806,8 +2814,8 @@ func HookDestroy(hook_list *C.GHookList, hook_id int64) (return__ bool) {
 Removes one #GHook from a #GHookList, marking it
 inactive and calling g_hook_unref() on it.
 */
-func HookDestroyLink(hook_list *C.GHookList, hook *C.GHook) {
-	C.g_hook_destroy_link(hook_list, hook)
+func HookDestroyLink(hook_list *HookList, hook *Hook) {
+	C.g_hook_destroy_link((*C.GHookList)(unsafe.Pointer(hook_list)), (*C.GHook)(unsafe.Pointer(hook)))
 	return
 }
 
@@ -2815,24 +2823,24 @@ func HookDestroyLink(hook_list *C.GHookList, hook *C.GHook) {
 Calls the #GHookList @finalize_hook function if it exists,
 and frees the memory allocated for the #GHook.
 */
-func HookFree(hook_list *C.GHookList, hook *C.GHook) {
-	C.g_hook_free(hook_list, hook)
+func HookFree(hook_list *HookList, hook *Hook) {
+	C.g_hook_free((*C.GHookList)(unsafe.Pointer(hook_list)), (*C.GHook)(unsafe.Pointer(hook)))
 	return
 }
 
 /*
 Inserts a #GHook into a #GHookList, before a given #GHook.
 */
-func HookInsertBefore(hook_list *C.GHookList, sibling *C.GHook, hook *C.GHook) {
-	C.g_hook_insert_before(hook_list, sibling, hook)
+func HookInsertBefore(hook_list *HookList, sibling *Hook, hook *Hook) {
+	C.g_hook_insert_before((*C.GHookList)(unsafe.Pointer(hook_list)), (*C.GHook)(unsafe.Pointer(sibling)), (*C.GHook)(unsafe.Pointer(hook)))
 	return
 }
 
 /*
 Prepends a #GHook on the start of a #GHookList.
 */
-func HookPrepend(hook_list *C.GHookList, hook *C.GHook) {
-	C.g_hook_prepend(hook_list, hook)
+func HookPrepend(hook_list *HookList, hook *Hook) {
+	C.g_hook_prepend((*C.GHookList)(unsafe.Pointer(hook_list)), (*C.GHook)(unsafe.Pointer(hook)))
 	return
 }
 
@@ -2841,8 +2849,8 @@ Decrements the reference count of a #GHook.
 If the reference count falls to 0, the #GHook is removed
 from the #GHookList and g_hook_free() is called to free it.
 */
-func HookUnref(hook_list *C.GHookList, hook *C.GHook) {
-	C.g_hook_unref(hook_list, hook)
+func HookUnref(hook_list *HookList, hook *Hook) {
+	C.g_hook_unref((*C.GHookList)(unsafe.Pointer(hook_list)), (*C.GHook)(unsafe.Pointer(hook)))
 	return
 }
 
@@ -2996,8 +3004,10 @@ executed. Note that the default priority for idle sources is
 %G_PRIORITY_DEFAULT_IDLE, as compared to other sources which
 have a default priority of %G_PRIORITY_DEFAULT.
 */
-func IdleSourceNew() (return__ *C.GSource) {
-	return__ = C.g_idle_source_new()
+func IdleSourceNew() (return__ *Source) {
+	var __cgo__return__ *C.GSource
+	__cgo__return__ = C.g_idle_source_new()
+	return__ = (*Source)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -3096,9 +3106,9 @@ func InternString(string_ string) (return__ string) {
 Adds the #GIOChannel into the default main loop context
 with the default priority.
 */
-func IoAddWatch(channel *C.GIOChannel, condition C.GIOCondition, func_ C.GIOFunc, user_data unsafe.Pointer) (return__ uint) {
+func IoAddWatch(channel *IOChannel, condition C.GIOCondition, func_ C.GIOFunc, user_data unsafe.Pointer) (return__ uint) {
 	var __cgo__return__ C.guint
-	__cgo__return__ = C.g_io_add_watch(channel, condition, func_, (C.gpointer)(user_data))
+	__cgo__return__ = C.g_io_add_watch((*C.GIOChannel)(unsafe.Pointer(channel)), condition, func_, (C.gpointer)(user_data))
 	return__ = uint(__cgo__return__)
 	return
 }
@@ -3111,9 +3121,9 @@ This internally creates a main loop source using g_io_create_watch()
 and attaches it to the main loop context with g_source_attach().
 You can do these steps manually if you need greater control.
 */
-func IoAddWatchFull(channel *C.GIOChannel, priority int, condition C.GIOCondition, func_ C.GIOFunc, user_data unsafe.Pointer, notify C.GDestroyNotify) (return__ uint) {
+func IoAddWatchFull(channel *IOChannel, priority int, condition C.GIOCondition, func_ C.GIOFunc, user_data unsafe.Pointer, notify C.GDestroyNotify) (return__ uint) {
 	var __cgo__return__ C.guint
-	__cgo__return__ = C.g_io_add_watch_full(channel, C.gint(priority), condition, func_, (C.gpointer)(user_data), notify)
+	__cgo__return__ = C.g_io_add_watch_full((*C.GIOChannel)(unsafe.Pointer(channel)), C.gint(priority), condition, func_, (C.gpointer)(user_data), notify)
 	return__ = uint(__cgo__return__)
 	return
 }
@@ -3144,8 +3154,10 @@ On Windows, polling a #GSource created to watch a channel for a socket
 puts the socket in non-blocking mode. This is a side-effect of the
 implementation and unavoidable.
 */
-func IoCreateWatch(channel *C.GIOChannel, condition C.GIOCondition) (return__ *C.GSource) {
-	return__ = C.g_io_create_watch(channel, condition)
+func IoCreateWatch(channel *IOChannel, condition C.GIOCondition) (return__ *Source) {
+	var __cgo__return__ *C.GSource
+	__cgo__return__ = C.g_io_create_watch((*C.GIOChannel)(unsafe.Pointer(channel)), condition)
+	return__ = (*Source)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -3346,8 +3358,10 @@ used for main loop functions when a main loop is not explicitly
 specified, and corresponds to the "main" main loop. See also
 g_main_context_get_thread_default().
 */
-func MainContextDefault() (return__ *C.GMainContext) {
-	return__ = C.g_main_context_default()
+func MainContextDefault() (return__ *MainContext) {
+	var __cgo__return__ *C.GMainContext
+	__cgo__return__ = C.g_main_context_default()
+	return__ = (*MainContext)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -3364,8 +3378,10 @@ always return %NULL if you are running in the default thread.)
 If you need to hold a reference on the context, use
 g_main_context_ref_thread_default() instead.
 */
-func MainContextGetThreadDefault() (return__ *C.GMainContext) {
-	return__ = C.g_main_context_get_thread_default()
+func MainContextGetThreadDefault() (return__ *MainContext) {
+	var __cgo__return__ *C.GMainContext
+	__cgo__return__ = C.g_main_context_get_thread_default()
+	return__ = (*MainContext)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -3377,16 +3393,20 @@ g_main_context_get_thread_default(), if the thread-default context
 is the global default context, this will return that #GMainContext
 (with a ref added to it) rather than returning %NULL.
 */
-func MainContextRefThreadDefault() (return__ *C.GMainContext) {
-	return__ = C.g_main_context_ref_thread_default()
+func MainContextRefThreadDefault() (return__ *MainContext) {
+	var __cgo__return__ *C.GMainContext
+	__cgo__return__ = C.g_main_context_ref_thread_default()
+	return__ = (*MainContext)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
 /*
 Returns the currently firing source for this thread.
 */
-func MainCurrentSource() (return__ *C.GSource) {
-	return__ = C.g_main_current_source()
+func MainCurrentSource() (return__ *Source) {
+	var __cgo__return__ *C.GSource
+	__cgo__return__ = C.g_main_current_source()
+	return__ = (*Source)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -3626,8 +3646,8 @@ so need not persist after this function has been called.
 Note that this function must be called before using any other GLib
 functions.
 */
-func MemSetVtable(vtable *C.GMemVTable) {
-	C.g_mem_set_vtable(vtable)
+func MemSetVtable(vtable *MemVTable) {
+	C.g_mem_set_vtable((*C.GMemVTable)(unsafe.Pointer(vtable)))
 	return
 }
 
@@ -3840,10 +3860,10 @@ corresponding to "foo" and "bar".
 If @string is equal to "help", all the available keys in @keys
 are printed out to standard error.
 */
-func ParseDebugString(string_ string, keys *C.GDebugKey, nkeys uint) (return__ uint) {
+func ParseDebugString(string_ string, keys *DebugKey, nkeys uint) (return__ uint) {
 	__cgo__string_ := (*C.gchar)(unsafe.Pointer(C.CString(string_)))
 	var __cgo__return__ C.guint
-	__cgo__return__ = C.g_parse_debug_string(__cgo__string_, keys, C.guint(nkeys))
+	__cgo__return__ = C.g_parse_debug_string(__cgo__string_, (*C.GDebugKey)(unsafe.Pointer(keys)), C.guint(nkeys))
 	C.free(unsafe.Pointer(__cgo__string_))
 	return__ = uint(__cgo__return__)
 	return
@@ -3949,11 +3969,11 @@ not be obtained by g_strreverse(). This works only if the string
 does not contain any multibyte characters. GLib offers the
 g_utf8_strreverse() function to reverse UTF-8 encoded strings.
 */
-func PatternMatch(pspec *C.GPatternSpec, string_length uint, string_ string, string_reversed string) (return__ bool) {
+func PatternMatch(pspec *PatternSpec, string_length uint, string_ string, string_reversed string) (return__ bool) {
 	__cgo__string_ := (*C.gchar)(unsafe.Pointer(C.CString(string_)))
 	__cgo__string_reversed := (*C.gchar)(unsafe.Pointer(C.CString(string_reversed)))
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_pattern_match(pspec, C.guint(string_length), __cgo__string_, __cgo__string_reversed)
+	__cgo__return__ = C.g_pattern_match((*C.GPatternSpec)(unsafe.Pointer(pspec)), C.guint(string_length), __cgo__string_, __cgo__string_reversed)
 	C.free(unsafe.Pointer(__cgo__string_))
 	C.free(unsafe.Pointer(__cgo__string_reversed))
 	return__ = __cgo__return__ == C.gboolean(1)
@@ -3982,10 +4002,10 @@ Matches a string against a compiled pattern. If the string is to be
 matched against more than one pattern, consider using
 g_pattern_match() instead while supplying the reversed string.
 */
-func PatternMatchString(pspec *C.GPatternSpec, string_ string) (return__ bool) {
+func PatternMatchString(pspec *PatternSpec, string_ string) (return__ bool) {
 	__cgo__string_ := (*C.gchar)(unsafe.Pointer(C.CString(string_)))
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_pattern_match_string(pspec, __cgo__string_)
+	__cgo__return__ = C.g_pattern_match_string((*C.GPatternSpec)(unsafe.Pointer(pspec)), __cgo__string_)
 	C.free(unsafe.Pointer(__cgo__string_))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
@@ -4016,9 +4036,9 @@ Windows. If you need to use g_poll() in code that has to run on
 Windows, the easiest solution is to construct all of your
 #GPollFDs with g_io_channel_win32_make_pollfd().
 */
-func Poll(fds *C.GPollFD, nfds uint, timeout int) (return__ int) {
+func Poll(fds *PollFD, nfds uint, timeout int) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.g_poll(fds, C.guint(nfds), C.gint(timeout))
+	__cgo__return__ = C.g_poll((*C.GPollFD)(unsafe.Pointer(fds)), C.guint(nfds), C.gint(timeout))
 	return__ = int(__cgo__return__)
 	return
 }
@@ -4037,8 +4057,8 @@ func Poll(fds *C.GPollFD, nfds uint, timeout int) (return__ int) {
 If @dest is %NULL, free @src; otherwise, moves @src into *@dest.
 The error variable @dest points to must be %NULL.
 */
-func PropagateError(dest **C.GError, src *C.GError) {
-	C.g_propagate_error(dest, src)
+func PropagateError(dest **C.GError, src *Error) {
+	C.g_propagate_error(dest, (*C.GError)(unsafe.Pointer(src)))
 	return
 }
 
@@ -4374,8 +4394,8 @@ After calling this function @dest will point to the position immediately
 after @src. It is allowed for @src and @dest to point into different
 sequences.
 */
-func SequenceMove(src *C.GSequenceIter, dest *C.GSequenceIter) {
-	C.g_sequence_move(src, dest)
+func SequenceMove(src *SequenceIter, dest *SequenceIter) {
+	C.g_sequence_move((*C.GSequenceIter)(unsafe.Pointer(src)), (*C.GSequenceIter)(unsafe.Pointer(dest)))
 	return
 }
 
@@ -4389,8 +4409,8 @@ If @dest is NULL, the range indicated by @begin and @end is
 removed from the sequence. If @dest iter points to a place within
 the (@begin, @end) range, the range does not move.
 */
-func SequenceMoveRange(dest *C.GSequenceIter, begin *C.GSequenceIter, end *C.GSequenceIter) {
-	C.g_sequence_move_range(dest, begin, end)
+func SequenceMoveRange(dest *SequenceIter, begin *SequenceIter, end *SequenceIter) {
+	C.g_sequence_move_range((*C.GSequenceIter)(unsafe.Pointer(dest)), (*C.GSequenceIter)(unsafe.Pointer(begin)), (*C.GSequenceIter)(unsafe.Pointer(end)))
 	return
 }
 
@@ -4401,8 +4421,8 @@ end iterator to this function.
 If the sequence has a data destroy function associated with it, this
 function is called on the data for the removed item.
 */
-func SequenceRemove(iter *C.GSequenceIter) {
-	C.g_sequence_remove(iter)
+func SequenceRemove(iter *SequenceIter) {
+	C.g_sequence_remove((*C.GSequenceIter)(unsafe.Pointer(iter)))
 	return
 }
 
@@ -4412,8 +4432,8 @@ Removes all items in the (@begin, @end) range.
 If the sequence has a data destroy function associated with it, this
 function is called on the data for the removed items.
 */
-func SequenceRemoveRange(begin *C.GSequenceIter, end *C.GSequenceIter) {
-	C.g_sequence_remove_range(begin, end)
+func SequenceRemoveRange(begin *SequenceIter, end *SequenceIter) {
+	C.g_sequence_remove_range((*C.GSequenceIter)(unsafe.Pointer(begin)), (*C.GSequenceIter)(unsafe.Pointer(end)))
 	return
 }
 
@@ -4422,8 +4442,8 @@ Changes the data for the item pointed to by @iter to be @data. If
 the sequence has a data destroy function associated with it, that
 function is called on the existing data that @iter pointed to.
 */
-func SequenceSet(iter *C.GSequenceIter, data unsafe.Pointer) {
-	C.g_sequence_set(iter, (C.gpointer)(data))
+func SequenceSet(iter *SequenceIter, data unsafe.Pointer) {
+	C.g_sequence_set((*C.GSequenceIter)(unsafe.Pointer(iter)), (C.gpointer)(data))
 	return
 }
 
@@ -4431,8 +4451,8 @@ func SequenceSet(iter *C.GSequenceIter, data unsafe.Pointer) {
 Swaps the items pointed to by @a and @b. It is allowed for @a and @b
 to point into difference sequences.
 */
-func SequenceSwap(a *C.GSequenceIter, b *C.GSequenceIter) {
-	C.g_sequence_swap(a, b)
+func SequenceSwap(a *SequenceIter, b *SequenceIter) {
+	C.g_sequence_swap((*C.GSequenceIter)(unsafe.Pointer(a)), (*C.GSequenceIter)(unsafe.Pointer(b)))
 	return
 }
 
@@ -4752,9 +4772,9 @@ Removes a source from the default main loop context given the
 source functions and user data. If multiple sources exist with the
 same source functions and user data, only one will be destroyed.
 */
-func SourceRemoveByFuncsUserData(funcs *C.GSourceFuncs, user_data unsafe.Pointer) (return__ bool) {
+func SourceRemoveByFuncsUserData(funcs *SourceFuncs, user_data unsafe.Pointer) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_source_remove_by_funcs_user_data(funcs, (C.gpointer)(user_data))
+	__cgo__return__ = C.g_source_remove_by_funcs_user_data((*C.GSourceFuncs)(unsafe.Pointer(funcs)), (C.gpointer)(user_data))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -5598,10 +5618,12 @@ func Strfreev(str_array **C.gchar) {
 /*
 Creates a new #GString, initialized with the given string.
 */
-func StringNew(init string) (return__ *C.GString) {
+func StringNew(init string) (return__ *String) {
 	__cgo__init := (*C.gchar)(unsafe.Pointer(C.CString(init)))
-	return__ = C.g_string_new(__cgo__init)
+	var __cgo__return__ *C.GString
+	__cgo__return__ = C.g_string_new(__cgo__init)
 	C.free(unsafe.Pointer(__cgo__init))
+	return__ = (*String)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -5614,10 +5636,12 @@ Since this function does not stop at nul bytes, it is the caller's
 responsibility to ensure that @init has at least @len addressable
 bytes.
 */
-func StringNewLen(init string, len_ int64) (return__ *C.GString) {
+func StringNewLen(init string, len_ int64) (return__ *String) {
 	__cgo__init := (*C.gchar)(unsafe.Pointer(C.CString(init)))
-	return__ = C.g_string_new_len(__cgo__init, C.gssize(len_))
+	var __cgo__return__ *C.GString
+	__cgo__return__ = C.g_string_new_len(__cgo__init, C.gssize(len_))
 	C.free(unsafe.Pointer(__cgo__init))
+	return__ = (*String)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -5627,8 +5651,10 @@ bytes. This is useful if you are going to add a lot of
 text to the string and don't want it to be reallocated
 too often.
 */
-func StringSizedNew(dfl_size int64) (return__ *C.GString) {
-	return__ = C.g_string_sized_new(C.gsize(dfl_size))
+func StringSizedNew(dfl_size int64) (return__ *String) {
+	var __cgo__return__ *C.GString
+	__cgo__return__ = C.g_string_sized_new(C.gsize(dfl_size))
+	return__ = (*String)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -6056,20 +6082,24 @@ multiple tests. In this cases, g_test_create_case() will be
 called with the same fixture, but varying @test_name and
 @data_test arguments.
 */
-func TestCreateCase(test_name string, data_size int64, test_data unsafe.Pointer, data_setup C.GTestFixtureFunc, data_test C.GTestFixtureFunc, data_teardown C.GTestFixtureFunc) (return__ *C.GTestCase) {
+func TestCreateCase(test_name string, data_size int64, test_data unsafe.Pointer, data_setup C.GTestFixtureFunc, data_test C.GTestFixtureFunc, data_teardown C.GTestFixtureFunc) (return__ *TestCase) {
 	__cgo__test_name := C.CString(test_name)
-	return__ = C.g_test_create_case(__cgo__test_name, C.gsize(data_size), (C.gconstpointer)(test_data), data_setup, data_test, data_teardown)
+	var __cgo__return__ *C.GTestCase
+	__cgo__return__ = C.g_test_create_case(__cgo__test_name, C.gsize(data_size), (C.gconstpointer)(test_data), data_setup, data_test, data_teardown)
 	C.free(unsafe.Pointer(__cgo__test_name))
+	return__ = (*TestCase)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
 /*
 Create a new test suite with the name @suite_name.
 */
-func TestCreateSuite(suite_name string) (return__ *C.GTestSuite) {
+func TestCreateSuite(suite_name string) (return__ *TestSuite) {
 	__cgo__suite_name := C.CString(suite_name)
-	return__ = C.g_test_create_suite(__cgo__suite_name)
+	var __cgo__return__ *C.GTestSuite
+	__cgo__return__ = C.g_test_create_suite(__cgo__suite_name)
 	C.free(unsafe.Pointer(__cgo__suite_name))
+	return__ = (*TestSuite)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -6172,8 +6202,10 @@ func TestGetDir(file_type C.GTestFileType) (return__ string) {
 /*
 Get the toplevel test suite for the test path API.
 */
-func TestGetRoot() (return__ *C.GTestSuite) {
-	return__ = C.g_test_get_root()
+func TestGetRoot() (return__ *TestSuite) {
+	var __cgo__return__ *C.GTestSuite
+	__cgo__return__ = C.g_test_get_root()
+	return__ = (*TestSuite)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -6356,9 +6388,9 @@ order that tests are run in.
 g_test_run_suite() or g_test_run() may only be called once
 in a program.
 */
-func TestRunSuite(suite *C.GTestSuite) (return__ int) {
+func TestRunSuite(suite *TestSuite) (return__ int) {
 	var __cgo__return__ C.int
-	__cgo__return__ = C.g_test_run_suite(suite)
+	__cgo__return__ = C.g_test_run_suite((*C.GTestSuite)(unsafe.Pointer(suite)))
 	return__ = int(__cgo__return__)
 	return
 }
@@ -6654,8 +6686,10 @@ APIs). This may be useful for thread identification purposes
 (i.e. comparisons) but you must not use GLib functions (such
 as g_thread_join()) on these threads.
 */
-func ThreadSelf() (return__ *C.GThread) {
-	return__ = C.g_thread_self()
+func ThreadSelf() (return__ *Thread) {
+	var __cgo__return__ *C.GThread
+	__cgo__return__ = C.g_thread_self()
+	return__ = (*Thread)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -6825,8 +6859,10 @@ executed.
 The interval given is in terms of monotonic time, not wall clock
 time.  See g_get_monotonic_time().
 */
-func TimeoutSourceNew(interval uint) (return__ *C.GSource) {
-	return__ = C.g_timeout_source_new(C.guint(interval))
+func TimeoutSourceNew(interval uint) (return__ *Source) {
+	var __cgo__return__ *C.GSource
+	__cgo__return__ = C.g_timeout_source_new(C.guint(interval))
+	return__ = (*Source)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -6843,8 +6879,10 @@ in seconds.
 The interval given in terms of monotonic time, not wall clock time.
 See g_get_monotonic_time().
 */
-func TimeoutSourceNewSeconds(interval uint) (return__ *C.GSource) {
-	return__ = C.g_timeout_source_new_seconds(C.guint(interval))
+func TimeoutSourceNewSeconds(interval uint) (return__ *Source) {
+	var __cgo__return__ *C.GSource
+	__cgo__return__ = C.g_timeout_source_new_seconds(C.guint(interval))
+	return__ = (*Source)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -7514,8 +7552,10 @@ descriptor.
 
 The source will never close the fd -- you must do it yourself.
 */
-func UnixFdSourceNew(fd int, condition C.GIOCondition) (return__ *C.GSource) {
-	return__ = C.g_unix_fd_source_new(C.gint(fd), condition)
+func UnixFdSourceNew(fd int, condition C.GIOCondition) (return__ *Source) {
+	var __cgo__return__ *C.GSource
+	__cgo__return__ = C.g_unix_fd_source_new(C.gint(fd), condition)
+	return__ = (*Source)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -7609,8 +7649,10 @@ The source will not initially be associated with any #GMainContext
 and must be added to one with g_source_attach() before it will be
 executed.
 */
-func UnixSignalSourceNew(signum int) (return__ *C.GSource) {
-	return__ = C.g_unix_signal_source_new(C.gint(signum))
+func UnixSignalSourceNew(signum int) (return__ *Source) {
+	var __cgo__return__ *C.GSource
+	__cgo__return__ = C.g_unix_signal_source_new(C.gint(signum))
+	return__ = (*Source)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -8335,13 +8377,15 @@ then it will be set to reflect the error that occurred.
 Officially, the language understood by the parser is "any string
 produced by g_variant_print()".
 */
-func VariantParse(type_ *C.GVariantType, text string, limit string, endptr **C.gchar) (return__ *C.GVariant, __err__ error) {
+func VariantParse(type_ *VariantType, text string, limit string, endptr **C.gchar) (return__ *Variant, __err__ error) {
 	__cgo__text := (*C.gchar)(unsafe.Pointer(C.CString(text)))
 	__cgo__limit := (*C.gchar)(unsafe.Pointer(C.CString(limit)))
 	var __cgo_error__ *C.GError
-	return__ = C.g_variant_parse(type_, __cgo__text, __cgo__limit, endptr, &__cgo_error__)
+	var __cgo__return__ *C.GVariant
+	__cgo__return__ = C.g_variant_parse((*C.GVariantType)(unsafe.Pointer(type_)), __cgo__text, __cgo__limit, endptr, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__text))
 	C.free(unsafe.Pointer(__cgo__limit))
+	return__ = (*Variant)(unsafe.Pointer(__cgo__return__))
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
 	}
@@ -8379,10 +8423,10 @@ If @source_str was not nul-terminated when you passed it to
 g_variant_parse() then you must add nul termination before using this
 function.
 */
-func VariantParseErrorPrintContext(error_ *C.GError, source_str string) (return__ string) {
+func VariantParseErrorPrintContext(error_ *Error, source_str string) (return__ string) {
 	__cgo__source_str := (*C.gchar)(unsafe.Pointer(C.CString(source_str)))
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_variant_parse_error_print_context(error_, __cgo__source_str)
+	__cgo__return__ = C.g_variant_parse_error_print_context((*C.GError)(unsafe.Pointer(error_)), __cgo__source_str)
 	C.free(unsafe.Pointer(__cgo__source_str))
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
@@ -8395,10 +8439,12 @@ func VariantParseErrorQuark() (return__ C.GQuark) {
 
 // g_variant_parser_get_error_quark is not generated due to deprecation attr
 
-func VariantTypeChecked(arg0 string) (return__ *C.GVariantType) {
+func VariantTypeChecked(arg0 string) (return__ *VariantType) {
 	__cgo__arg0 := (*C.gchar)(unsafe.Pointer(C.CString(arg0)))
-	return__ = C.g_variant_type_checked_(__cgo__arg0)
+	var __cgo__return__ *C.GVariantType
+	__cgo__return__ = C.g_variant_type_checked_(__cgo__arg0)
 	C.free(unsafe.Pointer(__cgo__arg0))
+	return__ = (*VariantType)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
