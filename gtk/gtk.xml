@@ -8,4 +8,8 @@
 
   <pkg-config>gtk+-3.0</pkg-config>
 
+  <constant-ignore-patterns>
+    <entry>GTK_STOCK_*</entry>
+  </constant-ignore-patterns>
+
 </generator>

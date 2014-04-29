@@ -205,9 +205,9 @@ Or they may also unbind a key combination:
 Key combinations must be in a format that can be parsed by
 gtk_accelerator_parse().
 */
-func BindingEntryAddSignalFromString(binding_set *C.GtkBindingSet, signal_desc string) (return__ C.GTokenType) {
+func BindingEntryAddSignalFromString(binding_set *BindingSet, signal_desc string) (return__ C.GTokenType) {
 	__cgo__signal_desc := (*C.gchar)(unsafe.Pointer(C.CString(signal_desc)))
-	return__ = C.gtk_binding_entry_add_signal_from_string(binding_set, __cgo__signal_desc)
+	return__ = C.gtk_binding_entry_add_signal_from_string((*C.GtkBindingSet)(unsafe.Pointer(binding_set)), __cgo__signal_desc)
 	C.free(unsafe.Pointer(__cgo__signal_desc))
 	return
 }
@@ -216,9 +216,9 @@ func BindingEntryAddSignalFromString(binding_set *C.GtkBindingSet, signal_desc s
 Override or install a new key binding for @keyval with @modifiers on
 @binding_set.
 */
-func BindingEntryAddSignall(binding_set *C.GtkBindingSet, keyval uint, modifiers C.GdkModifierType, signal_name string, binding_args *C.GSList) {
+func BindingEntryAddSignall(binding_set *BindingSet, keyval uint, modifiers C.GdkModifierType, signal_name string, binding_args *C.GSList) {
 	__cgo__signal_name := (*C.gchar)(unsafe.Pointer(C.CString(signal_name)))
-	C.gtk_binding_entry_add_signall(binding_set, C.guint(keyval), modifiers, __cgo__signal_name, binding_args)
+	C.gtk_binding_entry_add_signall((*C.GtkBindingSet)(unsafe.Pointer(binding_set)), C.guint(keyval), modifiers, __cgo__signal_name, binding_args)
 	C.free(unsafe.Pointer(__cgo__signal_name))
 	return
 }
@@ -227,8 +227,8 @@ func BindingEntryAddSignall(binding_set *C.GtkBindingSet, keyval uint, modifiers
 Remove a binding previously installed via
 gtk_binding_entry_add_signal() on @binding_set.
 */
-func BindingEntryRemove(binding_set *C.GtkBindingSet, keyval uint, modifiers C.GdkModifierType) {
-	C.gtk_binding_entry_remove(binding_set, C.guint(keyval), modifiers)
+func BindingEntryRemove(binding_set *BindingSet, keyval uint, modifiers C.GdkModifierType) {
+	C.gtk_binding_entry_remove((*C.GtkBindingSet)(unsafe.Pointer(binding_set)), C.guint(keyval), modifiers)
 	return
 }
 
@@ -237,8 +237,8 @@ Install a binding on @binding_set which causes key lookups
 to be aborted, to prevent bindings from lower priority sets
 to be activated.
 */
-func BindingEntrySkip(binding_set *C.GtkBindingSet, keyval uint, modifiers C.GdkModifierType) {
-	C.gtk_binding_entry_skip(binding_set, C.guint(keyval), modifiers)
+func BindingEntrySkip(binding_set *BindingSet, keyval uint, modifiers C.GdkModifierType) {
+	C.gtk_binding_entry_skip((*C.GtkBindingSet)(unsafe.Pointer(binding_set)), C.guint(keyval), modifiers)
 	return
 }
 
@@ -247,8 +247,10 @@ This function returns the binding set named after the type name of
 the passed in class structure. New binding sets are created on
 demand by this function.
 */
-func BindingSetByClass(object_class unsafe.Pointer) (return__ *C.GtkBindingSet) {
-	return__ = C.gtk_binding_set_by_class((C.gpointer)(object_class))
+func BindingSetByClass(object_class unsafe.Pointer) (return__ *BindingSet) {
+	var __cgo__return__ *C.GtkBindingSet
+	__cgo__return__ = C.gtk_binding_set_by_class((C.gpointer)(object_class))
+	return__ = (*BindingSet)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -258,10 +260,12 @@ Find a binding set by its globally unique name.
 The @set_name can either be a name used for gtk_binding_set_new()
 or the type name of a class used in gtk_binding_set_by_class().
 */
-func BindingSetFind(set_name string) (return__ *C.GtkBindingSet) {
+func BindingSetFind(set_name string) (return__ *BindingSet) {
 	__cgo__set_name := (*C.gchar)(unsafe.Pointer(C.CString(set_name)))
-	return__ = C.gtk_binding_set_find(__cgo__set_name)
+	var __cgo__return__ *C.GtkBindingSet
+	__cgo__return__ = C.gtk_binding_set_find(__cgo__set_name)
 	C.free(unsafe.Pointer(__cgo__set_name))
+	return__ = (*BindingSet)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -269,10 +273,12 @@ func BindingSetFind(set_name string) (return__ *C.GtkBindingSet) {
 GTK+ maintains a global list of binding sets. Each binding set has
 a unique name which needs to be specified upon creation.
 */
-func BindingSetNew(set_name string) (return__ *C.GtkBindingSet) {
+func BindingSetNew(set_name string) (return__ *BindingSet) {
 	__cgo__set_name := (*C.gchar)(unsafe.Pointer(C.CString(set_name)))
-	return__ = C.gtk_binding_set_new(__cgo__set_name)
+	var __cgo__return__ *C.GtkBindingSet
+	__cgo__return__ = C.gtk_binding_set_new(__cgo__set_name)
 	C.free(unsafe.Pointer(__cgo__set_name))
+	return__ = (*BindingSet)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -422,9 +428,9 @@ The remaining space will be added to the @minimum_size member of the
 GtkRequestedSize struct. If all sizes reach their natural size then
 the remaining space is returned.
 */
-func DistributeNaturalAllocation(extra_space int, n_requested_sizes uint, sizes *C.GtkRequestedSize) (return__ int) {
+func DistributeNaturalAllocation(extra_space int, n_requested_sizes uint, sizes *RequestedSize) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_distribute_natural_allocation(C.gint(extra_space), C.guint(n_requested_sizes), sizes)
+	__cgo__return__ = C.gtk_distribute_natural_allocation(C.gint(extra_space), C.guint(n_requested_sizes), (*C.GtkRequestedSize)(unsafe.Pointer(sizes)))
 	return__ = int(__cgo__return__)
 	return
 }
@@ -1410,8 +1416,8 @@ func SelectionAddTarget(widget *C.GtkWidget, selection C.GdkAtom, target C.GdkAt
 Prepends a table of targets to the list of supported targets
 for a given widget and selection.
 */
-func SelectionAddTargets(widget *C.GtkWidget, selection C.GdkAtom, targets *C.GtkTargetEntry, ntargets uint) {
-	C.gtk_selection_add_targets(widget, selection, targets, C.guint(ntargets))
+func SelectionAddTargets(widget *C.GtkWidget, selection C.GdkAtom, targets *TargetEntry, ntargets uint) {
+	C.gtk_selection_add_targets(widget, selection, (*C.GtkTargetEntry)(unsafe.Pointer(targets)), C.guint(ntargets))
 	return
 }
 
@@ -1518,8 +1524,8 @@ func ShowUri(screen *C.GdkScreen, uri string, timestamp uint32) (return__ bool, 
 This function frees a target table as returned by
 gtk_target_table_new_from_list()
 */
-func TargetTableFree(targets *C.GtkTargetEntry, n_targets int) {
-	C.gtk_target_table_free(targets, C.gint(n_targets))
+func TargetTableFree(targets *TargetEntry, n_targets int) {
+	C.gtk_target_table_free((*C.GtkTargetEntry)(unsafe.Pointer(targets)), C.gint(n_targets))
 	return
 }
 
@@ -1529,10 +1535,12 @@ same targets as the passed %list. The returned table is newly
 allocated and should be freed using gtk_target_table_free() when no
 longer needed.
 */
-func TargetTableNewFromList(list *C.GtkTargetList) (n_targets int, return__ *C.GtkTargetEntry) {
+func TargetTableNewFromList(list *TargetList) (n_targets int, return__ *TargetEntry) {
 	var __cgo__n_targets C.gint
-	return__ = C.gtk_target_table_new_from_list(list, &__cgo__n_targets)
+	var __cgo__return__ *C.GtkTargetEntry
+	__cgo__return__ = C.gtk_target_table_new_from_list((*C.GtkTargetList)(unsafe.Pointer(list)), &__cgo__n_targets)
 	n_targets = int(__cgo__n_targets)
+	return__ = (*TargetEntry)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -1794,9 +1802,11 @@ you can assume that selection data of type %GTK_TREE_MODEL_ROW is
 in from the current process. The returned path must be freed with
 gtk_tree_path_free().
 */
-func TreeGetRowDragData(selection_data *C.GtkSelectionData) (tree_model *C.GtkTreeModel, path *C.GtkTreePath, return__ bool) {
+func TreeGetRowDragData(selection_data *SelectionData) (tree_model *C.GtkTreeModel, path *TreePath, return__ bool) {
+	var __cgo__path *C.GtkTreePath
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_tree_get_row_drag_data(selection_data, &tree_model, &path)
+	__cgo__return__ = C.gtk_tree_get_row_drag_data((*C.GtkSelectionData)(unsafe.Pointer(selection_data)), &tree_model, &__cgo__path)
+	path = (*TreePath)(unsafe.Pointer(__cgo__path))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -1806,8 +1816,8 @@ Lets a set of row reference created by
 gtk_tree_row_reference_new_proxy() know that the
 model emitted the #GtkTreeModel::row-deleted signal.
 */
-func TreeRowReferenceDeleted(proxy *C.GObject, path *C.GtkTreePath) {
-	C.gtk_tree_row_reference_deleted(proxy, path)
+func TreeRowReferenceDeleted(proxy *C.GObject, path *TreePath) {
+	C.gtk_tree_row_reference_deleted(proxy, (*C.GtkTreePath)(unsafe.Pointer(path)))
 	return
 }
 
@@ -1816,8 +1826,8 @@ Lets a set of row reference created by
 gtk_tree_row_reference_new_proxy() know that the
 model emitted the #GtkTreeModel::row-inserted signal.
 */
-func TreeRowReferenceInserted(proxy *C.GObject, path *C.GtkTreePath) {
-	C.gtk_tree_row_reference_inserted(proxy, path)
+func TreeRowReferenceInserted(proxy *C.GObject, path *TreePath) {
+	C.gtk_tree_row_reference_inserted(proxy, (*C.GtkTreePath)(unsafe.Pointer(path)))
 	return
 }
 
@@ -1826,8 +1836,8 @@ Lets a set of row reference created by
 gtk_tree_row_reference_new_proxy() know that the
 model emitted the #GtkTreeModel::rows-reordered signal.
 */
-func TreeRowReferenceReordered(proxy *C.GObject, path *C.GtkTreePath, iter *C.GtkTreeIter, new_order *C.gint) {
-	C.gtk_tree_row_reference_reordered(proxy, path, iter, new_order)
+func TreeRowReferenceReordered(proxy *C.GObject, path *TreePath, iter *TreeIter, new_order *C.gint) {
+	C.gtk_tree_row_reference_reordered(proxy, (*C.GtkTreePath)(unsafe.Pointer(path)), (*C.GtkTreeIter)(unsafe.Pointer(iter)), new_order)
 	return
 }
 
@@ -1835,9 +1845,9 @@ func TreeRowReferenceReordered(proxy *C.GObject, path *C.GtkTreePath, iter *C.Gt
 Sets selection data of target type %GTK_TREE_MODEL_ROW. Normally used
 in a drag_data_get handler.
 */
-func TreeSetRowDragData(selection_data *C.GtkSelectionData, tree_model *C.GtkTreeModel, path *C.GtkTreePath) (return__ bool) {
+func TreeSetRowDragData(selection_data *SelectionData, tree_model *C.GtkTreeModel, path *TreePath) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_tree_set_row_drag_data(selection_data, tree_model, path)
+	__cgo__return__ = C.gtk_tree_set_row_drag_data((*C.GtkSelectionData)(unsafe.Pointer(selection_data)), tree_model, (*C.GtkTreePath)(unsafe.Pointer(path)))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }

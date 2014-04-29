@@ -54,111 +54,6 @@ gchar* __GTK_PRINT_SETTINGS_USE_COLOR = GTK_PRINT_SETTINGS_USE_COLOR;
 gchar* __GTK_PRINT_SETTINGS_WIN32_DRIVER_EXTRA = GTK_PRINT_SETTINGS_WIN32_DRIVER_EXTRA;
 gchar* __GTK_PRINT_SETTINGS_WIN32_DRIVER_VERSION = GTK_PRINT_SETTINGS_WIN32_DRIVER_VERSION;
 gint __GTK_PRIORITY_RESIZE = GTK_PRIORITY_RESIZE;
-gchar* __GTK_STOCK_ABOUT = GTK_STOCK_ABOUT;
-gchar* __GTK_STOCK_ADD = GTK_STOCK_ADD;
-gchar* __GTK_STOCK_APPLY = GTK_STOCK_APPLY;
-gchar* __GTK_STOCK_BOLD = GTK_STOCK_BOLD;
-gchar* __GTK_STOCK_CANCEL = GTK_STOCK_CANCEL;
-gchar* __GTK_STOCK_CAPS_LOCK_WARNING = GTK_STOCK_CAPS_LOCK_WARNING;
-gchar* __GTK_STOCK_CDROM = GTK_STOCK_CDROM;
-gchar* __GTK_STOCK_CLEAR = GTK_STOCK_CLEAR;
-gchar* __GTK_STOCK_CLOSE = GTK_STOCK_CLOSE;
-gchar* __GTK_STOCK_COLOR_PICKER = GTK_STOCK_COLOR_PICKER;
-gchar* __GTK_STOCK_CONNECT = GTK_STOCK_CONNECT;
-gchar* __GTK_STOCK_CONVERT = GTK_STOCK_CONVERT;
-gchar* __GTK_STOCK_COPY = GTK_STOCK_COPY;
-gchar* __GTK_STOCK_CUT = GTK_STOCK_CUT;
-gchar* __GTK_STOCK_DELETE = GTK_STOCK_DELETE;
-gchar* __GTK_STOCK_DIALOG_AUTHENTICATION = GTK_STOCK_DIALOG_AUTHENTICATION;
-gchar* __GTK_STOCK_DIALOG_ERROR = GTK_STOCK_DIALOG_ERROR;
-gchar* __GTK_STOCK_DIALOG_INFO = GTK_STOCK_DIALOG_INFO;
-gchar* __GTK_STOCK_DIALOG_QUESTION = GTK_STOCK_DIALOG_QUESTION;
-gchar* __GTK_STOCK_DIALOG_WARNING = GTK_STOCK_DIALOG_WARNING;
-gchar* __GTK_STOCK_DIRECTORY = GTK_STOCK_DIRECTORY;
-gchar* __GTK_STOCK_DISCARD = GTK_STOCK_DISCARD;
-gchar* __GTK_STOCK_DISCONNECT = GTK_STOCK_DISCONNECT;
-gchar* __GTK_STOCK_DND = GTK_STOCK_DND;
-gchar* __GTK_STOCK_DND_MULTIPLE = GTK_STOCK_DND_MULTIPLE;
-gchar* __GTK_STOCK_EDIT = GTK_STOCK_EDIT;
-gchar* __GTK_STOCK_EXECUTE = GTK_STOCK_EXECUTE;
-gchar* __GTK_STOCK_FILE = GTK_STOCK_FILE;
-gchar* __GTK_STOCK_FIND = GTK_STOCK_FIND;
-gchar* __GTK_STOCK_FIND_AND_REPLACE = GTK_STOCK_FIND_AND_REPLACE;
-gchar* __GTK_STOCK_FLOPPY = GTK_STOCK_FLOPPY;
-gchar* __GTK_STOCK_FULLSCREEN = GTK_STOCK_FULLSCREEN;
-gchar* __GTK_STOCK_GOTO_BOTTOM = GTK_STOCK_GOTO_BOTTOM;
-gchar* __GTK_STOCK_GOTO_FIRST = GTK_STOCK_GOTO_FIRST;
-gchar* __GTK_STOCK_GOTO_LAST = GTK_STOCK_GOTO_LAST;
-gchar* __GTK_STOCK_GOTO_TOP = GTK_STOCK_GOTO_TOP;
-gchar* __GTK_STOCK_GO_BACK = GTK_STOCK_GO_BACK;
-gchar* __GTK_STOCK_GO_DOWN = GTK_STOCK_GO_DOWN;
-gchar* __GTK_STOCK_GO_FORWARD = GTK_STOCK_GO_FORWARD;
-gchar* __GTK_STOCK_GO_UP = GTK_STOCK_GO_UP;
-gchar* __GTK_STOCK_HARDDISK = GTK_STOCK_HARDDISK;
-gchar* __GTK_STOCK_HELP = GTK_STOCK_HELP;
-gchar* __GTK_STOCK_HOME = GTK_STOCK_HOME;
-gchar* __GTK_STOCK_INDENT = GTK_STOCK_INDENT;
-gchar* __GTK_STOCK_INDEX = GTK_STOCK_INDEX;
-gchar* __GTK_STOCK_INFO = GTK_STOCK_INFO;
-gchar* __GTK_STOCK_ITALIC = GTK_STOCK_ITALIC;
-gchar* __GTK_STOCK_JUMP_TO = GTK_STOCK_JUMP_TO;
-gchar* __GTK_STOCK_JUSTIFY_CENTER = GTK_STOCK_JUSTIFY_CENTER;
-gchar* __GTK_STOCK_JUSTIFY_FILL = GTK_STOCK_JUSTIFY_FILL;
-gchar* __GTK_STOCK_JUSTIFY_LEFT = GTK_STOCK_JUSTIFY_LEFT;
-gchar* __GTK_STOCK_JUSTIFY_RIGHT = GTK_STOCK_JUSTIFY_RIGHT;
-gchar* __GTK_STOCK_LEAVE_FULLSCREEN = GTK_STOCK_LEAVE_FULLSCREEN;
-gchar* __GTK_STOCK_MEDIA_FORWARD = GTK_STOCK_MEDIA_FORWARD;
-gchar* __GTK_STOCK_MEDIA_NEXT = GTK_STOCK_MEDIA_NEXT;
-gchar* __GTK_STOCK_MEDIA_PAUSE = GTK_STOCK_MEDIA_PAUSE;
-gchar* __GTK_STOCK_MEDIA_PLAY = GTK_STOCK_MEDIA_PLAY;
-gchar* __GTK_STOCK_MEDIA_PREVIOUS = GTK_STOCK_MEDIA_PREVIOUS;
-gchar* __GTK_STOCK_MEDIA_RECORD = GTK_STOCK_MEDIA_RECORD;
-gchar* __GTK_STOCK_MEDIA_REWIND = GTK_STOCK_MEDIA_REWIND;
-gchar* __GTK_STOCK_MEDIA_STOP = GTK_STOCK_MEDIA_STOP;
-gchar* __GTK_STOCK_MISSING_IMAGE = GTK_STOCK_MISSING_IMAGE;
-gchar* __GTK_STOCK_NETWORK = GTK_STOCK_NETWORK;
-gchar* __GTK_STOCK_NEW = GTK_STOCK_NEW;
-gchar* __GTK_STOCK_NO = GTK_STOCK_NO;
-gchar* __GTK_STOCK_OK = GTK_STOCK_OK;
-gchar* __GTK_STOCK_OPEN = GTK_STOCK_OPEN;
-gchar* __GTK_STOCK_ORIENTATION_LANDSCAPE = GTK_STOCK_ORIENTATION_LANDSCAPE;
-gchar* __GTK_STOCK_ORIENTATION_PORTRAIT = GTK_STOCK_ORIENTATION_PORTRAIT;
-gchar* __GTK_STOCK_ORIENTATION_REVERSE_LANDSCAPE = GTK_STOCK_ORIENTATION_REVERSE_LANDSCAPE;
-gchar* __GTK_STOCK_ORIENTATION_REVERSE_PORTRAIT = GTK_STOCK_ORIENTATION_REVERSE_PORTRAIT;
-gchar* __GTK_STOCK_PAGE_SETUP = GTK_STOCK_PAGE_SETUP;
-gchar* __GTK_STOCK_PASTE = GTK_STOCK_PASTE;
-gchar* __GTK_STOCK_PREFERENCES = GTK_STOCK_PREFERENCES;
-gchar* __GTK_STOCK_PRINT = GTK_STOCK_PRINT;
-gchar* __GTK_STOCK_PRINT_ERROR = GTK_STOCK_PRINT_ERROR;
-gchar* __GTK_STOCK_PRINT_PAUSED = GTK_STOCK_PRINT_PAUSED;
-gchar* __GTK_STOCK_PRINT_PREVIEW = GTK_STOCK_PRINT_PREVIEW;
-gchar* __GTK_STOCK_PRINT_REPORT = GTK_STOCK_PRINT_REPORT;
-gchar* __GTK_STOCK_PRINT_WARNING = GTK_STOCK_PRINT_WARNING;
-gchar* __GTK_STOCK_PROPERTIES = GTK_STOCK_PROPERTIES;
-gchar* __GTK_STOCK_QUIT = GTK_STOCK_QUIT;
-gchar* __GTK_STOCK_REDO = GTK_STOCK_REDO;
-gchar* __GTK_STOCK_REFRESH = GTK_STOCK_REFRESH;
-gchar* __GTK_STOCK_REMOVE = GTK_STOCK_REMOVE;
-gchar* __GTK_STOCK_REVERT_TO_SAVED = GTK_STOCK_REVERT_TO_SAVED;
-gchar* __GTK_STOCK_SAVE = GTK_STOCK_SAVE;
-gchar* __GTK_STOCK_SAVE_AS = GTK_STOCK_SAVE_AS;
-gchar* __GTK_STOCK_SELECT_ALL = GTK_STOCK_SELECT_ALL;
-gchar* __GTK_STOCK_SELECT_COLOR = GTK_STOCK_SELECT_COLOR;
-gchar* __GTK_STOCK_SELECT_FONT = GTK_STOCK_SELECT_FONT;
-gchar* __GTK_STOCK_SORT_ASCENDING = GTK_STOCK_SORT_ASCENDING;
-gchar* __GTK_STOCK_SORT_DESCENDING = GTK_STOCK_SORT_DESCENDING;
-gchar* __GTK_STOCK_SPELL_CHECK = GTK_STOCK_SPELL_CHECK;
-gchar* __GTK_STOCK_STOP = GTK_STOCK_STOP;
-gchar* __GTK_STOCK_STRIKETHROUGH = GTK_STOCK_STRIKETHROUGH;
-gchar* __GTK_STOCK_UNDELETE = GTK_STOCK_UNDELETE;
-gchar* __GTK_STOCK_UNDERLINE = GTK_STOCK_UNDERLINE;
-gchar* __GTK_STOCK_UNDO = GTK_STOCK_UNDO;
-gchar* __GTK_STOCK_UNINDENT = GTK_STOCK_UNINDENT;
-gchar* __GTK_STOCK_YES = GTK_STOCK_YES;
-gchar* __GTK_STOCK_ZOOM_100 = GTK_STOCK_ZOOM_100;
-gchar* __GTK_STOCK_ZOOM_FIT = GTK_STOCK_ZOOM_FIT;
-gchar* __GTK_STOCK_ZOOM_IN = GTK_STOCK_ZOOM_IN;
-gchar* __GTK_STOCK_ZOOM_OUT = GTK_STOCK_ZOOM_OUT;
 gchar* __GTK_STYLE_CLASS_ACCELERATOR = GTK_STYLE_CLASS_ACCELERATOR;
 gchar* __GTK_STYLE_CLASS_ARROW = GTK_STYLE_CLASS_ARROW;
 gchar* __GTK_STYLE_CLASS_BACKGROUND = GTK_STYLE_CLASS_BACKGROUND;
@@ -254,161 +149,161 @@ gint __GTK_TREE_SORTABLE_UNSORTED_SORT_COLUMN_ID = GTK_TREE_SORTABLE_UNSORTED_SO
 import "C"
 
 var (
-	BINARY_AGE                            = C.__GTK_BINARY_AGE
-	INPUT_ERROR                           = C.__GTK_INPUT_ERROR
-	INTERFACE_AGE                         = C.__GTK_INTERFACE_AGE
-	LEVEL_BAR_OFFSET_HIGH                 = C.__GTK_LEVEL_BAR_OFFSET_HIGH
-	LEVEL_BAR_OFFSET_LOW                  = C.__GTK_LEVEL_BAR_OFFSET_LOW
-	MAJOR_VERSION                         = C.__GTK_MAJOR_VERSION
-	MAX_COMPOSE_LEN                       = C.__GTK_MAX_COMPOSE_LEN
-	MICRO_VERSION                         = C.__GTK_MICRO_VERSION
-	MINOR_VERSION                         = C.__GTK_MINOR_VERSION
-	PAPER_NAME_A3                         = C.__GTK_PAPER_NAME_A3
-	PAPER_NAME_A4                         = C.__GTK_PAPER_NAME_A4
-	PAPER_NAME_A5                         = C.__GTK_PAPER_NAME_A5
-	PAPER_NAME_B5                         = C.__GTK_PAPER_NAME_B5
-	PAPER_NAME_EXECUTIVE                  = C.__GTK_PAPER_NAME_EXECUTIVE
-	PAPER_NAME_LEGAL                      = C.__GTK_PAPER_NAME_LEGAL
-	PAPER_NAME_LETTER                     = C.__GTK_PAPER_NAME_LETTER
-	PATH_PRIO_MASK                        = C.__GTK_PATH_PRIO_MASK
-	PRINT_SETTINGS_COLLATE                = C.__GTK_PRINT_SETTINGS_COLLATE
-	PRINT_SETTINGS_DEFAULT_SOURCE         = C.__GTK_PRINT_SETTINGS_DEFAULT_SOURCE
-	PRINT_SETTINGS_DITHER                 = C.__GTK_PRINT_SETTINGS_DITHER
-	PRINT_SETTINGS_DUPLEX                 = C.__GTK_PRINT_SETTINGS_DUPLEX
-	PRINT_SETTINGS_FINISHINGS             = C.__GTK_PRINT_SETTINGS_FINISHINGS
-	PRINT_SETTINGS_MEDIA_TYPE             = C.__GTK_PRINT_SETTINGS_MEDIA_TYPE
-	PRINT_SETTINGS_NUMBER_UP              = C.__GTK_PRINT_SETTINGS_NUMBER_UP
-	PRINT_SETTINGS_NUMBER_UP_LAYOUT       = C.__GTK_PRINT_SETTINGS_NUMBER_UP_LAYOUT
-	PRINT_SETTINGS_N_COPIES               = C.__GTK_PRINT_SETTINGS_N_COPIES
-	PRINT_SETTINGS_ORIENTATION            = C.__GTK_PRINT_SETTINGS_ORIENTATION
-	PRINT_SETTINGS_OUTPUT_BASENAME        = C.__GTK_PRINT_SETTINGS_OUTPUT_BASENAME
-	PRINT_SETTINGS_OUTPUT_BIN             = C.__GTK_PRINT_SETTINGS_OUTPUT_BIN
-	PRINT_SETTINGS_OUTPUT_DIR             = C.__GTK_PRINT_SETTINGS_OUTPUT_DIR
-	PRINT_SETTINGS_OUTPUT_FILE_FORMAT     = C.__GTK_PRINT_SETTINGS_OUTPUT_FILE_FORMAT
-	PRINT_SETTINGS_OUTPUT_URI             = C.__GTK_PRINT_SETTINGS_OUTPUT_URI
-	PRINT_SETTINGS_PAGE_RANGES            = C.__GTK_PRINT_SETTINGS_PAGE_RANGES
-	PRINT_SETTINGS_PAGE_SET               = C.__GTK_PRINT_SETTINGS_PAGE_SET
-	PRINT_SETTINGS_PAPER_FORMAT           = C.__GTK_PRINT_SETTINGS_PAPER_FORMAT
-	PRINT_SETTINGS_PAPER_HEIGHT           = C.__GTK_PRINT_SETTINGS_PAPER_HEIGHT
-	PRINT_SETTINGS_PAPER_WIDTH            = C.__GTK_PRINT_SETTINGS_PAPER_WIDTH
-	PRINT_SETTINGS_PRINTER                = C.__GTK_PRINT_SETTINGS_PRINTER
-	PRINT_SETTINGS_PRINTER_LPI            = C.__GTK_PRINT_SETTINGS_PRINTER_LPI
-	PRINT_SETTINGS_PRINT_PAGES            = C.__GTK_PRINT_SETTINGS_PRINT_PAGES
-	PRINT_SETTINGS_QUALITY                = C.__GTK_PRINT_SETTINGS_QUALITY
-	PRINT_SETTINGS_RESOLUTION             = C.__GTK_PRINT_SETTINGS_RESOLUTION
-	PRINT_SETTINGS_RESOLUTION_X           = C.__GTK_PRINT_SETTINGS_RESOLUTION_X
-	PRINT_SETTINGS_RESOLUTION_Y           = C.__GTK_PRINT_SETTINGS_RESOLUTION_Y
-	PRINT_SETTINGS_REVERSE                = C.__GTK_PRINT_SETTINGS_REVERSE
-	PRINT_SETTINGS_SCALE                  = C.__GTK_PRINT_SETTINGS_SCALE
-	PRINT_SETTINGS_USE_COLOR              = C.__GTK_PRINT_SETTINGS_USE_COLOR
-	PRINT_SETTINGS_WIN32_DRIVER_EXTRA     = C.__GTK_PRINT_SETTINGS_WIN32_DRIVER_EXTRA
-	PRINT_SETTINGS_WIN32_DRIVER_VERSION   = C.__GTK_PRINT_SETTINGS_WIN32_DRIVER_VERSION
-	PRIORITY_RESIZE                       = C.__GTK_PRIORITY_RESIZE
-	STOCK_ABOUT                           = C.__GTK_STOCK_ABOUT
-	STOCK_ADD                             = C.__GTK_STOCK_ADD
-	STOCK_APPLY                           = C.__GTK_STOCK_APPLY
-	STOCK_BOLD                            = C.__GTK_STOCK_BOLD
-	STOCK_CANCEL                          = C.__GTK_STOCK_CANCEL
-	STOCK_CAPS_LOCK_WARNING               = C.__GTK_STOCK_CAPS_LOCK_WARNING
-	STOCK_CDROM                           = C.__GTK_STOCK_CDROM
-	STOCK_CLEAR                           = C.__GTK_STOCK_CLEAR
-	STOCK_CLOSE                           = C.__GTK_STOCK_CLOSE
-	STOCK_COLOR_PICKER                    = C.__GTK_STOCK_COLOR_PICKER
-	STOCK_CONNECT                         = C.__GTK_STOCK_CONNECT
-	STOCK_CONVERT                         = C.__GTK_STOCK_CONVERT
-	STOCK_COPY                            = C.__GTK_STOCK_COPY
-	STOCK_CUT                             = C.__GTK_STOCK_CUT
-	STOCK_DELETE                          = C.__GTK_STOCK_DELETE
-	STOCK_DIALOG_AUTHENTICATION           = C.__GTK_STOCK_DIALOG_AUTHENTICATION
-	STOCK_DIALOG_ERROR                    = C.__GTK_STOCK_DIALOG_ERROR
-	STOCK_DIALOG_INFO                     = C.__GTK_STOCK_DIALOG_INFO
-	STOCK_DIALOG_QUESTION                 = C.__GTK_STOCK_DIALOG_QUESTION
-	STOCK_DIALOG_WARNING                  = C.__GTK_STOCK_DIALOG_WARNING
-	STOCK_DIRECTORY                       = C.__GTK_STOCK_DIRECTORY
-	STOCK_DISCARD                         = C.__GTK_STOCK_DISCARD
-	STOCK_DISCONNECT                      = C.__GTK_STOCK_DISCONNECT
-	STOCK_DND                             = C.__GTK_STOCK_DND
-	STOCK_DND_MULTIPLE                    = C.__GTK_STOCK_DND_MULTIPLE
-	STOCK_EDIT                            = C.__GTK_STOCK_EDIT
-	STOCK_EXECUTE                         = C.__GTK_STOCK_EXECUTE
-	STOCK_FILE                            = C.__GTK_STOCK_FILE
-	STOCK_FIND                            = C.__GTK_STOCK_FIND
-	STOCK_FIND_AND_REPLACE                = C.__GTK_STOCK_FIND_AND_REPLACE
-	STOCK_FLOPPY                          = C.__GTK_STOCK_FLOPPY
-	STOCK_FULLSCREEN                      = C.__GTK_STOCK_FULLSCREEN
-	STOCK_GOTO_BOTTOM                     = C.__GTK_STOCK_GOTO_BOTTOM
-	STOCK_GOTO_FIRST                      = C.__GTK_STOCK_GOTO_FIRST
-	STOCK_GOTO_LAST                       = C.__GTK_STOCK_GOTO_LAST
-	STOCK_GOTO_TOP                        = C.__GTK_STOCK_GOTO_TOP
-	STOCK_GO_BACK                         = C.__GTK_STOCK_GO_BACK
-	STOCK_GO_DOWN                         = C.__GTK_STOCK_GO_DOWN
-	STOCK_GO_FORWARD                      = C.__GTK_STOCK_GO_FORWARD
-	STOCK_GO_UP                           = C.__GTK_STOCK_GO_UP
-	STOCK_HARDDISK                        = C.__GTK_STOCK_HARDDISK
-	STOCK_HELP                            = C.__GTK_STOCK_HELP
-	STOCK_HOME                            = C.__GTK_STOCK_HOME
-	STOCK_INDENT                          = C.__GTK_STOCK_INDENT
-	STOCK_INDEX                           = C.__GTK_STOCK_INDEX
-	STOCK_INFO                            = C.__GTK_STOCK_INFO
-	STOCK_ITALIC                          = C.__GTK_STOCK_ITALIC
-	STOCK_JUMP_TO                         = C.__GTK_STOCK_JUMP_TO
-	STOCK_JUSTIFY_CENTER                  = C.__GTK_STOCK_JUSTIFY_CENTER
-	STOCK_JUSTIFY_FILL                    = C.__GTK_STOCK_JUSTIFY_FILL
-	STOCK_JUSTIFY_LEFT                    = C.__GTK_STOCK_JUSTIFY_LEFT
-	STOCK_JUSTIFY_RIGHT                   = C.__GTK_STOCK_JUSTIFY_RIGHT
-	STOCK_LEAVE_FULLSCREEN                = C.__GTK_STOCK_LEAVE_FULLSCREEN
-	STOCK_MEDIA_FORWARD                   = C.__GTK_STOCK_MEDIA_FORWARD
-	STOCK_MEDIA_NEXT                      = C.__GTK_STOCK_MEDIA_NEXT
-	STOCK_MEDIA_PAUSE                     = C.__GTK_STOCK_MEDIA_PAUSE
-	STOCK_MEDIA_PLAY                      = C.__GTK_STOCK_MEDIA_PLAY
-	STOCK_MEDIA_PREVIOUS                  = C.__GTK_STOCK_MEDIA_PREVIOUS
-	STOCK_MEDIA_RECORD                    = C.__GTK_STOCK_MEDIA_RECORD
-	STOCK_MEDIA_REWIND                    = C.__GTK_STOCK_MEDIA_REWIND
-	STOCK_MEDIA_STOP                      = C.__GTK_STOCK_MEDIA_STOP
-	STOCK_MISSING_IMAGE                   = C.__GTK_STOCK_MISSING_IMAGE
-	STOCK_NETWORK                         = C.__GTK_STOCK_NETWORK
-	STOCK_NEW                             = C.__GTK_STOCK_NEW
-	STOCK_NO                              = C.__GTK_STOCK_NO
-	STOCK_OK                              = C.__GTK_STOCK_OK
-	STOCK_OPEN                            = C.__GTK_STOCK_OPEN
-	STOCK_ORIENTATION_LANDSCAPE           = C.__GTK_STOCK_ORIENTATION_LANDSCAPE
-	STOCK_ORIENTATION_PORTRAIT            = C.__GTK_STOCK_ORIENTATION_PORTRAIT
-	STOCK_ORIENTATION_REVERSE_LANDSCAPE   = C.__GTK_STOCK_ORIENTATION_REVERSE_LANDSCAPE
-	STOCK_ORIENTATION_REVERSE_PORTRAIT    = C.__GTK_STOCK_ORIENTATION_REVERSE_PORTRAIT
-	STOCK_PAGE_SETUP                      = C.__GTK_STOCK_PAGE_SETUP
-	STOCK_PASTE                           = C.__GTK_STOCK_PASTE
-	STOCK_PREFERENCES                     = C.__GTK_STOCK_PREFERENCES
-	STOCK_PRINT                           = C.__GTK_STOCK_PRINT
-	STOCK_PRINT_ERROR                     = C.__GTK_STOCK_PRINT_ERROR
-	STOCK_PRINT_PAUSED                    = C.__GTK_STOCK_PRINT_PAUSED
-	STOCK_PRINT_PREVIEW                   = C.__GTK_STOCK_PRINT_PREVIEW
-	STOCK_PRINT_REPORT                    = C.__GTK_STOCK_PRINT_REPORT
-	STOCK_PRINT_WARNING                   = C.__GTK_STOCK_PRINT_WARNING
-	STOCK_PROPERTIES                      = C.__GTK_STOCK_PROPERTIES
-	STOCK_QUIT                            = C.__GTK_STOCK_QUIT
-	STOCK_REDO                            = C.__GTK_STOCK_REDO
-	STOCK_REFRESH                         = C.__GTK_STOCK_REFRESH
-	STOCK_REMOVE                          = C.__GTK_STOCK_REMOVE
-	STOCK_REVERT_TO_SAVED                 = C.__GTK_STOCK_REVERT_TO_SAVED
-	STOCK_SAVE                            = C.__GTK_STOCK_SAVE
-	STOCK_SAVE_AS                         = C.__GTK_STOCK_SAVE_AS
-	STOCK_SELECT_ALL                      = C.__GTK_STOCK_SELECT_ALL
-	STOCK_SELECT_COLOR                    = C.__GTK_STOCK_SELECT_COLOR
-	STOCK_SELECT_FONT                     = C.__GTK_STOCK_SELECT_FONT
-	STOCK_SORT_ASCENDING                  = C.__GTK_STOCK_SORT_ASCENDING
-	STOCK_SORT_DESCENDING                 = C.__GTK_STOCK_SORT_DESCENDING
-	STOCK_SPELL_CHECK                     = C.__GTK_STOCK_SPELL_CHECK
-	STOCK_STOP                            = C.__GTK_STOCK_STOP
-	STOCK_STRIKETHROUGH                   = C.__GTK_STOCK_STRIKETHROUGH
-	STOCK_UNDELETE                        = C.__GTK_STOCK_UNDELETE
-	STOCK_UNDERLINE                       = C.__GTK_STOCK_UNDERLINE
-	STOCK_UNDO                            = C.__GTK_STOCK_UNDO
-	STOCK_UNINDENT                        = C.__GTK_STOCK_UNINDENT
-	STOCK_YES                             = C.__GTK_STOCK_YES
-	STOCK_ZOOM_100                        = C.__GTK_STOCK_ZOOM_100
-	STOCK_ZOOM_FIT                        = C.__GTK_STOCK_ZOOM_FIT
-	STOCK_ZOOM_IN                         = C.__GTK_STOCK_ZOOM_IN
-	STOCK_ZOOM_OUT                        = C.__GTK_STOCK_ZOOM_OUT
+	BINARY_AGE                          = C.__GTK_BINARY_AGE
+	INPUT_ERROR                         = C.__GTK_INPUT_ERROR
+	INTERFACE_AGE                       = C.__GTK_INTERFACE_AGE
+	LEVEL_BAR_OFFSET_HIGH               = C.__GTK_LEVEL_BAR_OFFSET_HIGH
+	LEVEL_BAR_OFFSET_LOW                = C.__GTK_LEVEL_BAR_OFFSET_LOW
+	MAJOR_VERSION                       = C.__GTK_MAJOR_VERSION
+	MAX_COMPOSE_LEN                     = C.__GTK_MAX_COMPOSE_LEN
+	MICRO_VERSION                       = C.__GTK_MICRO_VERSION
+	MINOR_VERSION                       = C.__GTK_MINOR_VERSION
+	PAPER_NAME_A3                       = C.__GTK_PAPER_NAME_A3
+	PAPER_NAME_A4                       = C.__GTK_PAPER_NAME_A4
+	PAPER_NAME_A5                       = C.__GTK_PAPER_NAME_A5
+	PAPER_NAME_B5                       = C.__GTK_PAPER_NAME_B5
+	PAPER_NAME_EXECUTIVE                = C.__GTK_PAPER_NAME_EXECUTIVE
+	PAPER_NAME_LEGAL                    = C.__GTK_PAPER_NAME_LEGAL
+	PAPER_NAME_LETTER                   = C.__GTK_PAPER_NAME_LETTER
+	PATH_PRIO_MASK                      = C.__GTK_PATH_PRIO_MASK
+	PRINT_SETTINGS_COLLATE              = C.__GTK_PRINT_SETTINGS_COLLATE
+	PRINT_SETTINGS_DEFAULT_SOURCE       = C.__GTK_PRINT_SETTINGS_DEFAULT_SOURCE
+	PRINT_SETTINGS_DITHER               = C.__GTK_PRINT_SETTINGS_DITHER
+	PRINT_SETTINGS_DUPLEX               = C.__GTK_PRINT_SETTINGS_DUPLEX
+	PRINT_SETTINGS_FINISHINGS           = C.__GTK_PRINT_SETTINGS_FINISHINGS
+	PRINT_SETTINGS_MEDIA_TYPE           = C.__GTK_PRINT_SETTINGS_MEDIA_TYPE
+	PRINT_SETTINGS_NUMBER_UP            = C.__GTK_PRINT_SETTINGS_NUMBER_UP
+	PRINT_SETTINGS_NUMBER_UP_LAYOUT     = C.__GTK_PRINT_SETTINGS_NUMBER_UP_LAYOUT
+	PRINT_SETTINGS_N_COPIES             = C.__GTK_PRINT_SETTINGS_N_COPIES
+	PRINT_SETTINGS_ORIENTATION          = C.__GTK_PRINT_SETTINGS_ORIENTATION
+	PRINT_SETTINGS_OUTPUT_BASENAME      = C.__GTK_PRINT_SETTINGS_OUTPUT_BASENAME
+	PRINT_SETTINGS_OUTPUT_BIN           = C.__GTK_PRINT_SETTINGS_OUTPUT_BIN
+	PRINT_SETTINGS_OUTPUT_DIR           = C.__GTK_PRINT_SETTINGS_OUTPUT_DIR
+	PRINT_SETTINGS_OUTPUT_FILE_FORMAT   = C.__GTK_PRINT_SETTINGS_OUTPUT_FILE_FORMAT
+	PRINT_SETTINGS_OUTPUT_URI           = C.__GTK_PRINT_SETTINGS_OUTPUT_URI
+	PRINT_SETTINGS_PAGE_RANGES          = C.__GTK_PRINT_SETTINGS_PAGE_RANGES
+	PRINT_SETTINGS_PAGE_SET             = C.__GTK_PRINT_SETTINGS_PAGE_SET
+	PRINT_SETTINGS_PAPER_FORMAT         = C.__GTK_PRINT_SETTINGS_PAPER_FORMAT
+	PRINT_SETTINGS_PAPER_HEIGHT         = C.__GTK_PRINT_SETTINGS_PAPER_HEIGHT
+	PRINT_SETTINGS_PAPER_WIDTH          = C.__GTK_PRINT_SETTINGS_PAPER_WIDTH
+	PRINT_SETTINGS_PRINTER              = C.__GTK_PRINT_SETTINGS_PRINTER
+	PRINT_SETTINGS_PRINTER_LPI          = C.__GTK_PRINT_SETTINGS_PRINTER_LPI
+	PRINT_SETTINGS_PRINT_PAGES          = C.__GTK_PRINT_SETTINGS_PRINT_PAGES
+	PRINT_SETTINGS_QUALITY              = C.__GTK_PRINT_SETTINGS_QUALITY
+	PRINT_SETTINGS_RESOLUTION           = C.__GTK_PRINT_SETTINGS_RESOLUTION
+	PRINT_SETTINGS_RESOLUTION_X         = C.__GTK_PRINT_SETTINGS_RESOLUTION_X
+	PRINT_SETTINGS_RESOLUTION_Y         = C.__GTK_PRINT_SETTINGS_RESOLUTION_Y
+	PRINT_SETTINGS_REVERSE              = C.__GTK_PRINT_SETTINGS_REVERSE
+	PRINT_SETTINGS_SCALE                = C.__GTK_PRINT_SETTINGS_SCALE
+	PRINT_SETTINGS_USE_COLOR            = C.__GTK_PRINT_SETTINGS_USE_COLOR
+	PRINT_SETTINGS_WIN32_DRIVER_EXTRA   = C.__GTK_PRINT_SETTINGS_WIN32_DRIVER_EXTRA
+	PRINT_SETTINGS_WIN32_DRIVER_VERSION = C.__GTK_PRINT_SETTINGS_WIN32_DRIVER_VERSION
+	PRIORITY_RESIZE                     = C.__GTK_PRIORITY_RESIZE
+	// GTK_STOCK_ABOUT is not generated due to explicit ignore
+	// GTK_STOCK_ADD is not generated due to explicit ignore
+	// GTK_STOCK_APPLY is not generated due to explicit ignore
+	// GTK_STOCK_BOLD is not generated due to explicit ignore
+	// GTK_STOCK_CANCEL is not generated due to explicit ignore
+	// GTK_STOCK_CAPS_LOCK_WARNING is not generated due to explicit ignore
+	// GTK_STOCK_CDROM is not generated due to explicit ignore
+	// GTK_STOCK_CLEAR is not generated due to explicit ignore
+	// GTK_STOCK_CLOSE is not generated due to explicit ignore
+	// GTK_STOCK_COLOR_PICKER is not generated due to explicit ignore
+	// GTK_STOCK_CONNECT is not generated due to explicit ignore
+	// GTK_STOCK_CONVERT is not generated due to explicit ignore
+	// GTK_STOCK_COPY is not generated due to explicit ignore
+	// GTK_STOCK_CUT is not generated due to explicit ignore
+	// GTK_STOCK_DELETE is not generated due to explicit ignore
+	// GTK_STOCK_DIALOG_AUTHENTICATION is not generated due to explicit ignore
+	// GTK_STOCK_DIALOG_ERROR is not generated due to explicit ignore
+	// GTK_STOCK_DIALOG_INFO is not generated due to explicit ignore
+	// GTK_STOCK_DIALOG_QUESTION is not generated due to explicit ignore
+	// GTK_STOCK_DIALOG_WARNING is not generated due to explicit ignore
+	// GTK_STOCK_DIRECTORY is not generated due to explicit ignore
+	// GTK_STOCK_DISCARD is not generated due to explicit ignore
+	// GTK_STOCK_DISCONNECT is not generated due to explicit ignore
+	// GTK_STOCK_DND is not generated due to explicit ignore
+	// GTK_STOCK_DND_MULTIPLE is not generated due to explicit ignore
+	// GTK_STOCK_EDIT is not generated due to explicit ignore
+	// GTK_STOCK_EXECUTE is not generated due to explicit ignore
+	// GTK_STOCK_FILE is not generated due to explicit ignore
+	// GTK_STOCK_FIND is not generated due to explicit ignore
+	// GTK_STOCK_FIND_AND_REPLACE is not generated due to explicit ignore
+	// GTK_STOCK_FLOPPY is not generated due to explicit ignore
+	// GTK_STOCK_FULLSCREEN is not generated due to explicit ignore
+	// GTK_STOCK_GOTO_BOTTOM is not generated due to explicit ignore
+	// GTK_STOCK_GOTO_FIRST is not generated due to explicit ignore
+	// GTK_STOCK_GOTO_LAST is not generated due to explicit ignore
+	// GTK_STOCK_GOTO_TOP is not generated due to explicit ignore
+	// GTK_STOCK_GO_BACK is not generated due to explicit ignore
+	// GTK_STOCK_GO_DOWN is not generated due to explicit ignore
+	// GTK_STOCK_GO_FORWARD is not generated due to explicit ignore
+	// GTK_STOCK_GO_UP is not generated due to explicit ignore
+	// GTK_STOCK_HARDDISK is not generated due to explicit ignore
+	// GTK_STOCK_HELP is not generated due to explicit ignore
+	// GTK_STOCK_HOME is not generated due to explicit ignore
+	// GTK_STOCK_INDENT is not generated due to explicit ignore
+	// GTK_STOCK_INDEX is not generated due to explicit ignore
+	// GTK_STOCK_INFO is not generated due to explicit ignore
+	// GTK_STOCK_ITALIC is not generated due to explicit ignore
+	// GTK_STOCK_JUMP_TO is not generated due to explicit ignore
+	// GTK_STOCK_JUSTIFY_CENTER is not generated due to explicit ignore
+	// GTK_STOCK_JUSTIFY_FILL is not generated due to explicit ignore
+	// GTK_STOCK_JUSTIFY_LEFT is not generated due to explicit ignore
+	// GTK_STOCK_JUSTIFY_RIGHT is not generated due to explicit ignore
+	// GTK_STOCK_LEAVE_FULLSCREEN is not generated due to explicit ignore
+	// GTK_STOCK_MEDIA_FORWARD is not generated due to explicit ignore
+	// GTK_STOCK_MEDIA_NEXT is not generated due to explicit ignore
+	// GTK_STOCK_MEDIA_PAUSE is not generated due to explicit ignore
+	// GTK_STOCK_MEDIA_PLAY is not generated due to explicit ignore
+	// GTK_STOCK_MEDIA_PREVIOUS is not generated due to explicit ignore
+	// GTK_STOCK_MEDIA_RECORD is not generated due to explicit ignore
+	// GTK_STOCK_MEDIA_REWIND is not generated due to explicit ignore
+	// GTK_STOCK_MEDIA_STOP is not generated due to explicit ignore
+	// GTK_STOCK_MISSING_IMAGE is not generated due to explicit ignore
+	// GTK_STOCK_NETWORK is not generated due to explicit ignore
+	// GTK_STOCK_NEW is not generated due to explicit ignore
+	// GTK_STOCK_NO is not generated due to explicit ignore
+	// GTK_STOCK_OK is not generated due to explicit ignore
+	// GTK_STOCK_OPEN is not generated due to explicit ignore
+	// GTK_STOCK_ORIENTATION_LANDSCAPE is not generated due to explicit ignore
+	// GTK_STOCK_ORIENTATION_PORTRAIT is not generated due to explicit ignore
+	// GTK_STOCK_ORIENTATION_REVERSE_LANDSCAPE is not generated due to explicit ignore
+	// GTK_STOCK_ORIENTATION_REVERSE_PORTRAIT is not generated due to explicit ignore
+	// GTK_STOCK_PAGE_SETUP is not generated due to explicit ignore
+	// GTK_STOCK_PASTE is not generated due to explicit ignore
+	// GTK_STOCK_PREFERENCES is not generated due to explicit ignore
+	// GTK_STOCK_PRINT is not generated due to explicit ignore
+	// GTK_STOCK_PRINT_ERROR is not generated due to explicit ignore
+	// GTK_STOCK_PRINT_PAUSED is not generated due to explicit ignore
+	// GTK_STOCK_PRINT_PREVIEW is not generated due to explicit ignore
+	// GTK_STOCK_PRINT_REPORT is not generated due to explicit ignore
+	// GTK_STOCK_PRINT_WARNING is not generated due to explicit ignore
+	// GTK_STOCK_PROPERTIES is not generated due to explicit ignore
+	// GTK_STOCK_QUIT is not generated due to explicit ignore
+	// GTK_STOCK_REDO is not generated due to explicit ignore
+	// GTK_STOCK_REFRESH is not generated due to explicit ignore
+	// GTK_STOCK_REMOVE is not generated due to explicit ignore
+	// GTK_STOCK_REVERT_TO_SAVED is not generated due to explicit ignore
+	// GTK_STOCK_SAVE is not generated due to explicit ignore
+	// GTK_STOCK_SAVE_AS is not generated due to explicit ignore
+	// GTK_STOCK_SELECT_ALL is not generated due to explicit ignore
+	// GTK_STOCK_SELECT_COLOR is not generated due to explicit ignore
+	// GTK_STOCK_SELECT_FONT is not generated due to explicit ignore
+	// GTK_STOCK_SORT_ASCENDING is not generated due to explicit ignore
+	// GTK_STOCK_SORT_DESCENDING is not generated due to explicit ignore
+	// GTK_STOCK_SPELL_CHECK is not generated due to explicit ignore
+	// GTK_STOCK_STOP is not generated due to explicit ignore
+	// GTK_STOCK_STRIKETHROUGH is not generated due to explicit ignore
+	// GTK_STOCK_UNDELETE is not generated due to explicit ignore
+	// GTK_STOCK_UNDERLINE is not generated due to explicit ignore
+	// GTK_STOCK_UNDO is not generated due to explicit ignore
+	// GTK_STOCK_UNINDENT is not generated due to explicit ignore
+	// GTK_STOCK_YES is not generated due to explicit ignore
+	// GTK_STOCK_ZOOM_100 is not generated due to explicit ignore
+	// GTK_STOCK_ZOOM_FIT is not generated due to explicit ignore
+	// GTK_STOCK_ZOOM_IN is not generated due to explicit ignore
+	// GTK_STOCK_ZOOM_OUT is not generated due to explicit ignore
 	STYLE_CLASS_ACCELERATOR               = C.__GTK_STYLE_CLASS_ACCELERATOR
 	STYLE_CLASS_ARROW                     = C.__GTK_STYLE_CLASS_ARROW
 	STYLE_CLASS_BACKGROUND                = C.__GTK_STYLE_CLASS_BACKGROUND
