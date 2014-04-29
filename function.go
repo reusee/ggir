@@ -73,8 +73,10 @@ func (self *Generator) GenFunction(fn *Function, output io.Writer) {
 
 	// rename
 	for _, rename := range self.FunctionRenames {
-		if fn.GoName == rename.From {
-			fn.GoName = rename.To
+		matched, err := regexp.MatchString(rename.From, fn.GoName)
+		checkError(err)
+		if matched {
+			fn.GoName = regexp.MustCompile(rename.From).ReplaceAllString(fn.GoName, rename.To)
 		}
 	}
 
