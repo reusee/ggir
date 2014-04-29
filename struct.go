@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"strings"
 )
 
 func (self *Generator) GenStructs(ns *Namespace) {
@@ -46,7 +47,7 @@ func (self *Generator) GenStructTypes(ns *Namespace) {
 		if s.IsGTypeStruct != "" {
 			goto next
 		}
-		if s.Disguised != "" {
+		if strings.HasSuffix(s.Name, "Private") {
 			goto next
 		}
 

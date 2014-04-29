@@ -57,12 +57,6 @@ func (self *Generator) GenFunction(fn *Function, output io.Writer) {
 		w(output, "// %s is not generated due to deprecation attr\n\n", fn.CIdentifier)
 		return
 	}
-	for _, f := range self.FunctionDeprecated {
-		if fn.CIdentifier == f {
-			w(output, "// %s is not generated due to explicit deprecation\n\n", fn.CIdentifier)
-			return
-		}
-	}
 
 	// skip explicit ignored
 	for _, pattern := range self.FunctionIgnorePatterns {

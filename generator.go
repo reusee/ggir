@@ -13,7 +13,6 @@ type Generator struct {
 	Includes               []string `xml:"include"`
 	PkgConfigs             []string `xml:"pkg-config"`
 	FunctionIgnorePatterns []string `xml:"function-ignore-patterns>entry"`
-	FunctionDeprecated     []string `xml:"function-deprecated>entry"`
 	ConstantIgnorePatterns []string `xml:"constant-ignore-patterns>entry"`
 	TypesIgnorePatterns    []string `xml:"type-ignore-patterns>entry"`
 }
