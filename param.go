@@ -102,9 +102,16 @@ func (self *Param) CollectInfo(isReturn bool, fn *Function) {
 	}
 }
 
+var TypeMapping = make(map[string]string)
+
 func (self *Param) MapType() (ret string) {
+	// query type mapping dict
+	var ok bool
+	if ret, ok = TypeMapping[self.GoType]; ok {
+		return
+	}
+
 	// skip complex types
-	//FIXME map to registered boxed types
 	if strings.HasPrefix(self.GoType, "C.") && unicode.IsUpper(rune(self.GoType[2])) {
 		ret = self.GoType
 	}
@@ -229,10 +236,19 @@ func (self *Param) MapType() (ret string) {
 	return
 }
 
+var InParamMapping = make(map[string]func(*Param))
+
 func (self *Param) PrepareInParam() {
 	if self.GoType == self.MappedType { // not mapped
 		self.CgoParam = self.GoName
 	} else { // do type cast
+		spec := fmt.Sprintf("%s -> %s", self.MappedType, self.GoType)
+
+		// query mapping
+		if f, ok := InParamMapping[spec]; ok {
+			f(self)
+			return
+		}
 
 		// helpers
 		byteSliceToPointer := func(p string) {
@@ -241,7 +257,6 @@ func (self *Param) PrepareInParam() {
 			self.CgoParam = fs("(%s)(unsafe.Pointer(__header__%s.Data))", p, self.GoName)
 		}
 
-		spec := fmt.Sprintf("%s -> %s", self.MappedType, self.GoType)
 		switch spec {
 		// bool
 		case "bool -> C.gboolean":
@@ -320,10 +335,12 @@ func (self *Param) PrepareInParam() {
 			self.CgoParam = fs("(C.gconstpointer)(%s)", self.GoName)
 
 		default:
-			p("==fixme== %s\n", spec)
+			p("==fixme in param mapping== %s\n", spec)
 		}
 	}
 }
+
+var OutParamMapping = make(map[string]func(*Param))
 
 func (self *Param) PrepareOutParam() {
 	if self.GoType == self.MappedType { // not mapped
@@ -333,6 +350,12 @@ func (self *Param) PrepareOutParam() {
 		self.CgoParam = "&__cgo__" + self.GoName
 
 		spec := fs("%s -> %s", self.GoType, self.MappedType)
+
+		if f, ok := OutParamMapping[spec]; ok {
+			f(self)
+			return
+		}
+
 		switch spec {
 
 		// bool
@@ -409,7 +432,7 @@ func (self *Param) PrepareOutParam() {
 			self.CgoAfterStmt += fs("%s = unsafe.Pointer(__cgo__%s);", self.GoName, self.GoName)
 
 		default:
-			p("==fixme== %s\n", spec)
+			p("==fixme out param mapping== %s\n", spec)
 		}
 	}
 }

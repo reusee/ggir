@@ -15,6 +15,7 @@ type Generator struct {
 	FunctionIgnorePatterns []string `xml:"function-ignore-patterns>entry"`
 	FunctionDeprecated     []string `xml:"function-deprecated>entry"`
 	ConstantIgnorePatterns []string `xml:"constant-ignore-patterns>entry"`
+	TypesIgnorePatterns    []string `xml:"type-ignore-patterns>entry"`
 }
 
 func Gen(outputDir, buildFilePath string) {
@@ -36,6 +37,9 @@ func Gen(outputDir, buildFilePath string) {
 	// namespace
 	ns := repo.Namespace
 
+	// struct types
+	generator.GenStructTypes(ns)
+
 	// functions
 	generator.GenFunctions(ns)
 
@@ -47,4 +51,7 @@ func Gen(outputDir, buildFilePath string) {
 
 	// enums
 	generator.GenEnums(ns)
+
+	// structs
+	generator.GenStructs(ns)
 }
