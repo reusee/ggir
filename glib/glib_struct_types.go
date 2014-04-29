@@ -46,7 +46,6 @@ type OptionEntry C.GOptionEntry
 type OptionGroup C.GOptionGroup
 type PatternSpec C.GPatternSpec
 type PollFD C.GPollFD
-type Private C.GPrivate
 type PtrArray C.GPtrArray
 type Queue C.GQueue
 type RWLock C.GRWLock
@@ -61,7 +60,6 @@ type SequenceIter C.GSequenceIter
 type Source C.GSource
 type SourceCallbackFuncs C.GSourceCallbackFuncs
 type SourceFuncs C.GSourceFuncs
-type SourcePrivate C.GSourcePrivate
 type StatBuf C.GStatBuf
 type String C.GString
 type StringChunk C.GStringChunk

@@ -12,7 +12,6 @@
   <pkg-config>glib-2.0</pkg-config>
   <pkg-config>gobject-2.0</pkg-config>
 
-  <!-- FIXME -->
   <function-ignore-patterns>
     <!-- size of array xxx is negative -->
     <entry>g_atomic_*</entry>
@@ -23,17 +22,13 @@
     <entry>g_once_init_enter</entry>
     <!-- invalid use of void expression -->
     <entry>g_clear_pointer</entry>
-  </function-ignore-patterns>
-
-  <function-deprecated>
+    <!-- deprecated -->
     <entry>g_assert_warning</entry>
-
     <entry>g_slice_get_config</entry>
     <entry>g_slice_get_config_state</entry>
     <entry>g_slice_set_config</entry>
-
     <entry>g_variant_get_gtype</entry>
-  </function-deprecated>
+  </function-ignore-patterns>
 
   <constant-ignore-patterns>
     <entry>G_WIN32_MSG_HANDLE</entry>
@@ -42,5 +37,11 @@
   <type-ignore-patterns>
     <entry>TestLogMsg</entry>
   </type-ignore-patterns>
+
+  <patch>
+    <constant name="LOG_DOMAIN">
+      <type c:type="gchar*" />
+    </constant>
+  </patch>
 
 </generator>

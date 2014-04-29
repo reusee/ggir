@@ -310,7 +310,7 @@ func AsciiXdigitValue(c byte) (return__ int) {
 	return
 }
 
-// g_assert_warning is not generated due to explicit deprecation
+// g_assert_warning is not generated due to explicit ignore
 
 func AssertionMessage(domain string, file string, line int, func_ string, message string) {
 	__cgo__domain := C.CString(domain)
@@ -4738,11 +4738,11 @@ func SliceFreeChainWithOffset(block_size int64, mem_chain unsafe.Pointer, next_o
 	return
 }
 
-// g_slice_get_config is not generated due to explicit deprecation
+// g_slice_get_config is not generated due to explicit ignore
 
-// g_slice_get_config_state is not generated due to explicit deprecation
+// g_slice_get_config_state is not generated due to explicit ignore
 
-// g_slice_set_config is not generated due to explicit deprecation
+// g_slice_set_config is not generated due to explicit ignore
 
 // g_snprintf is not generated due to varargs
 
@@ -8307,7 +8307,7 @@ func Utf8Validate(str []byte, max_len int64) (end string, return__ bool) {
 	return
 }
 
-// g_variant_get_gtype is not generated due to explicit deprecation
+// g_variant_get_gtype is not generated due to explicit ignore
 
 /*
 Determines if a given string is a valid D-Bus object path.  You
