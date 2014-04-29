@@ -84,4 +84,7 @@ func init() {
 
 	// constants
 	generator.GenConstants(ns)
+
+	// flags
+	generator.GenFlags(ns)
 }
