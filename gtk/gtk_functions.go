@@ -826,11 +826,78 @@ func IconThemeErrorQuark() (return__ C.GQuark) {
 	return
 }
 
-// gtk_init is not generated due to inout param
+/*
+Call this function before using any other GTK+ functions in your GUI
+applications.  It will initialize everything needed to operate the
+toolkit and parses some standard command line options.
 
-// gtk_init_check is not generated due to inout param
+Although you are expected to pass the @argc, @argv parameters from main() to
+this function, it is possible to pass %NULL if @argv is not available or
+commandline handling is not required.
 
-// gtk_init_with_args is not generated due to inout param
+@argc and @argv are adjusted accordingly so your own code will
+never see those standard arguments.
+
+Note that there are some alternative ways to initialize GTK+:
+if you are calling gtk_parse_args(), gtk_init_check(),
+gtk_init_with_args() or g_option_context_parse() with
+the option group returned by gtk_get_option_group(),
+you don’t have to call gtk_init().
+
+This function will terminate your program if it was unable to
+initialize the windowing system for some reason. If you want
+your program to fall back to a textual interface you want to
+call gtk_init_check() instead.
+
+Since 2.18, GTK+ calls `signal (SIGPIPE, SIG_IGN)`
+during initialization, to ignore SIGPIPE signals, since these are
+almost never wanted in graphical applications. If you do need to
+handle SIGPIPE for some reason, reset the handler after gtk_init(),
+but notice that other libraries (e.g. libdbus or gvfs) might do
+similar things.
+*/
+func Init(argc *C.int, argv ***C.char) {
+	C.gtk_init(argc, argv)
+	return
+}
+
+/*
+This function does the same work as gtk_init() with only a single
+change: It does not terminate the program if the windowing system
+can’t be initialized. Instead it returns %FALSE on failure.
+
+This way the application can fall back to some other means of
+communication with the user - for example a curses or command line
+interface.
+*/
+func InitCheck(argc *C.int, argv ***C.char) (return__ bool) {
+	var __cgo__return__ C.gboolean
+	__cgo__return__ = C.gtk_init_check(argc, argv)
+	return__ = __cgo__return__ == C.gboolean(1)
+	return
+}
+
+/*
+This function does the same work as gtk_init_check().
+Additionally, it allows you to add your own commandline options,
+and it automatically generates nicely formatted
+`--help` output. Note that your program will
+be terminated after writing out the help output.
+*/
+func InitWithArgs(argc *C.gint, argv ***C.gchar, parameter_string string, entries *C.GOptionEntry, translation_domain string) (return__ bool, __err__ error) {
+	__cgo__parameter_string := (*C.gchar)(unsafe.Pointer(C.CString(parameter_string)))
+	__cgo__translation_domain := (*C.gchar)(unsafe.Pointer(C.CString(translation_domain)))
+	var __cgo_error__ *C.GError
+	var __cgo__return__ C.gboolean
+	__cgo__return__ = C.gtk_init_with_args(argc, argv, __cgo__parameter_string, entries, __cgo__translation_domain, &__cgo_error__)
+	C.free(unsafe.Pointer(__cgo__parameter_string))
+	C.free(unsafe.Pointer(__cgo__translation_domain))
+	return__ = __cgo__return__ == C.gboolean(1)
+	if __cgo_error__ != nil {
+		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
+	}
+	return
+}
 
 // gtk_key_snooper_install is not generated due to deprecation attr
 
@@ -1003,7 +1070,23 @@ func PaperSizeGetPaperSizes(include_custom bool) (return__ *C.GList) {
 	return
 }
 
-// gtk_parse_args is not generated due to inout param
+/*
+Parses command line arguments, and initializes global
+attributes of GTK+, but does not actually open a connection
+to a display. (See gdk_display_open(), gdk_get_display_arg_name())
+
+Any arguments used by GTK+ or GDK are removed from the array and
+@argc and @argv are updated accordingly.
+
+There is no need to call this function explicitly if you are using
+gtk_init(), or gtk_init_check().
+*/
+func ParseArgs(argc *C.int, argv ***C.char) (return__ bool) {
+	var __cgo__return__ C.gboolean
+	__cgo__return__ = C.gtk_parse_args(argc, argv)
+	return__ = __cgo__return__ == C.gboolean(1)
+	return
+}
 
 /*
 Registers an error quark for #GtkPrintOperation if necessary.

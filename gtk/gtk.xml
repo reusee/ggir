@@ -26,4 +26,15 @@
     <entry>GTK_STOCK_*</entry>
   </constant-ignore-patterns>
 
+  <param-direction>
+    <entry spec="gtk_init argc">in</entry>
+    <entry spec="gtk_init argv">in</entry>
+    <entry spec="gtk_init_check argc">in</entry>
+    <entry spec="gtk_init_check argv">in</entry>
+    <entry spec="gtk_init_with_args argc">in</entry>
+    <entry spec="gtk_init_with_args argv">in</entry>
+    <entry spec="gtk_parse_args argc">in</entry>
+    <entry spec="gtk_parse_args argv">in</entry>
+  </param-direction>
+
 </generator>
