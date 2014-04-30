@@ -17,6 +17,13 @@ func init() {
 }
 
 type _TraitAboutDialog struct{ CPointer *C.GtkAboutDialog }
+type IsAboutDialog interface {
+	GetAboutDialogPointer() *C.GtkAboutDialog
+}
+
+func (self *_TraitAboutDialog) GetAboutDialogPointer() *C.GtkAboutDialog {
+	return self.CPointer
+}
 
 /*
 Creates a new section in the Credits page.
@@ -33,20 +40,8 @@ func (self *_TraitAboutDialog) AddCreditSection(section_name string, people []st
 Returns the string which are displayed in the artists tab
 of the secondary credits dialog.
 */
-func (self *_TraitAboutDialog) GetArtists() (return__ []string) {
-	var __cgo__return__ **C.gchar
-	__cgo__return__ = C.gtk_about_dialog_get_artists(self.CPointer)
-	var __slice__return__ []*C.gchar
-	__header__return__ := (*reflect.SliceHeader)(unsafe.Pointer(&__slice__return__))
-	__header__return__.Len = 4294967296
-	__header__return__.Cap = 4294967296
-	__header__return__.Data = uintptr(unsafe.Pointer(__cgo__return__))
-	for _, p := range __slice__return__ {
-		if p == nil {
-			break
-		}
-		return__ = append(return__, C.GoString((*C.char)(unsafe.Pointer(p))))
-	}
+func (self *_TraitAboutDialog) GetArtists() (return__ **C.gchar) {
+	return__ = C.gtk_about_dialog_get_artists(self.CPointer)
 	return
 }
 
@@ -54,20 +49,8 @@ func (self *_TraitAboutDialog) GetArtists() (return__ []string) {
 Returns the string which are displayed in the authors tab
 of the secondary credits dialog.
 */
-func (self *_TraitAboutDialog) GetAuthors() (return__ []string) {
-	var __cgo__return__ **C.gchar
-	__cgo__return__ = C.gtk_about_dialog_get_authors(self.CPointer)
-	var __slice__return__ []*C.gchar
-	__header__return__ := (*reflect.SliceHeader)(unsafe.Pointer(&__slice__return__))
-	__header__return__.Len = 4294967296
-	__header__return__.Cap = 4294967296
-	__header__return__.Data = uintptr(unsafe.Pointer(__cgo__return__))
-	for _, p := range __slice__return__ {
-		if p == nil {
-			break
-		}
-		return__ = append(return__, C.GoString((*C.char)(unsafe.Pointer(p))))
-	}
+func (self *_TraitAboutDialog) GetAuthors() (return__ **C.gchar) {
+	return__ = C.gtk_about_dialog_get_authors(self.CPointer)
 	return
 }
 
@@ -95,20 +78,8 @@ func (self *_TraitAboutDialog) GetCopyright() (return__ string) {
 Returns the string which are displayed in the documenters
 tab of the secondary credits dialog.
 */
-func (self *_TraitAboutDialog) GetDocumenters() (return__ []string) {
-	var __cgo__return__ **C.gchar
-	__cgo__return__ = C.gtk_about_dialog_get_documenters(self.CPointer)
-	var __slice__return__ []*C.gchar
-	__header__return__ := (*reflect.SliceHeader)(unsafe.Pointer(&__slice__return__))
-	__header__return__.Len = 4294967296
-	__header__return__.Cap = 4294967296
-	__header__return__.Data = uintptr(unsafe.Pointer(__cgo__return__))
-	for _, p := range __slice__return__ {
-		if p == nil {
-			break
-		}
-		return__ = append(return__, C.GoString((*C.char)(unsafe.Pointer(p))))
-	}
+func (self *_TraitAboutDialog) GetDocumenters() (return__ **C.gchar) {
+	return__ = C.gtk_about_dialog_get_documenters(self.CPointer)
 	return
 }
 
@@ -387,6 +358,13 @@ func (self *_TraitAboutDialog) SetWrapLicense(wrap_license bool) {
 }
 
 type _TraitAccelGroup struct{ CPointer *C.GtkAccelGroup }
+type IsAccelGroup interface {
+	GetAccelGroupPointer() *C.GtkAccelGroup
+}
+
+func (self *_TraitAccelGroup) GetAccelGroupPointer() *C.GtkAccelGroup {
+	return self.CPointer
+}
 
 /*
 Finds the first accelerator in @accel_group that matches
@@ -464,10 +442,8 @@ func (self *_TraitAccelGroup) DisconnectKey(accel_key uint, accel_mods C.GdkModi
 Finds the first entry in an accelerator group for which
 @find_func returns %TRUE and returns its #GtkAccelKey.
 */
-func (self *_TraitAccelGroup) Find(find_func C.GtkAccelGroupFindFunc, data unsafe.Pointer) (return__ *AccelKey) {
-	var __cgo__return__ *C.GtkAccelKey
-	__cgo__return__ = C.gtk_accel_group_find(self.CPointer, find_func, (C.gpointer)(data))
-	return__ = (*AccelKey)(unsafe.Pointer(__cgo__return__))
+func (self *_TraitAccelGroup) Find(find_func C.GtkAccelGroupFindFunc, data unsafe.Pointer) (return__ *C.GtkAccelKey) {
+	return__ = C.gtk_accel_group_find(self.CPointer, find_func, (C.gpointer)(data))
 	return
 }
 
@@ -511,12 +487,10 @@ func (self *_TraitAccelGroup) Lock() {
 Queries an accelerator group for all entries matching @accel_key
 and @accel_mods.
 */
-func (self *_TraitAccelGroup) Query(accel_key uint, accel_mods C.GdkModifierType) (n_entries uint, return__ *AccelGroupEntry) {
+func (self *_TraitAccelGroup) Query(accel_key uint, accel_mods C.GdkModifierType) (n_entries uint, return__ *C.GtkAccelGroupEntry) {
 	var __cgo__n_entries C.guint
-	var __cgo__return__ *C.GtkAccelGroupEntry
-	__cgo__return__ = C.gtk_accel_group_query(self.CPointer, C.guint(accel_key), accel_mods, &__cgo__n_entries)
+	return__ = C.gtk_accel_group_query(self.CPointer, C.guint(accel_key), accel_mods, &__cgo__n_entries)
 	n_entries = uint(__cgo__n_entries)
-	return__ = (*AccelGroupEntry)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -529,6 +503,13 @@ func (self *_TraitAccelGroup) Unlock() {
 }
 
 type _TraitAccelLabel struct{ CPointer *C.GtkAccelLabel }
+type IsAccelLabel interface {
+	GetAccelLabelPointer() *C.GtkAccelLabel
+}
+
+func (self *_TraitAccelLabel) GetAccelLabelPointer() *C.GtkAccelLabel {
+	return self.CPointer
+}
 
 /*
 Gets the keyval and modifier mask set with
@@ -548,7 +529,9 @@ gtk_accel_label_set_accel_widget().
 func (self *_TraitAccelLabel) GetAccelWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_accel_label_get_accel_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -602,14 +585,28 @@ func (self *_TraitAccelLabel) SetAccelClosure(accel_closure *C.GClosure) {
 /*
 Sets the widget to be monitored by this accelerator label.
 */
-func (self *_TraitAccelLabel) SetAccelWidget(accel_widget *Widget) {
-	C.gtk_accel_label_set_accel_widget(self.CPointer, (*C.GtkWidget)(accel_widget.CPointer))
+func (self *_TraitAccelLabel) SetAccelWidget(accel_widget IsWidget) {
+	C.gtk_accel_label_set_accel_widget(self.CPointer, accel_widget.GetWidgetPointer())
 	return
 }
 
 type _TraitAccelMap struct{ CPointer *C.GtkAccelMap }
+type IsAccelMap interface {
+	GetAccelMapPointer() *C.GtkAccelMap
+}
+
+func (self *_TraitAccelMap) GetAccelMapPointer() *C.GtkAccelMap {
+	return self.CPointer
+}
 
 type _TraitAccessible struct{ CPointer *C.GtkAccessible }
+type IsAccessible interface {
+	GetAccessiblePointer() *C.GtkAccessible
+}
+
+func (self *_TraitAccessible) GetAccessiblePointer() *C.GtkAccessible {
+	return self.CPointer
+}
 
 // gtk_accessible_connect_widget_destroyed is not generated due to deprecation attr
 
@@ -621,7 +618,9 @@ you do not need to unref it.
 func (self *_TraitAccessible) GetWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_accessible_get_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -633,12 +632,19 @@ It is the caller’s responsibility to ensure that when @widget
 is destroyed, the widget is unset by calling this function
 again with @widget set to %NULL.
 */
-func (self *_TraitAccessible) SetWidget(widget *Widget) {
-	C.gtk_accessible_set_widget(self.CPointer, (*C.GtkWidget)(widget.CPointer))
+func (self *_TraitAccessible) SetWidget(widget IsWidget) {
+	C.gtk_accessible_set_widget(self.CPointer, widget.GetWidgetPointer())
 	return
 }
 
 type _TraitAction struct{ CPointer *C.GtkAction }
+type IsAction interface {
+	GetActionPointer() *C.GtkAction
+}
+
+func (self *_TraitAction) GetActionPointer() *C.GtkAction {
+	return self.CPointer
+}
 
 // gtk_action_activate is not generated due to deprecation attr
 
@@ -723,6 +729,13 @@ type _TraitAction struct{ CPointer *C.GtkAction }
 // gtk_action_unblock_activate is not generated due to deprecation attr
 
 type _TraitActionBar struct{ CPointer *C.GtkActionBar }
+type IsActionBar interface {
+	GetActionBarPointer() *C.GtkActionBar
+}
+
+func (self *_TraitActionBar) GetActionBarPointer() *C.GtkActionBar {
+	return self.CPointer
+}
 
 /*
 Retrieves the center bar widget of the bar.
@@ -730,7 +743,9 @@ Retrieves the center bar widget of the bar.
 func (self *_TraitActionBar) GetCenterWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_action_bar_get_center_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -738,8 +753,8 @@ func (self *_TraitActionBar) GetCenterWidget() (return__ *Widget) {
 Adds @child to @action_bar, packed with reference to the
 end of the @action_bar.
 */
-func (self *_TraitActionBar) PackEnd(child *Widget) {
-	C.gtk_action_bar_pack_end(self.CPointer, (*C.GtkWidget)(child.CPointer))
+func (self *_TraitActionBar) PackEnd(child IsWidget) {
+	C.gtk_action_bar_pack_end(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
@@ -747,20 +762,27 @@ func (self *_TraitActionBar) PackEnd(child *Widget) {
 Adds @child to @action_bar, packed with reference to the
 start of the @action_bar.
 */
-func (self *_TraitActionBar) PackStart(child *Widget) {
-	C.gtk_action_bar_pack_start(self.CPointer, (*C.GtkWidget)(child.CPointer))
+func (self *_TraitActionBar) PackStart(child IsWidget) {
+	C.gtk_action_bar_pack_start(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
 /*
 Sets the center widget for the #GtkActionBar.
 */
-func (self *_TraitActionBar) SetCenterWidget(center_widget *Widget) {
-	C.gtk_action_bar_set_center_widget(self.CPointer, (*C.GtkWidget)(center_widget.CPointer))
+func (self *_TraitActionBar) SetCenterWidget(center_widget IsWidget) {
+	C.gtk_action_bar_set_center_widget(self.CPointer, center_widget.GetWidgetPointer())
 	return
 }
 
 type _TraitActionGroup struct{ CPointer *C.GtkActionGroup }
+type IsActionGroup interface {
+	GetActionGroupPointer() *C.GtkActionGroup
+}
+
+func (self *_TraitActionGroup) GetActionGroupPointer() *C.GtkActionGroup {
+	return self.CPointer
+}
 
 // gtk_action_group_add_action is not generated due to deprecation attr
 
@@ -805,6 +827,13 @@ type _TraitActionGroup struct{ CPointer *C.GtkActionGroup }
 // gtk_action_group_translate_string is not generated due to deprecation attr
 
 type _TraitAdjustment struct{ CPointer *C.GtkAdjustment }
+type IsAdjustment interface {
+	GetAdjustmentPointer() *C.GtkAdjustment
+}
+
+func (self *_TraitAdjustment) GetAdjustmentPointer() *C.GtkAdjustment {
+	return self.CPointer
+}
 
 /*
 Emits a #GtkAdjustment::changed signal from the #GtkAdjustment.
@@ -1008,6 +1037,13 @@ func (self *_TraitAdjustment) ValueChanged() {
 }
 
 type _TraitAlignment struct{ CPointer *C.GtkAlignment }
+type IsAlignment interface {
+	GetAlignmentPointer() *C.GtkAlignment
+}
+
+func (self *_TraitAlignment) GetAlignmentPointer() *C.GtkAlignment {
+	return self.CPointer
+}
 
 /*
 Gets the padding on the different sides of the widget.
@@ -1046,6 +1082,13 @@ func (self *_TraitAlignment) SetPadding(padding_top uint, padding_bottom uint, p
 }
 
 type _TraitAppChooserButton struct{ CPointer *C.GtkAppChooserButton }
+type IsAppChooserButton interface {
+	GetAppChooserButtonPointer() *C.GtkAppChooserButton
+}
+
+func (self *_TraitAppChooserButton) GetAppChooserButtonPointer() *C.GtkAppChooserButton {
+	return self.CPointer
+}
 
 /*
 Appends a custom item to the list of applications that is shown
@@ -1157,6 +1200,13 @@ func (self *_TraitAppChooserButton) SetShowDialogItem(setting bool) {
 }
 
 type _TraitAppChooserDialog struct{ CPointer *C.GtkAppChooserDialog }
+type IsAppChooserDialog interface {
+	GetAppChooserDialogPointer() *C.GtkAppChooserDialog
+}
+
+func (self *_TraitAppChooserDialog) GetAppChooserDialogPointer() *C.GtkAppChooserDialog {
+	return self.CPointer
+}
 
 /*
 Returns the text to display at the top of the dialog.
@@ -1174,7 +1224,9 @@ Returns the #GtkAppChooserWidget of this dialog.
 func (self *_TraitAppChooserDialog) GetWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_app_chooser_dialog_get_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -1190,6 +1242,13 @@ func (self *_TraitAppChooserDialog) SetHeading(heading string) {
 }
 
 type _TraitAppChooserWidget struct{ CPointer *C.GtkAppChooserWidget }
+type IsAppChooserWidget interface {
+	GetAppChooserWidgetPointer() *C.GtkAppChooserWidget
+}
+
+func (self *_TraitAppChooserWidget) GetAppChooserWidgetPointer() *C.GtkAppChooserWidget {
+	return self.CPointer
+}
 
 /*
 Returns the text that is shown if there are not applications
@@ -1334,6 +1393,13 @@ func (self *_TraitAppChooserWidget) SetShowRecommended(setting bool) {
 }
 
 type _TraitApplication struct{ CPointer *C.GtkApplication }
+type IsApplication interface {
+	GetApplicationPointer() *C.GtkApplication
+}
+
+func (self *_TraitApplication) GetApplicationPointer() *C.GtkApplication {
+	return self.CPointer
+}
 
 /*
 Installs an accelerator that will cause the named action
@@ -1375,8 +1441,8 @@ remove it with gtk_application_remove_window().
 GTK+ will keep the application running as long as it has
 any windows.
 */
-func (self *_TraitApplication) AddWindow(window *Window) {
-	C.gtk_application_add_window(self.CPointer, (*C.GtkWindow)(window.CPointer))
+func (self *_TraitApplication) AddWindow(window IsWindow) {
+	C.gtk_application_add_window(self.CPointer, window.GetWindowPointer())
 	return
 }
 
@@ -1384,22 +1450,10 @@ func (self *_TraitApplication) AddWindow(window *Window) {
 Gets the accelerators that are currently associated with
 the given action.
 */
-func (self *_TraitApplication) GetAccelsForAction(detailed_action_name string) (return__ []string) {
+func (self *_TraitApplication) GetAccelsForAction(detailed_action_name string) (return__ **C.gchar) {
 	__cgo__detailed_action_name := (*C.gchar)(unsafe.Pointer(C.CString(detailed_action_name)))
-	var __cgo__return__ **C.gchar
-	__cgo__return__ = C.gtk_application_get_accels_for_action(self.CPointer, __cgo__detailed_action_name)
+	return__ = C.gtk_application_get_accels_for_action(self.CPointer, __cgo__detailed_action_name)
 	C.free(unsafe.Pointer(__cgo__detailed_action_name))
-	var __slice__return__ []*C.gchar
-	__header__return__ := (*reflect.SliceHeader)(unsafe.Pointer(&__slice__return__))
-	__header__return__.Len = 4294967296
-	__header__return__.Cap = 4294967296
-	__header__return__.Data = uintptr(unsafe.Pointer(__cgo__return__))
-	for _, p := range __slice__return__ {
-		if p == nil {
-			break
-		}
-		return__ = append(return__, C.GoString((*C.char)(unsafe.Pointer(p))))
-	}
 	return
 }
 
@@ -1414,7 +1468,9 @@ recently-focused window within this application.
 func (self *_TraitApplication) GetActiveWindow() (return__ *Window) {
 	var __cgo__return__ *C.GtkWindow
 	__cgo__return__ = C.gtk_application_get_active_window(self.CPointer)
-	return__ = NewWindowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWindowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -1442,7 +1498,9 @@ Returns the #GtkApplicationWindow with the given ID.
 func (self *_TraitApplication) GetWindowById(id uint) (return__ *Window) {
 	var __cgo__return__ *C.GtkWindow
 	__cgo__return__ = C.gtk_application_get_window_by_id(self.CPointer, C.guint(id))
-	return__ = NewWindowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWindowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -1485,10 +1543,10 @@ Reasons should be short and to the point.
 If @window is given, the session manager may point the user to
 this window to find out more about why the action is inhibited.
 */
-func (self *_TraitApplication) Inhibit(window *Window, flags C.GtkApplicationInhibitFlags, reason string) (return__ uint) {
+func (self *_TraitApplication) Inhibit(window IsWindow, flags C.GtkApplicationInhibitFlags, reason string) (return__ uint) {
 	__cgo__reason := (*C.gchar)(unsafe.Pointer(C.CString(reason)))
 	var __cgo__return__ C.guint
-	__cgo__return__ = C.gtk_application_inhibit(self.CPointer, (*C.GtkWindow)(window.CPointer), flags, __cgo__reason)
+	__cgo__return__ = C.gtk_application_inhibit(self.CPointer, window.GetWindowPointer(), flags, __cgo__reason)
 	C.free(unsafe.Pointer(__cgo__reason))
 	return__ = uint(__cgo__return__)
 	return
@@ -1509,20 +1567,8 @@ func (self *_TraitApplication) IsInhibited(flags C.GtkApplicationInhibitFlags) (
 Lists the detailed action names which have associated accelerators.
 See gtk_application_set_accels_for_action().
 */
-func (self *_TraitApplication) ListActionDescriptions() (return__ []string) {
-	var __cgo__return__ **C.gchar
-	__cgo__return__ = C.gtk_application_list_action_descriptions(self.CPointer)
-	var __slice__return__ []*C.gchar
-	__header__return__ := (*reflect.SliceHeader)(unsafe.Pointer(&__slice__return__))
-	__header__return__.Len = 4294967296
-	__header__return__.Cap = 4294967296
-	__header__return__.Data = uintptr(unsafe.Pointer(__cgo__return__))
-	for _, p := range __slice__return__ {
-		if p == nil {
-			break
-		}
-		return__ = append(return__, C.GoString((*C.char)(unsafe.Pointer(p))))
-	}
+func (self *_TraitApplication) ListActionDescriptions() (return__ **C.gchar) {
+	return__ = C.gtk_application_list_action_descriptions(self.CPointer)
 	return
 }
 
@@ -1547,8 +1593,8 @@ setting the #GtkWindow:application property of @window to
 The application may stop running as a result of a call to this
 function.
 */
-func (self *_TraitApplication) RemoveWindow(window *Window) {
-	C.gtk_application_remove_window(self.CPointer, (*C.GtkWindow)(window.CPointer))
+func (self *_TraitApplication) RemoveWindow(window IsWindow) {
+	C.gtk_application_remove_window(self.CPointer, window.GetWindowPointer())
 	return
 }
 
@@ -1624,6 +1670,13 @@ func (self *_TraitApplication) Uninhibit(cookie uint) {
 }
 
 type _TraitApplicationWindow struct{ CPointer *C.GtkApplicationWindow }
+type IsApplicationWindow interface {
+	GetApplicationWindowPointer() *C.GtkApplicationWindow
+}
+
+func (self *_TraitApplicationWindow) GetApplicationWindowPointer() *C.GtkApplicationWindow {
+	return self.CPointer
+}
 
 /*
 Returns the unique ID of the window. If the window has not yet been added to
@@ -1661,6 +1714,13 @@ func (self *_TraitApplicationWindow) SetShowMenubar(show_menubar bool) {
 }
 
 type _TraitArrow struct{ CPointer *C.GtkArrow }
+type IsArrow interface {
+	GetArrowPointer() *C.GtkArrow
+}
+
+func (self *_TraitArrow) GetArrowPointer() *C.GtkArrow {
+	return self.CPointer
+}
 
 /*
 Sets the direction and style of the #GtkArrow, @arrow.
@@ -1671,6 +1731,13 @@ func (self *_TraitArrow) Set(arrow_type C.GtkArrowType, shadow_type C.GtkShadowT
 }
 
 type _TraitAspectFrame struct{ CPointer *C.GtkAspectFrame }
+type IsAspectFrame interface {
+	GetAspectFramePointer() *C.GtkAspectFrame
+}
+
+func (self *_TraitAspectFrame) GetAspectFramePointer() *C.GtkAspectFrame {
+	return self.CPointer
+}
 
 /*
 Set parameters for an existing #GtkAspectFrame.
@@ -1685,21 +1752,28 @@ func (self *_TraitAspectFrame) Set(xalign float32, yalign float32, ratio float32
 }
 
 type _TraitAssistant struct{ CPointer *C.GtkAssistant }
+type IsAssistant interface {
+	GetAssistantPointer() *C.GtkAssistant
+}
+
+func (self *_TraitAssistant) GetAssistantPointer() *C.GtkAssistant {
+	return self.CPointer
+}
 
 /*
 Adds a widget to the action area of a #GtkAssistant.
 */
-func (self *_TraitAssistant) AddActionWidget(child *Widget) {
-	C.gtk_assistant_add_action_widget(self.CPointer, (*C.GtkWidget)(child.CPointer))
+func (self *_TraitAssistant) AddActionWidget(child IsWidget) {
+	C.gtk_assistant_add_action_widget(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
 /*
 Appends a page to the @assistant.
 */
-func (self *_TraitAssistant) AppendPage(page *Widget) (return__ int) {
+func (self *_TraitAssistant) AppendPage(page IsWidget) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_assistant_append_page(self.CPointer, (*C.GtkWidget)(page.CPointer))
+	__cgo__return__ = C.gtk_assistant_append_page(self.CPointer, page.GetWidgetPointer())
 	return__ = int(__cgo__return__)
 	return
 }
@@ -1746,16 +1820,18 @@ Returns the child widget contained in page number @page_num.
 func (self *_TraitAssistant) GetNthPage(page_num int) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_assistant_get_nth_page(self.CPointer, C.gint(page_num))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
 /*
 Gets whether @page is complete.
 */
-func (self *_TraitAssistant) GetPageComplete(page *Widget) (return__ bool) {
+func (self *_TraitAssistant) GetPageComplete(page IsWidget) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_assistant_get_page_complete(self.CPointer, (*C.GtkWidget)(page.CPointer))
+	__cgo__return__ = C.gtk_assistant_get_page_complete(self.CPointer, page.GetWidgetPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -1767,9 +1843,9 @@ func (self *_TraitAssistant) GetPageComplete(page *Widget) (return__ bool) {
 /*
 Gets the title for @page.
 */
-func (self *_TraitAssistant) GetPageTitle(page *Widget) (return__ string) {
+func (self *_TraitAssistant) GetPageTitle(page IsWidget) (return__ string) {
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.gtk_assistant_get_page_title(self.CPointer, (*C.GtkWidget)(page.CPointer))
+	__cgo__return__ = C.gtk_assistant_get_page_title(self.CPointer, page.GetWidgetPointer())
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -1777,17 +1853,17 @@ func (self *_TraitAssistant) GetPageTitle(page *Widget) (return__ string) {
 /*
 Gets the page type of @page.
 */
-func (self *_TraitAssistant) GetPageType(page *Widget) (return__ C.GtkAssistantPageType) {
-	return__ = C.gtk_assistant_get_page_type(self.CPointer, (*C.GtkWidget)(page.CPointer))
+func (self *_TraitAssistant) GetPageType(page IsWidget) (return__ C.GtkAssistantPageType) {
+	return__ = C.gtk_assistant_get_page_type(self.CPointer, page.GetWidgetPointer())
 	return
 }
 
 /*
 Inserts a page in the @assistant at a given position.
 */
-func (self *_TraitAssistant) InsertPage(page *Widget, position int) (return__ int) {
+func (self *_TraitAssistant) InsertPage(page IsWidget, position int) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_assistant_insert_page(self.CPointer, (*C.GtkWidget)(page.CPointer), C.gint(position))
+	__cgo__return__ = C.gtk_assistant_insert_page(self.CPointer, page.GetWidgetPointer(), C.gint(position))
 	return__ = int(__cgo__return__)
 	return
 }
@@ -1809,9 +1885,9 @@ func (self *_TraitAssistant) NextPage() {
 /*
 Prepends a page to the @assistant.
 */
-func (self *_TraitAssistant) PrependPage(page *Widget) (return__ int) {
+func (self *_TraitAssistant) PrependPage(page IsWidget) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_assistant_prepend_page(self.CPointer, (*C.GtkWidget)(page.CPointer))
+	__cgo__return__ = C.gtk_assistant_prepend_page(self.CPointer, page.GetWidgetPointer())
 	return__ = int(__cgo__return__)
 	return
 }
@@ -1833,8 +1909,8 @@ func (self *_TraitAssistant) PreviousPage() {
 /*
 Removes a widget from the action area of a #GtkAssistant.
 */
-func (self *_TraitAssistant) RemoveActionWidget(child *Widget) {
-	C.gtk_assistant_remove_action_widget(self.CPointer, (*C.GtkWidget)(child.CPointer))
+func (self *_TraitAssistant) RemoveActionWidget(child IsWidget) {
+	C.gtk_assistant_remove_action_widget(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
@@ -1878,12 +1954,12 @@ Sets whether @page contents are complete.
 This will make @assistant update the buttons state
 to be able to continue the task.
 */
-func (self *_TraitAssistant) SetPageComplete(page *Widget, complete bool) {
+func (self *_TraitAssistant) SetPageComplete(page IsWidget, complete bool) {
 	__cgo__complete := C.gboolean(0)
 	if complete {
 		__cgo__complete = C.gboolean(1)
 	}
-	C.gtk_assistant_set_page_complete(self.CPointer, (*C.GtkWidget)(page.CPointer), __cgo__complete)
+	C.gtk_assistant_set_page_complete(self.CPointer, page.GetWidgetPointer(), __cgo__complete)
 	return
 }
 
@@ -1897,9 +1973,9 @@ Sets a title for @page.
 The title is displayed in the header area of the assistant
 when @page is the current page.
 */
-func (self *_TraitAssistant) SetPageTitle(page *Widget, title string) {
+func (self *_TraitAssistant) SetPageTitle(page IsWidget, title string) {
 	__cgo__title := (*C.gchar)(unsafe.Pointer(C.CString(title)))
-	C.gtk_assistant_set_page_title(self.CPointer, (*C.GtkWidget)(page.CPointer), __cgo__title)
+	C.gtk_assistant_set_page_title(self.CPointer, page.GetWidgetPointer(), __cgo__title)
 	C.free(unsafe.Pointer(__cgo__title))
 	return
 }
@@ -1909,8 +1985,8 @@ Sets the page type for @page.
 
 The page type determines the page behavior in the @assistant.
 */
-func (self *_TraitAssistant) SetPageType(page *Widget, type_ C.GtkAssistantPageType) {
-	C.gtk_assistant_set_page_type(self.CPointer, (*C.GtkWidget)(page.CPointer), type_)
+func (self *_TraitAssistant) SetPageType(page IsWidget, type_ C.GtkAssistantPageType) {
+	C.gtk_assistant_set_page_type(self.CPointer, page.GetWidgetPointer(), type_)
 	return
 }
 
@@ -1931,6 +2007,13 @@ func (self *_TraitAssistant) UpdateButtonsState() {
 }
 
 type _TraitBin struct{ CPointer *C.GtkBin }
+type IsBin interface {
+	GetBinPointer() *C.GtkBin
+}
+
+func (self *_TraitBin) GetBinPointer() *C.GtkBin {
+	return self.CPointer
+}
 
 /*
 Gets the child of the #GtkBin, or %NULL if the bin contains
@@ -1940,11 +2023,20 @@ added, so you do not need to unref it.
 func (self *_TraitBin) GetChild() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_bin_get_child(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
 type _TraitBox struct{ CPointer *C.GtkBox }
+type IsBox interface {
+	GetBoxPointer() *C.GtkBox
+}
+
+func (self *_TraitBox) GetBoxPointer() *C.GtkBox {
+	return self.CPointer
+}
 
 /*
 Gets the value set by gtk_box_set_baseline_position().
@@ -1960,7 +2052,9 @@ Retrieves the center widget of the box.
 func (self *_TraitBox) GetCenterWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_box_get_center_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -1990,7 +2084,7 @@ Adds @child to @box, packed with reference to the end of @box.
 The @child is packed after (away from end of) any other child
 packed with reference to the end of @box.
 */
-func (self *_TraitBox) PackEnd(child *Widget, expand bool, fill bool, padding uint) {
+func (self *_TraitBox) PackEnd(child IsWidget, expand bool, fill bool, padding uint) {
 	__cgo__expand := C.gboolean(0)
 	if expand {
 		__cgo__expand = C.gboolean(1)
@@ -1999,7 +2093,7 @@ func (self *_TraitBox) PackEnd(child *Widget, expand bool, fill bool, padding ui
 	if fill {
 		__cgo__fill = C.gboolean(1)
 	}
-	C.gtk_box_pack_end(self.CPointer, (*C.GtkWidget)(child.CPointer), __cgo__expand, __cgo__fill, C.guint(padding))
+	C.gtk_box_pack_end(self.CPointer, child.GetWidgetPointer(), __cgo__expand, __cgo__fill, C.guint(padding))
 	return
 }
 
@@ -2008,7 +2102,7 @@ Adds @child to @box, packed with reference to the start of @box.
 The @child is packed after any other child packed with reference
 to the start of @box.
 */
-func (self *_TraitBox) PackStart(child *Widget, expand bool, fill bool, padding uint) {
+func (self *_TraitBox) PackStart(child IsWidget, expand bool, fill bool, padding uint) {
 	__cgo__expand := C.gboolean(0)
 	if expand {
 		__cgo__expand = C.gboolean(1)
@@ -2017,18 +2111,18 @@ func (self *_TraitBox) PackStart(child *Widget, expand bool, fill bool, padding 
 	if fill {
 		__cgo__fill = C.gboolean(1)
 	}
-	C.gtk_box_pack_start(self.CPointer, (*C.GtkWidget)(child.CPointer), __cgo__expand, __cgo__fill, C.guint(padding))
+	C.gtk_box_pack_start(self.CPointer, child.GetWidgetPointer(), __cgo__expand, __cgo__fill, C.guint(padding))
 	return
 }
 
 /*
 Obtains information about how @child is packed into @box.
 */
-func (self *_TraitBox) QueryChildPacking(child *Widget) (expand bool, fill bool, padding uint, pack_type C.GtkPackType) {
+func (self *_TraitBox) QueryChildPacking(child IsWidget) (expand bool, fill bool, padding uint, pack_type C.GtkPackType) {
 	var __cgo__expand C.gboolean
 	var __cgo__fill C.gboolean
 	var __cgo__padding C.guint
-	C.gtk_box_query_child_packing(self.CPointer, (*C.GtkWidget)(child.CPointer), &__cgo__expand, &__cgo__fill, &__cgo__padding, &pack_type)
+	C.gtk_box_query_child_packing(self.CPointer, child.GetWidgetPointer(), &__cgo__expand, &__cgo__fill, &__cgo__padding, &pack_type)
 	expand = __cgo__expand == C.gboolean(1)
 	fill = __cgo__fill == C.gboolean(1)
 	padding = uint(__cgo__padding)
@@ -2046,8 +2140,8 @@ the widget is packed into @box.  A child widget at some position
 in the list will be packed just after all other widgets of the
 same packing type that appear earlier in the list.
 */
-func (self *_TraitBox) ReorderChild(child *Widget, position int) {
-	C.gtk_box_reorder_child(self.CPointer, (*C.GtkWidget)(child.CPointer), C.gint(position))
+func (self *_TraitBox) ReorderChild(child IsWidget, position int) {
+	C.gtk_box_reorder_child(self.CPointer, child.GetWidgetPointer(), C.gint(position))
 	return
 }
 
@@ -2070,15 +2164,15 @@ centered with respect to the full width of the box, even
 if the children at either side take up different amounts
 of space.
 */
-func (self *_TraitBox) SetCenterWidget(widget *Widget) {
-	C.gtk_box_set_center_widget(self.CPointer, (*C.GtkWidget)(widget.CPointer))
+func (self *_TraitBox) SetCenterWidget(widget IsWidget) {
+	C.gtk_box_set_center_widget(self.CPointer, widget.GetWidgetPointer())
 	return
 }
 
 /*
 Sets the way @child is packed into @box.
 */
-func (self *_TraitBox) SetChildPacking(child *Widget, expand bool, fill bool, padding uint, pack_type C.GtkPackType) {
+func (self *_TraitBox) SetChildPacking(child IsWidget, expand bool, fill bool, padding uint, pack_type C.GtkPackType) {
 	__cgo__expand := C.gboolean(0)
 	if expand {
 		__cgo__expand = C.gboolean(1)
@@ -2087,7 +2181,7 @@ func (self *_TraitBox) SetChildPacking(child *Widget, expand bool, fill bool, pa
 	if fill {
 		__cgo__fill = C.gboolean(1)
 	}
-	C.gtk_box_set_child_packing(self.CPointer, (*C.GtkWidget)(child.CPointer), __cgo__expand, __cgo__fill, C.guint(padding), pack_type)
+	C.gtk_box_set_child_packing(self.CPointer, child.GetWidgetPointer(), __cgo__expand, __cgo__fill, C.guint(padding), pack_type)
 	return
 }
 
@@ -2115,6 +2209,13 @@ func (self *_TraitBox) SetSpacing(spacing int) {
 }
 
 type _TraitBuilder struct{ CPointer *C.GtkBuilder }
+type IsBuilder interface {
+	GetBuilderPointer() *C.GtkBuilder
+}
+
+func (self *_TraitBuilder) GetBuilderPointer() *C.GtkBuilder {
+	return self.CPointer
+}
 
 /*
 Adds the @callback_symbol to the scope of @builder under the given @callback_name.
@@ -2358,7 +2459,9 @@ for constructing proxies, use gtk_builder_set_application().
 func (self *_TraitBuilder) GetApplication() (return__ *Application) {
 	var __cgo__return__ *C.GtkApplication
 	__cgo__return__ = C.gtk_builder_get_application(self.CPointer)
-	return__ = NewApplicationFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewApplicationFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -2426,8 +2529,8 @@ Sets the application associated with @builder.
 You only need this function if there is more than one #GApplication
 in your process.  @application cannot be %NULL.
 */
-func (self *_TraitBuilder) SetApplication(application *Application) {
-	C.gtk_builder_set_application(self.CPointer, (*C.GtkApplication)(application.CPointer))
+func (self *_TraitBuilder) SetApplication(application IsApplication) {
+	C.gtk_builder_set_application(self.CPointer, application.GetApplicationPointer())
 	return
 }
 
@@ -2491,6 +2594,13 @@ func (self *_TraitBuilder) ValueFromStringType(type_ C.GType, string_ string) (v
 }
 
 type _TraitButton struct{ CPointer *C.GtkButton }
+type IsButton interface {
+	GetButtonPointer() *C.GtkButton
+}
+
+func (self *_TraitButton) GetButtonPointer() *C.GtkButton {
+	return self.CPointer
+}
 
 /*
 Emits a #GtkButton::clicked signal to the given #GtkButton.
@@ -2553,7 +2663,9 @@ or constructed by gtk_button_new_from_stock().
 func (self *_TraitButton) GetImage() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_button_get_image(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -2653,8 +2765,8 @@ displayed if the label text is %NULL or if
 #GtkButton:always-show-image is %TRUE. You don’t have to call
 gtk_widget_show() on @image yourself.
 */
-func (self *_TraitButton) SetImage(image *Widget) {
-	C.gtk_button_set_image(self.CPointer, (*C.GtkWidget)(image.CPointer))
+func (self *_TraitButton) SetImage(image IsWidget) {
+	C.gtk_button_set_image(self.CPointer, image.GetWidgetPointer())
 	return
 }
 
@@ -2707,14 +2819,21 @@ func (self *_TraitButton) SetUseUnderline(use_underline bool) {
 }
 
 type _TraitButtonBox struct{ CPointer *C.GtkButtonBox }
+type IsButtonBox interface {
+	GetButtonBoxPointer() *C.GtkButtonBox
+}
+
+func (self *_TraitButtonBox) GetButtonBoxPointer() *C.GtkButtonBox {
+	return self.CPointer
+}
 
 /*
 Returns whether the child is exempted from homogenous
 sizing.
 */
-func (self *_TraitButtonBox) GetChildNonHomogeneous(child *Widget) (return__ bool) {
+func (self *_TraitButtonBox) GetChildNonHomogeneous(child IsWidget) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_button_box_get_child_non_homogeneous(self.CPointer, (*C.GtkWidget)(child.CPointer))
+	__cgo__return__ = C.gtk_button_box_get_child_non_homogeneous(self.CPointer, child.GetWidgetPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -2722,9 +2841,9 @@ func (self *_TraitButtonBox) GetChildNonHomogeneous(child *Widget) (return__ boo
 /*
 Returns whether @child should appear in a secondary group of children.
 */
-func (self *_TraitButtonBox) GetChildSecondary(child *Widget) (return__ bool) {
+func (self *_TraitButtonBox) GetChildSecondary(child IsWidget) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_button_box_get_child_secondary(self.CPointer, (*C.GtkWidget)(child.CPointer))
+	__cgo__return__ = C.gtk_button_box_get_child_secondary(self.CPointer, child.GetWidgetPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -2740,12 +2859,12 @@ func (self *_TraitButtonBox) GetLayout() (return__ C.GtkButtonBoxStyle) {
 /*
 Sets whether the child is exempted from homogeous sizing.
 */
-func (self *_TraitButtonBox) SetChildNonHomogeneous(child *Widget, non_homogeneous bool) {
+func (self *_TraitButtonBox) SetChildNonHomogeneous(child IsWidget, non_homogeneous bool) {
 	__cgo__non_homogeneous := C.gboolean(0)
 	if non_homogeneous {
 		__cgo__non_homogeneous = C.gboolean(1)
 	}
-	C.gtk_button_box_set_child_non_homogeneous(self.CPointer, (*C.GtkWidget)(child.CPointer), __cgo__non_homogeneous)
+	C.gtk_button_box_set_child_non_homogeneous(self.CPointer, child.GetWidgetPointer(), __cgo__non_homogeneous)
 	return
 }
 
@@ -2763,12 +2882,12 @@ or %GTK_BUTTONBOX_END, then the secondary children are aligned at
 the other end of the button box from the main children. For the
 other styles, they appear immediately next to the main children.
 */
-func (self *_TraitButtonBox) SetChildSecondary(child *Widget, is_secondary bool) {
+func (self *_TraitButtonBox) SetChildSecondary(child IsWidget, is_secondary bool) {
 	__cgo__is_secondary := C.gboolean(0)
 	if is_secondary {
 		__cgo__is_secondary = C.gboolean(1)
 	}
-	C.gtk_button_box_set_child_secondary(self.CPointer, (*C.GtkWidget)(child.CPointer), __cgo__is_secondary)
+	C.gtk_button_box_set_child_secondary(self.CPointer, child.GetWidgetPointer(), __cgo__is_secondary)
 	return
 }
 
@@ -2781,6 +2900,13 @@ func (self *_TraitButtonBox) SetLayout(layout_style C.GtkButtonBoxStyle) {
 }
 
 type _TraitCalendar struct{ CPointer *C.GtkCalendar }
+type IsCalendar interface {
+	GetCalendarPointer() *C.GtkCalendar
+}
+
+func (self *_TraitCalendar) GetCalendarPointer() *C.GtkCalendar {
+	return self.CPointer
+}
 
 /*
 Remove all visual markers.
@@ -2921,19 +3047,26 @@ func (self *_TraitCalendar) UnmarkDay(day uint) {
 }
 
 type _TraitCellArea struct{ CPointer *C.GtkCellArea }
+type IsCellArea interface {
+	GetCellAreaPointer() *C.GtkCellArea
+}
+
+func (self *_TraitCellArea) GetCellAreaPointer() *C.GtkCellArea {
+	return self.CPointer
+}
 
 /*
 Activates @area, usually by activating the currently focused
 cell, however some subclasses which embed widgets in the area
 can also activate a widget if it currently has the focus.
 */
-func (self *_TraitCellArea) Activate(context *CellAreaContext, widget *Widget, cell_area *C.GdkRectangle, flags C.GtkCellRendererState, edit_only bool) (return__ bool) {
+func (self *_TraitCellArea) Activate(context IsCellAreaContext, widget IsWidget, cell_area *C.GdkRectangle, flags C.GtkCellRendererState, edit_only bool) (return__ bool) {
 	__cgo__edit_only := C.gboolean(0)
 	if edit_only {
 		__cgo__edit_only = C.gboolean(1)
 	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_cell_area_activate(self.CPointer, (*C.GtkCellAreaContext)(context.CPointer), (*C.GtkWidget)(widget.CPointer), cell_area, flags, __cgo__edit_only)
+	__cgo__return__ = C.gtk_cell_area_activate(self.CPointer, context.GetCellAreaContextPointer(), widget.GetWidgetPointer(), cell_area, flags, __cgo__edit_only)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -2944,9 +3077,9 @@ to activate cells, the base #GtkCellArea class activates cells
 for keyboard events for free in its own GtkCellArea->activate()
 implementation.
 */
-func (self *_TraitCellArea) ActivateCell(widget *Widget, renderer *CellRenderer, event *C.GdkEvent, cell_area *C.GdkRectangle, flags C.GtkCellRendererState) (return__ bool) {
+func (self *_TraitCellArea) ActivateCell(widget IsWidget, renderer IsCellRenderer, event *C.GdkEvent, cell_area *C.GdkRectangle, flags C.GtkCellRendererState) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_cell_area_activate_cell(self.CPointer, (*C.GtkWidget)(widget.CPointer), (*C.GtkCellRenderer)(renderer.CPointer), event, cell_area, flags)
+	__cgo__return__ = C.gtk_cell_area_activate_cell(self.CPointer, widget.GetWidgetPointer(), renderer.GetCellRendererPointer(), event, cell_area, flags)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -2954,8 +3087,8 @@ func (self *_TraitCellArea) ActivateCell(widget *Widget, renderer *CellRenderer,
 /*
 Adds @renderer to @area with the default child cell properties.
 */
-func (self *_TraitCellArea) Add(renderer *CellRenderer) {
-	C.gtk_cell_area_add(self.CPointer, (*C.GtkCellRenderer)(renderer.CPointer))
+func (self *_TraitCellArea) Add(renderer IsCellRenderer) {
+	C.gtk_cell_area_add(self.CPointer, renderer.GetCellRendererPointer())
 	return
 }
 
@@ -2967,8 +3100,8 @@ focus for a given row.
 Events handled by focus siblings can also activate the given
 focusable @renderer.
 */
-func (self *_TraitCellArea) AddFocusSibling(renderer *CellRenderer, sibling *CellRenderer) {
-	C.gtk_cell_area_add_focus_sibling(self.CPointer, (*C.GtkCellRenderer)(renderer.CPointer), (*C.GtkCellRenderer)(sibling.CPointer))
+func (self *_TraitCellArea) AddFocusSibling(renderer IsCellRenderer, sibling IsCellRenderer) {
+	C.gtk_cell_area_add_focus_sibling(self.CPointer, renderer.GetCellRendererPointer(), sibling.GetCellRendererPointer())
 	return
 }
 
@@ -2978,7 +3111,7 @@ func (self *_TraitCellArea) AddFocusSibling(renderer *CellRenderer, sibling *Cel
 Applies any connected attributes to the renderers in
 @area by pulling the values from @tree_model.
 */
-func (self *_TraitCellArea) ApplyAttributes(tree_model *C.GtkTreeModel, iter *TreeIter, is_expander bool, is_expanded bool) {
+func (self *_TraitCellArea) ApplyAttributes(tree_model *C.GtkTreeModel, iter *C.GtkTreeIter, is_expander bool, is_expanded bool) {
 	__cgo__is_expander := C.gboolean(0)
 	if is_expander {
 		__cgo__is_expander = C.gboolean(1)
@@ -2987,7 +3120,7 @@ func (self *_TraitCellArea) ApplyAttributes(tree_model *C.GtkTreeModel, iter *Tr
 	if is_expanded {
 		__cgo__is_expanded = C.gboolean(1)
 	}
-	C.gtk_cell_area_apply_attributes(self.CPointer, tree_model, (*C.GtkTreeIter)(unsafe.Pointer(iter)), __cgo__is_expander, __cgo__is_expanded)
+	C.gtk_cell_area_apply_attributes(self.CPointer, tree_model, iter, __cgo__is_expander, __cgo__is_expanded)
 	return
 }
 
@@ -2995,9 +3128,9 @@ func (self *_TraitCellArea) ApplyAttributes(tree_model *C.GtkTreeModel, iter *Tr
 Connects an @attribute to apply values from @column for the
 #GtkTreeModel in use.
 */
-func (self *_TraitCellArea) AttributeConnect(renderer *CellRenderer, attribute string, column int) {
+func (self *_TraitCellArea) AttributeConnect(renderer IsCellRenderer, attribute string, column int) {
 	__cgo__attribute := (*C.gchar)(unsafe.Pointer(C.CString(attribute)))
-	C.gtk_cell_area_attribute_connect(self.CPointer, (*C.GtkCellRenderer)(renderer.CPointer), __cgo__attribute, C.gint(column))
+	C.gtk_cell_area_attribute_connect(self.CPointer, renderer.GetCellRendererPointer(), __cgo__attribute, C.gint(column))
 	C.free(unsafe.Pointer(__cgo__attribute))
 	return
 }
@@ -3007,9 +3140,9 @@ Disconnects @attribute for the @renderer in @area so that
 attribute will no longer be updated with values from the
 model.
 */
-func (self *_TraitCellArea) AttributeDisconnect(renderer *CellRenderer, attribute string) {
+func (self *_TraitCellArea) AttributeDisconnect(renderer IsCellRenderer, attribute string) {
 	__cgo__attribute := (*C.gchar)(unsafe.Pointer(C.CString(attribute)))
-	C.gtk_cell_area_attribute_disconnect(self.CPointer, (*C.GtkCellRenderer)(renderer.CPointer), __cgo__attribute)
+	C.gtk_cell_area_attribute_disconnect(self.CPointer, renderer.GetCellRendererPointer(), __cgo__attribute)
 	C.free(unsafe.Pointer(__cgo__attribute))
 	return
 }
@@ -3019,9 +3152,9 @@ func (self *_TraitCellArea) AttributeDisconnect(renderer *CellRenderer, attribut
 /*
 Gets the value of a cell property for @renderer in @area.
 */
-func (self *_TraitCellArea) CellGetProperty(renderer *CellRenderer, property_name string, value *C.GValue) {
+func (self *_TraitCellArea) CellGetProperty(renderer IsCellRenderer, property_name string, value *C.GValue) {
 	__cgo__property_name := (*C.gchar)(unsafe.Pointer(C.CString(property_name)))
-	C.gtk_cell_area_cell_get_property(self.CPointer, (*C.GtkCellRenderer)(renderer.CPointer), __cgo__property_name, value)
+	C.gtk_cell_area_cell_get_property(self.CPointer, renderer.GetCellRendererPointer(), __cgo__property_name, value)
 	C.free(unsafe.Pointer(__cgo__property_name))
 	return
 }
@@ -3033,9 +3166,9 @@ func (self *_TraitCellArea) CellGetProperty(renderer *CellRenderer, property_nam
 /*
 Sets a cell property for @renderer in @area.
 */
-func (self *_TraitCellArea) CellSetProperty(renderer *CellRenderer, property_name string, value *C.GValue) {
+func (self *_TraitCellArea) CellSetProperty(renderer IsCellRenderer, property_name string, value *C.GValue) {
 	__cgo__property_name := (*C.gchar)(unsafe.Pointer(C.CString(property_name)))
-	C.gtk_cell_area_cell_set_property(self.CPointer, (*C.GtkCellRenderer)(renderer.CPointer), __cgo__property_name, value)
+	C.gtk_cell_area_cell_set_property(self.CPointer, renderer.GetCellRendererPointer(), __cgo__property_name, value)
 	C.free(unsafe.Pointer(__cgo__property_name))
 	return
 }
@@ -3055,10 +3188,12 @@ request the heights of each row based on a context which
 was already used to request all the row widths that are
 to be displayed.
 */
-func (self *_TraitCellArea) CopyContext(context *CellAreaContext) (return__ *CellAreaContext) {
+func (self *_TraitCellArea) CopyContext(context IsCellAreaContext) (return__ *CellAreaContext) {
 	var __cgo__return__ *C.GtkCellAreaContext
-	__cgo__return__ = C.gtk_cell_area_copy_context(self.CPointer, (*C.GtkCellAreaContext)(context.CPointer))
-	return__ = NewCellAreaContextFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	__cgo__return__ = C.gtk_cell_area_copy_context(self.CPointer, context.GetCellAreaContextPointer())
+	if __cgo__return__ != nil {
+		return__ = NewCellAreaContextFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -3073,16 +3208,18 @@ which was used to request the size of those rows of data).
 func (self *_TraitCellArea) CreateContext() (return__ *CellAreaContext) {
 	var __cgo__return__ *C.GtkCellAreaContext
 	__cgo__return__ = C.gtk_cell_area_create_context(self.CPointer)
-	return__ = NewCellAreaContextFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewCellAreaContextFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
 /*
 Delegates event handling to a #GtkCellArea.
 */
-func (self *_TraitCellArea) Event(context *CellAreaContext, widget *Widget, event *C.GdkEvent, cell_area *C.GdkRectangle, flags C.GtkCellRendererState) (return__ int) {
+func (self *_TraitCellArea) Event(context IsCellAreaContext, widget IsWidget, event *C.GdkEvent, cell_area *C.GdkRectangle, flags C.GtkCellRendererState) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_cell_area_event(self.CPointer, (*C.GtkCellAreaContext)(context.CPointer), (*C.GtkWidget)(widget.CPointer), event, cell_area, flags)
+	__cgo__return__ = C.gtk_cell_area_event(self.CPointer, context.GetCellAreaContextPointer(), widget.GetWidgetPointer(), event, cell_area, flags)
 	return__ = int(__cgo__return__)
 	return
 }
@@ -3115,8 +3252,8 @@ func (self *_TraitCellArea) Foreach(callback C.GtkCellCallback, callback_data un
 Calls @callback for every #GtkCellRenderer in @area with the
 allocated rectangle inside @cell_area.
 */
-func (self *_TraitCellArea) ForeachAlloc(context *CellAreaContext, widget *Widget, cell_area *C.GdkRectangle, background_area *C.GdkRectangle, callback C.GtkCellAllocCallback, callback_data unsafe.Pointer) {
-	C.gtk_cell_area_foreach_alloc(self.CPointer, (*C.GtkCellAreaContext)(context.CPointer), (*C.GtkWidget)(widget.CPointer), cell_area, background_area, callback, (C.gpointer)(callback_data))
+func (self *_TraitCellArea) ForeachAlloc(context IsCellAreaContext, widget IsWidget, cell_area *C.GdkRectangle, background_area *C.GdkRectangle, callback C.GtkCellAllocCallback, callback_data unsafe.Pointer) {
+	C.gtk_cell_area_foreach_alloc(self.CPointer, context.GetCellAreaContextPointer(), widget.GetWidgetPointer(), cell_area, background_area, callback, (C.gpointer)(callback_data))
 	return
 }
 
@@ -3124,8 +3261,8 @@ func (self *_TraitCellArea) ForeachAlloc(context *CellAreaContext, widget *Widge
 Derives the allocation of @renderer inside @area if @area
 were to be renderered in @cell_area.
 */
-func (self *_TraitCellArea) GetCellAllocation(context *CellAreaContext, widget *Widget, renderer *CellRenderer, cell_area *C.GdkRectangle) (allocation C.GdkRectangle) {
-	C.gtk_cell_area_get_cell_allocation(self.CPointer, (*C.GtkCellAreaContext)(context.CPointer), (*C.GtkWidget)(widget.CPointer), (*C.GtkCellRenderer)(renderer.CPointer), cell_area, &allocation)
+func (self *_TraitCellArea) GetCellAllocation(context IsCellAreaContext, widget IsWidget, renderer IsCellRenderer, cell_area *C.GdkRectangle) (allocation C.GdkRectangle) {
+	C.gtk_cell_area_get_cell_allocation(self.CPointer, context.GetCellAreaContextPointer(), widget.GetWidgetPointer(), renderer.GetCellRendererPointer(), cell_area, &allocation)
 	return
 }
 
@@ -3133,10 +3270,12 @@ func (self *_TraitCellArea) GetCellAllocation(context *CellAreaContext, widget *
 Gets the #GtkCellRenderer at @x and @y coordinates inside @area and optionally
 returns the full cell allocation for it inside @cell_area.
 */
-func (self *_TraitCellArea) GetCellAtPosition(context *CellAreaContext, widget *Widget, cell_area *C.GdkRectangle, x int, y int) (alloc_area C.GdkRectangle, return__ *CellRenderer) {
+func (self *_TraitCellArea) GetCellAtPosition(context IsCellAreaContext, widget IsWidget, cell_area *C.GdkRectangle, x int, y int) (alloc_area C.GdkRectangle, return__ *CellRenderer) {
 	var __cgo__return__ *C.GtkCellRenderer
-	__cgo__return__ = C.gtk_cell_area_get_cell_at_position(self.CPointer, (*C.GtkCellAreaContext)(context.CPointer), (*C.GtkWidget)(widget.CPointer), cell_area, C.gint(x), C.gint(y), &alloc_area)
-	return__ = NewCellRendererFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	__cgo__return__ = C.gtk_cell_area_get_cell_at_position(self.CPointer, context.GetCellAreaContextPointer(), widget.GetWidgetPointer(), cell_area, C.gint(x), C.gint(y), &alloc_area)
+	if __cgo__return__ != nil {
+		return__ = NewCellRendererFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -3170,7 +3309,9 @@ being edited.
 func (self *_TraitCellArea) GetEditedCell() (return__ *CellRenderer) {
 	var __cgo__return__ *C.GtkCellRenderer
 	__cgo__return__ = C.gtk_cell_area_get_edited_cell(self.CPointer)
-	return__ = NewCellRendererFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewCellRendererFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -3180,7 +3321,9 @@ Retrieves the currently focused cell for @area
 func (self *_TraitCellArea) GetFocusCell() (return__ *CellRenderer) {
 	var __cgo__return__ *C.GtkCellRenderer
 	__cgo__return__ = C.gtk_cell_area_get_focus_cell(self.CPointer)
-	return__ = NewCellRendererFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewCellRendererFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -3193,18 +3336,20 @@ after determining the renderer at the event location it can
 then chose to activate the focus cell for which the event
 cell may have been a sibling.
 */
-func (self *_TraitCellArea) GetFocusFromSibling(renderer *CellRenderer) (return__ *CellRenderer) {
+func (self *_TraitCellArea) GetFocusFromSibling(renderer IsCellRenderer) (return__ *CellRenderer) {
 	var __cgo__return__ *C.GtkCellRenderer
-	__cgo__return__ = C.gtk_cell_area_get_focus_from_sibling(self.CPointer, (*C.GtkCellRenderer)(renderer.CPointer))
-	return__ = NewCellRendererFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	__cgo__return__ = C.gtk_cell_area_get_focus_from_sibling(self.CPointer, renderer.GetCellRendererPointer())
+	if __cgo__return__ != nil {
+		return__ = NewCellRendererFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
 /*
 Gets the focus sibling cell renderers for @renderer.
 */
-func (self *_TraitCellArea) GetFocusSiblings(renderer *CellRenderer) (return__ *C.GList) {
-	return__ = C.gtk_cell_area_get_focus_siblings(self.CPointer, (*C.GtkCellRenderer)(renderer.CPointer))
+func (self *_TraitCellArea) GetFocusSiblings(renderer IsCellRenderer) (return__ *C.GList) {
+	return__ = C.gtk_cell_area_get_focus_siblings(self.CPointer, renderer.GetCellRendererPointer())
 	return
 }
 
@@ -3217,10 +3362,10 @@ to check the @minimum_height and @natural_height of this call but rather to
 consult gtk_cell_area_context_get_preferred_height() after a series of
 requests.
 */
-func (self *_TraitCellArea) GetPreferredHeight(context *CellAreaContext, widget *Widget) (minimum_height int, natural_height int) {
+func (self *_TraitCellArea) GetPreferredHeight(context IsCellAreaContext, widget IsWidget) (minimum_height int, natural_height int) {
 	var __cgo__minimum_height C.gint
 	var __cgo__natural_height C.gint
-	C.gtk_cell_area_get_preferred_height(self.CPointer, (*C.GtkCellAreaContext)(context.CPointer), (*C.GtkWidget)(widget.CPointer), &__cgo__minimum_height, &__cgo__natural_height)
+	C.gtk_cell_area_get_preferred_height(self.CPointer, context.GetCellAreaContextPointer(), widget.GetWidgetPointer(), &__cgo__minimum_height, &__cgo__natural_height)
 	minimum_height = int(__cgo__minimum_height)
 	natural_height = int(__cgo__natural_height)
 	return
@@ -3242,10 +3387,10 @@ requested with gtk_cell_area_get_preferred_width() again and then
 the full width of the requested rows checked again with
 gtk_cell_area_context_get_preferred_width().
 */
-func (self *_TraitCellArea) GetPreferredHeightForWidth(context *CellAreaContext, widget *Widget, width int) (minimum_height int, natural_height int) {
+func (self *_TraitCellArea) GetPreferredHeightForWidth(context IsCellAreaContext, widget IsWidget, width int) (minimum_height int, natural_height int) {
 	var __cgo__minimum_height C.gint
 	var __cgo__natural_height C.gint
-	C.gtk_cell_area_get_preferred_height_for_width(self.CPointer, (*C.GtkCellAreaContext)(context.CPointer), (*C.GtkWidget)(widget.CPointer), C.gint(width), &__cgo__minimum_height, &__cgo__natural_height)
+	C.gtk_cell_area_get_preferred_height_for_width(self.CPointer, context.GetCellAreaContextPointer(), widget.GetWidgetPointer(), C.gint(width), &__cgo__minimum_height, &__cgo__natural_height)
 	minimum_height = int(__cgo__minimum_height)
 	natural_height = int(__cgo__natural_height)
 	return
@@ -3260,10 +3405,10 @@ to check the @minimum_width and @natural_width of this call but rather to
 consult gtk_cell_area_context_get_preferred_width() after a series of
 requests.
 */
-func (self *_TraitCellArea) GetPreferredWidth(context *CellAreaContext, widget *Widget) (minimum_width int, natural_width int) {
+func (self *_TraitCellArea) GetPreferredWidth(context IsCellAreaContext, widget IsWidget) (minimum_width int, natural_width int) {
 	var __cgo__minimum_width C.gint
 	var __cgo__natural_width C.gint
-	C.gtk_cell_area_get_preferred_width(self.CPointer, (*C.GtkCellAreaContext)(context.CPointer), (*C.GtkWidget)(widget.CPointer), &__cgo__minimum_width, &__cgo__natural_width)
+	C.gtk_cell_area_get_preferred_width(self.CPointer, context.GetCellAreaContextPointer(), widget.GetWidgetPointer(), &__cgo__minimum_width, &__cgo__natural_width)
 	minimum_width = int(__cgo__minimum_width)
 	natural_width = int(__cgo__natural_width)
 	return
@@ -3285,10 +3430,10 @@ requested with gtk_cell_area_get_preferred_height() again and then
 the full height of the requested rows checked again with
 gtk_cell_area_context_get_preferred_height().
 */
-func (self *_TraitCellArea) GetPreferredWidthForHeight(context *CellAreaContext, widget *Widget, height int) (minimum_width int, natural_width int) {
+func (self *_TraitCellArea) GetPreferredWidthForHeight(context IsCellAreaContext, widget IsWidget, height int) (minimum_width int, natural_width int) {
 	var __cgo__minimum_width C.gint
 	var __cgo__natural_width C.gint
-	C.gtk_cell_area_get_preferred_width_for_height(self.CPointer, (*C.GtkCellAreaContext)(context.CPointer), (*C.GtkWidget)(widget.CPointer), C.gint(height), &__cgo__minimum_width, &__cgo__natural_width)
+	C.gtk_cell_area_get_preferred_width_for_height(self.CPointer, context.GetCellAreaContextPointer(), widget.GetWidgetPointer(), C.gint(height), &__cgo__minimum_width, &__cgo__natural_width)
 	minimum_width = int(__cgo__minimum_width)
 	natural_width = int(__cgo__natural_width)
 	return
@@ -3306,9 +3451,9 @@ func (self *_TraitCellArea) GetRequestMode() (return__ C.GtkSizeRequestMode) {
 /*
 Checks if @area contains @renderer.
 */
-func (self *_TraitCellArea) HasRenderer(renderer *CellRenderer) (return__ bool) {
+func (self *_TraitCellArea) HasRenderer(renderer IsCellRenderer) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_cell_area_has_renderer(self.CPointer, (*C.GtkCellRenderer)(renderer.CPointer))
+	__cgo__return__ = C.gtk_cell_area_has_renderer(self.CPointer, renderer.GetCellRendererPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -3318,8 +3463,8 @@ This is a convenience function for #GtkCellArea implementations
 to get the inner area where a given #GtkCellRenderer will be
 rendered. It removes any padding previously added by gtk_cell_area_request_renderer().
 */
-func (self *_TraitCellArea) InnerCellArea(widget *Widget, cell_area *C.GdkRectangle) (inner_area C.GdkRectangle) {
-	C.gtk_cell_area_inner_cell_area(self.CPointer, (*C.GtkWidget)(widget.CPointer), cell_area, &inner_area)
+func (self *_TraitCellArea) InnerCellArea(widget IsWidget, cell_area *C.GdkRectangle) (inner_area C.GdkRectangle) {
+	C.gtk_cell_area_inner_cell_area(self.CPointer, widget.GetWidgetPointer(), cell_area, &inner_area)
 	return
 }
 
@@ -3338,9 +3483,9 @@ func (self *_TraitCellArea) IsActivatable() (return__ bool) {
 Returns whether @sibling is one of @renderer’s focus siblings
 (see gtk_cell_area_add_focus_sibling()).
 */
-func (self *_TraitCellArea) IsFocusSibling(renderer *CellRenderer, sibling *CellRenderer) (return__ bool) {
+func (self *_TraitCellArea) IsFocusSibling(renderer IsCellRenderer, sibling IsCellRenderer) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_cell_area_is_focus_sibling(self.CPointer, (*C.GtkCellRenderer)(renderer.CPointer), (*C.GtkCellRenderer)(sibling.CPointer))
+	__cgo__return__ = C.gtk_cell_area_is_focus_sibling(self.CPointer, renderer.GetCellRendererPointer(), sibling.GetCellRendererPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -3348,8 +3493,8 @@ func (self *_TraitCellArea) IsFocusSibling(renderer *CellRenderer, sibling *Cell
 /*
 Removes @renderer from @area.
 */
-func (self *_TraitCellArea) Remove(renderer *CellRenderer) {
-	C.gtk_cell_area_remove(self.CPointer, (*C.GtkCellRenderer)(renderer.CPointer))
+func (self *_TraitCellArea) Remove(renderer IsCellRenderer) {
+	C.gtk_cell_area_remove(self.CPointer, renderer.GetCellRendererPointer())
 	return
 }
 
@@ -3357,8 +3502,8 @@ func (self *_TraitCellArea) Remove(renderer *CellRenderer) {
 Removes @sibling from @renderer’s focus sibling list
 (see gtk_cell_area_add_focus_sibling()).
 */
-func (self *_TraitCellArea) RemoveFocusSibling(renderer *CellRenderer, sibling *CellRenderer) {
-	C.gtk_cell_area_remove_focus_sibling(self.CPointer, (*C.GtkCellRenderer)(renderer.CPointer), (*C.GtkCellRenderer)(sibling.CPointer))
+func (self *_TraitCellArea) RemoveFocusSibling(renderer IsCellRenderer, sibling IsCellRenderer) {
+	C.gtk_cell_area_remove_focus_sibling(self.CPointer, renderer.GetCellRendererPointer(), sibling.GetCellRendererPointer())
 	return
 }
 
@@ -3366,12 +3511,12 @@ func (self *_TraitCellArea) RemoveFocusSibling(renderer *CellRenderer, sibling *
 Renders @area’s cells according to @area’s layout onto @widget at
 the given coordinates.
 */
-func (self *_TraitCellArea) Render(context *CellAreaContext, widget *Widget, cr *C.cairo_t, background_area *C.GdkRectangle, cell_area *C.GdkRectangle, flags C.GtkCellRendererState, paint_focus bool) {
+func (self *_TraitCellArea) Render(context IsCellAreaContext, widget IsWidget, cr *C.cairo_t, background_area *C.GdkRectangle, cell_area *C.GdkRectangle, flags C.GtkCellRendererState, paint_focus bool) {
 	__cgo__paint_focus := C.gboolean(0)
 	if paint_focus {
 		__cgo__paint_focus = C.gboolean(1)
 	}
-	C.gtk_cell_area_render(self.CPointer, (*C.GtkCellAreaContext)(context.CPointer), (*C.GtkWidget)(widget.CPointer), cr, background_area, cell_area, flags, __cgo__paint_focus)
+	C.gtk_cell_area_render(self.CPointer, context.GetCellAreaContextPointer(), widget.GetWidgetPointer(), cr, background_area, cell_area, flags, __cgo__paint_focus)
 	return
 }
 
@@ -3382,10 +3527,10 @@ function to request size and then use gtk_cell_area_inner_cell_area()
 at render and event time since this function will add padding
 around the cell for focus painting.
 */
-func (self *_TraitCellArea) RequestRenderer(renderer *CellRenderer, orientation C.GtkOrientation, widget *Widget, for_size int) (minimum_size int, natural_size int) {
+func (self *_TraitCellArea) RequestRenderer(renderer IsCellRenderer, orientation C.GtkOrientation, widget IsWidget, for_size int) (minimum_size int, natural_size int) {
 	var __cgo__minimum_size C.gint
 	var __cgo__natural_size C.gint
-	C.gtk_cell_area_request_renderer(self.CPointer, (*C.GtkCellRenderer)(renderer.CPointer), orientation, (*C.GtkWidget)(widget.CPointer), C.gint(for_size), &__cgo__minimum_size, &__cgo__natural_size)
+	C.gtk_cell_area_request_renderer(self.CPointer, renderer.GetCellRendererPointer(), orientation, widget.GetWidgetPointer(), C.gint(for_size), &__cgo__minimum_size, &__cgo__natural_size)
 	minimum_size = int(__cgo__minimum_size)
 	natural_size = int(__cgo__natural_size)
 	return
@@ -3399,8 +3544,8 @@ This is generally called by implementations of
 however it can also be used to implement functions such
 as gtk_tree_view_set_cursor_on_cell().
 */
-func (self *_TraitCellArea) SetFocusCell(renderer *CellRenderer) {
-	C.gtk_cell_area_set_focus_cell(self.CPointer, (*C.GtkCellRenderer)(renderer.CPointer))
+func (self *_TraitCellArea) SetFocusCell(renderer IsCellRenderer) {
+	C.gtk_cell_area_set_focus_cell(self.CPointer, renderer.GetCellRendererPointer())
 	return
 }
 
@@ -3424,6 +3569,13 @@ func (self *_TraitCellArea) StopEditing(canceled bool) {
 }
 
 type _TraitCellAreaBox struct{ CPointer *C.GtkCellAreaBox }
+type IsCellAreaBox interface {
+	GetCellAreaBoxPointer() *C.GtkCellAreaBox
+}
+
+func (self *_TraitCellAreaBox) GetCellAreaBoxPointer() *C.GtkCellAreaBox {
+	return self.CPointer
+}
 
 /*
 Gets the spacing added between cell renderers.
@@ -3441,7 +3593,7 @@ Adds @renderer to @box, packed with reference to the end of @box.
 The @renderer is packed after (away from end of) any other
 #GtkCellRenderer packed with reference to the end of @box.
 */
-func (self *_TraitCellAreaBox) PackEnd(renderer *CellRenderer, expand bool, align bool, fixed bool) {
+func (self *_TraitCellAreaBox) PackEnd(renderer IsCellRenderer, expand bool, align bool, fixed bool) {
 	__cgo__expand := C.gboolean(0)
 	if expand {
 		__cgo__expand = C.gboolean(1)
@@ -3454,7 +3606,7 @@ func (self *_TraitCellAreaBox) PackEnd(renderer *CellRenderer, expand bool, alig
 	if fixed {
 		__cgo__fixed = C.gboolean(1)
 	}
-	C.gtk_cell_area_box_pack_end(self.CPointer, (*C.GtkCellRenderer)(renderer.CPointer), __cgo__expand, __cgo__align, __cgo__fixed)
+	C.gtk_cell_area_box_pack_end(self.CPointer, renderer.GetCellRendererPointer(), __cgo__expand, __cgo__align, __cgo__fixed)
 	return
 }
 
@@ -3464,7 +3616,7 @@ Adds @renderer to @box, packed with reference to the start of @box.
 The @renderer is packed after any other #GtkCellRenderer packed
 with reference to the start of @box.
 */
-func (self *_TraitCellAreaBox) PackStart(renderer *CellRenderer, expand bool, align bool, fixed bool) {
+func (self *_TraitCellAreaBox) PackStart(renderer IsCellRenderer, expand bool, align bool, fixed bool) {
 	__cgo__expand := C.gboolean(0)
 	if expand {
 		__cgo__expand = C.gboolean(1)
@@ -3477,7 +3629,7 @@ func (self *_TraitCellAreaBox) PackStart(renderer *CellRenderer, expand bool, al
 	if fixed {
 		__cgo__fixed = C.gboolean(1)
 	}
-	C.gtk_cell_area_box_pack_start(self.CPointer, (*C.GtkCellRenderer)(renderer.CPointer), __cgo__expand, __cgo__align, __cgo__fixed)
+	C.gtk_cell_area_box_pack_start(self.CPointer, renderer.GetCellRendererPointer(), __cgo__expand, __cgo__align, __cgo__fixed)
 	return
 }
 
@@ -3490,6 +3642,13 @@ func (self *_TraitCellAreaBox) SetSpacing(spacing int) {
 }
 
 type _TraitCellAreaContext struct{ CPointer *C.GtkCellAreaContext }
+type IsCellAreaContext interface {
+	GetCellAreaContextPointer() *C.GtkCellAreaContext
+}
+
+func (self *_TraitCellAreaContext) GetCellAreaContextPointer() *C.GtkCellAreaContext {
+	return self.CPointer
+}
 
 /*
 Allocates a width and/or a height for all rows which are to be
@@ -3541,7 +3700,9 @@ compute a proper allocation.
 func (self *_TraitCellAreaContext) GetArea() (return__ *CellArea) {
 	var __cgo__return__ *C.GtkCellArea
 	__cgo__return__ = C.gtk_cell_area_context_get_area(self.CPointer)
-	return__ = NewCellAreaFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewCellAreaFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -3669,16 +3830,23 @@ func (self *_TraitCellAreaContext) Reset() {
 }
 
 type _TraitCellRenderer struct{ CPointer *C.GtkCellRenderer }
+type IsCellRenderer interface {
+	GetCellRendererPointer() *C.GtkCellRenderer
+}
+
+func (self *_TraitCellRenderer) GetCellRendererPointer() *C.GtkCellRenderer {
+	return self.CPointer
+}
 
 /*
 Passes an activate event to the cell renderer for possible processing.
 Some cell renderers may use events; for example, #GtkCellRendererToggle
 toggles when it gets a mouse click.
 */
-func (self *_TraitCellRenderer) Activate(event *C.GdkEvent, widget *Widget, path string, background_area *C.GdkRectangle, cell_area *C.GdkRectangle, flags C.GtkCellRendererState) (return__ bool) {
+func (self *_TraitCellRenderer) Activate(event *C.GdkEvent, widget IsWidget, path string, background_area *C.GdkRectangle, cell_area *C.GdkRectangle, flags C.GtkCellRendererState) (return__ bool) {
 	__cgo__path := (*C.gchar)(unsafe.Pointer(C.CString(path)))
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_cell_renderer_activate(self.CPointer, event, (*C.GtkWidget)(widget.CPointer), __cgo__path, background_area, cell_area, flags)
+	__cgo__return__ = C.gtk_cell_renderer_activate(self.CPointer, event, widget.GetWidgetPointer(), __cgo__path, background_area, cell_area, flags)
 	C.free(unsafe.Pointer(__cgo__path))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
@@ -3688,8 +3856,8 @@ func (self *_TraitCellRenderer) Activate(event *C.GdkEvent, widget *Widget, path
 Gets the aligned area used by @cell inside @cell_area. Used for finding
 the appropriate edit and focus rectangle.
 */
-func (self *_TraitCellRenderer) GetAlignedArea(widget *Widget, flags C.GtkCellRendererState, cell_area *C.GdkRectangle) (aligned_area C.GdkRectangle) {
-	C.gtk_cell_renderer_get_aligned_area(self.CPointer, (*C.GtkWidget)(widget.CPointer), flags, cell_area, &aligned_area)
+func (self *_TraitCellRenderer) GetAlignedArea(widget IsWidget, flags C.GtkCellRendererState, cell_area *C.GdkRectangle) (aligned_area C.GdkRectangle) {
+	C.gtk_cell_renderer_get_aligned_area(self.CPointer, widget.GetWidgetPointer(), flags, cell_area, &aligned_area)
 	return
 }
 
@@ -3732,10 +3900,10 @@ func (self *_TraitCellRenderer) GetPadding() (xpad int, ypad int) {
 /*
 Retreives a renderer’s natural size when rendered to @widget.
 */
-func (self *_TraitCellRenderer) GetPreferredHeight(widget *Widget) (minimum_size int, natural_size int) {
+func (self *_TraitCellRenderer) GetPreferredHeight(widget IsWidget) (minimum_size int, natural_size int) {
 	var __cgo__minimum_size C.gint
 	var __cgo__natural_size C.gint
-	C.gtk_cell_renderer_get_preferred_height(self.CPointer, (*C.GtkWidget)(widget.CPointer), &__cgo__minimum_size, &__cgo__natural_size)
+	C.gtk_cell_renderer_get_preferred_height(self.CPointer, widget.GetWidgetPointer(), &__cgo__minimum_size, &__cgo__natural_size)
 	minimum_size = int(__cgo__minimum_size)
 	natural_size = int(__cgo__natural_size)
 	return
@@ -3745,10 +3913,10 @@ func (self *_TraitCellRenderer) GetPreferredHeight(widget *Widget) (minimum_size
 Retreives a cell renderers’s minimum and natural height if it were rendered to
 @widget with the specified @width.
 */
-func (self *_TraitCellRenderer) GetPreferredHeightForWidth(widget *Widget, width int) (minimum_height int, natural_height int) {
+func (self *_TraitCellRenderer) GetPreferredHeightForWidth(widget IsWidget, width int) (minimum_height int, natural_height int) {
 	var __cgo__minimum_height C.gint
 	var __cgo__natural_height C.gint
-	C.gtk_cell_renderer_get_preferred_height_for_width(self.CPointer, (*C.GtkWidget)(widget.CPointer), C.gint(width), &__cgo__minimum_height, &__cgo__natural_height)
+	C.gtk_cell_renderer_get_preferred_height_for_width(self.CPointer, widget.GetWidgetPointer(), C.gint(width), &__cgo__minimum_height, &__cgo__natural_height)
 	minimum_height = int(__cgo__minimum_height)
 	natural_height = int(__cgo__natural_height)
 	return
@@ -3758,18 +3926,18 @@ func (self *_TraitCellRenderer) GetPreferredHeightForWidth(widget *Widget, width
 Retrieves the minimum and natural size of a cell taking
 into account the widget’s preference for height-for-width management.
 */
-func (self *_TraitCellRenderer) GetPreferredSize(widget *Widget) (minimum_size C.GtkRequisition, natural_size C.GtkRequisition) {
-	C.gtk_cell_renderer_get_preferred_size(self.CPointer, (*C.GtkWidget)(widget.CPointer), &minimum_size, &natural_size)
+func (self *_TraitCellRenderer) GetPreferredSize(widget IsWidget) (minimum_size C.GtkRequisition, natural_size C.GtkRequisition) {
+	C.gtk_cell_renderer_get_preferred_size(self.CPointer, widget.GetWidgetPointer(), &minimum_size, &natural_size)
 	return
 }
 
 /*
 Retreives a renderer’s natural size when rendered to @widget.
 */
-func (self *_TraitCellRenderer) GetPreferredWidth(widget *Widget) (minimum_size int, natural_size int) {
+func (self *_TraitCellRenderer) GetPreferredWidth(widget IsWidget) (minimum_size int, natural_size int) {
 	var __cgo__minimum_size C.gint
 	var __cgo__natural_size C.gint
-	C.gtk_cell_renderer_get_preferred_width(self.CPointer, (*C.GtkWidget)(widget.CPointer), &__cgo__minimum_size, &__cgo__natural_size)
+	C.gtk_cell_renderer_get_preferred_width(self.CPointer, widget.GetWidgetPointer(), &__cgo__minimum_size, &__cgo__natural_size)
 	minimum_size = int(__cgo__minimum_size)
 	natural_size = int(__cgo__natural_size)
 	return
@@ -3779,10 +3947,10 @@ func (self *_TraitCellRenderer) GetPreferredWidth(widget *Widget) (minimum_size 
 Retreives a cell renderers’s minimum and natural width if it were rendered to
 @widget with the specified @height.
 */
-func (self *_TraitCellRenderer) GetPreferredWidthForHeight(widget *Widget, height int) (minimum_width int, natural_width int) {
+func (self *_TraitCellRenderer) GetPreferredWidthForHeight(widget IsWidget, height int) (minimum_width int, natural_width int) {
 	var __cgo__minimum_width C.gint
 	var __cgo__natural_width C.gint
-	C.gtk_cell_renderer_get_preferred_width_for_height(self.CPointer, (*C.GtkWidget)(widget.CPointer), C.gint(height), &__cgo__minimum_width, &__cgo__natural_width)
+	C.gtk_cell_renderer_get_preferred_width_for_height(self.CPointer, widget.GetWidgetPointer(), C.gint(height), &__cgo__minimum_width, &__cgo__natural_width)
 	minimum_width = int(__cgo__minimum_width)
 	natural_width = int(__cgo__natural_width)
 	return
@@ -3814,8 +3982,8 @@ Translates the cell renderer state to #GtkStateFlags,
 based on the cell renderer and widget sensitivity, and
 the given #GtkCellRendererState.
 */
-func (self *_TraitCellRenderer) GetState(widget *Widget, cell_state C.GtkCellRendererState) (return__ C.GtkStateFlags) {
-	return__ = C.gtk_cell_renderer_get_state(self.CPointer, (*C.GtkWidget)(widget.CPointer), cell_state)
+func (self *_TraitCellRenderer) GetState(widget IsWidget, cell_state C.GtkCellRendererState) (return__ C.GtkStateFlags) {
+	return__ = C.gtk_cell_renderer_get_state(self.CPointer, widget.GetWidgetPointer(), cell_state)
 	return
 }
 
@@ -3848,8 +4016,8 @@ blank space around the cell, and also the area containing the tree expander;
 so the @background_area rectangles for all cells tile to cover the entire
 @window.
 */
-func (self *_TraitCellRenderer) Render(cr *C.cairo_t, widget *Widget, background_area *C.GdkRectangle, cell_area *C.GdkRectangle, flags C.GtkCellRendererState) {
-	C.gtk_cell_renderer_render(self.CPointer, cr, (*C.GtkWidget)(widget.CPointer), background_area, cell_area, flags)
+func (self *_TraitCellRenderer) Render(cr *C.cairo_t, widget IsWidget, background_area *C.GdkRectangle, cell_area *C.GdkRectangle, flags C.GtkCellRendererState) {
+	C.gtk_cell_renderer_render(self.CPointer, cr, widget.GetWidgetPointer(), background_area, cell_area, flags)
 	return
 }
 
@@ -3904,9 +4072,9 @@ func (self *_TraitCellRenderer) SetVisible(visible bool) {
 /*
 Passes an activate event to the cell renderer for possible processing.
 */
-func (self *_TraitCellRenderer) StartEditing(event *C.GdkEvent, widget *Widget, path string, background_area *C.GdkRectangle, cell_area *C.GdkRectangle, flags C.GtkCellRendererState) (return__ *C.GtkCellEditable) {
+func (self *_TraitCellRenderer) StartEditing(event *C.GdkEvent, widget IsWidget, path string, background_area *C.GdkRectangle, cell_area *C.GdkRectangle, flags C.GtkCellRendererState) (return__ *C.GtkCellEditable) {
 	__cgo__path := (*C.gchar)(unsafe.Pointer(C.CString(path)))
-	return__ = C.gtk_cell_renderer_start_editing(self.CPointer, event, (*C.GtkWidget)(widget.CPointer), __cgo__path, background_area, cell_area, flags)
+	return__ = C.gtk_cell_renderer_start_editing(self.CPointer, event, widget.GetWidgetPointer(), __cgo__path, background_area, cell_area, flags)
 	C.free(unsafe.Pointer(__cgo__path))
 	return
 }
@@ -3930,18 +4098,67 @@ func (self *_TraitCellRenderer) StopEditing(canceled bool) {
 }
 
 type _TraitCellRendererAccel struct{ CPointer *C.GtkCellRendererAccel }
+type IsCellRendererAccel interface {
+	GetCellRendererAccelPointer() *C.GtkCellRendererAccel
+}
+
+func (self *_TraitCellRendererAccel) GetCellRendererAccelPointer() *C.GtkCellRendererAccel {
+	return self.CPointer
+}
 
 type _TraitCellRendererCombo struct{ CPointer *C.GtkCellRendererCombo }
+type IsCellRendererCombo interface {
+	GetCellRendererComboPointer() *C.GtkCellRendererCombo
+}
+
+func (self *_TraitCellRendererCombo) GetCellRendererComboPointer() *C.GtkCellRendererCombo {
+	return self.CPointer
+}
 
 type _TraitCellRendererPixbuf struct{ CPointer *C.GtkCellRendererPixbuf }
+type IsCellRendererPixbuf interface {
+	GetCellRendererPixbufPointer() *C.GtkCellRendererPixbuf
+}
+
+func (self *_TraitCellRendererPixbuf) GetCellRendererPixbufPointer() *C.GtkCellRendererPixbuf {
+	return self.CPointer
+}
 
 type _TraitCellRendererProgress struct{ CPointer *C.GtkCellRendererProgress }
+type IsCellRendererProgress interface {
+	GetCellRendererProgressPointer() *C.GtkCellRendererProgress
+}
+
+func (self *_TraitCellRendererProgress) GetCellRendererProgressPointer() *C.GtkCellRendererProgress {
+	return self.CPointer
+}
 
 type _TraitCellRendererSpin struct{ CPointer *C.GtkCellRendererSpin }
+type IsCellRendererSpin interface {
+	GetCellRendererSpinPointer() *C.GtkCellRendererSpin
+}
+
+func (self *_TraitCellRendererSpin) GetCellRendererSpinPointer() *C.GtkCellRendererSpin {
+	return self.CPointer
+}
 
 type _TraitCellRendererSpinner struct{ CPointer *C.GtkCellRendererSpinner }
+type IsCellRendererSpinner interface {
+	GetCellRendererSpinnerPointer() *C.GtkCellRendererSpinner
+}
+
+func (self *_TraitCellRendererSpinner) GetCellRendererSpinnerPointer() *C.GtkCellRendererSpinner {
+	return self.CPointer
+}
 
 type _TraitCellRendererText struct{ CPointer *C.GtkCellRendererText }
+type IsCellRendererText interface {
+	GetCellRendererTextPointer() *C.GtkCellRendererText
+}
+
+func (self *_TraitCellRendererText) GetCellRendererTextPointer() *C.GtkCellRendererText {
+	return self.CPointer
+}
 
 /*
 Sets the height of a renderer to explicitly be determined by the “font” and
@@ -3958,6 +4175,13 @@ func (self *_TraitCellRendererText) SetFixedHeightFromFont(number_of_rows int) {
 }
 
 type _TraitCellRendererToggle struct{ CPointer *C.GtkCellRendererToggle }
+type IsCellRendererToggle interface {
+	GetCellRendererTogglePointer() *C.GtkCellRendererToggle
+}
+
+func (self *_TraitCellRendererToggle) GetCellRendererTogglePointer() *C.GtkCellRendererToggle {
+	return self.CPointer
+}
 
 /*
 Returns whether the cell renderer is activatable. See
@@ -4034,16 +4258,21 @@ func (self *_TraitCellRendererToggle) SetRadio(radio bool) {
 }
 
 type _TraitCellView struct{ CPointer *C.GtkCellView }
+type IsCellView interface {
+	GetCellViewPointer() *C.GtkCellView
+}
+
+func (self *_TraitCellView) GetCellViewPointer() *C.GtkCellView {
+	return self.CPointer
+}
 
 /*
 Returns a #GtkTreePath referring to the currently
 displayed row. If no row is currently displayed,
 %NULL is returned.
 */
-func (self *_TraitCellView) GetDisplayedRow() (return__ *TreePath) {
-	var __cgo__return__ *C.GtkTreePath
-	__cgo__return__ = C.gtk_cell_view_get_displayed_row(self.CPointer)
-	return__ = (*TreePath)(unsafe.Pointer(__cgo__return__))
+func (self *_TraitCellView) GetDisplayedRow() (return__ *C.GtkTreePath) {
+	return__ = C.gtk_cell_view_get_displayed_row(self.CPointer)
 	return
 }
 
@@ -4098,8 +4327,8 @@ this is not normally a desired result, but may be
 a needed intermediate state if say, the model for
 the #GtkCellView becomes temporarily empty.
 */
-func (self *_TraitCellView) SetDisplayedRow(path *TreePath) {
-	C.gtk_cell_view_set_displayed_row(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)))
+func (self *_TraitCellView) SetDisplayedRow(path *C.GtkTreePath) {
+	C.gtk_cell_view_set_displayed_row(self.CPointer, path)
 	return
 }
 
@@ -4145,8 +4374,22 @@ func (self *_TraitCellView) SetModel(model *C.GtkTreeModel) {
 }
 
 type _TraitCheckButton struct{ CPointer *C.GtkCheckButton }
+type IsCheckButton interface {
+	GetCheckButtonPointer() *C.GtkCheckButton
+}
+
+func (self *_TraitCheckButton) GetCheckButtonPointer() *C.GtkCheckButton {
+	return self.CPointer
+}
 
 type _TraitCheckMenuItem struct{ CPointer *C.GtkCheckMenuItem }
+type IsCheckMenuItem interface {
+	GetCheckMenuItemPointer() *C.GtkCheckMenuItem
+}
+
+func (self *_TraitCheckMenuItem) GetCheckMenuItemPointer() *C.GtkCheckMenuItem {
+	return self.CPointer
+}
 
 /*
 Returns whether the check menu item is active. See
@@ -4231,6 +4474,13 @@ func (self *_TraitCheckMenuItem) Toggled() {
 }
 
 type _TraitClipboard struct{ CPointer *C.GtkClipboard }
+type IsClipboard interface {
+	GetClipboardPointer() *C.GtkClipboard
+}
+
+func (self *_TraitClipboard) GetClipboardPointer() *C.GtkClipboard {
+	return self.CPointer
+}
 
 /*
 Clears the contents of the clipboard. Generally this should only
@@ -4299,8 +4549,8 @@ parameter will contain @text’s length. This function can fail for
 various reasons, in particular if the clipboard was empty or if the
 contents of the clipboard could not be converted into rich text form.
 */
-func (self *_TraitClipboard) RequestRichText(buffer *TextBuffer, callback C.GtkClipboardRichTextReceivedFunc, user_data unsafe.Pointer) {
-	C.gtk_clipboard_request_rich_text(self.CPointer, (*C.GtkTextBuffer)(buffer.CPointer), callback, (C.gpointer)(user_data))
+func (self *_TraitClipboard) RequestRichText(buffer IsTextBuffer, callback C.GtkClipboardRichTextReceivedFunc, user_data unsafe.Pointer) {
+	C.gtk_clipboard_request_rich_text(self.CPointer, buffer.GetTextBufferPointer(), callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -4353,8 +4603,8 @@ This value is reset when the clipboard owner changes.
 Where the clipboard data is stored is platform dependent,
 see gdk_display_store_clipboard () for more information.
 */
-func (self *_TraitClipboard) SetCanStore(targets *TargetEntry, n_targets int) {
-	C.gtk_clipboard_set_can_store(self.CPointer, (*C.GtkTargetEntry)(unsafe.Pointer(targets)), C.gint(n_targets))
+func (self *_TraitClipboard) SetCanStore(targets *C.GtkTargetEntry, n_targets int) {
+	C.gtk_clipboard_set_can_store(self.CPointer, targets, C.gint(n_targets))
 	return
 }
 
@@ -4387,9 +4637,9 @@ Virtually sets the contents of the specified clipboard by providing
 a list of supported formats for the clipboard data and a function
 to call to get the actual data when it is requested.
 */
-func (self *_TraitClipboard) SetWithData(targets *TargetEntry, n_targets uint, get_func C.GtkClipboardGetFunc, clear_func C.GtkClipboardClearFunc, user_data unsafe.Pointer) (return__ bool) {
+func (self *_TraitClipboard) SetWithData(targets *C.GtkTargetEntry, n_targets uint, get_func C.GtkClipboardGetFunc, clear_func C.GtkClipboardClearFunc, user_data unsafe.Pointer) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_clipboard_set_with_data(self.CPointer, (*C.GtkTargetEntry)(unsafe.Pointer(targets)), C.guint(n_targets), get_func, clear_func, (C.gpointer)(user_data))
+	__cgo__return__ = C.gtk_clipboard_set_with_data(self.CPointer, targets, C.guint(n_targets), get_func, clear_func, (C.gpointer)(user_data))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -4403,9 +4653,9 @@ The difference between this function and gtk_clipboard_set_with_data()
 is that instead of an generic @user_data pointer, a #GObject is passed
 in.
 */
-func (self *_TraitClipboard) SetWithOwner(targets *TargetEntry, n_targets uint, get_func C.GtkClipboardGetFunc, clear_func C.GtkClipboardClearFunc, owner *C.GObject) (return__ bool) {
+func (self *_TraitClipboard) SetWithOwner(targets *C.GtkTargetEntry, n_targets uint, get_func C.GtkClipboardGetFunc, clear_func C.GtkClipboardClearFunc, owner *C.GObject) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_clipboard_set_with_owner(self.CPointer, (*C.GtkTargetEntry)(unsafe.Pointer(targets)), C.guint(n_targets), get_func, clear_func, owner)
+	__cgo__return__ = C.gtk_clipboard_set_with_owner(self.CPointer, targets, C.guint(n_targets), get_func, clear_func, owner)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -4424,10 +4674,8 @@ Requests the contents of the clipboard using the given target.
 This function waits for the data to be received using the main
 loop, so events, timeouts, etc, may be dispatched during the wait.
 */
-func (self *_TraitClipboard) WaitForContents(target C.GdkAtom) (return__ *SelectionData) {
-	var __cgo__return__ *C.GtkSelectionData
-	__cgo__return__ = C.gtk_clipboard_wait_for_contents(self.CPointer, target)
-	return__ = (*SelectionData)(unsafe.Pointer(__cgo__return__))
+func (self *_TraitClipboard) WaitForContents(target C.GdkAtom) (return__ *C.GtkSelectionData) {
+	return__ = C.gtk_clipboard_wait_for_contents(self.CPointer, target)
 	return
 }
 
@@ -4447,10 +4695,10 @@ Requests the contents of the clipboard as rich text.  This function
 waits for the data to be received using the main loop, so events,
 timeouts, etc, may be dispatched during the wait.
 */
-func (self *_TraitClipboard) WaitForRichText(buffer *TextBuffer) (format C.GdkAtom, length int64, return__ []byte) {
+func (self *_TraitClipboard) WaitForRichText(buffer IsTextBuffer) (format C.GdkAtom, length int64, return__ []byte) {
 	var __cgo__length C.gsize
 	var __cgo__return__ *C.guint8
-	__cgo__return__ = C.gtk_clipboard_wait_for_rich_text(self.CPointer, (*C.GtkTextBuffer)(buffer.CPointer), &format, &__cgo__length)
+	__cgo__return__ = C.gtk_clipboard_wait_for_rich_text(self.CPointer, buffer.GetTextBufferPointer(), &format, &__cgo__length)
 	length = int64(__cgo__length)
 	defer func() { return__ = C.GoBytes(unsafe.Pointer(__cgo__return__), C.int(length)) }()
 	return
@@ -4490,20 +4738,8 @@ Requests the contents of the clipboard as URIs. This function waits
 for the data to be received using the main loop, so events,
 timeouts, etc, may be dispatched during the wait.
 */
-func (self *_TraitClipboard) WaitForUris() (return__ []string) {
-	var __cgo__return__ **C.gchar
-	__cgo__return__ = C.gtk_clipboard_wait_for_uris(self.CPointer)
-	var __slice__return__ []*C.gchar
-	__header__return__ := (*reflect.SliceHeader)(unsafe.Pointer(&__slice__return__))
-	__header__return__.Len = 4294967296
-	__header__return__.Cap = 4294967296
-	__header__return__.Data = uintptr(unsafe.Pointer(__cgo__return__))
-	for _, p := range __slice__return__ {
-		if p == nil {
-			break
-		}
-		return__ = append(return__, C.GoString((*C.char)(unsafe.Pointer(p))))
-	}
+func (self *_TraitClipboard) WaitForUris() (return__ **C.gchar) {
+	return__ = C.gtk_clipboard_wait_for_uris(self.CPointer)
 	return
 }
 
@@ -4536,9 +4772,9 @@ This function is a little faster than calling
 gtk_clipboard_wait_for_rich_text() since it doesn’t need to retrieve
 the actual text.
 */
-func (self *_TraitClipboard) WaitIsRichTextAvailable(buffer *TextBuffer) (return__ bool) {
+func (self *_TraitClipboard) WaitIsRichTextAvailable(buffer IsTextBuffer) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_clipboard_wait_is_rich_text_available(self.CPointer, (*C.GtkTextBuffer)(buffer.CPointer))
+	__cgo__return__ = C.gtk_clipboard_wait_is_rich_text_available(self.CPointer, buffer.GetTextBufferPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -4595,6 +4831,13 @@ func (self *_TraitClipboard) WaitIsUrisAvailable() (return__ bool) {
 }
 
 type _TraitColorButton struct{ CPointer *C.GtkColorButton }
+type IsColorButton interface {
+	GetColorButtonPointer() *C.GtkColorButton
+}
+
+func (self *_TraitColorButton) GetColorButtonPointer() *C.GtkColorButton {
+	return self.CPointer
+}
 
 // gtk_color_button_get_alpha is not generated due to deprecation attr
 
@@ -4633,10 +4876,31 @@ func (self *_TraitColorButton) SetTitle(title string) {
 // gtk_color_button_set_use_alpha is not generated due to deprecation attr
 
 type _TraitColorChooserDialog struct{ CPointer *C.GtkColorChooserDialog }
+type IsColorChooserDialog interface {
+	GetColorChooserDialogPointer() *C.GtkColorChooserDialog
+}
+
+func (self *_TraitColorChooserDialog) GetColorChooserDialogPointer() *C.GtkColorChooserDialog {
+	return self.CPointer
+}
 
 type _TraitColorChooserWidget struct{ CPointer *C.GtkColorChooserWidget }
+type IsColorChooserWidget interface {
+	GetColorChooserWidgetPointer() *C.GtkColorChooserWidget
+}
+
+func (self *_TraitColorChooserWidget) GetColorChooserWidgetPointer() *C.GtkColorChooserWidget {
+	return self.CPointer
+}
 
 type _TraitColorSelection struct{ CPointer *C.GtkColorSelection }
+type IsColorSelection interface {
+	GetColorSelectionPointer() *C.GtkColorSelection
+}
+
+func (self *_TraitColorSelection) GetColorSelectionPointer() *C.GtkColorSelection {
+	return self.CPointer
+}
 
 // gtk_color_selection_get_current_alpha is not generated due to explicit ignore
 
@@ -4673,10 +4937,24 @@ type _TraitColorSelection struct{ CPointer *C.GtkColorSelection }
 // gtk_color_selection_set_previous_rgba is not generated due to explicit ignore
 
 type _TraitColorSelectionDialog struct{ CPointer *C.GtkColorSelectionDialog }
+type IsColorSelectionDialog interface {
+	GetColorSelectionDialogPointer() *C.GtkColorSelectionDialog
+}
+
+func (self *_TraitColorSelectionDialog) GetColorSelectionDialogPointer() *C.GtkColorSelectionDialog {
+	return self.CPointer
+}
 
 // gtk_color_selection_dialog_get_color_selection is not generated due to explicit ignore
 
 type _TraitComboBox struct{ CPointer *C.GtkComboBox }
+type IsComboBox interface {
+	GetComboBoxPointer() *C.GtkComboBox
+}
+
+func (self *_TraitComboBox) GetComboBoxPointer() *C.GtkComboBox {
+	return self.CPointer
+}
 
 /*
 Returns the index of the currently active item, or -1 if there’s no
@@ -4909,8 +5187,8 @@ func (self *_TraitComboBox) SetActiveId(active_id string) (return__ bool) {
 Sets the current active item to be the one referenced by @iter, or
 unsets the active item if @iter is %NULL.
 */
-func (self *_TraitComboBox) SetActiveIter(iter *TreeIter) {
-	C.gtk_combo_box_set_active_iter(self.CPointer, (*C.GtkTreeIter)(unsafe.Pointer(iter)))
+func (self *_TraitComboBox) SetActiveIter(iter *C.GtkTreeIter) {
+	C.gtk_combo_box_set_active_iter(self.CPointer, iter)
 	return
 }
 
@@ -5033,6 +5311,13 @@ func (self *_TraitComboBox) SetWrapWidth(width int) {
 }
 
 type _TraitComboBoxText struct{ CPointer *C.GtkComboBoxText }
+type IsComboBoxText interface {
+	GetComboBoxTextPointer() *C.GtkComboBoxText
+}
+
+func (self *_TraitComboBoxText) GetComboBoxTextPointer() *C.GtkComboBoxText {
+	return self.CPointer
+}
 
 /*
 Appends @text to the list of strings stored in @combo_box.
@@ -5153,6 +5438,13 @@ func (self *_TraitComboBoxText) RemoveAll() {
 }
 
 type _TraitContainer struct{ CPointer *C.GtkContainer }
+type IsContainer interface {
+	GetContainerPointer() *C.GtkContainer
+}
+
+func (self *_TraitContainer) GetContainerPointer() *C.GtkContainer {
+	return self.CPointer
+}
 
 /*
 Adds @widget to @container. Typically used for simple containers
@@ -5168,8 +5460,8 @@ Note that some containers, such as #GtkScrolledWindow or #GtkListBox,
 may add intermediate children between the added widget and the
 container.
 */
-func (self *_TraitContainer) Add(widget *Widget) {
-	C.gtk_container_add(self.CPointer, (*C.GtkWidget)(widget.CPointer))
+func (self *_TraitContainer) Add(widget IsWidget) {
+	C.gtk_container_add(self.CPointer, widget.GetWidgetPointer())
 	return
 }
 
@@ -5185,9 +5477,9 @@ func (self *_TraitContainer) CheckResize() {
 /*
 Gets the value of a child property for @child and @container.
 */
-func (self *_TraitContainer) ChildGetProperty(child *Widget, property_name string, value *C.GValue) {
+func (self *_TraitContainer) ChildGetProperty(child IsWidget, property_name string, value *C.GValue) {
 	__cgo__property_name := (*C.gchar)(unsafe.Pointer(C.CString(property_name)))
-	C.gtk_container_child_get_property(self.CPointer, (*C.GtkWidget)(child.CPointer), __cgo__property_name, value)
+	C.gtk_container_child_get_property(self.CPointer, child.GetWidgetPointer(), __cgo__property_name, value)
 	C.free(unsafe.Pointer(__cgo__property_name))
 	return
 }
@@ -5203,9 +5495,9 @@ This is an analogue of g_object_notify() for child properties.
 
 Also see gtk_widget_child_notify().
 */
-func (self *_TraitContainer) ChildNotify(child *Widget, child_property string) {
+func (self *_TraitContainer) ChildNotify(child IsWidget, child_property string) {
 	__cgo__child_property := (*C.gchar)(unsafe.Pointer(C.CString(child_property)))
-	C.gtk_container_child_notify(self.CPointer, (*C.GtkWidget)(child.CPointer), __cgo__child_property)
+	C.gtk_container_child_notify(self.CPointer, child.GetWidgetPointer(), __cgo__child_property)
 	C.free(unsafe.Pointer(__cgo__child_property))
 	return
 }
@@ -5215,9 +5507,9 @@ func (self *_TraitContainer) ChildNotify(child *Widget, child_property string) {
 /*
 Sets a child property for @child and @container.
 */
-func (self *_TraitContainer) ChildSetProperty(child *Widget, property_name string, value *C.GValue) {
+func (self *_TraitContainer) ChildSetProperty(child IsWidget, property_name string, value *C.GValue) {
 	__cgo__property_name := (*C.gchar)(unsafe.Pointer(C.CString(property_name)))
-	C.gtk_container_child_set_property(self.CPointer, (*C.GtkWidget)(child.CPointer), __cgo__property_name, value)
+	C.gtk_container_child_set_property(self.CPointer, child.GetWidgetPointer(), __cgo__property_name, value)
 	C.free(unsafe.Pointer(__cgo__property_name))
 	return
 }
@@ -5302,7 +5594,9 @@ gtk_window_get_focus().
 func (self *_TraitContainer) GetFocusChild() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_container_get_focus_child(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -5313,7 +5607,9 @@ gtk_container_set_focus_hadjustment ().
 func (self *_TraitContainer) GetFocusHadjustment() (return__ *Adjustment) {
 	var __cgo__return__ *C.GtkAdjustment
 	__cgo__return__ = C.gtk_container_get_focus_hadjustment(self.CPointer)
-	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -5324,7 +5620,9 @@ gtk_container_set_focus_vadjustment().
 func (self *_TraitContainer) GetFocusVadjustment() (return__ *Adjustment) {
 	var __cgo__return__ *C.GtkAdjustment
 	__cgo__return__ = C.gtk_container_get_focus_vadjustment(self.CPointer)
-	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -5332,10 +5630,8 @@ func (self *_TraitContainer) GetFocusVadjustment() (return__ *Adjustment) {
 Returns a newly created widget path representing all the widget hierarchy
 from the toplevel down to and including @child.
 */
-func (self *_TraitContainer) GetPathForChild(child *Widget) (return__ *WidgetPath) {
-	var __cgo__return__ *C.GtkWidgetPath
-	__cgo__return__ = C.gtk_container_get_path_for_child(self.CPointer, (*C.GtkWidget)(child.CPointer))
-	return__ = (*WidgetPath)(unsafe.Pointer(__cgo__return__))
+func (self *_TraitContainer) GetPathForChild(child IsWidget) (return__ *C.GtkWidgetPath) {
+	return__ = C.gtk_container_get_path_for_child(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
@@ -5358,8 +5654,8 @@ In most cases, a container can simply either inherit the
 #GtkWidget::draw implementation from #GtkContainer, or do some drawing
 and then chain to the ::draw implementation from #GtkContainer.
 */
-func (self *_TraitContainer) PropagateDraw(child *Widget, cr *C.cairo_t) {
-	C.gtk_container_propagate_draw(self.CPointer, (*C.GtkWidget)(child.CPointer), cr)
+func (self *_TraitContainer) PropagateDraw(child IsWidget, cr *C.cairo_t) {
+	C.gtk_container_propagate_draw(self.CPointer, child.GetWidgetPointer(), cr)
 	return
 }
 
@@ -5374,8 +5670,8 @@ again it’s usually more efficient to simply destroy it directly
 using gtk_widget_destroy() since this will remove it from the
 container and help break any circular reference count cycles.
 */
-func (self *_TraitContainer) Remove(widget *Widget) {
-	C.gtk_container_remove(self.CPointer, (*C.GtkWidget)(widget.CPointer))
+func (self *_TraitContainer) Remove(widget IsWidget) {
+	C.gtk_container_remove(self.CPointer, widget.GetWidgetPointer())
 	return
 }
 
@@ -5422,8 +5718,8 @@ default behaviour by overriding the class closure of this signal.
 This is function is mostly meant to be used by widgets. Applications can use
 gtk_widget_grab_focus() to manualy set the focus to a specific widget.
 */
-func (self *_TraitContainer) SetFocusChild(child *Widget) {
-	C.gtk_container_set_focus_child(self.CPointer, (*C.GtkWidget)(child.CPointer))
+func (self *_TraitContainer) SetFocusChild(child IsWidget) {
+	C.gtk_container_set_focus_child(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
@@ -5438,8 +5734,8 @@ the vertical adjustment.
 The adjustments have to be in pixel units and in the same coordinate
 system as the allocation for immediate children of the container.
 */
-func (self *_TraitContainer) SetFocusHadjustment(adjustment *Adjustment) {
-	C.gtk_container_set_focus_hadjustment(self.CPointer, (*C.GtkAdjustment)(adjustment.CPointer))
+func (self *_TraitContainer) SetFocusHadjustment(adjustment IsAdjustment) {
+	C.gtk_container_set_focus_hadjustment(self.CPointer, adjustment.GetAdjustmentPointer())
 	return
 }
 
@@ -5454,8 +5750,8 @@ the horizontal adjustment.
 The adjustments have to be in pixel units and in the same coordinate
 system as the allocation for immediate children of the container.
 */
-func (self *_TraitContainer) SetFocusVadjustment(adjustment *Adjustment) {
-	C.gtk_container_set_focus_vadjustment(self.CPointer, (*C.GtkAdjustment)(adjustment.CPointer))
+func (self *_TraitContainer) SetFocusVadjustment(adjustment IsAdjustment) {
+	C.gtk_container_set_focus_vadjustment(self.CPointer, adjustment.GetAdjustmentPointer())
 	return
 }
 
@@ -5485,6 +5781,13 @@ func (self *_TraitContainer) UnsetFocusChain() {
 }
 
 type _TraitCssProvider struct{ CPointer *C.GtkCssProvider }
+type IsCssProvider interface {
+	GetCssProviderPointer() *C.GtkCssProvider
+}
+
+func (self *_TraitCssProvider) GetCssProviderPointer() *C.GtkCssProvider {
+	return self.CPointer
+}
 
 /*
 Loads @data into @css_provider, making it clear any previously loaded
@@ -5551,6 +5854,13 @@ func (self *_TraitCssProvider) ToString() (return__ string) {
 }
 
 type _TraitDialog struct{ CPointer *C.GtkDialog }
+type IsDialog interface {
+	GetDialogPointer() *C.GtkDialog
+}
+
+func (self *_TraitDialog) GetDialogPointer() *C.GtkDialog {
+	return self.CPointer
+}
 
 /*
 Adds an activatable widget to the action area of a #GtkDialog,
@@ -5560,8 +5870,8 @@ appended to the end of the dialog’s action area. If you want to add a
 non-activatable widget, simply pack it into the @action_area field
 of the #GtkDialog struct.
 */
-func (self *_TraitDialog) AddActionWidget(child *Widget, response_id int) {
-	C.gtk_dialog_add_action_widget(self.CPointer, (*C.GtkWidget)(child.CPointer), C.gint(response_id))
+func (self *_TraitDialog) AddActionWidget(child IsWidget, response_id int) {
+	C.gtk_dialog_add_action_widget(self.CPointer, child.GetWidgetPointer(), C.gint(response_id))
 	return
 }
 
@@ -5577,7 +5887,9 @@ func (self *_TraitDialog) AddButton(button_text string, response_id int) (return
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_dialog_add_button(self.CPointer, __cgo__button_text, C.gint(response_id))
 	C.free(unsafe.Pointer(__cgo__button_text))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -5591,7 +5903,9 @@ Returns the content area of @dialog.
 func (self *_TraitDialog) GetContentArea() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_dialog_get_content_area(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -5603,7 +5917,9 @@ headerbar is only used by the dialog if the
 func (self *_TraitDialog) GetHeaderBar() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_dialog_get_header_bar(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -5611,9 +5927,9 @@ func (self *_TraitDialog) GetHeaderBar() (return__ *Widget) {
 Gets the response id of a widget in the action area
 of a dialog.
 */
-func (self *_TraitDialog) GetResponseForWidget(widget *Widget) (return__ int) {
+func (self *_TraitDialog) GetResponseForWidget(widget IsWidget) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_dialog_get_response_for_widget(self.CPointer, (*C.GtkWidget)(widget.CPointer))
+	__cgo__return__ = C.gtk_dialog_get_response_for_widget(self.CPointer, widget.GetWidgetPointer())
 	return__ = int(__cgo__return__)
 	return
 }
@@ -5625,7 +5941,9 @@ of a dialog.
 func (self *_TraitDialog) GetWidgetForResponse(response_id int) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_dialog_get_widget_for_response(self.CPointer, C.gint(response_id))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -5720,8 +6038,22 @@ func (self *_TraitDialog) SetResponseSensitive(response_id int, setting bool) {
 }
 
 type _TraitDrawingArea struct{ CPointer *C.GtkDrawingArea }
+type IsDrawingArea interface {
+	GetDrawingAreaPointer() *C.GtkDrawingArea
+}
+
+func (self *_TraitDrawingArea) GetDrawingAreaPointer() *C.GtkDrawingArea {
+	return self.CPointer
+}
 
 type _TraitEntry struct{ CPointer *C.GtkEntry }
+type IsEntry interface {
+	GetEntryPointer() *C.GtkEntry
+}
+
+func (self *_TraitEntry) GetEntryPointer() *C.GtkEntry {
+	return self.CPointer
+}
 
 /*
 Retrieves the value set by gtk_entry_set_activates_default().
@@ -5759,7 +6091,9 @@ this widget.
 func (self *_TraitEntry) GetBuffer() (return__ *EntryBuffer) {
 	var __cgo__return__ *C.GtkEntryBuffer
 	__cgo__return__ = C.gtk_entry_get_buffer(self.CPointer)
-	return__ = NewEntryBufferFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewEntryBufferFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -5769,7 +6103,9 @@ Returns the auxiliary completion object currently in use by @entry.
 func (self *_TraitEntry) GetCompletion() (return__ *EntryCompletion) {
 	var __cgo__return__ *C.GtkEntryCompletion
 	__cgo__return__ = C.gtk_entry_get_completion(self.CPointer)
-	return__ = NewEntryCompletionFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewEntryCompletionFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -5794,7 +6130,9 @@ See gtk_entry_set_cursor_hadjustment().
 func (self *_TraitEntry) GetCursorHadjustment() (return__ *Adjustment) {
 	var __cgo__return__ *C.GtkAdjustment
 	__cgo__return__ = C.gtk_entry_get_cursor_hadjustment(self.CPointer)
-	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -6251,8 +6589,8 @@ func (self *_TraitEntry) SetAttributes(attrs *C.PangoAttrList) {
 Set the #GtkEntryBuffer object which holds the text for
 this widget.
 */
-func (self *_TraitEntry) SetBuffer(buffer *EntryBuffer) {
-	C.gtk_entry_set_buffer(self.CPointer, (*C.GtkEntryBuffer)(buffer.CPointer))
+func (self *_TraitEntry) SetBuffer(buffer IsEntryBuffer) {
+	C.gtk_entry_set_buffer(self.CPointer, buffer.GetEntryBufferPointer())
 	return
 }
 
@@ -6262,8 +6600,8 @@ All further configuration of the completion mechanism is done on
 @completion using the #GtkEntryCompletion API. Completion is disabled if
 @completion is set to %NULL.
 */
-func (self *_TraitEntry) SetCompletion(completion *EntryCompletion) {
-	C.gtk_entry_set_completion(self.CPointer, (*C.GtkEntryCompletion)(completion.CPointer))
+func (self *_TraitEntry) SetCompletion(completion IsEntryCompletion) {
+	C.gtk_entry_set_completion(self.CPointer, completion.GetEntryCompletionPointer())
 	return
 }
 
@@ -6276,8 +6614,8 @@ the adjustment.
 The adjustment has to be in pixel units and in the same coordinate system
 as the entry.
 */
-func (self *_TraitEntry) SetCursorHadjustment(adjustment *Adjustment) {
-	C.gtk_entry_set_cursor_hadjustment(self.CPointer, (*C.GtkAdjustment)(adjustment.CPointer))
+func (self *_TraitEntry) SetCursorHadjustment(adjustment IsAdjustment) {
+	C.gtk_entry_set_cursor_hadjustment(self.CPointer, adjustment.GetAdjustmentPointer())
 	return
 }
 
@@ -6320,8 +6658,8 @@ By default, GTK+ uses the icon as the drag icon. You can use the
 have to use g_signal_connect_after() to ensure that your signal handler
 gets executed after the default handler.
 */
-func (self *_TraitEntry) SetIconDragSource(icon_pos C.GtkEntryIconPosition, target_list *TargetList, actions C.GdkDragAction) {
-	C.gtk_entry_set_icon_drag_source(self.CPointer, icon_pos, (*C.GtkTargetList)(unsafe.Pointer(target_list)), actions)
+func (self *_TraitEntry) SetIconDragSource(icon_pos C.GtkEntryIconPosition, target_list *C.GtkTargetList, actions C.GdkDragAction) {
+	C.gtk_entry_set_icon_drag_source(self.CPointer, icon_pos, target_list, actions)
 	return
 }
 
@@ -6602,6 +6940,13 @@ func (self *_TraitEntry) UnsetInvisibleChar() {
 }
 
 type _TraitEntryBuffer struct{ CPointer *C.GtkEntryBuffer }
+type IsEntryBuffer interface {
+	GetEntryBufferPointer() *C.GtkEntryBuffer
+}
+
+func (self *_TraitEntryBuffer) GetEntryBufferPointer() *C.GtkEntryBuffer {
+	return self.CPointer
+}
 
 /*
 Deletes a sequence of characters from the buffer. @n_chars characters are
@@ -6729,6 +7074,13 @@ func (self *_TraitEntryBuffer) SetText(chars string, n_chars int) {
 }
 
 type _TraitEntryCompletion struct{ CPointer *C.GtkEntryCompletion }
+type IsEntryCompletion interface {
+	GetEntryCompletionPointer() *C.GtkEntryCompletion
+}
+
+func (self *_TraitEntryCompletion) GetEntryCompletionPointer() *C.GtkEntryCompletion {
+	return self.CPointer
+}
 
 /*
 Requests a completion operation, or in other words a refiltering of the
@@ -6780,7 +7132,9 @@ Gets the entry @completion has been attached to.
 func (self *_TraitEntryCompletion) GetEntry() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_entry_completion_get_entry(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -7010,6 +7364,13 @@ func (self *_TraitEntryCompletion) SetTextColumn(column int) {
 }
 
 type _TraitEventBox struct{ CPointer *C.GtkEventBox }
+type IsEventBox interface {
+	GetEventBoxPointer() *C.GtkEventBox
+}
+
+func (self *_TraitEventBox) GetEventBoxPointer() *C.GtkEventBox {
+	return self.CPointer
+}
 
 /*
 Returns whether the event box window is above or below the
@@ -7097,6 +7458,13 @@ func (self *_TraitEventBox) SetVisibleWindow(visible_window bool) {
 }
 
 type _TraitExpander struct{ CPointer *C.GtkExpander }
+type IsExpander interface {
+	GetExpanderPointer() *C.GtkExpander
+}
+
+func (self *_TraitExpander) GetExpanderPointer() *C.GtkExpander {
+	return self.CPointer
+}
 
 /*
 Queries a #GtkExpander and returns its current state. Returns %TRUE
@@ -7149,7 +7517,9 @@ gtk_expander_set_label_widget().
 func (self *_TraitExpander) GetLabelWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_expander_get_label_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -7240,8 +7610,8 @@ func (self *_TraitExpander) SetLabelFill(label_fill bool) {
 Set the label widget for the expander. This is the widget
 that will appear embedded alongside the expander arrow.
 */
-func (self *_TraitExpander) SetLabelWidget(label_widget *Widget) {
-	C.gtk_expander_set_label_widget(self.CPointer, (*C.GtkWidget)(label_widget.CPointer))
+func (self *_TraitExpander) SetLabelWidget(label_widget IsWidget) {
+	C.gtk_expander_set_label_widget(self.CPointer, label_widget.GetWidgetPointer())
 	return
 }
 
@@ -7295,6 +7665,13 @@ func (self *_TraitExpander) SetUseUnderline(use_underline bool) {
 }
 
 type _TraitFileChooserButton struct{ CPointer *C.GtkFileChooserButton }
+type IsFileChooserButton interface {
+	GetFileChooserButtonPointer() *C.GtkFileChooserButton
+}
+
+func (self *_TraitFileChooserButton) GetFileChooserButtonPointer() *C.GtkFileChooserButton {
+	return self.CPointer
+}
 
 /*
 Returns whether the button grabs focus when it is clicked with the mouse.
@@ -7362,10 +7739,31 @@ func (self *_TraitFileChooserButton) SetWidthChars(n_chars int) {
 }
 
 type _TraitFileChooserDialog struct{ CPointer *C.GtkFileChooserDialog }
+type IsFileChooserDialog interface {
+	GetFileChooserDialogPointer() *C.GtkFileChooserDialog
+}
+
+func (self *_TraitFileChooserDialog) GetFileChooserDialogPointer() *C.GtkFileChooserDialog {
+	return self.CPointer
+}
 
 type _TraitFileChooserWidget struct{ CPointer *C.GtkFileChooserWidget }
+type IsFileChooserWidget interface {
+	GetFileChooserWidgetPointer() *C.GtkFileChooserWidget
+}
+
+func (self *_TraitFileChooserWidget) GetFileChooserWidgetPointer() *C.GtkFileChooserWidget {
+	return self.CPointer
+}
 
 type _TraitFileFilter struct{ CPointer *C.GtkFileFilter }
+type IsFileFilter interface {
+	GetFileFilterPointer() *C.GtkFileFilter
+}
+
+func (self *_TraitFileFilter) GetFileFilterPointer() *C.GtkFileFilter {
+	return self.CPointer
+}
 
 /*
 Adds rule to a filter that allows files based on a custom callback
@@ -7417,9 +7815,9 @@ This function will not typically be used by applications; it
 is intended principally for use in the implementation of
 #GtkFileChooser.
 */
-func (self *_TraitFileFilter) Filter(filter_info *FileFilterInfo) (return__ bool) {
+func (self *_TraitFileFilter) Filter(filter_info *C.GtkFileFilterInfo) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_file_filter_filter(self.CPointer, (*C.GtkFileFilterInfo)(unsafe.Pointer(filter_info)))
+	__cgo__return__ = C.gtk_file_filter_filter(self.CPointer, filter_info)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -7460,24 +7858,38 @@ func (self *_TraitFileFilter) SetName(name string) {
 }
 
 type _TraitFixed struct{ CPointer *C.GtkFixed }
+type IsFixed interface {
+	GetFixedPointer() *C.GtkFixed
+}
+
+func (self *_TraitFixed) GetFixedPointer() *C.GtkFixed {
+	return self.CPointer
+}
 
 /*
 Moves a child of a #GtkFixed container to the given position.
 */
-func (self *_TraitFixed) Move(widget *Widget, x int, y int) {
-	C.gtk_fixed_move(self.CPointer, (*C.GtkWidget)(widget.CPointer), C.gint(x), C.gint(y))
+func (self *_TraitFixed) Move(widget IsWidget, x int, y int) {
+	C.gtk_fixed_move(self.CPointer, widget.GetWidgetPointer(), C.gint(x), C.gint(y))
 	return
 }
 
 /*
 Adds a widget to a #GtkFixed container at the given position.
 */
-func (self *_TraitFixed) Put(widget *Widget, x int, y int) {
-	C.gtk_fixed_put(self.CPointer, (*C.GtkWidget)(widget.CPointer), C.gint(x), C.gint(y))
+func (self *_TraitFixed) Put(widget IsWidget, x int, y int) {
+	C.gtk_fixed_put(self.CPointer, widget.GetWidgetPointer(), C.gint(x), C.gint(y))
 	return
 }
 
 type _TraitFlowBox struct{ CPointer *C.GtkFlowBox }
+type IsFlowBox interface {
+	GetFlowBoxPointer() *C.GtkFlowBox
+}
+
+func (self *_TraitFlowBox) GetFlowBoxPointer() *C.GtkFlowBox {
+	return self.CPointer
+}
 
 /*
 Returns whether children activate on single clicks.
@@ -7495,7 +7907,9 @@ Gets the nth child in the @box.
 func (self *_TraitFlowBox) GetChildAtIndex(idx int) (return__ *FlowBoxChild) {
 	var __cgo__return__ *C.GtkFlowBoxChild
 	__cgo__return__ = C.gtk_flow_box_get_child_at_index(self.CPointer, C.gint(idx))
-	return__ = NewFlowBoxChildFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewFlowBoxChildFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -7576,8 +7990,8 @@ as gtk_container_add().
 If @position is -1, or larger than the total number of children
 in the @box, then the @widget will be appended to the end.
 */
-func (self *_TraitFlowBox) Insert(widget *Widget, position int) {
-	C.gtk_flow_box_insert(self.CPointer, (*C.GtkWidget)(widget.CPointer), C.gint(position))
+func (self *_TraitFlowBox) Insert(widget IsWidget, position int) {
+	C.gtk_flow_box_insert(self.CPointer, widget.GetWidgetPointer(), C.gint(position))
 	return
 }
 
@@ -7619,8 +8033,8 @@ func (self *_TraitFlowBox) SelectAll() {
 Selects a single child of @box, if the selection
 mode allows it.
 */
-func (self *_TraitFlowBox) SelectChild(child *FlowBoxChild) {
-	C.gtk_flow_box_select_child(self.CPointer, (*C.GtkFlowBoxChild)(child.CPointer))
+func (self *_TraitFlowBox) SelectChild(child IsFlowBoxChild) {
+	C.gtk_flow_box_select_child(self.CPointer, child.GetFlowBoxChildPointer())
 	return
 }
 
@@ -7684,8 +8098,8 @@ The adjustments have to be in pixel units and in the same
 coordinate system as the allocation for immediate children
 of the box.
 */
-func (self *_TraitFlowBox) SetHadjustment(adjustment *Adjustment) {
-	C.gtk_flow_box_set_hadjustment(self.CPointer, (*C.GtkAdjustment)(adjustment.CPointer))
+func (self *_TraitFlowBox) SetHadjustment(adjustment IsAdjustment) {
+	C.gtk_flow_box_set_hadjustment(self.CPointer, adjustment.GetAdjustmentPointer())
 	return
 }
 
@@ -7770,8 +8184,8 @@ The adjustments have to be in pixel units and in the same
 coordinate system as the allocation for immediate children
 of the box.
 */
-func (self *_TraitFlowBox) SetVadjustment(adjustment *Adjustment) {
-	C.gtk_flow_box_set_vadjustment(self.CPointer, (*C.GtkAdjustment)(adjustment.CPointer))
+func (self *_TraitFlowBox) SetVadjustment(adjustment IsAdjustment) {
+	C.gtk_flow_box_set_vadjustment(self.CPointer, adjustment.GetAdjustmentPointer())
 	return
 }
 
@@ -7788,12 +8202,19 @@ func (self *_TraitFlowBox) UnselectAll() {
 Unselects a single child of @box, if the selection
 mode allows it.
 */
-func (self *_TraitFlowBox) UnselectChild(child *FlowBoxChild) {
-	C.gtk_flow_box_unselect_child(self.CPointer, (*C.GtkFlowBoxChild)(child.CPointer))
+func (self *_TraitFlowBox) UnselectChild(child IsFlowBoxChild) {
+	C.gtk_flow_box_unselect_child(self.CPointer, child.GetFlowBoxChildPointer())
 	return
 }
 
 type _TraitFlowBoxChild struct{ CPointer *C.GtkFlowBoxChild }
+type IsFlowBoxChild interface {
+	GetFlowBoxChildPointer() *C.GtkFlowBoxChild
+}
+
+func (self *_TraitFlowBoxChild) GetFlowBoxChildPointer() *C.GtkFlowBoxChild {
+	return self.CPointer
+}
 
 /*
 Marks @child as changed, causing any state that depends on this
@@ -7840,6 +8261,13 @@ func (self *_TraitFlowBoxChild) IsSelected() (return__ bool) {
 }
 
 type _TraitFontButton struct{ CPointer *C.GtkFontButton }
+type IsFontButton interface {
+	GetFontButtonPointer() *C.GtkFontButton
+}
+
+func (self *_TraitFontButton) GetFontButtonPointer() *C.GtkFontButton {
+	return self.CPointer
+}
 
 /*
 Retrieves the name of the currently selected font. This name includes
@@ -7977,10 +8405,31 @@ func (self *_TraitFontButton) SetUseSize(use_size bool) {
 }
 
 type _TraitFontChooserDialog struct{ CPointer *C.GtkFontChooserDialog }
+type IsFontChooserDialog interface {
+	GetFontChooserDialogPointer() *C.GtkFontChooserDialog
+}
+
+func (self *_TraitFontChooserDialog) GetFontChooserDialogPointer() *C.GtkFontChooserDialog {
+	return self.CPointer
+}
 
 type _TraitFontChooserWidget struct{ CPointer *C.GtkFontChooserWidget }
+type IsFontChooserWidget interface {
+	GetFontChooserWidgetPointer() *C.GtkFontChooserWidget
+}
+
+func (self *_TraitFontChooserWidget) GetFontChooserWidgetPointer() *C.GtkFontChooserWidget {
+	return self.CPointer
+}
 
 type _TraitFontSelection struct{ CPointer *C.GtkFontSelection }
+type IsFontSelection interface {
+	GetFontSelectionPointer() *C.GtkFontSelection
+}
+
+func (self *_TraitFontSelection) GetFontSelectionPointer() *C.GtkFontSelection {
+	return self.CPointer
+}
 
 // gtk_font_selection_get_face is not generated due to deprecation attr
 
@@ -8007,6 +8456,13 @@ type _TraitFontSelection struct{ CPointer *C.GtkFontSelection }
 // gtk_font_selection_set_preview_text is not generated due to deprecation attr
 
 type _TraitFontSelectionDialog struct{ CPointer *C.GtkFontSelectionDialog }
+type IsFontSelectionDialog interface {
+	GetFontSelectionDialogPointer() *C.GtkFontSelectionDialog
+}
+
+func (self *_TraitFontSelectionDialog) GetFontSelectionDialogPointer() *C.GtkFontSelectionDialog {
+	return self.CPointer
+}
 
 // gtk_font_selection_dialog_get_cancel_button is not generated due to deprecation attr
 
@@ -8023,6 +8479,13 @@ type _TraitFontSelectionDialog struct{ CPointer *C.GtkFontSelectionDialog }
 // gtk_font_selection_dialog_set_preview_text is not generated due to deprecation attr
 
 type _TraitFrame struct{ CPointer *C.GtkFrame }
+type IsFrame interface {
+	GetFramePointer() *C.GtkFrame
+}
+
+func (self *_TraitFrame) GetFramePointer() *C.GtkFrame {
+	return self.CPointer
+}
 
 /*
 If the frame’s label widget is a #GtkLabel, returns the
@@ -8057,7 +8520,9 @@ gtk_frame_set_label_widget().
 func (self *_TraitFrame) GetLabelWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_frame_get_label_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -8095,8 +8560,8 @@ Sets the label widget for the frame. This is the widget that
 will appear embedded in the top edge of the frame as a
 title.
 */
-func (self *_TraitFrame) SetLabelWidget(label_widget *Widget) {
-	C.gtk_frame_set_label_widget(self.CPointer, (*C.GtkWidget)(label_widget.CPointer))
+func (self *_TraitFrame) SetLabelWidget(label_widget IsWidget) {
+	C.gtk_frame_set_label_widget(self.CPointer, label_widget.GetWidgetPointer())
 	return
 }
 
@@ -8109,6 +8574,13 @@ func (self *_TraitFrame) SetShadowType(type_ C.GtkShadowType) {
 }
 
 type _TraitGrid struct{ CPointer *C.GtkGrid }
+type IsGrid interface {
+	GetGridPointer() *C.GtkGrid
+}
+
+func (self *_TraitGrid) GetGridPointer() *C.GtkGrid {
+	return self.CPointer
+}
 
 /*
 Adds a widget to the grid.
@@ -8117,8 +8589,8 @@ The position of @child is determined by @left and @top. The
 number of “cells” that @child will occupy is determined by
 @width and @height.
 */
-func (self *_TraitGrid) Attach(child *Widget, left int, top int, width int, height int) {
-	C.gtk_grid_attach(self.CPointer, (*C.GtkWidget)(child.CPointer), C.gint(left), C.gint(top), C.gint(width), C.gint(height))
+func (self *_TraitGrid) Attach(child IsWidget, left int, top int, width int, height int) {
+	C.gtk_grid_attach(self.CPointer, child.GetWidgetPointer(), C.gint(left), C.gint(top), C.gint(width), C.gint(height))
 	return
 }
 
@@ -8133,8 +8605,8 @@ at the end indicated by @side.
 Attaching widgets labeled [1], [2], [3] with @sibling == %NULL and
 @side == %GTK_POS_LEFT yields a layout of [3][2][1].
 */
-func (self *_TraitGrid) AttachNextTo(child *Widget, sibling *Widget, side C.GtkPositionType, width int, height int) {
-	C.gtk_grid_attach_next_to(self.CPointer, (*C.GtkWidget)(child.CPointer), (*C.GtkWidget)(sibling.CPointer), side, C.gint(width), C.gint(height))
+func (self *_TraitGrid) AttachNextTo(child IsWidget, sibling IsWidget, side C.GtkPositionType, width int, height int) {
+	C.gtk_grid_attach_next_to(self.CPointer, child.GetWidgetPointer(), sibling.GetWidgetPointer(), side, C.gint(width), C.gint(height))
 	return
 }
 
@@ -8155,7 +8627,9 @@ cell whose upper left corner is at @left, @top.
 func (self *_TraitGrid) GetChildAt(left int, top int) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_grid_get_child_at(self.CPointer, C.gint(left), C.gint(top))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -8229,8 +8703,8 @@ determined by @side. If @side is %GTK_POS_TOP or %GTK_POS_BOTTOM,
 a row is inserted. If @side is %GTK_POS_LEFT of %GTK_POS_RIGHT,
 a column is inserted.
 */
-func (self *_TraitGrid) InsertNextTo(sibling *Widget, side C.GtkPositionType) {
-	C.gtk_grid_insert_next_to(self.CPointer, (*C.GtkWidget)(sibling.CPointer), side)
+func (self *_TraitGrid) InsertNextTo(sibling IsWidget, side C.GtkPositionType) {
+	C.gtk_grid_insert_next_to(self.CPointer, sibling.GetWidgetPointer(), side)
 	return
 }
 
@@ -8333,12 +8807,40 @@ func (self *_TraitGrid) SetRowSpacing(spacing uint) {
 }
 
 type _TraitHBox struct{ CPointer *C.GtkHBox }
+type IsHBox interface {
+	GetHBoxPointer() *C.GtkHBox
+}
+
+func (self *_TraitHBox) GetHBoxPointer() *C.GtkHBox {
+	return self.CPointer
+}
 
 type _TraitHButtonBox struct{ CPointer *C.GtkHButtonBox }
+type IsHButtonBox interface {
+	GetHButtonBoxPointer() *C.GtkHButtonBox
+}
+
+func (self *_TraitHButtonBox) GetHButtonBoxPointer() *C.GtkHButtonBox {
+	return self.CPointer
+}
 
 type _TraitHPaned struct{ CPointer *C.GtkHPaned }
+type IsHPaned interface {
+	GetHPanedPointer() *C.GtkHPaned
+}
+
+func (self *_TraitHPaned) GetHPanedPointer() *C.GtkHPaned {
+	return self.CPointer
+}
 
 type _TraitHSV struct{ CPointer *C.GtkHSV }
+type IsHSV interface {
+	GetHSVPointer() *C.GtkHSV
+}
+
+func (self *_TraitHSV) GetHSVPointer() *C.GtkHSV {
+	return self.CPointer
+}
 
 // gtk_hsv_get_color is not generated due to explicit ignore
 
@@ -8351,12 +8853,40 @@ type _TraitHSV struct{ CPointer *C.GtkHSV }
 // gtk_hsv_set_metrics is not generated due to explicit ignore
 
 type _TraitHScale struct{ CPointer *C.GtkHScale }
+type IsHScale interface {
+	GetHScalePointer() *C.GtkHScale
+}
+
+func (self *_TraitHScale) GetHScalePointer() *C.GtkHScale {
+	return self.CPointer
+}
 
 type _TraitHScrollbar struct{ CPointer *C.GtkHScrollbar }
+type IsHScrollbar interface {
+	GetHScrollbarPointer() *C.GtkHScrollbar
+}
+
+func (self *_TraitHScrollbar) GetHScrollbarPointer() *C.GtkHScrollbar {
+	return self.CPointer
+}
 
 type _TraitHSeparator struct{ CPointer *C.GtkHSeparator }
+type IsHSeparator interface {
+	GetHSeparatorPointer() *C.GtkHSeparator
+}
+
+func (self *_TraitHSeparator) GetHSeparatorPointer() *C.GtkHSeparator {
+	return self.CPointer
+}
 
 type _TraitHandleBox struct{ CPointer *C.GtkHandleBox }
+type IsHandleBox interface {
+	GetHandleBoxPointer() *C.GtkHandleBox
+}
+
+func (self *_TraitHandleBox) GetHandleBoxPointer() *C.GtkHandleBox {
+	return self.CPointer
+}
 
 // gtk_handle_box_get_child_detached is not generated due to deprecation attr
 
@@ -8373,6 +8903,13 @@ type _TraitHandleBox struct{ CPointer *C.GtkHandleBox }
 // gtk_handle_box_set_snap_edge is not generated due to deprecation attr
 
 type _TraitHeaderBar struct{ CPointer *C.GtkHeaderBar }
+type IsHeaderBar interface {
+	GetHeaderBarPointer() *C.GtkHeaderBar
+}
+
+func (self *_TraitHeaderBar) GetHeaderBarPointer() *C.GtkHeaderBar {
+	return self.CPointer
+}
 
 /*
 Retrieves the custom title widget of the header. See
@@ -8381,7 +8918,9 @@ gtk_header_bar_set_custom_title().
 func (self *_TraitHeaderBar) GetCustomTitle() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_header_bar_get_custom_title(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -8442,8 +8981,8 @@ func (self *_TraitHeaderBar) GetTitle() (return__ string) {
 Adds @child to @box, packed with reference to the
 end of the @box.
 */
-func (self *_TraitHeaderBar) PackEnd(child *Widget) {
-	C.gtk_header_bar_pack_end(self.CPointer, (*C.GtkWidget)(child.CPointer))
+func (self *_TraitHeaderBar) PackEnd(child IsWidget) {
+	C.gtk_header_bar_pack_end(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
@@ -8451,8 +8990,8 @@ func (self *_TraitHeaderBar) PackEnd(child *Widget) {
 Adds @child to @box, packed with reference to the
 start of the @box.
 */
-func (self *_TraitHeaderBar) PackStart(child *Widget) {
-	C.gtk_header_bar_pack_start(self.CPointer, (*C.GtkWidget)(child.CPointer))
+func (self *_TraitHeaderBar) PackStart(child IsWidget) {
+	C.gtk_header_bar_pack_start(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
@@ -8468,8 +9007,8 @@ style classes.
 You should set the custom title to %NULL, for the header title
 label to be visible again.
 */
-func (self *_TraitHeaderBar) SetCustomTitle(title_widget *Widget) {
-	C.gtk_header_bar_set_custom_title(self.CPointer, (*C.GtkWidget)(title_widget.CPointer))
+func (self *_TraitHeaderBar) SetCustomTitle(title_widget IsWidget) {
+	C.gtk_header_bar_set_custom_title(self.CPointer, title_widget.GetWidgetPointer())
 	return
 }
 
@@ -8553,6 +9092,13 @@ func (self *_TraitHeaderBar) SetTitle(title string) {
 }
 
 type _TraitIMContext struct{ CPointer *C.GtkIMContext }
+type IsIMContext interface {
+	GetIMContextPointer() *C.GtkIMContext
+}
+
+func (self *_TraitIMContext) GetIMContextPointer() *C.GtkIMContext {
+	return self.CPointer
+}
 
 /*
 Asks the widget that the input context is attached to to delete
@@ -8713,6 +9259,13 @@ func (self *_TraitIMContext) SetUsePreedit(use_preedit bool) {
 }
 
 type _TraitIMContextSimple struct{ CPointer *C.GtkIMContextSimple }
+type IsIMContextSimple interface {
+	GetIMContextSimplePointer() *C.GtkIMContextSimple
+}
+
+func (self *_TraitIMContextSimple) GetIMContextSimplePointer() *C.GtkIMContextSimple {
+	return self.CPointer
+}
 
 /*
 Adds an additional table to search to the input context.
@@ -8731,6 +9284,13 @@ func (self *_TraitIMContextSimple) AddTable(data *C.guint16, max_seq_len int, n_
 }
 
 type _TraitIMMulticontext struct{ CPointer *C.GtkIMMulticontext }
+type IsIMMulticontext interface {
+	GetIMMulticontextPointer() *C.GtkIMMulticontext
+}
+
+func (self *_TraitIMMulticontext) GetIMMulticontextPointer() *C.GtkIMMulticontext {
+	return self.CPointer
+}
 
 // gtk_im_multicontext_append_menuitems is not generated due to deprecation attr
 
@@ -8758,6 +9318,13 @@ func (self *_TraitIMMulticontext) SetContextId(context_id string) {
 }
 
 type _TraitIconFactory struct{ CPointer *C.GtkIconFactory }
+type IsIconFactory interface {
+	GetIconFactoryPointer() *C.GtkIconFactory
+}
+
+func (self *_TraitIconFactory) GetIconFactoryPointer() *C.GtkIconFactory {
+	return self.CPointer
+}
 
 // gtk_icon_factory_add is not generated due to deprecation attr
 
@@ -8768,6 +9335,13 @@ type _TraitIconFactory struct{ CPointer *C.GtkIconFactory }
 // gtk_icon_factory_remove_default is not generated due to deprecation attr
 
 type _TraitIconInfo struct{ CPointer *C.GtkIconInfo }
+type IsIconInfo interface {
+	GetIconInfoPointer() *C.GtkIconInfo
+}
+
+func (self *_TraitIconInfo) GetIconInfoPointer() *C.GtkIconInfo {
+	return self.CPointer
+}
 
 // gtk_icon_info_copy is not generated due to deprecation attr
 
@@ -9018,10 +9592,10 @@ This allows loading symbolic icons that will match the system theme.
 
 See gtk_icon_info_load_symbolic() for more details.
 */
-func (self *_TraitIconInfo) LoadSymbolicForContext(context *StyleContext) (was_symbolic bool, return__ *C.GdkPixbuf, __err__ error) {
+func (self *_TraitIconInfo) LoadSymbolicForContext(context IsStyleContext) (was_symbolic bool, return__ *C.GdkPixbuf, __err__ error) {
 	var __cgo__was_symbolic C.gboolean
 	var __cgo_error__ *C.GError
-	return__ = C.gtk_icon_info_load_symbolic_for_context(self.CPointer, (*C.GtkStyleContext)(context.CPointer), &__cgo__was_symbolic, &__cgo_error__)
+	return__ = C.gtk_icon_info_load_symbolic_for_context(self.CPointer, context.GetStyleContextPointer(), &__cgo__was_symbolic, &__cgo_error__)
 	was_symbolic = __cgo__was_symbolic == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -9036,8 +9610,8 @@ from the icon theme using gtk_icon_theme_lookup_icon().
 For more details, see gtk_icon_info_load_symbolic_for_context() which is the synchronous
 version of this call.
 */
-func (self *_TraitIconInfo) LoadSymbolicForContextAsync(context *StyleContext, cancellable *C.GCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.gtk_icon_info_load_symbolic_for_context_async(self.CPointer, (*C.GtkStyleContext)(context.CPointer), cancellable, callback, (C.gpointer)(user_data))
+func (self *_TraitIconInfo) LoadSymbolicForContextAsync(context IsStyleContext, cancellable *C.GCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
+	C.gtk_icon_info_load_symbolic_for_context_async(self.CPointer, context.GetStyleContextPointer(), cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -9083,6 +9657,13 @@ func (self *_TraitIconInfo) SetRawCoordinates(raw_coordinates bool) {
 }
 
 type _TraitIconTheme struct{ CPointer *C.GtkIconTheme }
+type IsIconTheme interface {
+	GetIconThemePointer() *C.GtkIconTheme
+}
+
+func (self *_TraitIconTheme) GetIconThemePointer() *C.GtkIconTheme {
+	return self.CPointer
+}
 
 /*
 Appends a directory to the search path.
@@ -9244,7 +9825,9 @@ gtk_icon_info_load_icon().
 func (self *_TraitIconTheme) LookupByGicon(icon *C.GIcon, size int, flags C.GtkIconLookupFlags) (return__ *IconInfo) {
 	var __cgo__return__ *C.GtkIconInfo
 	__cgo__return__ = C.gtk_icon_theme_lookup_by_gicon(self.CPointer, icon, C.gint(size), flags)
-	return__ = NewIconInfoFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewIconInfoFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -9257,7 +9840,9 @@ gtk_icon_info_load_icon().
 func (self *_TraitIconTheme) LookupByGiconForScale(icon *C.GIcon, size int, scale int, flags C.GtkIconLookupFlags) (return__ *IconInfo) {
 	var __cgo__return__ *C.GtkIconInfo
 	__cgo__return__ = C.gtk_icon_theme_lookup_by_gicon_for_scale(self.CPointer, icon, C.gint(size), C.gint(scale), flags)
-	return__ = NewIconInfoFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewIconInfoFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -9273,7 +9858,9 @@ func (self *_TraitIconTheme) LookupIcon(icon_name string, size int, flags C.GtkI
 	var __cgo__return__ *C.GtkIconInfo
 	__cgo__return__ = C.gtk_icon_theme_lookup_icon(self.CPointer, __cgo__icon_name, C.gint(size), flags)
 	C.free(unsafe.Pointer(__cgo__icon_name))
-	return__ = NewIconInfoFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewIconInfoFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -9289,7 +9876,9 @@ func (self *_TraitIconTheme) LookupIconForScale(icon_name string, size int, scal
 	var __cgo__return__ *C.GtkIconInfo
 	__cgo__return__ = C.gtk_icon_theme_lookup_icon_for_scale(self.CPointer, __cgo__icon_name, C.gint(size), C.gint(scale), flags)
 	C.free(unsafe.Pointer(__cgo__icon_name))
-	return__ = NewIconInfoFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewIconInfoFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -9342,6 +9931,13 @@ func (self *_TraitIconTheme) SetScreen(screen *C.GdkScreen) {
 // gtk_icon_theme_set_search_path is not generated due to explicit ignore
 
 type _TraitIconView struct{ CPointer *C.GtkIconView }
+type IsIconView interface {
+	GetIconViewPointer() *C.GtkIconView
+}
+
+func (self *_TraitIconView) GetIconViewPointer() *C.GtkIconView {
+	return self.CPointer
+}
 
 /*
 Converts widget coordinates to coordinates for the bin_window,
@@ -9360,8 +9956,8 @@ func (self *_TraitIconView) ConvertWidgetToBinWindowCoords(wx int, wy int) (bx i
 Creates a #cairo_surface_t representation of the item at @path.
 This image is used for a drag icon.
 */
-func (self *_TraitIconView) CreateDragIcon(path *TreePath) (return__ *C.cairo_surface_t) {
-	return__ = C.gtk_icon_view_create_drag_icon(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)))
+func (self *_TraitIconView) CreateDragIcon(path *C.GtkTreePath) (return__ *C.cairo_surface_t) {
+	return__ = C.gtk_icon_view_create_drag_icon(self.CPointer, path)
 	return
 }
 
@@ -9369,8 +9965,8 @@ func (self *_TraitIconView) CreateDragIcon(path *TreePath) (return__ *C.cairo_su
 Turns @icon_view into a drop destination for automatic DND. Calling this
 method sets #GtkIconView:reorderable to %FALSE.
 */
-func (self *_TraitIconView) EnableModelDragDest(targets *TargetEntry, n_targets int, actions C.GdkDragAction) {
-	C.gtk_icon_view_enable_model_drag_dest(self.CPointer, (*C.GtkTargetEntry)(unsafe.Pointer(targets)), C.gint(n_targets), actions)
+func (self *_TraitIconView) EnableModelDragDest(targets *C.GtkTargetEntry, n_targets int, actions C.GdkDragAction) {
+	C.gtk_icon_view_enable_model_drag_dest(self.CPointer, targets, C.gint(n_targets), actions)
 	return
 }
 
@@ -9378,8 +9974,8 @@ func (self *_TraitIconView) EnableModelDragDest(targets *TargetEntry, n_targets 
 Turns @icon_view into a drag source for automatic DND. Calling this
 method sets #GtkIconView:reorderable to %FALSE.
 */
-func (self *_TraitIconView) EnableModelDragSource(start_button_mask C.GdkModifierType, targets *TargetEntry, n_targets int, actions C.GdkDragAction) {
-	C.gtk_icon_view_enable_model_drag_source(self.CPointer, start_button_mask, (*C.GtkTargetEntry)(unsafe.Pointer(targets)), C.gint(n_targets), actions)
+func (self *_TraitIconView) EnableModelDragSource(start_button_mask C.GdkModifierType, targets *C.GtkTargetEntry, n_targets int, actions C.GdkDragAction) {
+	C.gtk_icon_view_enable_model_drag_source(self.CPointer, start_button_mask, targets, C.gint(n_targets), actions)
 	return
 }
 
@@ -9399,9 +9995,9 @@ Fills the bounding rectangle in widget coordinates for the cell specified by
 
 This function is only valid if @icon_view is realized.
 */
-func (self *_TraitIconView) GetCellRect(path *TreePath, cell *CellRenderer) (rect C.GdkRectangle, return__ bool) {
+func (self *_TraitIconView) GetCellRect(path *C.GtkTreePath, cell IsCellRenderer) (rect C.GdkRectangle, return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_icon_view_get_cell_rect(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)), (*C.GtkCellRenderer)(cell.CPointer), &rect)
+	__cgo__return__ = C.gtk_icon_view_get_cell_rect(self.CPointer, path, cell.GetCellRendererPointer(), &rect)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -9433,13 +10029,13 @@ If no cell currently has focus, then *@cell will be %NULL.
 
 The returned #GtkTreePath must be freed with gtk_tree_path_free().
 */
-func (self *_TraitIconView) GetCursor() (path *TreePath, cell *CellRenderer, return__ bool) {
-	var __cgo__path *C.GtkTreePath
+func (self *_TraitIconView) GetCursor() (path *C.GtkTreePath, cell *CellRenderer, return__ bool) {
 	var __cgo__cell *C.GtkCellRenderer
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_icon_view_get_cursor(self.CPointer, &__cgo__path, &__cgo__cell)
-	path = (*TreePath)(unsafe.Pointer(__cgo__path))
-	cell = NewCellRendererFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__cell).Pointer()))
+	__cgo__return__ = C.gtk_icon_view_get_cursor(self.CPointer, &path, &__cgo__cell)
+	if __cgo__cell != nil {
+		cell = NewCellRendererFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__cell).Pointer()))
+	}
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -9447,11 +10043,9 @@ func (self *_TraitIconView) GetCursor() (path *TreePath, cell *CellRenderer, ret
 /*
 Determines the destination item for a given position.
 */
-func (self *_TraitIconView) GetDestItemAtPos(drag_x int, drag_y int) (path *TreePath, pos C.GtkIconViewDropPosition, return__ bool) {
-	var __cgo__path *C.GtkTreePath
+func (self *_TraitIconView) GetDestItemAtPos(drag_x int, drag_y int) (path *C.GtkTreePath, pos C.GtkIconViewDropPosition, return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_icon_view_get_dest_item_at_pos(self.CPointer, C.gint(drag_x), C.gint(drag_y), &__cgo__path, &pos)
-	path = (*TreePath)(unsafe.Pointer(__cgo__path))
+	__cgo__return__ = C.gtk_icon_view_get_dest_item_at_pos(self.CPointer, C.gint(drag_x), C.gint(drag_y), &path, &pos)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -9459,10 +10053,8 @@ func (self *_TraitIconView) GetDestItemAtPos(drag_x int, drag_y int) (path *Tree
 /*
 Gets information about the item that is highlighted for feedback.
 */
-func (self *_TraitIconView) GetDragDestItem() (path *TreePath, pos C.GtkIconViewDropPosition) {
-	var __cgo__path *C.GtkTreePath
-	C.gtk_icon_view_get_drag_dest_item(self.CPointer, &__cgo__path, &pos)
-	path = (*TreePath)(unsafe.Pointer(__cgo__path))
+func (self *_TraitIconView) GetDragDestItem() (path *C.GtkTreePath, pos C.GtkIconViewDropPosition) {
+	C.gtk_icon_view_get_drag_dest_item(self.CPointer, &path, &pos)
 	return
 }
 
@@ -9474,13 +10066,13 @@ be freed with gtk_tree_path_free().
 See gtk_icon_view_convert_widget_to_bin_window_coords() for converting
 widget coordinates to bin_window coordinates.
 */
-func (self *_TraitIconView) GetItemAtPos(x int, y int) (path *TreePath, cell *CellRenderer, return__ bool) {
-	var __cgo__path *C.GtkTreePath
+func (self *_TraitIconView) GetItemAtPos(x int, y int) (path *C.GtkTreePath, cell *CellRenderer, return__ bool) {
 	var __cgo__cell *C.GtkCellRenderer
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_icon_view_get_item_at_pos(self.CPointer, C.gint(x), C.gint(y), &__cgo__path, &__cgo__cell)
-	path = (*TreePath)(unsafe.Pointer(__cgo__path))
-	cell = NewCellRendererFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__cell).Pointer()))
+	__cgo__return__ = C.gtk_icon_view_get_item_at_pos(self.CPointer, C.gint(x), C.gint(y), &path, &__cgo__cell)
+	if __cgo__cell != nil {
+		cell = NewCellRendererFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__cell).Pointer()))
+	}
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -9489,9 +10081,9 @@ func (self *_TraitIconView) GetItemAtPos(x int, y int) (path *TreePath, cell *Ce
 Gets the column in which the item @path is currently
 displayed. Column numbers start at 0.
 */
-func (self *_TraitIconView) GetItemColumn(path *TreePath) (return__ int) {
+func (self *_TraitIconView) GetItemColumn(path *C.GtkTreePath) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_icon_view_get_item_column(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)))
+	__cgo__return__ = C.gtk_icon_view_get_item_column(self.CPointer, path)
 	return__ = int(__cgo__return__)
 	return
 }
@@ -9519,9 +10111,9 @@ func (self *_TraitIconView) GetItemPadding() (return__ int) {
 Gets the row in which the item @path is currently
 displayed. Row numbers start at 0.
 */
-func (self *_TraitIconView) GetItemRow(path *TreePath) (return__ int) {
+func (self *_TraitIconView) GetItemRow(path *C.GtkTreePath) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_icon_view_get_item_row(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)))
+	__cgo__return__ = C.gtk_icon_view_get_item_row(self.CPointer, path)
 	return__ = int(__cgo__return__)
 	return
 }
@@ -9572,10 +10164,8 @@ the cell at the specified position.
 See gtk_icon_view_convert_widget_to_bin_window_coords() for converting
 widget coordinates to bin_window coordinates.
 */
-func (self *_TraitIconView) GetPathAtPos(x int, y int) (return__ *TreePath) {
-	var __cgo__return__ *C.GtkTreePath
-	__cgo__return__ = C.gtk_icon_view_get_path_at_pos(self.CPointer, C.gint(x), C.gint(y))
-	return__ = (*TreePath)(unsafe.Pointer(__cgo__return__))
+func (self *_TraitIconView) GetPathAtPos(x int, y int) (return__ *C.GtkTreePath) {
+	return__ = C.gtk_icon_view_get_path_at_pos(self.CPointer, C.gint(x), C.gint(y))
 	return
 }
 
@@ -9673,13 +10263,9 @@ Note that there may be invisible paths in between.
 
 Both paths should be freed with gtk_tree_path_free() after use.
 */
-func (self *_TraitIconView) GetVisibleRange() (start_path *TreePath, end_path *TreePath, return__ bool) {
-	var __cgo__start_path *C.GtkTreePath
-	var __cgo__end_path *C.GtkTreePath
+func (self *_TraitIconView) GetVisibleRange() (start_path *C.GtkTreePath, end_path *C.GtkTreePath, return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_icon_view_get_visible_range(self.CPointer, &__cgo__start_path, &__cgo__end_path)
-	start_path = (*TreePath)(unsafe.Pointer(__cgo__start_path))
-	end_path = (*TreePath)(unsafe.Pointer(__cgo__end_path))
+	__cgo__return__ = C.gtk_icon_view_get_visible_range(self.CPointer, &start_path, &end_path)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -9687,8 +10273,8 @@ func (self *_TraitIconView) GetVisibleRange() (start_path *TreePath, end_path *T
 /*
 Activates the item determined by @path.
 */
-func (self *_TraitIconView) ItemActivated(path *TreePath) {
-	C.gtk_icon_view_item_activated(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)))
+func (self *_TraitIconView) ItemActivated(path *C.GtkTreePath) {
+	C.gtk_icon_view_item_activated(self.CPointer, path)
 	return
 }
 
@@ -9696,9 +10282,9 @@ func (self *_TraitIconView) ItemActivated(path *TreePath) {
 Returns %TRUE if the icon pointed to by @path is currently
 selected. If @path does not point to a valid location, %FALSE is returned.
 */
-func (self *_TraitIconView) PathIsSelected(path *TreePath) (return__ bool) {
+func (self *_TraitIconView) PathIsSelected(path *C.GtkTreePath) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_icon_view_path_is_selected(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)))
+	__cgo__return__ = C.gtk_icon_view_path_is_selected(self.CPointer, path)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -9719,12 +10305,12 @@ This function only works if the model is set, and @path is a valid row on
 the model. If the model changes before the @icon_view is realized, the
 centered path will be modified to reflect this change.
 */
-func (self *_TraitIconView) ScrollToPath(path *TreePath, use_align bool, row_align float32, col_align float32) {
+func (self *_TraitIconView) ScrollToPath(path *C.GtkTreePath, use_align bool, row_align float32, col_align float32) {
 	__cgo__use_align := C.gboolean(0)
 	if use_align {
 		__cgo__use_align = C.gboolean(1)
 	}
-	C.gtk_icon_view_scroll_to_path(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)), __cgo__use_align, C.gfloat(row_align), C.gfloat(col_align))
+	C.gtk_icon_view_scroll_to_path(self.CPointer, path, __cgo__use_align, C.gfloat(row_align), C.gfloat(col_align))
 	return
 }
 
@@ -9740,8 +10326,8 @@ func (self *_TraitIconView) SelectAll() {
 /*
 Selects the row at @path.
 */
-func (self *_TraitIconView) SelectPath(path *TreePath) {
-	C.gtk_icon_view_select_path(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)))
+func (self *_TraitIconView) SelectPath(path *C.GtkTreePath) {
+	C.gtk_icon_view_select_path(self.CPointer, path)
 	return
 }
 
@@ -9798,20 +10384,20 @@ This function is often followed by `gtk_widget_grab_focus
 (icon_view)` in order to give keyboard focus to the widget.
 Please note that editing can only happen when the widget is realized.
 */
-func (self *_TraitIconView) SetCursor(path *TreePath, cell *CellRenderer, start_editing bool) {
+func (self *_TraitIconView) SetCursor(path *C.GtkTreePath, cell IsCellRenderer, start_editing bool) {
 	__cgo__start_editing := C.gboolean(0)
 	if start_editing {
 		__cgo__start_editing = C.gboolean(1)
 	}
-	C.gtk_icon_view_set_cursor(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)), (*C.GtkCellRenderer)(cell.CPointer), __cgo__start_editing)
+	C.gtk_icon_view_set_cursor(self.CPointer, path, cell.GetCellRendererPointer(), __cgo__start_editing)
 	return
 }
 
 /*
 Sets the item that is highlighted for feedback.
 */
-func (self *_TraitIconView) SetDragDestItem(path *TreePath, pos C.GtkIconViewDropPosition) {
-	C.gtk_icon_view_set_drag_dest_item(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)), pos)
+func (self *_TraitIconView) SetDragDestItem(path *C.GtkTreePath, pos C.GtkIconViewDropPosition) {
+	C.gtk_icon_view_set_drag_dest_item(self.CPointer, path, pos)
 	return
 }
 
@@ -9949,8 +10535,8 @@ the item pointed to by @path. See also gtk_tooltip_set_tip_area().
 
 See also gtk_icon_view_set_tooltip_column() for a simpler alternative.
 */
-func (self *_TraitIconView) SetTooltipCell(tooltip *Tooltip, path *TreePath, cell *CellRenderer) {
-	C.gtk_icon_view_set_tooltip_cell(self.CPointer, (*C.GtkTooltip)(tooltip.CPointer), (*C.GtkTreePath)(unsafe.Pointer(path)), (*C.GtkCellRenderer)(cell.CPointer))
+func (self *_TraitIconView) SetTooltipCell(tooltip IsTooltip, path *C.GtkTreePath, cell IsCellRenderer) {
+	C.gtk_icon_view_set_tooltip_cell(self.CPointer, tooltip.GetTooltipPointer(), path, cell.GetCellRendererPointer())
 	return
 }
 
@@ -9976,8 +10562,8 @@ Sets the tip area of @tooltip to be the area covered by the item at @path.
 See also gtk_icon_view_set_tooltip_column() for a simpler alternative.
 See also gtk_tooltip_set_tip_area().
 */
-func (self *_TraitIconView) SetTooltipItem(tooltip *Tooltip, path *TreePath) {
-	C.gtk_icon_view_set_tooltip_item(self.CPointer, (*C.GtkTooltip)(tooltip.CPointer), (*C.GtkTreePath)(unsafe.Pointer(path)))
+func (self *_TraitIconView) SetTooltipItem(tooltip IsTooltip, path *C.GtkTreePath) {
+	C.gtk_icon_view_set_tooltip_item(self.CPointer, tooltip.GetTooltipPointer(), path)
 	return
 }
 
@@ -9992,8 +10578,8 @@ func (self *_TraitIconView) UnselectAll() {
 /*
 Unselects the row at @path.
 */
-func (self *_TraitIconView) UnselectPath(path *TreePath) {
-	C.gtk_icon_view_unselect_path(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)))
+func (self *_TraitIconView) UnselectPath(path *C.GtkTreePath) {
+	C.gtk_icon_view_unselect_path(self.CPointer, path)
 	return
 }
 
@@ -10016,6 +10602,13 @@ func (self *_TraitIconView) UnsetModelDragSource() {
 }
 
 type _TraitImage struct{ CPointer *C.GtkImage }
+type IsImage interface {
+	GetImagePointer() *C.GtkImage
+}
+
+func (self *_TraitImage) GetImagePointer() *C.GtkImage {
+	return self.CPointer
+}
 
 /*
 Resets the image to be empty.
@@ -10177,6 +10770,13 @@ func (self *_TraitImage) SetPixelSize(pixel_size int) {
 }
 
 type _TraitImageMenuItem struct{ CPointer *C.GtkImageMenuItem }
+type IsImageMenuItem interface {
+	GetImageMenuItemPointer() *C.GtkImageMenuItem
+}
+
+func (self *_TraitImageMenuItem) GetImageMenuItemPointer() *C.GtkImageMenuItem {
+	return self.CPointer
+}
 
 // gtk_image_menu_item_get_always_show_image is not generated due to deprecation attr
 
@@ -10193,6 +10793,13 @@ type _TraitImageMenuItem struct{ CPointer *C.GtkImageMenuItem }
 // gtk_image_menu_item_set_use_stock is not generated due to deprecation attr
 
 type _TraitInfoBar struct{ CPointer *C.GtkInfoBar }
+type IsInfoBar interface {
+	GetInfoBarPointer() *C.GtkInfoBar
+}
+
+func (self *_TraitInfoBar) GetInfoBarPointer() *C.GtkInfoBar {
+	return self.CPointer
+}
 
 /*
 Add an activatable widget to the action area of a #GtkInfoBar,
@@ -10200,8 +10807,8 @@ connecting a signal handler that will emit the #GtkInfoBar::response
 signal on the message area when the widget is activated. The widget
 is appended to the end of the message areas action area.
 */
-func (self *_TraitInfoBar) AddActionWidget(child *Widget, response_id int) {
-	C.gtk_info_bar_add_action_widget(self.CPointer, (*C.GtkWidget)(child.CPointer), C.gint(response_id))
+func (self *_TraitInfoBar) AddActionWidget(child IsWidget, response_id int) {
+	C.gtk_info_bar_add_action_widget(self.CPointer, child.GetWidgetPointer(), C.gint(response_id))
 	return
 }
 
@@ -10217,7 +10824,9 @@ func (self *_TraitInfoBar) AddButton(button_text string, response_id int) (retur
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_info_bar_add_button(self.CPointer, __cgo__button_text, C.gint(response_id))
 	C.free(unsafe.Pointer(__cgo__button_text))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -10229,7 +10838,9 @@ Returns the action area of @info_bar.
 func (self *_TraitInfoBar) GetActionArea() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_info_bar_get_action_area(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -10239,7 +10850,9 @@ Returns the content area of @info_bar.
 func (self *_TraitInfoBar) GetContentArea() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_info_bar_get_content_area(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -10320,6 +10933,13 @@ func (self *_TraitInfoBar) SetShowCloseButton(setting bool) {
 }
 
 type _TraitInvisible struct{ CPointer *C.GtkInvisible }
+type IsInvisible interface {
+	GetInvisiblePointer() *C.GtkInvisible
+}
+
+func (self *_TraitInvisible) GetInvisiblePointer() *C.GtkInvisible {
+	return self.CPointer
+}
 
 /*
 Returns the #GdkScreen object associated with @invisible
@@ -10338,6 +10958,13 @@ func (self *_TraitInvisible) SetScreen(screen *C.GdkScreen) {
 }
 
 type _TraitLabel struct{ CPointer *C.GtkLabel }
+type IsLabel interface {
+	GetLabelPointer() *C.GtkLabel
+}
+
+func (self *_TraitLabel) GetLabelPointer() *C.GtkLabel {
+	return self.CPointer
+}
 
 /*
 Gets the angle of rotation for the label. See
@@ -10499,7 +11126,9 @@ label. See gtk_label_set_mnemonic_widget().
 func (self *_TraitLabel) GetMnemonicWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_label_get_mnemonic_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -10772,8 +11401,8 @@ GtkWidget::mnemonic-activate signal on it. The default handler for
 this signal will activate the widget if there are no mnemonic collisions
 and toggle focus between the colliding widgets otherwise.
 */
-func (self *_TraitLabel) SetMnemonicWidget(widget *Widget) {
-	C.gtk_label_set_mnemonic_widget(self.CPointer, (*C.GtkWidget)(widget.CPointer))
+func (self *_TraitLabel) SetMnemonicWidget(widget IsWidget) {
+	C.gtk_label_set_mnemonic_widget(self.CPointer, widget.GetWidgetPointer())
 	return
 }
 
@@ -10891,6 +11520,13 @@ func (self *_TraitLabel) SetWidthChars(n_chars int) {
 }
 
 type _TraitLayout struct{ CPointer *C.GtkLayout }
+type IsLayout interface {
+	GetLayoutPointer() *C.GtkLayout
+}
+
+func (self *_TraitLayout) GetLayoutPointer() *C.GtkLayout {
+	return self.CPointer
+}
 
 /*
 Retrieve the bin window of the layout used for drawing operations.
@@ -10921,8 +11557,8 @@ func (self *_TraitLayout) GetSize() (width uint, height uint) {
 /*
 Moves a current child of @layout to a new position.
 */
-func (self *_TraitLayout) Move(child_widget *Widget, x int, y int) {
-	C.gtk_layout_move(self.CPointer, (*C.GtkWidget)(child_widget.CPointer), C.gint(x), C.gint(y))
+func (self *_TraitLayout) Move(child_widget IsWidget, x int, y int) {
+	C.gtk_layout_move(self.CPointer, child_widget.GetWidgetPointer(), C.gint(x), C.gint(y))
 	return
 }
 
@@ -10930,8 +11566,8 @@ func (self *_TraitLayout) Move(child_widget *Widget, x int, y int) {
 Adds @child_widget to @layout, at position (@x,@y).
 @layout becomes the new parent container of @child_widget.
 */
-func (self *_TraitLayout) Put(child_widget *Widget, x int, y int) {
-	C.gtk_layout_put(self.CPointer, (*C.GtkWidget)(child_widget.CPointer), C.gint(x), C.gint(y))
+func (self *_TraitLayout) Put(child_widget IsWidget, x int, y int) {
+	C.gtk_layout_put(self.CPointer, child_widget.GetWidgetPointer(), C.gint(x), C.gint(y))
 	return
 }
 
@@ -10948,6 +11584,13 @@ func (self *_TraitLayout) SetSize(width uint, height uint) {
 // gtk_layout_set_vadjustment is not generated due to deprecation attr
 
 type _TraitLevelBar struct{ CPointer *C.GtkLevelBar }
+type IsLevelBar interface {
+	GetLevelBarPointer() *C.GtkLevelBar
+}
+
+func (self *_TraitLevelBar) GetLevelBarPointer() *C.GtkLevelBar {
+	return self.CPointer
+}
 
 /*
 Adds a new offset marker on @self at the position specified by @value.
@@ -11084,6 +11727,13 @@ func (self *_TraitLevelBar) SetValue(value float64) {
 }
 
 type _TraitLinkButton struct{ CPointer *C.GtkLinkButton }
+type IsLinkButton interface {
+	GetLinkButtonPointer() *C.GtkLinkButton
+}
+
+func (self *_TraitLinkButton) GetLinkButtonPointer() *C.GtkLinkButton {
+	return self.CPointer
+}
 
 /*
 Retrieves the URI set using gtk_link_button_set_uri().
@@ -11134,6 +11784,13 @@ func (self *_TraitLinkButton) SetVisited(visited bool) {
 }
 
 type _TraitListBox struct{ CPointer *C.GtkListBox }
+type IsListBox interface {
+	GetListBoxPointer() *C.GtkListBox
+}
+
+func (self *_TraitListBox) GetListBoxPointer() *C.GtkListBox {
+	return self.CPointer
+}
 
 /*
 This is a helper function for implementing DnD onto a #GtkListBox.
@@ -11143,8 +11800,8 @@ and any previously highlighted row will be unhighlighted.
 The row will also be unhighlighted when the widget gets
 a drag leave event.
 */
-func (self *_TraitListBox) DragHighlightRow(row *ListBoxRow) {
-	C.gtk_list_box_drag_highlight_row(self.CPointer, (*C.GtkListBoxRow)(row.CPointer))
+func (self *_TraitListBox) DragHighlightRow(row IsListBoxRow) {
+	C.gtk_list_box_drag_highlight_row(self.CPointer, row.GetListBoxRowPointer())
 	return
 }
 
@@ -11174,7 +11831,9 @@ for vertical scrolling.
 func (self *_TraitListBox) GetAdjustment() (return__ *Adjustment) {
 	var __cgo__return__ *C.GtkAdjustment
 	__cgo__return__ = C.gtk_list_box_get_adjustment(self.CPointer)
-	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -11184,7 +11843,9 @@ Gets the n:th child in the list (not counting headers).
 func (self *_TraitListBox) GetRowAtIndex(index_ int) (return__ *ListBoxRow) {
 	var __cgo__return__ *C.GtkListBoxRow
 	__cgo__return__ = C.gtk_list_box_get_row_at_index(self.CPointer, C.gint(index_))
-	return__ = NewListBoxRowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewListBoxRowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -11194,7 +11855,9 @@ Gets the row at the @y position.
 func (self *_TraitListBox) GetRowAtY(y int) (return__ *ListBoxRow) {
 	var __cgo__return__ *C.GtkListBoxRow
 	__cgo__return__ = C.gtk_list_box_get_row_at_y(self.CPointer, C.gint(y))
-	return__ = NewListBoxRowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewListBoxRowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -11204,7 +11867,9 @@ Gets the selected row.
 func (self *_TraitListBox) GetSelectedRow() (return__ *ListBoxRow) {
 	var __cgo__return__ *C.GtkListBoxRow
 	__cgo__return__ = C.gtk_list_box_get_selected_row(self.CPointer)
-	return__ = NewListBoxRowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewListBoxRowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -11224,8 +11889,8 @@ this function has the same effect of gtk_container_add().
 If @position is -1, or larger than the total number of items in the
 @list_box, then the @child will be appended to the end.
 */
-func (self *_TraitListBox) Insert(child *Widget, position int) {
-	C.gtk_list_box_insert(self.CPointer, (*C.GtkWidget)(child.CPointer), C.gint(position))
+func (self *_TraitListBox) Insert(child IsWidget, position int) {
+	C.gtk_list_box_insert(self.CPointer, child.GetWidgetPointer(), C.gint(position))
 	return
 }
 
@@ -11266,16 +11931,16 @@ Prepend a widget to the list. If a sort function is set, the widget will
 actually be inserted at the calculated position and this function has the
 same effect of gtk_container_add().
 */
-func (self *_TraitListBox) Prepend(child *Widget) {
-	C.gtk_list_box_prepend(self.CPointer, (*C.GtkWidget)(child.CPointer))
+func (self *_TraitListBox) Prepend(child IsWidget) {
+	C.gtk_list_box_prepend(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
 /*
 Make @row the currently selected row.
 */
-func (self *_TraitListBox) SelectRow(row *ListBoxRow) {
-	C.gtk_list_box_select_row(self.CPointer, (*C.GtkListBoxRow)(row.CPointer))
+func (self *_TraitListBox) SelectRow(row IsListBoxRow) {
+	C.gtk_list_box_select_row(self.CPointer, row.GetListBoxRowPointer())
 	return
 }
 
@@ -11302,8 +11967,8 @@ a #GtkScrolledWindow the adjustment from that will
 be picked up automatically, so there is no need
 to manually do that.
 */
-func (self *_TraitListBox) SetAdjustment(adjustment *Adjustment) {
-	C.gtk_list_box_set_adjustment(self.CPointer, (*C.GtkAdjustment)(adjustment.CPointer))
+func (self *_TraitListBox) SetAdjustment(adjustment IsAdjustment) {
+	C.gtk_list_box_set_adjustment(self.CPointer, adjustment.GetAdjustmentPointer())
 	return
 }
 
@@ -11350,8 +12015,8 @@ func (self *_TraitListBox) SetHeaderFunc(update_header C.GtkListBoxUpdateHeaderF
 Sets the placeholder widget that is shown in the list when
 it doesn’t display any visible children.
 */
-func (self *_TraitListBox) SetPlaceholder(placeholder *Widget) {
-	C.gtk_list_box_set_placeholder(self.CPointer, (*C.GtkWidget)(placeholder.CPointer))
+func (self *_TraitListBox) SetPlaceholder(placeholder IsWidget) {
+	C.gtk_list_box_set_placeholder(self.CPointer, placeholder.GetWidgetPointer())
 	return
 }
 
@@ -11380,6 +12045,13 @@ func (self *_TraitListBox) SetSortFunc(sort_func C.GtkListBoxSortFunc, user_data
 }
 
 type _TraitListBoxRow struct{ CPointer *C.GtkListBoxRow }
+type IsListBoxRow interface {
+	GetListBoxRowPointer() *C.GtkListBoxRow
+}
+
+func (self *_TraitListBoxRow) GetListBoxRowPointer() *C.GtkListBoxRow {
+	return self.CPointer
+}
 
 /*
 Marks @row as changed, causing any state that depends on this
@@ -11412,7 +12084,9 @@ set already, and if so to update the state of it.
 func (self *_TraitListBoxRow) GetHeader() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_list_box_row_get_header(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -11431,12 +12105,19 @@ Sets the current header of the @row. This is only allowed to be called
 from a #GtkListBoxUpdateHeaderFunc. It will replace any existing
 header in the row, and be shown in front of the row in the listbox.
 */
-func (self *_TraitListBoxRow) SetHeader(header *Widget) {
-	C.gtk_list_box_row_set_header(self.CPointer, (*C.GtkWidget)(header.CPointer))
+func (self *_TraitListBoxRow) SetHeader(header IsWidget) {
+	C.gtk_list_box_row_set_header(self.CPointer, header.GetWidgetPointer())
 	return
 }
 
 type _TraitListStore struct{ CPointer *C.GtkListStore }
+type IsListStore interface {
+	GetListStorePointer() *C.GtkListStore
+}
+
+func (self *_TraitListStore) GetListStorePointer() *C.GtkListStore {
+	return self.CPointer
+}
 
 /*
 Appends a new row to @list_store.  @iter will be changed to point to this new
@@ -11474,8 +12155,8 @@ prepended to the beginning of the list. @iter will be changed to point to
 this new row. The row will be empty after this function is called. To fill
 in values, you need to call gtk_list_store_set() or gtk_list_store_set_value().
 */
-func (self *_TraitListStore) InsertAfter(sibling *TreeIter) (iter C.GtkTreeIter) {
-	C.gtk_list_store_insert_after(self.CPointer, &iter, (*C.GtkTreeIter)(unsafe.Pointer(sibling)))
+func (self *_TraitListStore) InsertAfter(sibling *C.GtkTreeIter) (iter C.GtkTreeIter) {
+	C.gtk_list_store_insert_after(self.CPointer, &iter, sibling)
 	return
 }
 
@@ -11485,8 +12166,8 @@ be appended to the end of the list. @iter will be changed to point to this
 new row. The row will be empty after this function is called. To fill in
 values, you need to call gtk_list_store_set() or gtk_list_store_set_value().
 */
-func (self *_TraitListStore) InsertBefore(sibling *TreeIter) (iter C.GtkTreeIter) {
-	C.gtk_list_store_insert_before(self.CPointer, &iter, (*C.GtkTreeIter)(unsafe.Pointer(sibling)))
+func (self *_TraitListStore) InsertBefore(sibling *C.GtkTreeIter) (iter C.GtkTreeIter) {
+	C.gtk_list_store_insert_before(self.CPointer, &iter, sibling)
 	return
 }
 
@@ -11510,9 +12191,9 @@ func (self *_TraitListStore) InsertWithValuesv(position int, columns []int, valu
 
 Checks if the given iter is a valid iter for this #GtkListStore.
 */
-func (self *_TraitListStore) IterIsValid(iter *TreeIter) (return__ bool) {
+func (self *_TraitListStore) IterIsValid(iter *C.GtkTreeIter) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_list_store_iter_is_valid(self.CPointer, (*C.GtkTreeIter)(unsafe.Pointer(iter)))
+	__cgo__return__ = C.gtk_list_store_iter_is_valid(self.CPointer, iter)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -11522,8 +12203,8 @@ Moves @iter in @store to the position after @position. Note that this
 function only works with unsorted stores. If @position is %NULL, @iter
 will be moved to the start of the list.
 */
-func (self *_TraitListStore) MoveAfter(iter *TreeIter, position *TreeIter) {
-	C.gtk_list_store_move_after(self.CPointer, (*C.GtkTreeIter)(unsafe.Pointer(iter)), (*C.GtkTreeIter)(unsafe.Pointer(position)))
+func (self *_TraitListStore) MoveAfter(iter *C.GtkTreeIter, position *C.GtkTreeIter) {
+	C.gtk_list_store_move_after(self.CPointer, iter, position)
 	return
 }
 
@@ -11532,8 +12213,8 @@ Moves @iter in @store to the position before @position. Note that this
 function only works with unsorted stores. If @position is %NULL, @iter
 will be moved to the end of the list.
 */
-func (self *_TraitListStore) MoveBefore(iter *TreeIter, position *TreeIter) {
-	C.gtk_list_store_move_before(self.CPointer, (*C.GtkTreeIter)(unsafe.Pointer(iter)), (*C.GtkTreeIter)(unsafe.Pointer(position)))
+func (self *_TraitListStore) MoveBefore(iter *C.GtkTreeIter, position *C.GtkTreeIter) {
+	C.gtk_list_store_move_before(self.CPointer, iter, position)
 	return
 }
 
@@ -11552,9 +12233,9 @@ Removes the given row from the list store.  After being removed,
 @iter is set to be the next valid row, or invalidated if it pointed
 to the last row in @list_store.
 */
-func (self *_TraitListStore) Remove(iter *TreeIter) (return__ bool) {
+func (self *_TraitListStore) Remove(iter *C.GtkTreeIter) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_list_store_remove(self.CPointer, (*C.GtkTreeIter)(unsafe.Pointer(iter)))
+	__cgo__return__ = C.gtk_list_store_remove(self.CPointer, iter)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -11563,8 +12244,9 @@ func (self *_TraitListStore) Remove(iter *TreeIter) (return__ bool) {
 Reorders @store to follow the order indicated by @new_order. Note that
 this function only works with unsorted stores.
 */
-func (self *_TraitListStore) Reorder(new_order *C.gint) {
-	C.gtk_list_store_reorder(self.CPointer, new_order)
+func (self *_TraitListStore) Reorder(new_order []int) {
+	__header__new_order := (*reflect.SliceHeader)(unsafe.Pointer(&new_order))
+	C.gtk_list_store_reorder(self.CPointer, (*C.gint)(unsafe.Pointer(__header__new_order.Data)))
 	return
 }
 
@@ -11588,8 +12270,8 @@ Sets the data in the cell specified by @iter and @column.
 The type of @value must be convertible to the type of the
 column.
 */
-func (self *_TraitListStore) SetValue(iter *TreeIter, column int, value *C.GValue) {
-	C.gtk_list_store_set_value(self.CPointer, (*C.GtkTreeIter)(unsafe.Pointer(iter)), C.gint(column), value)
+func (self *_TraitListStore) SetValue(iter *C.GtkTreeIter, column int, value *C.GValue) {
+	C.gtk_list_store_set_value(self.CPointer, iter, C.gint(column), value)
 	return
 }
 
@@ -11600,9 +12282,9 @@ varargs. This function is mainly intended for
 language-bindings and in case the number of columns to
 change is not known until run-time.
 */
-func (self *_TraitListStore) SetValuesv(iter *TreeIter, columns []int, values *C.GValue, n_values int) {
+func (self *_TraitListStore) SetValuesv(iter *C.GtkTreeIter, columns []int, values *C.GValue, n_values int) {
 	__header__columns := (*reflect.SliceHeader)(unsafe.Pointer(&columns))
-	C.gtk_list_store_set_valuesv(self.CPointer, (*C.GtkTreeIter)(unsafe.Pointer(iter)), (*C.gint)(unsafe.Pointer(__header__columns.Data)), values, C.gint(n_values))
+	C.gtk_list_store_set_valuesv(self.CPointer, iter, (*C.gint)(unsafe.Pointer(__header__columns.Data)), values, C.gint(n_values))
 	return
 }
 
@@ -11610,12 +12292,19 @@ func (self *_TraitListStore) SetValuesv(iter *TreeIter, columns []int, values *C
 Swaps @a and @b in @store. Note that this function only works with
 unsorted stores.
 */
-func (self *_TraitListStore) Swap(a *TreeIter, b *TreeIter) {
-	C.gtk_list_store_swap(self.CPointer, (*C.GtkTreeIter)(unsafe.Pointer(a)), (*C.GtkTreeIter)(unsafe.Pointer(b)))
+func (self *_TraitListStore) Swap(a *C.GtkTreeIter, b *C.GtkTreeIter) {
+	C.gtk_list_store_swap(self.CPointer, a, b)
 	return
 }
 
 type _TraitLockButton struct{ CPointer *C.GtkLockButton }
+type IsLockButton interface {
+	GetLockButtonPointer() *C.GtkLockButton
+}
+
+func (self *_TraitLockButton) GetLockButtonPointer() *C.GtkLockButton {
+	return self.CPointer
+}
 
 /*
 Obtains the #GPermission object that controls @button.
@@ -11634,6 +12323,13 @@ func (self *_TraitLockButton) SetPermission(permission *C.GPermission) {
 }
 
 type _TraitMenu struct{ CPointer *C.GtkMenu }
+type IsMenu interface {
+	GetMenuPointer() *C.GtkMenu
+}
+
+func (self *_TraitMenu) GetMenuPointer() *C.GtkMenu {
+	return self.CPointer
+}
 
 /*
 Adds a new #GtkMenuItem to a (table) menu. The number of “cells” that
@@ -11644,8 +12340,8 @@ rightmost, uppermost and lower column and row numbers of the table.
 
 Note that this function is not related to gtk_menu_detach().
 */
-func (self *_TraitMenu) Attach(child *Widget, left_attach uint, right_attach uint, top_attach uint, bottom_attach uint) {
-	C.gtk_menu_attach(self.CPointer, (*C.GtkWidget)(child.CPointer), C.guint(left_attach), C.guint(right_attach), C.guint(top_attach), C.guint(bottom_attach))
+func (self *_TraitMenu) Attach(child IsWidget, left_attach uint, right_attach uint, top_attach uint, bottom_attach uint) {
+	C.gtk_menu_attach(self.CPointer, child.GetWidgetPointer(), C.guint(left_attach), C.guint(right_attach), C.guint(top_attach), C.guint(bottom_attach))
 	return
 }
 
@@ -11659,8 +12355,8 @@ when the widget is destroyed, as if it was a child widget.
 An attached menu will also move between screens correctly if the
 widgets moves between screens.
 */
-func (self *_TraitMenu) AttachToWidget(attach_widget *Widget, detacher C.GtkMenuDetachFunc) {
-	C.gtk_menu_attach_to_widget(self.CPointer, (*C.GtkWidget)(attach_widget.CPointer), detacher)
+func (self *_TraitMenu) AttachToWidget(attach_widget IsWidget, detacher C.GtkMenuDetachFunc) {
+	C.gtk_menu_attach_to_widget(self.CPointer, attach_widget.GetWidgetPointer(), detacher)
 	return
 }
 
@@ -11681,7 +12377,9 @@ menu. See gtk_menu_set_accel_group().
 func (self *_TraitMenu) GetAccelGroup() (return__ *AccelGroup) {
 	var __cgo__return__ *C.GtkAccelGroup
 	__cgo__return__ = C.gtk_menu_get_accel_group(self.CPointer)
-	return__ = NewAccelGroupFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewAccelGroupFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -11702,7 +12400,9 @@ Returns the selected menu item from the menu.  This is used by the
 func (self *_TraitMenu) GetActive() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_menu_get_active(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -11712,7 +12412,9 @@ Returns the #GtkWidget that the menu is attached to.
 func (self *_TraitMenu) GetAttachWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_menu_get_attach_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -11770,8 +12472,8 @@ a mouse click or key press) that caused the initiation of the popup.
 Only if no such event is available, gtk_get_current_event_time() can
 be used instead.
 */
-func (self *_TraitMenu) Popup(parent_menu_shell *Widget, parent_menu_item *Widget, func_ C.GtkMenuPositionFunc, data unsafe.Pointer, button uint, activate_time uint32) {
-	C.gtk_menu_popup(self.CPointer, (*C.GtkWidget)(parent_menu_shell.CPointer), (*C.GtkWidget)(parent_menu_item.CPointer), func_, (C.gpointer)(data), C.guint(button), C.guint32(activate_time))
+func (self *_TraitMenu) Popup(parent_menu_shell IsWidget, parent_menu_item IsWidget, func_ C.GtkMenuPositionFunc, data unsafe.Pointer, button uint, activate_time uint32) {
+	C.gtk_menu_popup(self.CPointer, parent_menu_shell.GetWidgetPointer(), parent_menu_item.GetWidgetPointer(), func_, (C.gpointer)(data), C.guint(button), C.guint32(activate_time))
 	return
 }
 
@@ -11796,8 +12498,8 @@ a mouse click or key press) that caused the initiation of the popup.
 Only if no such event is available, gtk_get_current_event_time() can
 be used instead.
 */
-func (self *_TraitMenu) PopupForDevice(device *C.GdkDevice, parent_menu_shell *Widget, parent_menu_item *Widget, func_ C.GtkMenuPositionFunc, data unsafe.Pointer, destroy C.GDestroyNotify, button uint, activate_time uint32) {
-	C.gtk_menu_popup_for_device(self.CPointer, device, (*C.GtkWidget)(parent_menu_shell.CPointer), (*C.GtkWidget)(parent_menu_item.CPointer), func_, (C.gpointer)(data), destroy, C.guint(button), C.guint32(activate_time))
+func (self *_TraitMenu) PopupForDevice(device *C.GdkDevice, parent_menu_shell IsWidget, parent_menu_item IsWidget, func_ C.GtkMenuPositionFunc, data unsafe.Pointer, destroy C.GDestroyNotify, button uint, activate_time uint32) {
+	C.gtk_menu_popup_for_device(self.CPointer, device, parent_menu_shell.GetWidgetPointer(), parent_menu_item.GetWidgetPointer(), func_, (C.gpointer)(data), destroy, C.guint(button), C.guint32(activate_time))
 	return
 }
 
@@ -11805,8 +12507,8 @@ func (self *_TraitMenu) PopupForDevice(device *C.GdkDevice, parent_menu_shell *W
 Moves @child to a new @position in the list of @menu
 children.
 */
-func (self *_TraitMenu) ReorderChild(child *Widget, position int) {
-	C.gtk_menu_reorder_child(self.CPointer, (*C.GtkWidget)(child.CPointer), C.gint(position))
+func (self *_TraitMenu) ReorderChild(child IsWidget, position int) {
+	C.gtk_menu_reorder_child(self.CPointer, child.GetWidgetPointer(), C.gint(position))
 	return
 }
 
@@ -11825,8 +12527,8 @@ that this menu is being used in with gtk_window_add_accel_group(),
 in order for those windows to support all the accelerators
 contained in this group.
 */
-func (self *_TraitMenu) SetAccelGroup(accel_group *AccelGroup) {
-	C.gtk_menu_set_accel_group(self.CPointer, (*C.GtkAccelGroup)(accel_group.CPointer))
+func (self *_TraitMenu) SetAccelGroup(accel_group IsAccelGroup) {
+	C.gtk_menu_set_accel_group(self.CPointer, accel_group.GetAccelGroupPointer())
 	return
 }
 
@@ -11911,6 +12613,13 @@ func (self *_TraitMenu) SetScreen(screen *C.GdkScreen) {
 // gtk_menu_set_title is not generated due to deprecation attr
 
 type _TraitMenuBar struct{ CPointer *C.GtkMenuBar }
+type IsMenuBar interface {
+	GetMenuBarPointer() *C.GtkMenuBar
+}
+
+func (self *_TraitMenuBar) GetMenuBarPointer() *C.GtkMenuBar {
+	return self.CPointer
+}
 
 /*
 Retrieves the current child pack direction of the menubar.
@@ -11947,6 +12656,13 @@ func (self *_TraitMenuBar) SetPackDirection(pack_dir C.GtkPackDirection) {
 }
 
 type _TraitMenuButton struct{ CPointer *C.GtkMenuButton }
+type IsMenuButton interface {
+	GetMenuButtonPointer() *C.GtkMenuButton
+}
+
+func (self *_TraitMenuButton) GetMenuButtonPointer() *C.GtkMenuButton {
+	return self.CPointer
+}
 
 /*
 Returns the parent #GtkWidget to use to line up with menu.
@@ -11954,7 +12670,9 @@ Returns the parent #GtkWidget to use to line up with menu.
 func (self *_TraitMenuButton) GetAlignWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_menu_button_get_align_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -11982,7 +12700,9 @@ returns %NULL.
 func (self *_TraitMenuButton) GetPopover() (return__ *Popover) {
 	var __cgo__return__ *C.GtkPopover
 	__cgo__return__ = C.gtk_menu_button_get_popover(self.CPointer)
-	return__ = NewPopoverFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewPopoverFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -11994,7 +12714,9 @@ returns %NULL.
 func (self *_TraitMenuButton) GetPopup() (return__ *Menu) {
 	var __cgo__return__ *C.GtkMenu
 	__cgo__return__ = C.gtk_menu_button_get_popup(self.CPointer)
-	return__ = NewMenuFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewMenuFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -12019,8 +12741,8 @@ button itself.
 Note that this property is only used with menus currently,
 and not for popovers.
 */
-func (self *_TraitMenuButton) SetAlignWidget(align_widget *Widget) {
-	C.gtk_menu_button_set_align_widget(self.CPointer, (*C.GtkWidget)(align_widget.CPointer))
+func (self *_TraitMenuButton) SetAlignWidget(align_widget IsWidget) {
+	C.gtk_menu_button_set_align_widget(self.CPointer, align_widget.GetWidgetPointer())
 	return
 }
 
@@ -12062,8 +12784,8 @@ Sets the #GtkPopover that will be popped up when the button is
 clicked, or %NULL to disable the button. If #GtkMenuButton:menu-model
 or #GtkMenuButton:popup are set, they will be set to %NULL.
 */
-func (self *_TraitMenuButton) SetPopover(popover *Widget) {
-	C.gtk_menu_button_set_popover(self.CPointer, (*C.GtkWidget)(popover.CPointer))
+func (self *_TraitMenuButton) SetPopover(popover IsWidget) {
+	C.gtk_menu_button_set_popover(self.CPointer, popover.GetWidgetPointer())
 	return
 }
 
@@ -12072,8 +12794,8 @@ Sets the #GtkMenu that will be popped up when the button is clicked,
 or %NULL to disable the button. If #GtkMenuButton:menu-model or
 #GtkMenuButton:popover are set, they will be set to %NULL.
 */
-func (self *_TraitMenuButton) SetPopup(menu *Widget) {
-	C.gtk_menu_button_set_popup(self.CPointer, (*C.GtkWidget)(menu.CPointer))
+func (self *_TraitMenuButton) SetPopup(menu IsWidget) {
+	C.gtk_menu_button_set_popup(self.CPointer, menu.GetWidgetPointer())
 	return
 }
 
@@ -12092,6 +12814,13 @@ func (self *_TraitMenuButton) SetUsePopover(use_popover bool) {
 }
 
 type _TraitMenuItem struct{ CPointer *C.GtkMenuItem }
+type IsMenuItem interface {
+	GetMenuItemPointer() *C.GtkMenuItem
+}
+
+func (self *_TraitMenuItem) GetMenuItemPointer() *C.GtkMenuItem {
+	return self.CPointer
+}
 
 /*
 Emits the #GtkMenuItem::activate signal on the given item
@@ -12152,7 +12881,9 @@ See gtk_menu_item_set_submenu().
 func (self *_TraitMenuItem) GetSubmenu() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_menu_item_get_submenu(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -12236,8 +12967,8 @@ func (self *_TraitMenuItem) SetReserveIndicator(reserve bool) {
 Sets or replaces the menu item’s submenu, or removes it when a %NULL
 submenu is passed.
 */
-func (self *_TraitMenuItem) SetSubmenu(submenu *Widget) {
-	C.gtk_menu_item_set_submenu(self.CPointer, (*C.GtkWidget)(submenu.CPointer))
+func (self *_TraitMenuItem) SetSubmenu(submenu IsWidget) {
+	C.gtk_menu_item_set_submenu(self.CPointer, submenu.GetWidgetPointer())
 	return
 }
 
@@ -12265,16 +12996,23 @@ func (self *_TraitMenuItem) ToggleSizeAllocate(allocation int) {
 // gtk_menu_item_toggle_size_request is not generated due to inout param
 
 type _TraitMenuShell struct{ CPointer *C.GtkMenuShell }
+type IsMenuShell interface {
+	GetMenuShellPointer() *C.GtkMenuShell
+}
+
+func (self *_TraitMenuShell) GetMenuShellPointer() *C.GtkMenuShell {
+	return self.CPointer
+}
 
 /*
 Activates the menu item within the menu shell.
 */
-func (self *_TraitMenuShell) ActivateItem(menu_item *Widget, force_deactivate bool) {
+func (self *_TraitMenuShell) ActivateItem(menu_item IsWidget, force_deactivate bool) {
 	__cgo__force_deactivate := C.gboolean(0)
 	if force_deactivate {
 		__cgo__force_deactivate = C.gboolean(1)
 	}
-	C.gtk_menu_shell_activate_item(self.CPointer, (*C.GtkWidget)(menu_item.CPointer), __cgo__force_deactivate)
+	C.gtk_menu_shell_activate_item(self.CPointer, menu_item.GetWidgetPointer(), __cgo__force_deactivate)
 	return
 }
 
@@ -12282,8 +13020,8 @@ func (self *_TraitMenuShell) ActivateItem(menu_item *Widget, force_deactivate bo
 Adds a new #GtkMenuItem to the end of the menu shell's
 item list.
 */
-func (self *_TraitMenuShell) Append(child *Widget) {
-	C.gtk_menu_shell_append(self.CPointer, (*C.GtkWidget)(child.CPointer))
+func (self *_TraitMenuShell) Append(child IsWidget) {
+	C.gtk_menu_shell_append(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
@@ -12370,7 +13108,9 @@ from which it was opened up.
 func (self *_TraitMenuShell) GetParentShell() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_menu_shell_get_parent_shell(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -12380,7 +13120,9 @@ Gets the currently selected item.
 func (self *_TraitMenuShell) GetSelectedItem() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_menu_shell_get_selected_item(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -12398,8 +13140,8 @@ func (self *_TraitMenuShell) GetTakeFocus() (return__ bool) {
 Adds a new #GtkMenuItem to the menu shell’s item list
 at the position indicated by @position.
 */
-func (self *_TraitMenuShell) Insert(child *Widget, position int) {
-	C.gtk_menu_shell_insert(self.CPointer, (*C.GtkWidget)(child.CPointer), C.gint(position))
+func (self *_TraitMenuShell) Insert(child IsWidget, position int) {
+	C.gtk_menu_shell_insert(self.CPointer, child.GetWidgetPointer(), C.gint(position))
 	return
 }
 
@@ -12407,8 +13149,8 @@ func (self *_TraitMenuShell) Insert(child *Widget, position int) {
 Adds a new #GtkMenuItem to the beginning of the menu shell's
 item list.
 */
-func (self *_TraitMenuShell) Prepend(child *Widget) {
-	C.gtk_menu_shell_prepend(self.CPointer, (*C.GtkWidget)(child.CPointer))
+func (self *_TraitMenuShell) Prepend(child IsWidget) {
+	C.gtk_menu_shell_prepend(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
@@ -12429,8 +13171,8 @@ func (self *_TraitMenuShell) SelectFirst(search_sensitive bool) {
 /*
 Selects the menu item from the menu shell.
 */
-func (self *_TraitMenuShell) SelectItem(menu_item *Widget) {
-	C.gtk_menu_shell_select_item(self.CPointer, (*C.GtkWidget)(menu_item.CPointer))
+func (self *_TraitMenuShell) SelectItem(menu_item IsWidget) {
+	C.gtk_menu_shell_select_item(self.CPointer, menu_item.GetWidgetPointer())
 	return
 }
 
@@ -12472,6 +13214,13 @@ func (self *_TraitMenuShell) SetTakeFocus(take_focus bool) {
 }
 
 type _TraitMenuToolButton struct{ CPointer *C.GtkMenuToolButton }
+type IsMenuToolButton interface {
+	GetMenuToolButtonPointer() *C.GtkMenuToolButton
+}
+
+func (self *_TraitMenuToolButton) GetMenuToolButtonPointer() *C.GtkMenuToolButton {
+	return self.CPointer
+}
 
 /*
 Gets the #GtkMenu associated with #GtkMenuToolButton.
@@ -12479,7 +13228,9 @@ Gets the #GtkMenu associated with #GtkMenuToolButton.
 func (self *_TraitMenuToolButton) GetMenu() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_menu_tool_button_get_menu(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -12511,12 +13262,19 @@ func (self *_TraitMenuToolButton) SetArrowTooltipText(text string) {
 Sets the #GtkMenu that is popped up when the user clicks on the arrow.
 If @menu is NULL, the arrow button becomes insensitive.
 */
-func (self *_TraitMenuToolButton) SetMenu(menu *Widget) {
-	C.gtk_menu_tool_button_set_menu(self.CPointer, (*C.GtkWidget)(menu.CPointer))
+func (self *_TraitMenuToolButton) SetMenu(menu IsWidget) {
+	C.gtk_menu_tool_button_set_menu(self.CPointer, menu.GetWidgetPointer())
 	return
 }
 
 type _TraitMessageDialog struct{ CPointer *C.GtkMessageDialog }
+type IsMessageDialog interface {
+	GetMessageDialogPointer() *C.GtkMessageDialog
+}
+
+func (self *_TraitMessageDialog) GetMessageDialogPointer() *C.GtkMessageDialog {
+	return self.CPointer
+}
 
 // gtk_message_dialog_format_secondary_markup is not generated due to varargs
 
@@ -12534,7 +13292,9 @@ function in the parent #GtkDialog.
 func (self *_TraitMessageDialog) GetMessageArea() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_message_dialog_get_message_area(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -12552,6 +13312,13 @@ func (self *_TraitMessageDialog) SetMarkup(str string) {
 }
 
 type _TraitMisc struct{ CPointer *C.GtkMisc }
+type IsMisc interface {
+	GetMiscPointer() *C.GtkMisc
+}
+
+func (self *_TraitMisc) GetMiscPointer() *C.GtkMisc {
+	return self.CPointer
+}
 
 /*
 Gets the X and Y alignment of the widget within its allocation.
@@ -12596,6 +13363,13 @@ func (self *_TraitMisc) SetPadding(xpad int, ypad int) {
 }
 
 type _TraitMountOperation struct{ CPointer *C.GtkMountOperation }
+type IsMountOperation interface {
+	GetMountOperationPointer() *C.GtkMountOperation
+}
+
+func (self *_TraitMountOperation) GetMountOperationPointer() *C.GtkMountOperation {
+	return self.CPointer
+}
 
 /*
 Gets the transient parent used by the #GtkMountOperation
@@ -12603,7 +13377,9 @@ Gets the transient parent used by the #GtkMountOperation
 func (self *_TraitMountOperation) GetParent() (return__ *Window) {
 	var __cgo__return__ *C.GtkWindow
 	__cgo__return__ = C.gtk_mount_operation_get_parent(self.CPointer)
-	return__ = NewWindowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWindowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -12631,8 +13407,8 @@ func (self *_TraitMountOperation) IsShowing() (return__ bool) {
 Sets the transient parent for windows shown by the
 #GtkMountOperation.
 */
-func (self *_TraitMountOperation) SetParent(parent *Window) {
-	C.gtk_mount_operation_set_parent(self.CPointer, (*C.GtkWindow)(parent.CPointer))
+func (self *_TraitMountOperation) SetParent(parent IsWindow) {
+	C.gtk_mount_operation_set_parent(self.CPointer, parent.GetWindowPointer())
 	return
 }
 
@@ -12645,13 +13421,20 @@ func (self *_TraitMountOperation) SetScreen(screen *C.GdkScreen) {
 }
 
 type _TraitNotebook struct{ CPointer *C.GtkNotebook }
+type IsNotebook interface {
+	GetNotebookPointer() *C.GtkNotebook
+}
+
+func (self *_TraitNotebook) GetNotebookPointer() *C.GtkNotebook {
+	return self.CPointer
+}
 
 /*
 Appends a page to @notebook.
 */
-func (self *_TraitNotebook) AppendPage(child *Widget, tab_label *Widget) (return__ int) {
+func (self *_TraitNotebook) AppendPage(child IsWidget, tab_label IsWidget) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_notebook_append_page(self.CPointer, (*C.GtkWidget)(child.CPointer), (*C.GtkWidget)(tab_label.CPointer))
+	__cgo__return__ = C.gtk_notebook_append_page(self.CPointer, child.GetWidgetPointer(), tab_label.GetWidgetPointer())
 	return__ = int(__cgo__return__)
 	return
 }
@@ -12660,9 +13443,9 @@ func (self *_TraitNotebook) AppendPage(child *Widget, tab_label *Widget) (return
 Appends a page to @notebook, specifying the widget to use as the
 label in the popup menu.
 */
-func (self *_TraitNotebook) AppendPageMenu(child *Widget, tab_label *Widget, menu_label *Widget) (return__ int) {
+func (self *_TraitNotebook) AppendPageMenu(child IsWidget, tab_label IsWidget, menu_label IsWidget) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_notebook_append_page_menu(self.CPointer, (*C.GtkWidget)(child.CPointer), (*C.GtkWidget)(tab_label.CPointer), (*C.GtkWidget)(menu_label.CPointer))
+	__cgo__return__ = C.gtk_notebook_append_page_menu(self.CPointer, child.GetWidgetPointer(), tab_label.GetWidgetPointer(), menu_label.GetWidgetPointer())
 	return__ = int(__cgo__return__)
 	return
 }
@@ -12673,7 +13456,9 @@ Gets one of the action widgets. See gtk_notebook_set_action_widget().
 func (self *_TraitNotebook) GetActionWidget(pack_type C.GtkPackType) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_notebook_get_action_widget(self.CPointer, pack_type)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -12700,10 +13485,12 @@ func (self *_TraitNotebook) GetGroupName() (return__ string) {
 /*
 Retrieves the menu label widget of the page containing @child.
 */
-func (self *_TraitNotebook) GetMenuLabel(child *Widget) (return__ *Widget) {
+func (self *_TraitNotebook) GetMenuLabel(child IsWidget) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
-	__cgo__return__ = C.gtk_notebook_get_menu_label(self.CPointer, (*C.GtkWidget)(child.CPointer))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	__cgo__return__ = C.gtk_notebook_get_menu_label(self.CPointer, child.GetWidgetPointer())
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -12711,9 +13498,9 @@ func (self *_TraitNotebook) GetMenuLabel(child *Widget) (return__ *Widget) {
 Retrieves the text of the menu label for the page containing
 @child.
 */
-func (self *_TraitNotebook) GetMenuLabelText(child *Widget) (return__ string) {
+func (self *_TraitNotebook) GetMenuLabelText(child IsWidget) (return__ string) {
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.gtk_notebook_get_menu_label_text(self.CPointer, (*C.GtkWidget)(child.CPointer))
+	__cgo__return__ = C.gtk_notebook_get_menu_label_text(self.CPointer, child.GetWidgetPointer())
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -12734,7 +13521,9 @@ Returns the child widget contained in page number @page_num.
 func (self *_TraitNotebook) GetNthPage(page_num int) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_notebook_get_nth_page(self.CPointer, C.gint(page_num))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -12774,9 +13563,9 @@ func (self *_TraitNotebook) GetShowTabs() (return__ bool) {
 /*
 Returns whether the tab contents can be detached from @notebook.
 */
-func (self *_TraitNotebook) GetTabDetachable(child *Widget) (return__ bool) {
+func (self *_TraitNotebook) GetTabDetachable(child IsWidget) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_notebook_get_tab_detachable(self.CPointer, (*C.GtkWidget)(child.CPointer))
+	__cgo__return__ = C.gtk_notebook_get_tab_detachable(self.CPointer, child.GetWidgetPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -12788,10 +13577,12 @@ Returns the tab label widget for the page @child.
 %NULL is returned if @child is not in @notebook or
 if no tab label has specifically been set for @child.
 */
-func (self *_TraitNotebook) GetTabLabel(child *Widget) (return__ *Widget) {
+func (self *_TraitNotebook) GetTabLabel(child IsWidget) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
-	__cgo__return__ = C.gtk_notebook_get_tab_label(self.CPointer, (*C.GtkWidget)(child.CPointer))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	__cgo__return__ = C.gtk_notebook_get_tab_label(self.CPointer, child.GetWidgetPointer())
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -12799,9 +13590,9 @@ func (self *_TraitNotebook) GetTabLabel(child *Widget) (return__ *Widget) {
 Retrieves the text of the tab label for the page containing
 @child.
 */
-func (self *_TraitNotebook) GetTabLabelText(child *Widget) (return__ string) {
+func (self *_TraitNotebook) GetTabLabelText(child IsWidget) (return__ string) {
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.gtk_notebook_get_tab_label_text(self.CPointer, (*C.GtkWidget)(child.CPointer))
+	__cgo__return__ = C.gtk_notebook_get_tab_label_text(self.CPointer, child.GetWidgetPointer())
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -12818,9 +13609,9 @@ func (self *_TraitNotebook) GetTabPos() (return__ C.GtkPositionType) {
 /*
 Gets whether the tab can be reordered via drag and drop or not.
 */
-func (self *_TraitNotebook) GetTabReorderable(child *Widget) (return__ bool) {
+func (self *_TraitNotebook) GetTabReorderable(child IsWidget) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_notebook_get_tab_reorderable(self.CPointer, (*C.GtkWidget)(child.CPointer))
+	__cgo__return__ = C.gtk_notebook_get_tab_reorderable(self.CPointer, child.GetWidgetPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -12830,9 +13621,9 @@ func (self *_TraitNotebook) GetTabReorderable(child *Widget) (return__ bool) {
 /*
 Insert a page into @notebook at the given position.
 */
-func (self *_TraitNotebook) InsertPage(child *Widget, tab_label *Widget, position int) (return__ int) {
+func (self *_TraitNotebook) InsertPage(child IsWidget, tab_label IsWidget, position int) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_notebook_insert_page(self.CPointer, (*C.GtkWidget)(child.CPointer), (*C.GtkWidget)(tab_label.CPointer), C.gint(position))
+	__cgo__return__ = C.gtk_notebook_insert_page(self.CPointer, child.GetWidgetPointer(), tab_label.GetWidgetPointer(), C.gint(position))
 	return__ = int(__cgo__return__)
 	return
 }
@@ -12841,9 +13632,9 @@ func (self *_TraitNotebook) InsertPage(child *Widget, tab_label *Widget, positio
 Insert a page into @notebook at the given position, specifying
 the widget to use as the label in the popup menu.
 */
-func (self *_TraitNotebook) InsertPageMenu(child *Widget, tab_label *Widget, menu_label *Widget, position int) (return__ int) {
+func (self *_TraitNotebook) InsertPageMenu(child IsWidget, tab_label IsWidget, menu_label IsWidget, position int) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_notebook_insert_page_menu(self.CPointer, (*C.GtkWidget)(child.CPointer), (*C.GtkWidget)(tab_label.CPointer), (*C.GtkWidget)(menu_label.CPointer), C.gint(position))
+	__cgo__return__ = C.gtk_notebook_insert_page_menu(self.CPointer, child.GetWidgetPointer(), tab_label.GetWidgetPointer(), menu_label.GetWidgetPointer(), C.gint(position))
 	return__ = int(__cgo__return__)
 	return
 }
@@ -12861,9 +13652,9 @@ func (self *_TraitNotebook) NextPage() {
 Finds the index of the page which contains the given child
 widget.
 */
-func (self *_TraitNotebook) PageNum(child *Widget) (return__ int) {
+func (self *_TraitNotebook) PageNum(child IsWidget) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_notebook_page_num(self.CPointer, (*C.GtkWidget)(child.CPointer))
+	__cgo__return__ = C.gtk_notebook_page_num(self.CPointer, child.GetWidgetPointer())
 	return__ = int(__cgo__return__)
 	return
 }
@@ -12889,9 +13680,9 @@ func (self *_TraitNotebook) PopupEnable() {
 /*
 Prepends a page to @notebook.
 */
-func (self *_TraitNotebook) PrependPage(child *Widget, tab_label *Widget) (return__ int) {
+func (self *_TraitNotebook) PrependPage(child IsWidget, tab_label IsWidget) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_notebook_prepend_page(self.CPointer, (*C.GtkWidget)(child.CPointer), (*C.GtkWidget)(tab_label.CPointer))
+	__cgo__return__ = C.gtk_notebook_prepend_page(self.CPointer, child.GetWidgetPointer(), tab_label.GetWidgetPointer())
 	return__ = int(__cgo__return__)
 	return
 }
@@ -12900,9 +13691,9 @@ func (self *_TraitNotebook) PrependPage(child *Widget, tab_label *Widget) (retur
 Prepends a page to @notebook, specifying the widget to use as the
 label in the popup menu.
 */
-func (self *_TraitNotebook) PrependPageMenu(child *Widget, tab_label *Widget, menu_label *Widget) (return__ int) {
+func (self *_TraitNotebook) PrependPageMenu(child IsWidget, tab_label IsWidget, menu_label IsWidget) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_notebook_prepend_page_menu(self.CPointer, (*C.GtkWidget)(child.CPointer), (*C.GtkWidget)(tab_label.CPointer), (*C.GtkWidget)(menu_label.CPointer))
+	__cgo__return__ = C.gtk_notebook_prepend_page_menu(self.CPointer, child.GetWidgetPointer(), tab_label.GetWidgetPointer(), menu_label.GetWidgetPointer())
 	return__ = int(__cgo__return__)
 	return
 }
@@ -12931,8 +13722,8 @@ Reorders the page containing @child, so that it appears in position
 children in the list or negative, @child will be moved to the end
 of the list.
 */
-func (self *_TraitNotebook) ReorderChild(child *Widget, position int) {
-	C.gtk_notebook_reorder_child(self.CPointer, (*C.GtkWidget)(child.CPointer), C.gint(position))
+func (self *_TraitNotebook) ReorderChild(child IsWidget, position int) {
+	C.gtk_notebook_reorder_child(self.CPointer, child.GetWidgetPointer(), C.gint(position))
 	return
 }
 
@@ -12944,8 +13735,8 @@ a #GtkBox if you need to pack more than one widget on the same side.
 Note that action widgets are “internal” children of the notebook and thus
 not included in the list returned from gtk_container_foreach().
 */
-func (self *_TraitNotebook) SetActionWidget(widget *Widget, pack_type C.GtkPackType) {
-	C.gtk_notebook_set_action_widget(self.CPointer, (*C.GtkWidget)(widget.CPointer), pack_type)
+func (self *_TraitNotebook) SetActionWidget(widget IsWidget, pack_type C.GtkPackType) {
+	C.gtk_notebook_set_action_widget(self.CPointer, widget.GetWidgetPointer(), pack_type)
 	return
 }
 
@@ -12979,17 +13770,17 @@ func (self *_TraitNotebook) SetGroupName(group_name string) {
 /*
 Changes the menu label for the page containing @child.
 */
-func (self *_TraitNotebook) SetMenuLabel(child *Widget, menu_label *Widget) {
-	C.gtk_notebook_set_menu_label(self.CPointer, (*C.GtkWidget)(child.CPointer), (*C.GtkWidget)(menu_label.CPointer))
+func (self *_TraitNotebook) SetMenuLabel(child IsWidget, menu_label IsWidget) {
+	C.gtk_notebook_set_menu_label(self.CPointer, child.GetWidgetPointer(), menu_label.GetWidgetPointer())
 	return
 }
 
 /*
 Creates a new label and sets it as the menu label of @child.
 */
-func (self *_TraitNotebook) SetMenuLabelText(child *Widget, menu_text string) {
+func (self *_TraitNotebook) SetMenuLabelText(child IsWidget, menu_text string) {
 	__cgo__menu_text := (*C.gchar)(unsafe.Pointer(C.CString(menu_text)))
-	C.gtk_notebook_set_menu_label_text(self.CPointer, (*C.GtkWidget)(child.CPointer), __cgo__menu_text)
+	C.gtk_notebook_set_menu_label_text(self.CPointer, child.GetWidgetPointer(), __cgo__menu_text)
 	C.free(unsafe.Pointer(__cgo__menu_text))
 	return
 }
@@ -13073,12 +13864,12 @@ widget that corresponds to the dropped tab.
 If you want a notebook to accept drags from other widgets,
 you will have to set your own DnD code to do it.
 */
-func (self *_TraitNotebook) SetTabDetachable(child *Widget, detachable bool) {
+func (self *_TraitNotebook) SetTabDetachable(child IsWidget, detachable bool) {
 	__cgo__detachable := C.gboolean(0)
 	if detachable {
 		__cgo__detachable = C.gboolean(1)
 	}
-	C.gtk_notebook_set_tab_detachable(self.CPointer, (*C.GtkWidget)(child.CPointer), __cgo__detachable)
+	C.gtk_notebook_set_tab_detachable(self.CPointer, child.GetWidgetPointer(), __cgo__detachable)
 	return
 }
 
@@ -13087,8 +13878,8 @@ Changes the tab label for @child.
 If %NULL is specified for @tab_label, then the page will
 have the label “page N”.
 */
-func (self *_TraitNotebook) SetTabLabel(child *Widget, tab_label *Widget) {
-	C.gtk_notebook_set_tab_label(self.CPointer, (*C.GtkWidget)(child.CPointer), (*C.GtkWidget)(tab_label.CPointer))
+func (self *_TraitNotebook) SetTabLabel(child IsWidget, tab_label IsWidget) {
+	C.gtk_notebook_set_tab_label(self.CPointer, child.GetWidgetPointer(), tab_label.GetWidgetPointer())
 	return
 }
 
@@ -13096,9 +13887,9 @@ func (self *_TraitNotebook) SetTabLabel(child *Widget, tab_label *Widget) {
 Creates a new label and sets it as the tab label for the page
 containing @child.
 */
-func (self *_TraitNotebook) SetTabLabelText(child *Widget, tab_text string) {
+func (self *_TraitNotebook) SetTabLabelText(child IsWidget, tab_text string) {
 	__cgo__tab_text := (*C.gchar)(unsafe.Pointer(C.CString(tab_text)))
-	C.gtk_notebook_set_tab_label_text(self.CPointer, (*C.GtkWidget)(child.CPointer), __cgo__tab_text)
+	C.gtk_notebook_set_tab_label_text(self.CPointer, child.GetWidgetPointer(), __cgo__tab_text)
 	C.free(unsafe.Pointer(__cgo__tab_text))
 	return
 }
@@ -13116,16 +13907,23 @@ func (self *_TraitNotebook) SetTabPos(pos C.GtkPositionType) {
 Sets whether the notebook tab can be reordered
 via drag and drop or not.
 */
-func (self *_TraitNotebook) SetTabReorderable(child *Widget, reorderable bool) {
+func (self *_TraitNotebook) SetTabReorderable(child IsWidget, reorderable bool) {
 	__cgo__reorderable := C.gboolean(0)
 	if reorderable {
 		__cgo__reorderable = C.gboolean(1)
 	}
-	C.gtk_notebook_set_tab_reorderable(self.CPointer, (*C.GtkWidget)(child.CPointer), __cgo__reorderable)
+	C.gtk_notebook_set_tab_reorderable(self.CPointer, child.GetWidgetPointer(), __cgo__reorderable)
 	return
 }
 
 type _TraitNumerableIcon struct{ CPointer *C.GtkNumerableIcon }
+type IsNumerableIcon interface {
+	GetNumerableIconPointer() *C.GtkNumerableIcon
+}
+
+func (self *_TraitNumerableIcon) GetNumerableIconPointer() *C.GtkNumerableIcon {
+	return self.CPointer
+}
 
 /*
 Returns the #GIcon that was set as the base background image, or
@@ -13175,7 +13973,9 @@ or %NULL if there’s none.
 func (self *_TraitNumerableIcon) GetStyleContext() (return__ *StyleContext) {
 	var __cgo__return__ *C.GtkStyleContext
 	__cgo__return__ = C.gtk_numerable_icon_get_style_context(self.CPointer)
-	return__ = NewStyleContextFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewStyleContextFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -13253,12 +14053,19 @@ func (self *_TraitNumerableIcon) SetLabel(label string) {
 Updates the icon to fetch theme information from the
 given #GtkStyleContext.
 */
-func (self *_TraitNumerableIcon) SetStyleContext(style *StyleContext) {
-	C.gtk_numerable_icon_set_style_context(self.CPointer, (*C.GtkStyleContext)(style.CPointer))
+func (self *_TraitNumerableIcon) SetStyleContext(style IsStyleContext) {
+	C.gtk_numerable_icon_set_style_context(self.CPointer, style.GetStyleContextPointer())
 	return
 }
 
 type _TraitOffscreenWindow struct{ CPointer *C.GtkOffscreenWindow }
+type IsOffscreenWindow interface {
+	GetOffscreenWindowPointer() *C.GtkOffscreenWindow
+}
+
+func (self *_TraitOffscreenWindow) GetOffscreenWindowPointer() *C.GtkOffscreenWindow {
+	return self.CPointer
+}
 
 /*
 Retrieves a snapshot of the contained widget in the form of
@@ -13282,6 +14089,13 @@ func (self *_TraitOffscreenWindow) GetSurface() (return__ *C.cairo_surface_t) {
 }
 
 type _TraitOverlay struct{ CPointer *C.GtkOverlay }
+type IsOverlay interface {
+	GetOverlayPointer() *C.GtkOverlay
+}
+
+func (self *_TraitOverlay) GetOverlayPointer() *C.GtkOverlay {
+	return self.CPointer
+}
 
 /*
 Adds @widget to @overlay.
@@ -13292,12 +14106,19 @@ added with gtk_container_add().
 The position at which @widget is placed is determined
 from its #GtkWidget:halign and #GtkWidget:valign properties.
 */
-func (self *_TraitOverlay) AddOverlay(widget *Widget) {
-	C.gtk_overlay_add_overlay(self.CPointer, (*C.GtkWidget)(widget.CPointer))
+func (self *_TraitOverlay) AddOverlay(widget IsWidget) {
+	C.gtk_overlay_add_overlay(self.CPointer, widget.GetWidgetPointer())
 	return
 }
 
 type _TraitPageSetup struct{ CPointer *C.GtkPageSetup }
+type IsPageSetup interface {
+	GetPageSetupPointer() *C.GtkPageSetup
+}
+
+func (self *_TraitPageSetup) GetPageSetupPointer() *C.GtkPageSetup {
+	return self.CPointer
+}
 
 /*
 Copies a #GtkPageSetup.
@@ -13305,7 +14126,9 @@ Copies a #GtkPageSetup.
 func (self *_TraitPageSetup) Copy() (return__ *PageSetup) {
 	var __cgo__return__ *C.GtkPageSetup
 	__cgo__return__ = C.gtk_page_setup_copy(self.CPointer)
-	return__ = NewPageSetupFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewPageSetupFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -13382,10 +14205,8 @@ func (self *_TraitPageSetup) GetPaperHeight(unit C.GtkUnit) (return__ float64) {
 /*
 Gets the paper size of the #GtkPageSetup.
 */
-func (self *_TraitPageSetup) GetPaperSize() (return__ *PaperSize) {
-	var __cgo__return__ *C.GtkPaperSize
-	__cgo__return__ = C.gtk_page_setup_get_paper_size(self.CPointer)
-	return__ = (*PaperSize)(unsafe.Pointer(__cgo__return__))
+func (self *_TraitPageSetup) GetPaperSize() (return__ *C.GtkPaperSize) {
+	return__ = C.gtk_page_setup_get_paper_size(self.CPointer)
 	return
 }
 
@@ -13486,8 +14307,8 @@ Sets the paper size of the #GtkPageSetup without
 changing the margins. See
 gtk_page_setup_set_paper_size_and_default_margins().
 */
-func (self *_TraitPageSetup) SetPaperSize(size *PaperSize) {
-	C.gtk_page_setup_set_paper_size(self.CPointer, (*C.GtkPaperSize)(unsafe.Pointer(size)))
+func (self *_TraitPageSetup) SetPaperSize(size *C.GtkPaperSize) {
+	C.gtk_page_setup_set_paper_size(self.CPointer, size)
 	return
 }
 
@@ -13495,8 +14316,8 @@ func (self *_TraitPageSetup) SetPaperSize(size *PaperSize) {
 Sets the paper size of the #GtkPageSetup and modifies
 the margins according to the new paper size.
 */
-func (self *_TraitPageSetup) SetPaperSizeAndDefaultMargins(size *PaperSize) {
-	C.gtk_page_setup_set_paper_size_and_default_margins(self.CPointer, (*C.GtkPaperSize)(unsafe.Pointer(size)))
+func (self *_TraitPageSetup) SetPaperSizeAndDefaultMargins(size *C.GtkPaperSize) {
+	C.gtk_page_setup_set_paper_size_and_default_margins(self.CPointer, size)
 	return
 }
 
@@ -13543,14 +14364,21 @@ func (self *_TraitPageSetup) ToKeyFile(key_file *C.GKeyFile, group_name string) 
 }
 
 type _TraitPaned struct{ CPointer *C.GtkPaned }
+type IsPaned interface {
+	GetPanedPointer() *C.GtkPaned
+}
+
+func (self *_TraitPaned) GetPanedPointer() *C.GtkPaned {
+	return self.CPointer
+}
 
 /*
 Adds a child to the top or left pane with default parameters. This is
 equivalent to
 `gtk_paned_pack1 (paned, child, FALSE, TRUE)`.
 */
-func (self *_TraitPaned) Add1(child *Widget) {
-	C.gtk_paned_add1(self.CPointer, (*C.GtkWidget)(child.CPointer))
+func (self *_TraitPaned) Add1(child IsWidget) {
+	C.gtk_paned_add1(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
@@ -13559,8 +14387,8 @@ Adds a child to the bottom or right pane with default parameters. This
 is equivalent to
 `gtk_paned_pack2 (paned, child, TRUE, TRUE)`.
 */
-func (self *_TraitPaned) Add2(child *Widget) {
-	C.gtk_paned_add2(self.CPointer, (*C.GtkWidget)(child.CPointer))
+func (self *_TraitPaned) Add2(child IsWidget) {
+	C.gtk_paned_add2(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
@@ -13570,7 +14398,9 @@ Obtains the first child of the paned widget.
 func (self *_TraitPaned) GetChild1() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_paned_get_child1(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -13580,7 +14410,9 @@ Obtains the second child of the paned widget.
 func (self *_TraitPaned) GetChild2() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_paned_get_child2(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -13608,7 +14440,7 @@ func (self *_TraitPaned) GetPosition() (return__ int) {
 /*
 Adds a child to the top or left pane.
 */
-func (self *_TraitPaned) Pack1(child *Widget, resize bool, shrink bool) {
+func (self *_TraitPaned) Pack1(child IsWidget, resize bool, shrink bool) {
 	__cgo__resize := C.gboolean(0)
 	if resize {
 		__cgo__resize = C.gboolean(1)
@@ -13617,14 +14449,14 @@ func (self *_TraitPaned) Pack1(child *Widget, resize bool, shrink bool) {
 	if shrink {
 		__cgo__shrink = C.gboolean(1)
 	}
-	C.gtk_paned_pack1(self.CPointer, (*C.GtkWidget)(child.CPointer), __cgo__resize, __cgo__shrink)
+	C.gtk_paned_pack1(self.CPointer, child.GetWidgetPointer(), __cgo__resize, __cgo__shrink)
 	return
 }
 
 /*
 Adds a child to the bottom or right pane.
 */
-func (self *_TraitPaned) Pack2(child *Widget, resize bool, shrink bool) {
+func (self *_TraitPaned) Pack2(child IsWidget, resize bool, shrink bool) {
 	__cgo__resize := C.gboolean(0)
 	if resize {
 		__cgo__resize = C.gboolean(1)
@@ -13633,7 +14465,7 @@ func (self *_TraitPaned) Pack2(child *Widget, resize bool, shrink bool) {
 	if shrink {
 		__cgo__shrink = C.gboolean(1)
 	}
-	C.gtk_paned_pack2(self.CPointer, (*C.GtkWidget)(child.CPointer), __cgo__resize, __cgo__shrink)
+	C.gtk_paned_pack2(self.CPointer, child.GetWidgetPointer(), __cgo__resize, __cgo__shrink)
 	return
 }
 
@@ -13646,6 +14478,13 @@ func (self *_TraitPaned) SetPosition(position int) {
 }
 
 type _TraitPlacesSidebar struct{ CPointer *C.GtkPlacesSidebar }
+type IsPlacesSidebar interface {
+	GetPlacesSidebarPointer() *C.GtkPlacesSidebar
+}
+
+func (self *_TraitPlacesSidebar) GetPlacesSidebarPointer() *C.GtkPlacesSidebar {
+	return self.CPointer
+}
 
 /*
 Applications may want to present some folders in the places sidebar if
@@ -13822,6 +14661,13 @@ func (self *_TraitPlacesSidebar) SetShowDesktop(show_desktop bool) {
 }
 
 type _TraitPlug struct{ CPointer *C.GtkPlug }
+type IsPlug interface {
+	GetPlugPointer() *C.GtkPlug
+}
+
+func (self *_TraitPlug) GetPlugPointer() *C.GtkPlug {
+	return self.CPointer
+}
 
 /*
 Finish the initialization of @plug for a given #GtkSocket identified by
@@ -13871,6 +14717,13 @@ func (self *_TraitPlug) GetSocketWindow() (return__ *C.GdkWindow) {
 }
 
 type _TraitPopover struct{ CPointer *C.GtkPopover }
+type IsPopover interface {
+	GetPopoverPointer() *C.GtkPopover
+}
+
+func (self *_TraitPopover) GetPopoverPointer() *C.GtkPopover {
+	return self.CPointer
+}
 
 /*
 Establishes a binding between a #GtkPopover and a #GMenuModel.
@@ -13943,7 +14796,9 @@ Returns the widget @popover is currently attached to
 func (self *_TraitPopover) GetRelativeTo() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_popover_get_relative_to(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -13994,12 +14849,19 @@ widget, so if @relative_to is set to %NULL on an attached @popover, it
 will be detached from its previous widget, and consequently destroyed
 unless extra references are kept.
 */
-func (self *_TraitPopover) SetRelativeTo(relative_to *Widget) {
-	C.gtk_popover_set_relative_to(self.CPointer, (*C.GtkWidget)(relative_to.CPointer))
+func (self *_TraitPopover) SetRelativeTo(relative_to IsWidget) {
+	C.gtk_popover_set_relative_to(self.CPointer, relative_to.GetWidgetPointer())
 	return
 }
 
 type _TraitPrintContext struct{ CPointer *C.GtkPrintContext }
+type IsPrintContext interface {
+	GetPrintContextPointer() *C.GtkPrintContext
+}
+
+func (self *_TraitPrintContext) GetPrintContextPointer() *C.GtkPrintContext {
+	return self.CPointer
+}
 
 /*
 Creates a new #PangoContext that can be used with the
@@ -14085,7 +14947,9 @@ dimensions of the #GtkPrintContext.
 func (self *_TraitPrintContext) GetPageSetup() (return__ *PageSetup) {
 	var __cgo__return__ *C.GtkPageSetup
 	__cgo__return__ = C.gtk_print_context_get_page_setup(self.CPointer)
-	return__ = NewPageSetupFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewPageSetupFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -14122,6 +14986,13 @@ func (self *_TraitPrintContext) SetCairoContext(cr *C.cairo_t, dpi_x float64, dp
 }
 
 type _TraitPrintOperation struct{ CPointer *C.GtkPrintOperation }
+type IsPrintOperation interface {
+	GetPrintOperationPointer() *C.GtkPrintOperation
+}
+
+func (self *_TraitPrintOperation) GetPrintOperationPointer() *C.GtkPrintOperation {
+	return self.CPointer
+}
 
 /*
 Cancels a running print operation. This function may
@@ -14156,7 +15027,9 @@ gtk_print_operation_set_default_page_setup().
 func (self *_TraitPrintOperation) GetDefaultPageSetup() (return__ *PageSetup) {
 	var __cgo__return__ *C.GtkPageSetup
 	__cgo__return__ = C.gtk_print_operation_get_default_page_setup(self.CPointer)
-	return__ = NewPageSetupFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewPageSetupFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -14223,7 +15096,9 @@ gtk_print_operation_run() have been called.
 func (self *_TraitPrintOperation) GetPrintSettings() (return__ *PrintSettings) {
 	var __cgo__return__ *C.GtkPrintSettings
 	__cgo__return__ = C.gtk_print_operation_get_print_settings(self.CPointer)
-	return__ = NewPrintSettingsFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewPrintSettingsFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -14334,9 +15209,9 @@ g_object_unref (settings);
 Note that gtk_print_operation_run() can only be called once on a
 given #GtkPrintOperation.
 */
-func (self *_TraitPrintOperation) Run(action C.GtkPrintOperationAction, parent *Window) (return__ C.GtkPrintOperationResult, __err__ error) {
+func (self *_TraitPrintOperation) Run(action C.GtkPrintOperationAction, parent IsWindow) (return__ C.GtkPrintOperationResult, __err__ error) {
 	var __cgo_error__ *C.GError
-	return__ = C.gtk_print_operation_run(self.CPointer, action, (*C.GtkWindow)(parent.CPointer), &__cgo_error__)
+	return__ = C.gtk_print_operation_run(self.CPointer, action, parent.GetWindowPointer(), &__cgo_error__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
 	}
@@ -14387,8 +15262,8 @@ This page setup will be used by gtk_print_operation_run(),
 but it can be overridden on a per-page basis by connecting
 to the #GtkPrintOperation::request-page-setup signal.
 */
-func (self *_TraitPrintOperation) SetDefaultPageSetup(default_page_setup *PageSetup) {
-	C.gtk_print_operation_set_default_page_setup(self.CPointer, (*C.GtkPageSetup)(default_page_setup.CPointer))
+func (self *_TraitPrintOperation) SetDefaultPageSetup(default_page_setup IsPageSetup) {
+	C.gtk_print_operation_set_default_page_setup(self.CPointer, default_page_setup.GetPageSetupPointer())
 	return
 }
 
@@ -14487,8 +15362,8 @@ Sets the print settings for @op. This is typically used to
 re-establish print settings from a previous print operation,
 see gtk_print_operation_run().
 */
-func (self *_TraitPrintOperation) SetPrintSettings(print_settings *PrintSettings) {
-	C.gtk_print_operation_set_print_settings(self.CPointer, (*C.GtkPrintSettings)(print_settings.CPointer))
+func (self *_TraitPrintOperation) SetPrintSettings(print_settings IsPrintSettings) {
+	C.gtk_print_operation_set_print_settings(self.CPointer, print_settings.GetPrintSettingsPointer())
 	return
 }
 
@@ -14563,6 +15438,13 @@ func (self *_TraitPrintOperation) SetUseFullPage(full_page bool) {
 }
 
 type _TraitPrintSettings struct{ CPointer *C.GtkPrintSettings }
+type IsPrintSettings interface {
+	GetPrintSettingsPointer() *C.GtkPrintSettings
+}
+
+func (self *_TraitPrintSettings) GetPrintSettingsPointer() *C.GtkPrintSettings {
+	return self.CPointer
+}
 
 /*
 Copies a #GtkPrintSettings object.
@@ -14570,7 +15452,9 @@ Copies a #GtkPrintSettings object.
 func (self *_TraitPrintSettings) Copy() (return__ *PrintSettings) {
 	var __cgo__return__ *C.GtkPrintSettings
 	__cgo__return__ = C.gtk_print_settings_copy(self.CPointer)
-	return__ = NewPrintSettingsFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewPrintSettingsFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -14786,12 +15670,10 @@ func (self *_TraitPrintSettings) GetOutputBin() (return__ string) {
 /*
 Gets the value of %GTK_PRINT_SETTINGS_PAGE_RANGES.
 */
-func (self *_TraitPrintSettings) GetPageRanges() (num_ranges int, return__ *PageRange) {
+func (self *_TraitPrintSettings) GetPageRanges() (num_ranges int, return__ *C.GtkPageRange) {
 	var __cgo__num_ranges C.gint
-	var __cgo__return__ *C.GtkPageRange
-	__cgo__return__ = C.gtk_print_settings_get_page_ranges(self.CPointer, &__cgo__num_ranges)
+	return__ = C.gtk_print_settings_get_page_ranges(self.CPointer, &__cgo__num_ranges)
 	num_ranges = int(__cgo__num_ranges)
-	return__ = (*PageRange)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -14818,10 +15700,8 @@ func (self *_TraitPrintSettings) GetPaperHeight(unit C.GtkUnit) (return__ float6
 Gets the value of %GTK_PRINT_SETTINGS_PAPER_FORMAT,
 converted to a #GtkPaperSize.
 */
-func (self *_TraitPrintSettings) GetPaperSize() (return__ *PaperSize) {
-	var __cgo__return__ *C.GtkPaperSize
-	__cgo__return__ = C.gtk_print_settings_get_paper_size(self.CPointer)
-	return__ = (*PaperSize)(unsafe.Pointer(__cgo__return__))
+func (self *_TraitPrintSettings) GetPaperSize() (return__ *C.GtkPaperSize) {
+	return__ = C.gtk_print_settings_get_paper_size(self.CPointer)
 	return
 }
 
@@ -15144,8 +16024,8 @@ func (self *_TraitPrintSettings) SetOutputBin(output_bin string) {
 /*
 Sets the value of %GTK_PRINT_SETTINGS_PAGE_RANGES.
 */
-func (self *_TraitPrintSettings) SetPageRanges(page_ranges *PageRange, num_ranges int) {
-	C.gtk_print_settings_set_page_ranges(self.CPointer, (*C.GtkPageRange)(unsafe.Pointer(page_ranges)), C.gint(num_ranges))
+func (self *_TraitPrintSettings) SetPageRanges(page_ranges *C.GtkPageRange, num_ranges int) {
+	C.gtk_print_settings_set_page_ranges(self.CPointer, page_ranges, C.gint(num_ranges))
 	return
 }
 
@@ -15170,8 +16050,8 @@ Sets the value of %GTK_PRINT_SETTINGS_PAPER_FORMAT,
 %GTK_PRINT_SETTINGS_PAPER_WIDTH and
 %GTK_PRINT_SETTINGS_PAPER_HEIGHT.
 */
-func (self *_TraitPrintSettings) SetPaperSize(paper_size *PaperSize) {
-	C.gtk_print_settings_set_paper_size(self.CPointer, (*C.GtkPaperSize)(unsafe.Pointer(paper_size)))
+func (self *_TraitPrintSettings) SetPaperSize(paper_size *C.GtkPaperSize) {
+	C.gtk_print_settings_set_paper_size(self.CPointer, paper_size)
 	return
 }
 
@@ -15310,6 +16190,13 @@ func (self *_TraitPrintSettings) Unset(key string) {
 }
 
 type _TraitProgressBar struct{ CPointer *C.GtkProgressBar }
+type IsProgressBar interface {
+	GetProgressBarPointer() *C.GtkProgressBar
+}
+
+func (self *_TraitProgressBar) GetProgressBarPointer() *C.GtkProgressBar {
+	return self.CPointer
+}
 
 /*
 Returns the ellipsizing position of the progress bar.
@@ -15465,6 +16352,13 @@ func (self *_TraitProgressBar) SetText(text string) {
 }
 
 type _TraitRadioAction struct{ CPointer *C.GtkRadioAction }
+type IsRadioAction interface {
+	GetRadioActionPointer() *C.GtkRadioAction
+}
+
+func (self *_TraitRadioAction) GetRadioActionPointer() *C.GtkRadioAction {
+	return self.CPointer
+}
 
 // gtk_radio_action_get_current_value is not generated due to deprecation attr
 
@@ -15477,6 +16371,13 @@ type _TraitRadioAction struct{ CPointer *C.GtkRadioAction }
 // gtk_radio_action_set_group is not generated due to deprecation attr
 
 type _TraitRadioButton struct{ CPointer *C.GtkRadioButton }
+type IsRadioButton interface {
+	GetRadioButtonPointer() *C.GtkRadioButton
+}
+
+func (self *_TraitRadioButton) GetRadioButtonPointer() *C.GtkRadioButton {
+	return self.CPointer
+}
 
 /*
 Retrieves the group assigned to a radio button.
@@ -15506,8 +16407,8 @@ A common way to set up a group of radio buttons is the following:
     }
 ]|
 */
-func (self *_TraitRadioButton) JoinGroup(group_source *RadioButton) {
-	C.gtk_radio_button_join_group(self.CPointer, (*C.GtkRadioButton)(group_source.CPointer))
+func (self *_TraitRadioButton) JoinGroup(group_source IsRadioButton) {
+	C.gtk_radio_button_join_group(self.CPointer, group_source.GetRadioButtonPointer())
 	return
 }
 
@@ -15523,6 +16424,13 @@ func (self *_TraitRadioButton) SetGroup(group *C.GSList) {
 }
 
 type _TraitRadioMenuItem struct{ CPointer *C.GtkRadioMenuItem }
+type IsRadioMenuItem interface {
+	GetRadioMenuItemPointer() *C.GtkRadioMenuItem
+}
+
+func (self *_TraitRadioMenuItem) GetRadioMenuItemPointer() *C.GtkRadioMenuItem {
+	return self.CPointer
+}
 
 /*
 Returns the group to which the radio menu item belongs, as a #GList of
@@ -15542,6 +16450,13 @@ func (self *_TraitRadioMenuItem) SetGroup(group *C.GSList) {
 }
 
 type _TraitRadioToolButton struct{ CPointer *C.GtkRadioToolButton }
+type IsRadioToolButton interface {
+	GetRadioToolButtonPointer() *C.GtkRadioToolButton
+}
+
+func (self *_TraitRadioToolButton) GetRadioToolButtonPointer() *C.GtkRadioToolButton {
+	return self.CPointer
+}
 
 /*
 Returns the radio button group @button belongs to.
@@ -15560,6 +16475,13 @@ func (self *_TraitRadioToolButton) SetGroup(group *C.GSList) {
 }
 
 type _TraitRange struct{ CPointer *C.GtkRange }
+type IsRange interface {
+	GetRangePointer() *C.GtkRange
+}
+
+func (self *_TraitRange) GetRangePointer() *C.GtkRange {
+	return self.CPointer
+}
 
 /*
 Get the #GtkAdjustment which is the “model” object for #GtkRange.
@@ -15570,7 +16492,9 @@ be unreferenced.
 func (self *_TraitRange) GetAdjustment() (return__ *Adjustment) {
 	var __cgo__return__ *C.GtkAdjustment
 	__cgo__return__ = C.gtk_range_get_adjustment(self.CPointer)
-	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -15722,8 +16646,8 @@ is normally 0 for #GtkScale and nonzero for #GtkScrollbar, and
 indicates the size of the visible area of the widget being scrolled.
 The page size affects the size of the scrollbar slider.
 */
-func (self *_TraitRange) SetAdjustment(adjustment *Adjustment) {
-	C.gtk_range_set_adjustment(self.CPointer, (*C.GtkAdjustment)(adjustment.CPointer))
+func (self *_TraitRange) SetAdjustment(adjustment IsAdjustment) {
+	C.gtk_range_set_adjustment(self.CPointer, adjustment.GetAdjustmentPointer())
 	return
 }
 
@@ -15894,18 +16818,46 @@ func (self *_TraitRange) SetValue(value float64) {
 }
 
 type _TraitRcStyle struct{ CPointer *C.GtkRcStyle }
+type IsRcStyle interface {
+	GetRcStylePointer() *C.GtkRcStyle
+}
+
+func (self *_TraitRcStyle) GetRcStylePointer() *C.GtkRcStyle {
+	return self.CPointer
+}
 
 // gtk_rc_style_copy is not generated due to deprecation attr
 
 type _TraitRecentAction struct{ CPointer *C.GtkRecentAction }
+type IsRecentAction interface {
+	GetRecentActionPointer() *C.GtkRecentAction
+}
+
+func (self *_TraitRecentAction) GetRecentActionPointer() *C.GtkRecentAction {
+	return self.CPointer
+}
 
 // gtk_recent_action_get_show_numbers is not generated due to deprecation attr
 
 // gtk_recent_action_set_show_numbers is not generated due to deprecation attr
 
 type _TraitRecentChooserDialog struct{ CPointer *C.GtkRecentChooserDialog }
+type IsRecentChooserDialog interface {
+	GetRecentChooserDialogPointer() *C.GtkRecentChooserDialog
+}
+
+func (self *_TraitRecentChooserDialog) GetRecentChooserDialogPointer() *C.GtkRecentChooserDialog {
+	return self.CPointer
+}
 
 type _TraitRecentChooserMenu struct{ CPointer *C.GtkRecentChooserMenu }
+type IsRecentChooserMenu interface {
+	GetRecentChooserMenuPointer() *C.GtkRecentChooserMenu
+}
+
+func (self *_TraitRecentChooserMenu) GetRecentChooserMenuPointer() *C.GtkRecentChooserMenu {
+	return self.CPointer
+}
 
 /*
 Returns the value set by gtk_recent_chooser_menu_set_show_numbers().
@@ -15933,8 +16885,22 @@ func (self *_TraitRecentChooserMenu) SetShowNumbers(show_numbers bool) {
 }
 
 type _TraitRecentChooserWidget struct{ CPointer *C.GtkRecentChooserWidget }
+type IsRecentChooserWidget interface {
+	GetRecentChooserWidgetPointer() *C.GtkRecentChooserWidget
+}
+
+func (self *_TraitRecentChooserWidget) GetRecentChooserWidgetPointer() *C.GtkRecentChooserWidget {
+	return self.CPointer
+}
 
 type _TraitRecentFilter struct{ CPointer *C.GtkRecentFilter }
+type IsRecentFilter interface {
+	GetRecentFilterPointer() *C.GtkRecentFilter
+}
+
+func (self *_TraitRecentFilter) GetRecentFilterPointer() *C.GtkRecentFilter {
+	return self.CPointer
+}
 
 /*
 Adds a rule that allows resources based on their age - that is, the number
@@ -16020,9 +16986,9 @@ This function will not typically be used by applications; it
 is intended principally for use in the implementation of
 #GtkRecentChooser.
 */
-func (self *_TraitRecentFilter) Filter(filter_info *RecentFilterInfo) (return__ bool) {
+func (self *_TraitRecentFilter) Filter(filter_info *C.GtkRecentFilterInfo) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_recent_filter_filter(self.CPointer, (*C.GtkRecentFilterInfo)(unsafe.Pointer(filter_info)))
+	__cgo__return__ = C.gtk_recent_filter_filter(self.CPointer, filter_info)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -16064,6 +17030,13 @@ func (self *_TraitRecentFilter) SetName(name string) {
 }
 
 type _TraitRecentManager struct{ CPointer *C.GtkRecentManager }
+type IsRecentManager interface {
+	GetRecentManagerPointer() *C.GtkRecentManager
+}
+
+func (self *_TraitRecentManager) GetRecentManagerPointer() *C.GtkRecentManager {
+	return self.CPointer
+}
 
 /*
 Adds a new resource, pointed by @uri, into the recently used
@@ -16086,10 +17059,10 @@ URI; a short description of the item; whether the item should be
 considered private - that is, should be displayed only by the
 applications that have registered it.
 */
-func (self *_TraitRecentManager) AddFull(uri string, recent_data *RecentData) (return__ bool) {
+func (self *_TraitRecentManager) AddFull(uri string, recent_data *C.GtkRecentData) (return__ bool) {
 	__cgo__uri := (*C.gchar)(unsafe.Pointer(C.CString(uri)))
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_recent_manager_add_full(self.CPointer, __cgo__uri, (*C.GtkRecentData)(unsafe.Pointer(recent_data)))
+	__cgo__return__ = C.gtk_recent_manager_add_full(self.CPointer, __cgo__uri, recent_data)
 	C.free(unsafe.Pointer(__cgo__uri))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
@@ -16141,13 +17114,11 @@ Searches for a URI inside the recently used resources list, and
 returns a #GtkRecentInfo-struct containing informations about the resource
 like its MIME type, or its display name.
 */
-func (self *_TraitRecentManager) LookupItem(uri string) (return__ *RecentInfo, __err__ error) {
+func (self *_TraitRecentManager) LookupItem(uri string) (return__ *C.GtkRecentInfo, __err__ error) {
 	__cgo__uri := (*C.gchar)(unsafe.Pointer(C.CString(uri)))
 	var __cgo_error__ *C.GError
-	var __cgo__return__ *C.GtkRecentInfo
-	__cgo__return__ = C.gtk_recent_manager_lookup_item(self.CPointer, __cgo__uri, &__cgo_error__)
+	return__ = C.gtk_recent_manager_lookup_item(self.CPointer, __cgo__uri, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__uri))
-	return__ = (*RecentInfo)(unsafe.Pointer(__cgo__return__))
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
 	}
@@ -16207,6 +17178,13 @@ func (self *_TraitRecentManager) RemoveItem(uri string) (return__ bool, __err__ 
 }
 
 type _TraitRevealer struct{ CPointer *C.GtkRevealer }
+type IsRevealer interface {
+	GetRevealerPointer() *C.GtkRevealer
+}
+
+func (self *_TraitRevealer) GetRevealerPointer() *C.GtkRevealer {
+	return self.CPointer
+}
 
 /*
 Returns whether the child is fully revealed, ie wether
@@ -16289,6 +17267,13 @@ func (self *_TraitRevealer) SetTransitionType(transition C.GtkRevealerTransition
 }
 
 type _TraitScale struct{ CPointer *C.GtkScale }
+type IsScale interface {
+	GetScalePointer() *C.GtkScale
+}
+
+func (self *_TraitScale) GetScalePointer() *C.GtkScale {
+	return self.CPointer
+}
 
 /*
 Adds a mark at @value.
@@ -16430,6 +17415,13 @@ func (self *_TraitScale) SetValuePos(pos C.GtkPositionType) {
 }
 
 type _TraitScaleButton struct{ CPointer *C.GtkScaleButton }
+type IsScaleButton interface {
+	GetScaleButtonPointer() *C.GtkScaleButton
+}
+
+func (self *_TraitScaleButton) GetScaleButtonPointer() *C.GtkScaleButton {
+	return self.CPointer
+}
 
 /*
 Gets the #GtkAdjustment associated with the #GtkScaleButton’s scale.
@@ -16438,7 +17430,9 @@ See gtk_range_get_adjustment() for details.
 func (self *_TraitScaleButton) GetAdjustment() (return__ *Adjustment) {
 	var __cgo__return__ *C.GtkAdjustment
 	__cgo__return__ = C.gtk_scale_button_get_adjustment(self.CPointer)
-	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -16448,7 +17442,9 @@ Retrieves the minus button of the #GtkScaleButton.
 func (self *_TraitScaleButton) GetMinusButton() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_scale_button_get_minus_button(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -16458,7 +17454,9 @@ Retrieves the plus button of the #GtkScaleButton.
 func (self *_TraitScaleButton) GetPlusButton() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_scale_button_get_plus_button(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -16468,7 +17466,9 @@ Retrieves the popup of the #GtkScaleButton.
 func (self *_TraitScaleButton) GetPopup() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_scale_button_get_popup(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -16487,8 +17487,8 @@ Sets the #GtkAdjustment to be used as a model
 for the #GtkScaleButton’s scale.
 See gtk_range_set_adjustment() for details.
 */
-func (self *_TraitScaleButton) SetAdjustment(adjustment *Adjustment) {
-	C.gtk_scale_button_set_adjustment(self.CPointer, (*C.GtkAdjustment)(adjustment.CPointer))
+func (self *_TraitScaleButton) SetAdjustment(adjustment IsAdjustment) {
+	C.gtk_scale_button_set_adjustment(self.CPointer, adjustment.GetAdjustmentPointer())
 	return
 }
 
@@ -16514,8 +17514,22 @@ func (self *_TraitScaleButton) SetValue(value float64) {
 }
 
 type _TraitScrollbar struct{ CPointer *C.GtkScrollbar }
+type IsScrollbar interface {
+	GetScrollbarPointer() *C.GtkScrollbar
+}
+
+func (self *_TraitScrollbar) GetScrollbarPointer() *C.GtkScrollbar {
+	return self.CPointer
+}
 
 type _TraitScrolledWindow struct{ CPointer *C.GtkScrolledWindow }
+type IsScrolledWindow interface {
+	GetScrolledWindowPointer() *C.GtkScrolledWindow
+}
+
+func (self *_TraitScrolledWindow) GetScrolledWindowPointer() *C.GtkScrolledWindow {
+	return self.CPointer
+}
 
 // gtk_scrolled_window_add_with_viewport is not generated due to deprecation attr
 
@@ -16538,7 +17552,9 @@ functionality.
 func (self *_TraitScrolledWindow) GetHadjustment() (return__ *Adjustment) {
 	var __cgo__return__ *C.GtkAdjustment
 	__cgo__return__ = C.gtk_scrolled_window_get_hadjustment(self.CPointer)
-	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -16548,7 +17564,9 @@ Returns the horizontal scrollbar of @scrolled_window.
 func (self *_TraitScrolledWindow) GetHscrollbar() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_scrolled_window_get_hscrollbar(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -16616,7 +17634,9 @@ vertical scrollbar to the child widget’s vertical scroll functionality.
 func (self *_TraitScrolledWindow) GetVadjustment() (return__ *Adjustment) {
 	var __cgo__return__ *C.GtkAdjustment
 	__cgo__return__ = C.gtk_scrolled_window_get_vadjustment(self.CPointer)
-	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -16626,7 +17646,9 @@ Returns the vertical scrollbar of @scrolled_window.
 func (self *_TraitScrolledWindow) GetVscrollbar() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_scrolled_window_get_vscrollbar(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -16655,8 +17677,8 @@ func (self *_TraitScrolledWindow) SetCaptureButtonPress(capture_button_press boo
 /*
 Sets the #GtkAdjustment for the horizontal scrollbar.
 */
-func (self *_TraitScrolledWindow) SetHadjustment(hadjustment *Adjustment) {
-	C.gtk_scrolled_window_set_hadjustment(self.CPointer, (*C.GtkAdjustment)(hadjustment.CPointer))
+func (self *_TraitScrolledWindow) SetHadjustment(hadjustment IsAdjustment) {
+	C.gtk_scrolled_window_set_hadjustment(self.CPointer, hadjustment.GetAdjustmentPointer())
 	return
 }
 
@@ -16738,8 +17760,8 @@ func (self *_TraitScrolledWindow) SetShadowType(type_ C.GtkShadowType) {
 /*
 Sets the #GtkAdjustment for the vertical scrollbar.
 */
-func (self *_TraitScrolledWindow) SetVadjustment(vadjustment *Adjustment) {
-	C.gtk_scrolled_window_set_vadjustment(self.CPointer, (*C.GtkAdjustment)(vadjustment.CPointer))
+func (self *_TraitScrolledWindow) SetVadjustment(vadjustment IsAdjustment) {
+	C.gtk_scrolled_window_set_vadjustment(self.CPointer, vadjustment.GetAdjustmentPointer())
 	return
 }
 
@@ -16757,6 +17779,13 @@ func (self *_TraitScrolledWindow) UnsetPlacement() {
 }
 
 type _TraitSearchBar struct{ CPointer *C.GtkSearchBar }
+type IsSearchBar interface {
+	GetSearchBarPointer() *C.GtkSearchBar
+}
+
+func (self *_TraitSearchBar) GetSearchBarPointer() *C.GtkSearchBar {
+	return self.CPointer
+}
 
 /*
 Connects the #GtkEntry widget passed as the one to be used in
@@ -16764,8 +17793,8 @@ this search bar. The entry should be a descendant of the search bar.
 This is only required if the entry isn’t the direct child of the
 search bar (as in our main example).
 */
-func (self *_TraitSearchBar) ConnectEntry(entry *Entry) {
-	C.gtk_search_bar_connect_entry(self.CPointer, (*C.GtkEntry)(entry.CPointer))
+func (self *_TraitSearchBar) ConnectEntry(entry IsEntry) {
+	C.gtk_search_bar_connect_entry(self.CPointer, entry.GetEntryPointer())
 	return
 }
 
@@ -16855,12 +17884,40 @@ func (self *_TraitSearchBar) SetShowCloseButton(visible bool) {
 }
 
 type _TraitSearchEntry struct{ CPointer *C.GtkSearchEntry }
+type IsSearchEntry interface {
+	GetSearchEntryPointer() *C.GtkSearchEntry
+}
+
+func (self *_TraitSearchEntry) GetSearchEntryPointer() *C.GtkSearchEntry {
+	return self.CPointer
+}
 
 type _TraitSeparator struct{ CPointer *C.GtkSeparator }
+type IsSeparator interface {
+	GetSeparatorPointer() *C.GtkSeparator
+}
+
+func (self *_TraitSeparator) GetSeparatorPointer() *C.GtkSeparator {
+	return self.CPointer
+}
 
 type _TraitSeparatorMenuItem struct{ CPointer *C.GtkSeparatorMenuItem }
+type IsSeparatorMenuItem interface {
+	GetSeparatorMenuItemPointer() *C.GtkSeparatorMenuItem
+}
+
+func (self *_TraitSeparatorMenuItem) GetSeparatorMenuItemPointer() *C.GtkSeparatorMenuItem {
+	return self.CPointer
+}
 
 type _TraitSeparatorToolItem struct{ CPointer *C.GtkSeparatorToolItem }
+type IsSeparatorToolItem interface {
+	GetSeparatorToolItemPointer() *C.GtkSeparatorToolItem
+}
+
+func (self *_TraitSeparatorToolItem) GetSeparatorToolItemPointer() *C.GtkSeparatorToolItem {
+	return self.CPointer
+}
 
 /*
 Returns whether @item is drawn as a line, or just blank.
@@ -16888,7 +17945,13 @@ func (self *_TraitSeparatorToolItem) SetDraw(draw bool) {
 }
 
 type _TraitSettings struct{ CPointer *C.GtkSettings }
+type IsSettings interface {
+	GetSettingsPointer() *C.GtkSettings
+}
 
+func (self *_TraitSettings) GetSettingsPointer() *C.GtkSettings {
+	return self.CPointer
+}
 func (self *_TraitSettings) SetDoubleProperty(name string, v_double float64, origin string) {
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
 	__cgo__origin := (*C.gchar)(unsafe.Pointer(C.CString(origin)))
@@ -16907,9 +17970,9 @@ func (self *_TraitSettings) SetLongProperty(name string, v_long int64, origin st
 	return
 }
 
-func (self *_TraitSettings) SetPropertyValue(name string, svalue *SettingsValue) {
+func (self *_TraitSettings) SetPropertyValue(name string, svalue *C.GtkSettingsValue) {
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
-	C.gtk_settings_set_property_value(self.CPointer, __cgo__name, (*C.GtkSettingsValue)(unsafe.Pointer(svalue)))
+	C.gtk_settings_set_property_value(self.CPointer, __cgo__name, svalue)
 	C.free(unsafe.Pointer(__cgo__name))
 	return
 }
@@ -16926,6 +17989,13 @@ func (self *_TraitSettings) SetStringProperty(name string, v_string string, orig
 }
 
 type _TraitSizeGroup struct{ CPointer *C.GtkSizeGroup }
+type IsSizeGroup interface {
+	GetSizeGroupPointer() *C.GtkSizeGroup
+}
+
+func (self *_TraitSizeGroup) GetSizeGroupPointer() *C.GtkSizeGroup {
+	return self.CPointer
+}
 
 /*
 Adds a widget to a #GtkSizeGroup. In the future, the requisition
@@ -16937,8 +18007,8 @@ depends on the mode of the size group. See gtk_size_group_set_mode().
 When the widget is destroyed or no longer referenced elsewhere, it will
 be removed from the size group.
 */
-func (self *_TraitSizeGroup) AddWidget(widget *Widget) {
-	C.gtk_size_group_add_widget(self.CPointer, (*C.GtkWidget)(widget.CPointer))
+func (self *_TraitSizeGroup) AddWidget(widget IsWidget) {
+	C.gtk_size_group_add_widget(self.CPointer, widget.GetWidgetPointer())
 	return
 }
 
@@ -16971,8 +18041,8 @@ func (self *_TraitSizeGroup) GetWidgets() (return__ *C.GSList) {
 /*
 Removes a widget from a #GtkSizeGroup.
 */
-func (self *_TraitSizeGroup) RemoveWidget(widget *Widget) {
-	C.gtk_size_group_remove_widget(self.CPointer, (*C.GtkWidget)(widget.CPointer))
+func (self *_TraitSizeGroup) RemoveWidget(widget IsWidget) {
+	C.gtk_size_group_remove_widget(self.CPointer, widget.GetWidgetPointer())
 	return
 }
 
@@ -17003,6 +18073,13 @@ func (self *_TraitSizeGroup) SetMode(mode C.GtkSizeGroupMode) {
 }
 
 type _TraitSocket struct{ CPointer *C.GtkSocket }
+type IsSocket interface {
+	GetSocketPointer() *C.GtkSocket
+}
+
+func (self *_TraitSocket) GetSocketPointer() *C.GtkSocket {
+	return self.CPointer
+}
 
 /*
 Adds an XEMBED client, such as a #GtkPlug, to the #GtkSocket.  The
@@ -17046,14 +18123,21 @@ func (self *_TraitSocket) GetPlugWindow() (return__ *C.GdkWindow) {
 }
 
 type _TraitSpinButton struct{ CPointer *C.GtkSpinButton }
+type IsSpinButton interface {
+	GetSpinButtonPointer() *C.GtkSpinButton
+}
+
+func (self *_TraitSpinButton) GetSpinButtonPointer() *C.GtkSpinButton {
+	return self.CPointer
+}
 
 /*
 Changes the properties of an existing spin button. The adjustment,
 climb rate, and number of decimal places are all changed accordingly,
 after this function call.
 */
-func (self *_TraitSpinButton) Configure(adjustment *Adjustment, climb_rate float64, digits uint) {
-	C.gtk_spin_button_configure(self.CPointer, (*C.GtkAdjustment)(adjustment.CPointer), C.gdouble(climb_rate), C.guint(digits))
+func (self *_TraitSpinButton) Configure(adjustment IsAdjustment, climb_rate float64, digits uint) {
+	C.gtk_spin_button_configure(self.CPointer, adjustment.GetAdjustmentPointer(), C.gdouble(climb_rate), C.guint(digits))
 	return
 }
 
@@ -17063,7 +18147,9 @@ Get the adjustment associated with a #GtkSpinButton
 func (self *_TraitSpinButton) GetAdjustment() (return__ *Adjustment) {
 	var __cgo__return__ *C.GtkAdjustment
 	__cgo__return__ = C.gtk_spin_button_get_adjustment(self.CPointer)
-	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -17169,8 +18255,8 @@ func (self *_TraitSpinButton) GetWrap() (return__ bool) {
 /*
 Replaces the #GtkAdjustment associated with @spin_button.
 */
-func (self *_TraitSpinButton) SetAdjustment(adjustment *Adjustment) {
-	C.gtk_spin_button_set_adjustment(self.CPointer, (*C.GtkAdjustment)(adjustment.CPointer))
+func (self *_TraitSpinButton) SetAdjustment(adjustment IsAdjustment) {
+	C.gtk_spin_button_set_adjustment(self.CPointer, adjustment.GetAdjustmentPointer())
 	return
 }
 
@@ -17280,6 +18366,13 @@ func (self *_TraitSpinButton) Update() {
 }
 
 type _TraitSpinner struct{ CPointer *C.GtkSpinner }
+type IsSpinner interface {
+	GetSpinnerPointer() *C.GtkSpinner
+}
+
+func (self *_TraitSpinner) GetSpinnerPointer() *C.GtkSpinner {
+	return self.CPointer
+}
 
 /*
 Starts the animation of the spinner.
@@ -17298,14 +18391,21 @@ func (self *_TraitSpinner) Stop() {
 }
 
 type _TraitStack struct{ CPointer *C.GtkStack }
+type IsStack interface {
+	GetStackPointer() *C.GtkStack
+}
+
+func (self *_TraitStack) GetStackPointer() *C.GtkStack {
+	return self.CPointer
+}
 
 /*
 Adds a child to @stack.
 The child is identified by the @name.
 */
-func (self *_TraitStack) AddNamed(child *Widget, name string) {
+func (self *_TraitStack) AddNamed(child IsWidget, name string) {
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
-	C.gtk_stack_add_named(self.CPointer, (*C.GtkWidget)(child.CPointer), __cgo__name)
+	C.gtk_stack_add_named(self.CPointer, child.GetWidgetPointer(), __cgo__name)
 	C.free(unsafe.Pointer(__cgo__name))
 	return
 }
@@ -17316,10 +18416,10 @@ The child is identified by the @name. The @title
 will be used by #GtkStackSwitcher to represent
 @child in a tab bar, so it should be short.
 */
-func (self *_TraitStack) AddTitled(child *Widget, name string, title string) {
+func (self *_TraitStack) AddTitled(child IsWidget, name string, title string) {
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
 	__cgo__title := (*C.gchar)(unsafe.Pointer(C.CString(title)))
-	C.gtk_stack_add_titled(self.CPointer, (*C.GtkWidget)(child.CPointer), __cgo__name, __cgo__title)
+	C.gtk_stack_add_titled(self.CPointer, child.GetWidgetPointer(), __cgo__name, __cgo__title)
 	C.free(unsafe.Pointer(__cgo__name))
 	C.free(unsafe.Pointer(__cgo__title))
 	return
@@ -17335,7 +18435,9 @@ func (self *_TraitStack) GetChildByName(name string) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_stack_get_child_by_name(self.CPointer, __cgo__name)
 	C.free(unsafe.Pointer(__cgo__name))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -17388,7 +18490,9 @@ there are no visible children.
 func (self *_TraitStack) GetVisibleChild() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_stack_get_visible_child(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -17453,8 +18557,8 @@ Note that the @child widget has to be visible itself
 (see gtk_widget_show()) in order to become the visible
 child of @stack.
 */
-func (self *_TraitStack) SetVisibleChild(child *Widget) {
-	C.gtk_stack_set_visible_child(self.CPointer, (*C.GtkWidget)(child.CPointer))
+func (self *_TraitStack) SetVisibleChild(child IsWidget) {
+	C.gtk_stack_set_visible_child(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
@@ -17492,6 +18596,13 @@ func (self *_TraitStack) SetVisibleChildName(name string) {
 }
 
 type _TraitStackSwitcher struct{ CPointer *C.GtkStackSwitcher }
+type IsStackSwitcher interface {
+	GetStackSwitcherPointer() *C.GtkStackSwitcher
+}
+
+func (self *_TraitStackSwitcher) GetStackSwitcherPointer() *C.GtkStackSwitcher {
+	return self.CPointer
+}
 
 /*
 Retrieves the stack.
@@ -17500,19 +18611,28 @@ See gtk_stack_switcher_set_stack().
 func (self *_TraitStackSwitcher) GetStack() (return__ *Stack) {
 	var __cgo__return__ *C.GtkStack
 	__cgo__return__ = C.gtk_stack_switcher_get_stack(self.CPointer)
-	return__ = NewStackFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewStackFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
 /*
 Sets the stack to control.
 */
-func (self *_TraitStackSwitcher) SetStack(stack *Stack) {
-	C.gtk_stack_switcher_set_stack(self.CPointer, (*C.GtkStack)(stack.CPointer))
+func (self *_TraitStackSwitcher) SetStack(stack IsStack) {
+	C.gtk_stack_switcher_set_stack(self.CPointer, stack.GetStackPointer())
 	return
 }
 
 type _TraitStatusIcon struct{ CPointer *C.GtkStatusIcon }
+type IsStatusIcon interface {
+	GetStatusIconPointer() *C.GtkStatusIcon
+}
+
+func (self *_TraitStatusIcon) GetStatusIconPointer() *C.GtkStatusIcon {
+	return self.CPointer
+}
 
 /*
 Obtains information about the location of the status icon
@@ -17835,6 +18955,13 @@ func (self *_TraitStatusIcon) SetVisible(visible bool) {
 }
 
 type _TraitStatusbar struct{ CPointer *C.GtkStatusbar }
+type IsStatusbar interface {
+	GetStatusbarPointer() *C.GtkStatusbar
+}
+
+func (self *_TraitStatusbar) GetStatusbarPointer() *C.GtkStatusbar {
+	return self.CPointer
+}
 
 /*
 Returns a new context identifier, given a description
@@ -17856,7 +18983,9 @@ Retrieves the box containing the label widget.
 func (self *_TraitStatusbar) GetMessageArea() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_statusbar_get_message_area(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -17904,6 +19033,13 @@ func (self *_TraitStatusbar) RemoveAll(context_id uint) {
 }
 
 type _TraitStyle struct{ CPointer *C.GtkStyle }
+type IsStyle interface {
+	GetStylePointer() *C.GtkStyle
+}
+
+func (self *_TraitStyle) GetStylePointer() *C.GtkStyle {
+	return self.CPointer
+}
 
 // gtk_style_apply_default_background is not generated due to deprecation attr
 
@@ -17930,6 +19066,13 @@ type _TraitStyle struct{ CPointer *C.GtkStyle }
 // gtk_style_set_background is not generated due to deprecation attr
 
 type _TraitStyleContext struct{ CPointer *C.GtkStyleContext }
+type IsStyleContext interface {
+	GetStyleContextPointer() *C.GtkStyleContext
+}
+
+func (self *_TraitStyleContext) GetStyleContextPointer() *C.GtkStyleContext {
+	return self.CPointer
+}
 
 /*
 Adds a style class to @context, so posterior calls to
@@ -18085,17 +19228,17 @@ See that function for details.
 func (self *_TraitStyleContext) GetParent() (return__ *StyleContext) {
 	var __cgo__return__ *C.GtkStyleContext
 	__cgo__return__ = C.gtk_style_context_get_parent(self.CPointer)
-	return__ = NewStyleContextFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewStyleContextFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
 /*
 Returns the widget path used for style matching.
 */
-func (self *_TraitStyleContext) GetPath() (return__ *WidgetPath) {
-	var __cgo__return__ *C.GtkWidgetPath
-	__cgo__return__ = C.gtk_style_context_get_path(self.CPointer)
-	return__ = (*WidgetPath)(unsafe.Pointer(__cgo__return__))
+func (self *_TraitStyleContext) GetPath() (return__ *C.GtkWidgetPath) {
+	return__ = C.gtk_style_context_get_path(self.CPointer)
 	return
 }
 
@@ -18144,12 +19287,10 @@ reasons.
 Shorthand CSS properties cannot be queried for a location and will
 always return %NULL.
 */
-func (self *_TraitStyleContext) GetSection(property string) (return__ *CssSection) {
+func (self *_TraitStyleContext) GetSection(property string) (return__ *C.GtkCssSection) {
 	__cgo__property := (*C.gchar)(unsafe.Pointer(C.CString(property)))
-	var __cgo__return__ *C.GtkCssSection
-	__cgo__return__ = C.gtk_style_context_get_section(self.CPointer, __cgo__property)
+	return__ = C.gtk_style_context_get_section(self.CPointer, __cgo__property)
 	C.free(unsafe.Pointer(__cgo__property))
-	return__ = (*CssSection)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -18346,8 +19487,8 @@ of properties.
 If you are using a #GtkStyleContext returned from
 gtk_widget_get_style_context(), the parent will be set for you.
 */
-func (self *_TraitStyleContext) SetParent(parent *StyleContext) {
-	C.gtk_style_context_set_parent(self.CPointer, (*C.GtkStyleContext)(parent.CPointer))
+func (self *_TraitStyleContext) SetParent(parent IsStyleContext) {
+	C.gtk_style_context_set_parent(self.CPointer, parent.GetStyleContextPointer())
 	return
 }
 
@@ -18360,8 +19501,8 @@ If you are using a #GtkStyleContext returned from
 gtk_widget_get_style_context(), you do not need to call
 this yourself.
 */
-func (self *_TraitStyleContext) SetPath(path *WidgetPath) {
-	C.gtk_style_context_set_path(self.CPointer, (*C.GtkWidgetPath)(unsafe.Pointer(path)))
+func (self *_TraitStyleContext) SetPath(path *C.GtkWidgetPath) {
+	C.gtk_style_context_set_path(self.CPointer, path)
 	return
 }
 
@@ -18400,6 +19541,13 @@ func (self *_TraitStyleContext) SetState(flags C.GtkStateFlags) {
 // gtk_style_context_state_is_running is not generated due to deprecation attr
 
 type _TraitStyleProperties struct{ CPointer *C.GtkStyleProperties }
+type IsStyleProperties interface {
+	GetStylePropertiesPointer() *C.GtkStyleProperties
+}
+
+func (self *_TraitStyleProperties) GetStylePropertiesPointer() *C.GtkStyleProperties {
+	return self.CPointer
+}
 
 /*
 Clears all style information from @props.
@@ -18436,12 +19584,12 @@ in @props_to_merge. If @replace is %TRUE, the values
 will be overwritten, if it is %FALSE, the older values
 will prevail.
 */
-func (self *_TraitStyleProperties) Merge(props_to_merge *StyleProperties, replace bool) {
+func (self *_TraitStyleProperties) Merge(props_to_merge IsStyleProperties, replace bool) {
 	__cgo__replace := C.gboolean(0)
 	if replace {
 		__cgo__replace = C.gboolean(1)
 	}
-	C.gtk_style_properties_merge(self.CPointer, (*C.GtkStyleProperties)(props_to_merge.CPointer), __cgo__replace)
+	C.gtk_style_properties_merge(self.CPointer, props_to_merge.GetStylePropertiesPointer(), __cgo__replace)
 	return
 }
 
@@ -18470,6 +19618,13 @@ func (self *_TraitStyleProperties) UnsetProperty(property string, state C.GtkSta
 }
 
 type _TraitSwitch struct{ CPointer *C.GtkSwitch }
+type IsSwitch interface {
+	GetSwitchPointer() *C.GtkSwitch
+}
+
+func (self *_TraitSwitch) GetSwitchPointer() *C.GtkSwitch {
+	return self.CPointer
+}
 
 /*
 Gets whether the #GtkSwitch is in its “on” or “off” state.
@@ -18494,6 +19649,13 @@ func (self *_TraitSwitch) SetActive(is_active bool) {
 }
 
 type _TraitTable struct{ CPointer *C.GtkTable }
+type IsTable interface {
+	GetTablePointer() *C.GtkTable
+}
+
+func (self *_TraitTable) GetTablePointer() *C.GtkTable {
+	return self.CPointer
+}
 
 // gtk_table_attach is not generated due to deprecation attr
 
@@ -18524,8 +19686,22 @@ type _TraitTable struct{ CPointer *C.GtkTable }
 // gtk_table_set_row_spacings is not generated due to deprecation attr
 
 type _TraitTearoffMenuItem struct{ CPointer *C.GtkTearoffMenuItem }
+type IsTearoffMenuItem interface {
+	GetTearoffMenuItemPointer() *C.GtkTearoffMenuItem
+}
+
+func (self *_TraitTearoffMenuItem) GetTearoffMenuItemPointer() *C.GtkTearoffMenuItem {
+	return self.CPointer
+}
 
 type _TraitTextBuffer struct{ CPointer *C.GtkTextBuffer }
+type IsTextBuffer interface {
+	GetTextBufferPointer() *C.GtkTextBuffer
+}
+
+func (self *_TraitTextBuffer) GetTextBufferPointer() *C.GtkTextBuffer {
+	return self.CPointer
+}
 
 /*
 Adds the mark at position @where. The mark must not be added to
@@ -18535,8 +19711,8 @@ be another mark in the buffer with the same name.
 Emits the #GtkTextBuffer::mark-set signal as notification of the mark's
 initial placement.
 */
-func (self *_TraitTextBuffer) AddMark(mark *TextMark, where *TextIter) {
-	C.gtk_text_buffer_add_mark(self.CPointer, (*C.GtkTextMark)(mark.CPointer), (*C.GtkTextIter)(unsafe.Pointer(where)))
+func (self *_TraitTextBuffer) AddMark(mark IsTextMark, where *C.GtkTextIter) {
+	C.gtk_text_buffer_add_mark(self.CPointer, mark.GetTextMarkPointer(), where)
 	return
 }
 
@@ -18545,8 +19721,8 @@ Adds @clipboard to the list of clipboards in which the selection
 contents of @buffer are available. In most cases, @clipboard will be
 the #GtkClipboard of type %GDK_SELECTION_PRIMARY for a view of @buffer.
 */
-func (self *_TraitTextBuffer) AddSelectionClipboard(clipboard *Clipboard) {
-	C.gtk_text_buffer_add_selection_clipboard(self.CPointer, (*C.GtkClipboard)(clipboard.CPointer))
+func (self *_TraitTextBuffer) AddSelectionClipboard(clipboard IsClipboard) {
+	C.gtk_text_buffer_add_selection_clipboard(self.CPointer, clipboard.GetClipboardPointer())
 	return
 }
 
@@ -18555,8 +19731,8 @@ Emits the “apply-tag” signal on @buffer. The default
 handler for the signal applies @tag to the given range.
 @start and @end do not have to be in order.
 */
-func (self *_TraitTextBuffer) ApplyTag(tag *TextTag, start *TextIter, end *TextIter) {
-	C.gtk_text_buffer_apply_tag(self.CPointer, (*C.GtkTextTag)(tag.CPointer), (*C.GtkTextIter)(unsafe.Pointer(start)), (*C.GtkTextIter)(unsafe.Pointer(end)))
+func (self *_TraitTextBuffer) ApplyTag(tag IsTextTag, start *C.GtkTextIter, end *C.GtkTextIter) {
+	C.gtk_text_buffer_apply_tag(self.CPointer, tag.GetTextTagPointer(), start, end)
 	return
 }
 
@@ -18564,9 +19740,9 @@ func (self *_TraitTextBuffer) ApplyTag(tag *TextTag, start *TextIter, end *TextI
 Calls gtk_text_tag_table_lookup() on the buffer’s tag table to
 get a #GtkTextTag, then calls gtk_text_buffer_apply_tag().
 */
-func (self *_TraitTextBuffer) ApplyTagByName(name string, start *TextIter, end *TextIter) {
+func (self *_TraitTextBuffer) ApplyTagByName(name string, start *C.GtkTextIter, end *C.GtkTextIter) {
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
-	C.gtk_text_buffer_apply_tag_by_name(self.CPointer, __cgo__name, (*C.GtkTextIter)(unsafe.Pointer(start)), (*C.GtkTextIter)(unsafe.Pointer(end)))
+	C.gtk_text_buffer_apply_tag_by_name(self.CPointer, __cgo__name, start, end)
 	C.free(unsafe.Pointer(__cgo__name))
 	return
 }
@@ -18583,7 +19759,7 @@ Because the buffer is modified, all outstanding iterators become
 invalid after calling this function; however, the @iter will be
 re-initialized to point to the location where text was deleted.
 */
-func (self *_TraitTextBuffer) Backspace(iter *TextIter, interactive bool, default_editable bool) (return__ bool) {
+func (self *_TraitTextBuffer) Backspace(iter *C.GtkTextIter, interactive bool, default_editable bool) (return__ bool) {
 	__cgo__interactive := C.gboolean(0)
 	if interactive {
 		__cgo__interactive = C.gboolean(1)
@@ -18593,7 +19769,7 @@ func (self *_TraitTextBuffer) Backspace(iter *TextIter, interactive bool, defaul
 		__cgo__default_editable = C.gboolean(1)
 	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_text_buffer_backspace(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(iter)), __cgo__interactive, __cgo__default_editable)
+	__cgo__return__ = C.gtk_text_buffer_backspace(self.CPointer, iter, __cgo__interactive, __cgo__default_editable)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -18625,8 +19801,8 @@ func (self *_TraitTextBuffer) BeginUserAction() {
 /*
 Copies the currently-selected text to a clipboard.
 */
-func (self *_TraitTextBuffer) CopyClipboard(clipboard *Clipboard) {
-	C.gtk_text_buffer_copy_clipboard(self.CPointer, (*C.GtkClipboard)(clipboard.CPointer))
+func (self *_TraitTextBuffer) CopyClipboard(clipboard IsClipboard) {
+	C.gtk_text_buffer_copy_clipboard(self.CPointer, clipboard.GetClipboardPointer())
 	return
 }
 
@@ -18637,10 +19813,12 @@ with gtk_text_buffer_insert_child_anchor(). The new anchor is
 owned by the buffer; no reference count is returned to
 the caller of gtk_text_buffer_create_child_anchor().
 */
-func (self *_TraitTextBuffer) CreateChildAnchor(iter *TextIter) (return__ *TextChildAnchor) {
+func (self *_TraitTextBuffer) CreateChildAnchor(iter *C.GtkTextIter) (return__ *TextChildAnchor) {
 	var __cgo__return__ *C.GtkTextChildAnchor
-	__cgo__return__ = C.gtk_text_buffer_create_child_anchor(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(iter)))
-	return__ = NewTextChildAnchorFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	__cgo__return__ = C.gtk_text_buffer_create_child_anchor(self.CPointer, iter)
+	if __cgo__return__ != nil {
+		return__ = NewTextChildAnchorFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -18663,16 +19841,18 @@ away when the buffer does.
 Emits the #GtkTextBuffer::mark-set signal as notification of the mark's
 initial placement.
 */
-func (self *_TraitTextBuffer) CreateMark(mark_name string, where *TextIter, left_gravity bool) (return__ *TextMark) {
+func (self *_TraitTextBuffer) CreateMark(mark_name string, where *C.GtkTextIter, left_gravity bool) (return__ *TextMark) {
 	__cgo__mark_name := (*C.gchar)(unsafe.Pointer(C.CString(mark_name)))
 	__cgo__left_gravity := C.gboolean(0)
 	if left_gravity {
 		__cgo__left_gravity = C.gboolean(1)
 	}
 	var __cgo__return__ *C.GtkTextMark
-	__cgo__return__ = C.gtk_text_buffer_create_mark(self.CPointer, __cgo__mark_name, (*C.GtkTextIter)(unsafe.Pointer(where)), __cgo__left_gravity)
+	__cgo__return__ = C.gtk_text_buffer_create_mark(self.CPointer, __cgo__mark_name, where, __cgo__left_gravity)
 	C.free(unsafe.Pointer(__cgo__mark_name))
-	return__ = NewTextMarkFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewTextMarkFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -18682,12 +19862,12 @@ func (self *_TraitTextBuffer) CreateMark(mark_name string, where *TextIter, left
 Copies the currently-selected text to a clipboard, then deletes
 said text if it’s editable.
 */
-func (self *_TraitTextBuffer) CutClipboard(clipboard *Clipboard, default_editable bool) {
+func (self *_TraitTextBuffer) CutClipboard(clipboard IsClipboard, default_editable bool) {
 	__cgo__default_editable := C.gboolean(0)
 	if default_editable {
 		__cgo__default_editable = C.gboolean(1)
 	}
-	C.gtk_text_buffer_cut_clipboard(self.CPointer, (*C.GtkClipboard)(clipboard.CPointer), __cgo__default_editable)
+	C.gtk_text_buffer_cut_clipboard(self.CPointer, clipboard.GetClipboardPointer(), __cgo__default_editable)
 	return
 }
 
@@ -18700,8 +19880,8 @@ buffer is modified, all outstanding iterators become invalid after
 calling this function; however, the @start and @end will be
 re-initialized to point to the location where text was deleted.
 */
-func (self *_TraitTextBuffer) Delete(start *TextIter, end *TextIter) {
-	C.gtk_text_buffer_delete(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(start)), (*C.GtkTextIter)(unsafe.Pointer(end)))
+func (self *_TraitTextBuffer) Delete(start *C.GtkTextIter, end *C.GtkTextIter) {
+	C.gtk_text_buffer_delete(self.CPointer, start, end)
 	return
 }
 
@@ -18712,13 +19892,13 @@ Calls gtk_text_buffer_delete() for each editable sub-range of
 the location of the last deleted range, or left untouched if
 no text was deleted.
 */
-func (self *_TraitTextBuffer) DeleteInteractive(start_iter *TextIter, end_iter *TextIter, default_editable bool) (return__ bool) {
+func (self *_TraitTextBuffer) DeleteInteractive(start_iter *C.GtkTextIter, end_iter *C.GtkTextIter, default_editable bool) (return__ bool) {
 	__cgo__default_editable := C.gboolean(0)
 	if default_editable {
 		__cgo__default_editable = C.gboolean(1)
 	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_text_buffer_delete_interactive(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(start_iter)), (*C.GtkTextIter)(unsafe.Pointer(end_iter)), __cgo__default_editable)
+	__cgo__return__ = C.gtk_text_buffer_delete_interactive(self.CPointer, start_iter, end_iter, __cgo__default_editable)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -18734,8 +19914,8 @@ find out if a mark has been removed from its buffer.
 The #GtkTextBuffer::mark-deleted signal will be emitted as notification after
 the mark is deleted.
 */
-func (self *_TraitTextBuffer) DeleteMark(mark *TextMark) {
-	C.gtk_text_buffer_delete_mark(self.CPointer, (*C.GtkTextMark)(mark.CPointer))
+func (self *_TraitTextBuffer) DeleteMark(mark IsTextMark) {
+	C.gtk_text_buffer_delete_mark(self.CPointer, mark.GetTextMarkPointer())
 	return
 }
 
@@ -18779,11 +19959,11 @@ it at @iter.
 gtk_text_buffer_register_deserialize_format() or
 gtk_text_buffer_register_deserialize_tagset() beforehand.
 */
-func (self *_TraitTextBuffer) Deserialize(content_buffer *TextBuffer, format C.GdkAtom, iter *TextIter, data []byte, length int64) (return__ bool, __err__ error) {
+func (self *_TraitTextBuffer) Deserialize(content_buffer IsTextBuffer, format C.GdkAtom, iter *C.GtkTextIter, data []byte, length int64) (return__ bool, __err__ error) {
 	__header__data := (*reflect.SliceHeader)(unsafe.Pointer(&data))
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_text_buffer_deserialize(self.CPointer, (*C.GtkTextBuffer)(content_buffer.CPointer), format, (*C.GtkTextIter)(unsafe.Pointer(iter)), (*C.guint8)(unsafe.Pointer(__header__data.Data)), C.gsize(length), &__cgo_error__)
+	__cgo__return__ = C.gtk_text_buffer_deserialize(self.CPointer, content_buffer.GetTextBufferPointer(), format, iter, (*C.guint8)(unsafe.Pointer(__header__data.Data)), C.gsize(length), &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -18868,10 +20048,8 @@ added with @info values from the #GtkTextBufferTargetInfo enum,
 using gtk_target_list_add_rich_text_targets() and
 gtk_target_list_add_text_targets().
 */
-func (self *_TraitTextBuffer) GetCopyTargetList() (return__ *TargetList) {
-	var __cgo__return__ *C.GtkTargetList
-	__cgo__return__ = C.gtk_text_buffer_get_copy_target_list(self.CPointer)
-	return__ = (*TargetList)(unsafe.Pointer(__cgo__return__))
+func (self *_TraitTextBuffer) GetCopyTargetList() (return__ *C.GtkTargetList) {
+	return__ = C.gtk_text_buffer_get_copy_target_list(self.CPointer)
 	return
 }
 
@@ -18919,15 +20097,17 @@ typing.
 func (self *_TraitTextBuffer) GetInsert() (return__ *TextMark) {
 	var __cgo__return__ *C.GtkTextMark
 	__cgo__return__ = C.gtk_text_buffer_get_insert(self.CPointer)
-	return__ = NewTextMarkFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewTextMarkFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
 /*
 Obtains the location of @anchor within @buffer.
 */
-func (self *_TraitTextBuffer) GetIterAtChildAnchor(anchor *TextChildAnchor) (iter C.GtkTextIter) {
-	C.gtk_text_buffer_get_iter_at_child_anchor(self.CPointer, &iter, (*C.GtkTextChildAnchor)(anchor.CPointer))
+func (self *_TraitTextBuffer) GetIterAtChildAnchor(anchor IsTextChildAnchor) (iter C.GtkTextIter) {
+	C.gtk_text_buffer_get_iter_at_child_anchor(self.CPointer, &iter, anchor.GetTextChildAnchorPointer())
 	return
 }
 
@@ -18965,8 +20145,8 @@ func (self *_TraitTextBuffer) GetIterAtLineOffset(line_number int, char_offset i
 /*
 Initializes @iter with the current position of @mark.
 */
-func (self *_TraitTextBuffer) GetIterAtMark(mark *TextMark) (iter C.GtkTextIter) {
-	C.gtk_text_buffer_get_iter_at_mark(self.CPointer, &iter, (*C.GtkTextMark)(mark.CPointer))
+func (self *_TraitTextBuffer) GetIterAtMark(mark IsTextMark) (iter C.GtkTextIter) {
+	C.gtk_text_buffer_get_iter_at_mark(self.CPointer, &iter, mark.GetTextMarkPointer())
 	return
 }
 
@@ -19001,7 +20181,9 @@ func (self *_TraitTextBuffer) GetMark(name string) (return__ *TextMark) {
 	var __cgo__return__ *C.GtkTextMark
 	__cgo__return__ = C.gtk_text_buffer_get_mark(self.CPointer, __cgo__name)
 	C.free(unsafe.Pointer(__cgo__name))
-	return__ = NewTextMarkFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewTextMarkFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -19025,10 +20207,8 @@ added with @info values from the #GtkTextBufferTargetInfo enum,
 using gtk_target_list_add_rich_text_targets() and
 gtk_target_list_add_text_targets().
 */
-func (self *_TraitTextBuffer) GetPasteTargetList() (return__ *TargetList) {
-	var __cgo__return__ *C.GtkTargetList
-	__cgo__return__ = C.gtk_text_buffer_get_paste_target_list(self.CPointer)
-	return__ = (*TargetList)(unsafe.Pointer(__cgo__return__))
+func (self *_TraitTextBuffer) GetPasteTargetList() (return__ *C.GtkTargetList) {
+	return__ = C.gtk_text_buffer_get_paste_target_list(self.CPointer)
 	return
 }
 
@@ -19048,7 +20228,9 @@ selection and what its bounds are.
 func (self *_TraitTextBuffer) GetSelectionBound() (return__ *TextMark) {
 	var __cgo__return__ *C.GtkTextMark
 	__cgo__return__ = C.gtk_text_buffer_get_selection_bound(self.CPointer)
-	return__ = NewTextMarkFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewTextMarkFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -19091,13 +20273,13 @@ gtk_text_buffer_get_text(). Note that 0xFFFC can occur in normal
 text as well, so it is not a reliable indicator that a pixbuf or
 widget is in the buffer.
 */
-func (self *_TraitTextBuffer) GetSlice(start *TextIter, end *TextIter, include_hidden_chars bool) (return__ string) {
+func (self *_TraitTextBuffer) GetSlice(start *C.GtkTextIter, end *C.GtkTextIter, include_hidden_chars bool) (return__ string) {
 	__cgo__include_hidden_chars := C.gboolean(0)
 	if include_hidden_chars {
 		__cgo__include_hidden_chars = C.gboolean(1)
 	}
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.gtk_text_buffer_get_slice(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(start)), (*C.GtkTextIter)(unsafe.Pointer(end)), __cgo__include_hidden_chars)
+	__cgo__return__ = C.gtk_text_buffer_get_slice(self.CPointer, start, end, __cgo__include_hidden_chars)
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -19118,7 +20300,9 @@ Get the #GtkTextTagTable associated with this buffer.
 func (self *_TraitTextBuffer) GetTagTable() (return__ *TextTagTable) {
 	var __cgo__return__ *C.GtkTextTagTable
 	__cgo__return__ = C.gtk_text_buffer_get_tag_table(self.CPointer)
-	return__ = NewTextTagTableFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewTextTagTableFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -19131,13 +20315,13 @@ the returned string do not correspond to byte
 and character indexes into the buffer. Contrast with
 gtk_text_buffer_get_slice().
 */
-func (self *_TraitTextBuffer) GetText(start *TextIter, end *TextIter, include_hidden_chars bool) (return__ string) {
+func (self *_TraitTextBuffer) GetText(start *C.GtkTextIter, end *C.GtkTextIter, include_hidden_chars bool) (return__ string) {
 	__cgo__include_hidden_chars := C.gboolean(0)
 	if include_hidden_chars {
 		__cgo__include_hidden_chars = C.gboolean(1)
 	}
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.gtk_text_buffer_get_text(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(start)), (*C.GtkTextIter)(unsafe.Pointer(end)), __cgo__include_hidden_chars)
+	__cgo__return__ = C.gtk_text_buffer_get_text(self.CPointer, start, end, __cgo__include_hidden_chars)
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -19151,9 +20335,9 @@ insertion occurs (because the buffer contents change), but the
 default signal handler revalidates it to point to the end of the
 inserted text.
 */
-func (self *_TraitTextBuffer) Insert(iter *TextIter, text string, len_ int) {
+func (self *_TraitTextBuffer) Insert(iter *C.GtkTextIter, text string, len_ int) {
 	__cgo__text := (*C.gchar)(unsafe.Pointer(C.CString(text)))
-	C.gtk_text_buffer_insert(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(iter)), __cgo__text, C.gint(len_))
+	C.gtk_text_buffer_insert(self.CPointer, iter, __cgo__text, C.gint(len_))
 	C.free(unsafe.Pointer(__cgo__text))
 	return
 }
@@ -19182,8 +20366,8 @@ gtk_text_buffer_create_child_anchor() as a more convenient
 alternative to this function. The buffer will add a reference to
 the anchor, so you can unref it after insertion.
 */
-func (self *_TraitTextBuffer) InsertChildAnchor(iter *TextIter, anchor *TextChildAnchor) {
-	C.gtk_text_buffer_insert_child_anchor(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(iter)), (*C.GtkTextChildAnchor)(anchor.CPointer))
+func (self *_TraitTextBuffer) InsertChildAnchor(iter *C.GtkTextIter, anchor IsTextChildAnchor) {
+	C.gtk_text_buffer_insert_child_anchor(self.CPointer, iter, anchor.GetTextChildAnchorPointer())
 	return
 }
 
@@ -19197,14 +20381,14 @@ results from a user action (is interactive).
 have a tag affecting editability applied to it. Typically the
 result of gtk_text_view_get_editable() is appropriate here.
 */
-func (self *_TraitTextBuffer) InsertInteractive(iter *TextIter, text string, len_ int, default_editable bool) (return__ bool) {
+func (self *_TraitTextBuffer) InsertInteractive(iter *C.GtkTextIter, text string, len_ int, default_editable bool) (return__ bool) {
 	__cgo__text := (*C.gchar)(unsafe.Pointer(C.CString(text)))
 	__cgo__default_editable := C.gboolean(0)
 	if default_editable {
 		__cgo__default_editable = C.gboolean(1)
 	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_text_buffer_insert_interactive(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(iter)), __cgo__text, C.gint(len_), __cgo__default_editable)
+	__cgo__return__ = C.gtk_text_buffer_insert_interactive(self.CPointer, iter, __cgo__text, C.gint(len_), __cgo__default_editable)
 	C.free(unsafe.Pointer(__cgo__text))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
@@ -19241,8 +20425,8 @@ this character for pixbufs, but the “text” variants do
 not. e.g. see gtk_text_buffer_get_slice() and
 gtk_text_buffer_get_text().
 */
-func (self *_TraitTextBuffer) InsertPixbuf(iter *TextIter, pixbuf *C.GdkPixbuf) {
-	C.gtk_text_buffer_insert_pixbuf(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(iter)), pixbuf)
+func (self *_TraitTextBuffer) InsertPixbuf(iter *C.GtkTextIter, pixbuf *C.GdkPixbuf) {
+	C.gtk_text_buffer_insert_pixbuf(self.CPointer, iter, pixbuf)
 	return
 }
 
@@ -19256,8 +20440,8 @@ images and tags. If @start and @end are in a different buffer from
 Implemented via emissions of the insert_text and apply_tag signals,
 so expect those.
 */
-func (self *_TraitTextBuffer) InsertRange(iter *TextIter, start *TextIter, end *TextIter) {
-	C.gtk_text_buffer_insert_range(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(iter)), (*C.GtkTextIter)(unsafe.Pointer(start)), (*C.GtkTextIter)(unsafe.Pointer(end)))
+func (self *_TraitTextBuffer) InsertRange(iter *C.GtkTextIter, start *C.GtkTextIter, end *C.GtkTextIter) {
+	C.gtk_text_buffer_insert_range(self.CPointer, iter, start, end)
 	return
 }
 
@@ -19268,13 +20452,13 @@ indicates whether the text is editable at @iter if no tags
 enclosing @iter affect editability. Typically the result of
 gtk_text_view_get_editable() is appropriate here.
 */
-func (self *_TraitTextBuffer) InsertRangeInteractive(iter *TextIter, start *TextIter, end *TextIter, default_editable bool) (return__ bool) {
+func (self *_TraitTextBuffer) InsertRangeInteractive(iter *C.GtkTextIter, start *C.GtkTextIter, end *C.GtkTextIter, default_editable bool) (return__ bool) {
 	__cgo__default_editable := C.gboolean(0)
 	if default_editable {
 		__cgo__default_editable = C.gboolean(1)
 	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_text_buffer_insert_range_interactive(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(iter)), (*C.GtkTextIter)(unsafe.Pointer(start)), (*C.GtkTextIter)(unsafe.Pointer(end)), __cgo__default_editable)
+	__cgo__return__ = C.gtk_text_buffer_insert_range_interactive(self.CPointer, iter, start, end, __cgo__default_editable)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -19287,8 +20471,8 @@ func (self *_TraitTextBuffer) InsertRangeInteractive(iter *TextIter, start *Text
 Moves @mark to the new location @where. Emits the #GtkTextBuffer::mark-set
 signal as notification of the move.
 */
-func (self *_TraitTextBuffer) MoveMark(mark *TextMark, where *TextIter) {
-	C.gtk_text_buffer_move_mark(self.CPointer, (*C.GtkTextMark)(mark.CPointer), (*C.GtkTextIter)(unsafe.Pointer(where)))
+func (self *_TraitTextBuffer) MoveMark(mark IsTextMark, where *C.GtkTextIter) {
+	C.gtk_text_buffer_move_mark(self.CPointer, mark.GetTextMarkPointer(), where)
 	return
 }
 
@@ -19296,9 +20480,9 @@ func (self *_TraitTextBuffer) MoveMark(mark *TextMark, where *TextIter) {
 Moves the mark named @name (which must exist) to location @where.
 See gtk_text_buffer_move_mark() for details.
 */
-func (self *_TraitTextBuffer) MoveMarkByName(name string, where *TextIter) {
+func (self *_TraitTextBuffer) MoveMarkByName(name string, where *C.GtkTextIter) {
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
-	C.gtk_text_buffer_move_mark_by_name(self.CPointer, __cgo__name, (*C.GtkTextIter)(unsafe.Pointer(where)))
+	C.gtk_text_buffer_move_mark_by_name(self.CPointer, __cgo__name, where)
 	C.free(unsafe.Pointer(__cgo__name))
 	return
 }
@@ -19312,12 +20496,12 @@ Note: pasting is asynchronous, that is, we’ll ask for the paste data and
 return, and at some point later after the main loop runs, the paste data will
 be inserted.
 */
-func (self *_TraitTextBuffer) PasteClipboard(clipboard *Clipboard, override_location *TextIter, default_editable bool) {
+func (self *_TraitTextBuffer) PasteClipboard(clipboard IsClipboard, override_location *C.GtkTextIter, default_editable bool) {
 	__cgo__default_editable := C.gboolean(0)
 	if default_editable {
 		__cgo__default_editable = C.gboolean(1)
 	}
-	C.gtk_text_buffer_paste_clipboard(self.CPointer, (*C.GtkClipboard)(clipboard.CPointer), (*C.GtkTextIter)(unsafe.Pointer(override_location)), __cgo__default_editable)
+	C.gtk_text_buffer_paste_clipboard(self.CPointer, clipboard.GetClipboardPointer(), override_location, __cgo__default_editable)
 	return
 }
 
@@ -19330,8 +20514,8 @@ inefficient since the temporarily-selected region will force stuff
 to be recalculated. This function moves them as a unit, which can
 be optimized.
 */
-func (self *_TraitTextBuffer) PlaceCursor(where *TextIter) {
-	C.gtk_text_buffer_place_cursor(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(where)))
+func (self *_TraitTextBuffer) PlaceCursor(where *C.GtkTextIter) {
+	C.gtk_text_buffer_place_cursor(self.CPointer, where)
 	return
 }
 
@@ -19402,8 +20586,8 @@ the code you’re currently writing. That is, using this function is
 probably a bad idea if you have two or more unrelated code sections
 that add tags.
 */
-func (self *_TraitTextBuffer) RemoveAllTags(start *TextIter, end *TextIter) {
-	C.gtk_text_buffer_remove_all_tags(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(start)), (*C.GtkTextIter)(unsafe.Pointer(end)))
+func (self *_TraitTextBuffer) RemoveAllTags(start *C.GtkTextIter, end *C.GtkTextIter) {
+	C.gtk_text_buffer_remove_all_tags(self.CPointer, start, end)
 	return
 }
 
@@ -19411,8 +20595,8 @@ func (self *_TraitTextBuffer) RemoveAllTags(start *TextIter, end *TextIter) {
 Removes a #GtkClipboard added with
 gtk_text_buffer_add_selection_clipboard().
 */
-func (self *_TraitTextBuffer) RemoveSelectionClipboard(clipboard *Clipboard) {
-	C.gtk_text_buffer_remove_selection_clipboard(self.CPointer, (*C.GtkClipboard)(clipboard.CPointer))
+func (self *_TraitTextBuffer) RemoveSelectionClipboard(clipboard IsClipboard) {
+	C.gtk_text_buffer_remove_selection_clipboard(self.CPointer, clipboard.GetClipboardPointer())
 	return
 }
 
@@ -19421,8 +20605,8 @@ Emits the “remove-tag” signal. The default handler for the signal
 removes all occurrences of @tag from the given range. @start and
 @end don’t have to be in order.
 */
-func (self *_TraitTextBuffer) RemoveTag(tag *TextTag, start *TextIter, end *TextIter) {
-	C.gtk_text_buffer_remove_tag(self.CPointer, (*C.GtkTextTag)(tag.CPointer), (*C.GtkTextIter)(unsafe.Pointer(start)), (*C.GtkTextIter)(unsafe.Pointer(end)))
+func (self *_TraitTextBuffer) RemoveTag(tag IsTextTag, start *C.GtkTextIter, end *C.GtkTextIter) {
+	C.gtk_text_buffer_remove_tag(self.CPointer, tag.GetTextTagPointer(), start, end)
 	return
 }
 
@@ -19430,9 +20614,9 @@ func (self *_TraitTextBuffer) RemoveTag(tag *TextTag, start *TextIter, end *Text
 Calls gtk_text_tag_table_lookup() on the buffer’s tag table to
 get a #GtkTextTag, then calls gtk_text_buffer_remove_tag().
 */
-func (self *_TraitTextBuffer) RemoveTagByName(name string, start *TextIter, end *TextIter) {
+func (self *_TraitTextBuffer) RemoveTagByName(name string, start *C.GtkTextIter, end *C.GtkTextIter) {
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
-	C.gtk_text_buffer_remove_tag_by_name(self.CPointer, __cgo__name, (*C.GtkTextIter)(unsafe.Pointer(start)), (*C.GtkTextIter)(unsafe.Pointer(end)))
+	C.gtk_text_buffer_remove_tag_by_name(self.CPointer, __cgo__name, start, end)
 	C.free(unsafe.Pointer(__cgo__name))
 	return
 }
@@ -19446,8 +20630,8 @@ inefficient since the temporarily-selected region will force stuff
 to be recalculated. This function moves them as a unit, which can
 be optimized.
 */
-func (self *_TraitTextBuffer) SelectRange(ins *TextIter, bound *TextIter) {
-	C.gtk_text_buffer_select_range(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(ins)), (*C.GtkTextIter)(unsafe.Pointer(bound)))
+func (self *_TraitTextBuffer) SelectRange(ins *C.GtkTextIter, bound *C.GtkTextIter) {
+	C.gtk_text_buffer_select_range(self.CPointer, ins, bound)
 	return
 }
 
@@ -19459,10 +20643,10 @@ and @end in the rich text format represented by @format.
 gtk_text_buffer_register_serialize_format() or
 gtk_text_buffer_register_serialize_tagset() beforehand.
 */
-func (self *_TraitTextBuffer) Serialize(content_buffer *TextBuffer, format C.GdkAtom, start *TextIter, end *TextIter) (length int64, return__ []byte) {
+func (self *_TraitTextBuffer) Serialize(content_buffer IsTextBuffer, format C.GdkAtom, start *C.GtkTextIter, end *C.GtkTextIter) (length int64, return__ []byte) {
 	var __cgo__length C.gsize
 	var __cgo__return__ *C.guint8
-	__cgo__return__ = C.gtk_text_buffer_serialize(self.CPointer, (*C.GtkTextBuffer)(content_buffer.CPointer), format, (*C.GtkTextIter)(unsafe.Pointer(start)), (*C.GtkTextIter)(unsafe.Pointer(end)), &__cgo__length)
+	__cgo__return__ = C.gtk_text_buffer_serialize(self.CPointer, content_buffer.GetTextBufferPointer(), format, start, end, &__cgo__length)
 	length = int64(__cgo__length)
 	defer func() { return__ = C.GoBytes(unsafe.Pointer(__cgo__return__), C.int(length)) }()
 	return
@@ -19516,6 +20700,13 @@ func (self *_TraitTextBuffer) UnregisterSerializeFormat(format C.GdkAtom) {
 }
 
 type _TraitTextChildAnchor struct{ CPointer *C.GtkTextChildAnchor }
+type IsTextChildAnchor interface {
+	GetTextChildAnchorPointer() *C.GtkTextChildAnchor
+}
+
+func (self *_TraitTextChildAnchor) GetTextChildAnchorPointer() *C.GtkTextChildAnchor {
+	return self.CPointer
+}
 
 /*
 Determines whether a child anchor has been deleted from
@@ -19542,6 +20733,13 @@ func (self *_TraitTextChildAnchor) GetWidgets() (return__ *C.GList) {
 }
 
 type _TraitTextMark struct{ CPointer *C.GtkTextMark }
+type IsTextMark interface {
+	GetTextMarkPointer() *C.GtkTextMark
+}
+
+func (self *_TraitTextMark) GetTextMarkPointer() *C.GtkTextMark {
+	return self.CPointer
+}
 
 /*
 Gets the buffer this mark is located inside,
@@ -19550,7 +20748,9 @@ or %NULL if the mark is deleted.
 func (self *_TraitTextMark) GetBuffer() (return__ *TextBuffer) {
 	var __cgo__return__ *C.GtkTextBuffer
 	__cgo__return__ = C.gtk_text_mark_get_buffer(self.CPointer)
-	return__ = NewTextBufferFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewTextBufferFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -19614,13 +20814,20 @@ func (self *_TraitTextMark) SetVisible(setting bool) {
 }
 
 type _TraitTextTag struct{ CPointer *C.GtkTextTag }
+type IsTextTag interface {
+	GetTextTagPointer() *C.GtkTextTag
+}
+
+func (self *_TraitTextTag) GetTextTagPointer() *C.GtkTextTag {
+	return self.CPointer
+}
 
 /*
 Emits the “event” signal on the #GtkTextTag.
 */
-func (self *_TraitTextTag) Event(event_object *C.GObject, event *C.GdkEvent, iter *TextIter) (return__ bool) {
+func (self *_TraitTextTag) Event(event_object *C.GObject, event *C.GdkEvent, iter *C.GtkTextIter) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_text_tag_event(self.CPointer, event_object, event, (*C.GtkTextIter)(unsafe.Pointer(iter)))
+	__cgo__return__ = C.gtk_text_tag_event(self.CPointer, event_object, event, iter)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -19654,6 +20861,13 @@ func (self *_TraitTextTag) SetPriority(priority int) {
 }
 
 type _TraitTextTagTable struct{ CPointer *C.GtkTextTagTable }
+type IsTextTagTable interface {
+	GetTextTagTablePointer() *C.GtkTextTagTable
+}
+
+func (self *_TraitTextTagTable) GetTextTagTablePointer() *C.GtkTextTagTable {
+	return self.CPointer
+}
 
 /*
 Add a tag to the table. The tag is assigned the highest priority
@@ -19662,8 +20876,8 @@ in the table.
 @tag must not be in a tag table already, and may not have
 the same name as an already-added tag.
 */
-func (self *_TraitTextTagTable) Add(tag *TextTag) {
-	C.gtk_text_tag_table_add(self.CPointer, (*C.GtkTextTag)(tag.CPointer))
+func (self *_TraitTextTagTable) Add(tag IsTextTag) {
+	C.gtk_text_tag_table_add(self.CPointer, tag.GetTextTagPointer())
 	return
 }
 
@@ -19695,7 +20909,9 @@ func (self *_TraitTextTagTable) Lookup(name string) (return__ *TextTag) {
 	var __cgo__return__ *C.GtkTextTag
 	__cgo__return__ = C.gtk_text_tag_table_lookup(self.CPointer, __cgo__name)
 	C.free(unsafe.Pointer(__cgo__name))
-	return__ = NewTextTagFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewTextTagFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -19705,18 +20921,25 @@ the tag is removed from the buffer. The table’s reference to the tag is
 removed, so the tag will end up destroyed if you don’t have a reference to
 it.
 */
-func (self *_TraitTextTagTable) Remove(tag *TextTag) {
-	C.gtk_text_tag_table_remove(self.CPointer, (*C.GtkTextTag)(tag.CPointer))
+func (self *_TraitTextTagTable) Remove(tag IsTextTag) {
+	C.gtk_text_tag_table_remove(self.CPointer, tag.GetTextTagPointer())
 	return
 }
 
 type _TraitTextView struct{ CPointer *C.GtkTextView }
+type IsTextView interface {
+	GetTextViewPointer() *C.GtkTextView
+}
+
+func (self *_TraitTextView) GetTextViewPointer() *C.GtkTextView {
+	return self.CPointer
+}
 
 /*
 Adds a child widget in the text buffer, at the given @anchor.
 */
-func (self *_TraitTextView) AddChildAtAnchor(child *Widget, anchor *TextChildAnchor) {
-	C.gtk_text_view_add_child_at_anchor(self.CPointer, (*C.GtkWidget)(child.CPointer), (*C.GtkTextChildAnchor)(anchor.CPointer))
+func (self *_TraitTextView) AddChildAtAnchor(child IsWidget, anchor IsTextChildAnchor) {
+	C.gtk_text_view_add_child_at_anchor(self.CPointer, child.GetWidgetPointer(), anchor.GetTextChildAnchorPointer())
 	return
 }
 
@@ -19732,8 +20955,8 @@ irrelevant, the child floats above all scrollable areas. But when
 placing a child in one of the scrollable windows (border windows or
 text window) it will move with the scrolling as needed.
 */
-func (self *_TraitTextView) AddChildInWindow(child *Widget, which_window C.GtkTextWindowType, xpos int, ypos int) {
-	C.gtk_text_view_add_child_in_window(self.CPointer, (*C.GtkWidget)(child.CPointer), which_window, C.gint(xpos), C.gint(ypos))
+func (self *_TraitTextView) AddChildInWindow(child IsWidget, which_window C.GtkTextWindowType, xpos int, ypos int) {
+	C.gtk_text_view_add_child_in_window(self.CPointer, child.GetWidgetPointer(), which_window, C.gint(xpos), C.gint(ypos))
 	return
 }
 
@@ -19747,9 +20970,9 @@ same. Display lines are divided differently for each view, since
 they depend on the view’s width; paragraphs are the same in all
 views, since they depend on the contents of the #GtkTextBuffer.
 */
-func (self *_TraitTextView) BackwardDisplayLine(iter *TextIter) (return__ bool) {
+func (self *_TraitTextView) BackwardDisplayLine(iter *C.GtkTextIter) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_text_view_backward_display_line(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(iter)))
+	__cgo__return__ = C.gtk_text_view_backward_display_line(self.CPointer, iter)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -19764,9 +20987,9 @@ same. Display lines are divided differently for each view, since
 they depend on the view’s width; paragraphs are the same in all
 views, since they depend on the contents of the #GtkTextBuffer.
 */
-func (self *_TraitTextView) BackwardDisplayLineStart(iter *TextIter) (return__ bool) {
+func (self *_TraitTextView) BackwardDisplayLineStart(iter *C.GtkTextIter) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_text_view_backward_display_line_start(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(iter)))
+	__cgo__return__ = C.gtk_text_view_backward_display_line_start(self.CPointer, iter)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -19797,9 +21020,9 @@ same. Display lines are divided differently for each view, since
 they depend on the view’s width; paragraphs are the same in all
 views, since they depend on the contents of the #GtkTextBuffer.
 */
-func (self *_TraitTextView) ForwardDisplayLine(iter *TextIter) (return__ bool) {
+func (self *_TraitTextView) ForwardDisplayLine(iter *C.GtkTextIter) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_text_view_forward_display_line(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(iter)))
+	__cgo__return__ = C.gtk_text_view_forward_display_line(self.CPointer, iter)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -19814,9 +21037,9 @@ same. Display lines are divided differently for each view, since
 they depend on the view’s width; paragraphs are the same in all
 views, since they depend on the contents of the #GtkTextBuffer.
 */
-func (self *_TraitTextView) ForwardDisplayLineEnd(iter *TextIter) (return__ bool) {
+func (self *_TraitTextView) ForwardDisplayLineEnd(iter *C.GtkTextIter) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_text_view_forward_display_line_end(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(iter)))
+	__cgo__return__ = C.gtk_text_view_forward_display_line_end(self.CPointer, iter)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -19851,7 +21074,9 @@ of this function won’t own a new reference.
 func (self *_TraitTextView) GetBuffer() (return__ *TextBuffer) {
 	var __cgo__return__ *C.GtkTextBuffer
 	__cgo__return__ = C.gtk_text_view_get_buffer(self.CPointer)
-	return__ = NewTextBufferFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewTextBufferFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -19876,8 +21101,8 @@ The rectangle position is in buffer coordinates; use
 gtk_text_view_buffer_to_window_coords() to convert these
 coordinates to coordinates for one of the windows in the text view.
 */
-func (self *_TraitTextView) GetCursorLocations(iter *TextIter) (strong C.GdkRectangle, weak C.GdkRectangle) {
-	C.gtk_text_view_get_cursor_locations(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(iter)), &strong, &weak)
+func (self *_TraitTextView) GetCursorLocations(iter *C.GtkTextIter) (strong C.GdkRectangle, weak C.GdkRectangle) {
+	C.gtk_text_view_get_cursor_locations(self.CPointer, iter, &strong, &weak)
 	return
 }
 
@@ -19901,10 +21126,8 @@ attributes in effect at a given text position.
 The return value is a copy owned by the caller of this function,
 and should be freed.
 */
-func (self *_TraitTextView) GetDefaultAttributes() (return__ *TextAttributes) {
-	var __cgo__return__ *C.GtkTextAttributes
-	__cgo__return__ = C.gtk_text_view_get_default_attributes(self.CPointer)
-	return__ = (*TextAttributes)(unsafe.Pointer(__cgo__return__))
+func (self *_TraitTextView) GetDefaultAttributes() (return__ *C.GtkTextAttributes) {
+	return__ = C.gtk_text_view_get_default_attributes(self.CPointer)
 	return
 }
 
@@ -19986,8 +21209,8 @@ The rectangle position is in buffer coordinates; use
 gtk_text_view_buffer_to_window_coords() to convert these
 coordinates to coordinates for one of the windows in the text view.
 */
-func (self *_TraitTextView) GetIterLocation(iter *TextIter) (location C.GdkRectangle) {
-	C.gtk_text_view_get_iter_location(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(iter)), &location)
+func (self *_TraitTextView) GetIterLocation(iter *C.GtkTextIter) (location C.GdkRectangle) {
+	C.gtk_text_view_get_iter_location(self.CPointer, iter, &location)
 	return
 }
 
@@ -20030,10 +21253,10 @@ Gets the y coordinate of the top of the line containing @iter,
 and the height of the line. The coordinate is a buffer coordinate;
 convert to window coordinates with gtk_text_view_buffer_to_window_coords().
 */
-func (self *_TraitTextView) GetLineYrange(iter *TextIter) (y int, height int) {
+func (self *_TraitTextView) GetLineYrange(iter *C.GtkTextIter) (y int, height int) {
 	var __cgo__y C.gint
 	var __cgo__height C.gint
-	C.gtk_text_view_get_line_yrange(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(iter)), &__cgo__y, &__cgo__height)
+	C.gtk_text_view_get_line_yrange(self.CPointer, iter, &__cgo__y, &__cgo__height)
 	y = int(__cgo__y)
 	height = int(__cgo__height)
 	return
@@ -20183,8 +21406,8 @@ func (self *_TraitTextView) ImContextFilterKeypress(event *C.GdkEventKey) (retur
 /*
 Updates the position of a child, as for gtk_text_view_add_child_in_window().
 */
-func (self *_TraitTextView) MoveChild(child *Widget, xpos int, ypos int) {
-	C.gtk_text_view_move_child(self.CPointer, (*C.GtkWidget)(child.CPointer), C.gint(xpos), C.gint(ypos))
+func (self *_TraitTextView) MoveChild(child IsWidget, xpos int, ypos int) {
+	C.gtk_text_view_move_child(self.CPointer, child.GetWidgetPointer(), C.gint(xpos), C.gint(ypos))
 	return
 }
 
@@ -20192,9 +21415,9 @@ func (self *_TraitTextView) MoveChild(child *Widget, xpos int, ypos int) {
 Moves a mark within the buffer so that it's
 located within the currently-visible text area.
 */
-func (self *_TraitTextView) MoveMarkOnscreen(mark *TextMark) (return__ bool) {
+func (self *_TraitTextView) MoveMarkOnscreen(mark IsTextMark) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_text_view_move_mark_onscreen(self.CPointer, (*C.GtkTextMark)(mark.CPointer))
+	__cgo__return__ = C.gtk_text_view_move_mark_onscreen(self.CPointer, mark.GetTextMarkPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -20212,9 +21435,9 @@ between logical and visual order will depend on the direction
 of the current run, and there may be jumps when the cursor
 is moved off of the end of a run.
 */
-func (self *_TraitTextView) MoveVisually(iter *TextIter, count int) (return__ bool) {
+func (self *_TraitTextView) MoveVisually(iter *C.GtkTextIter, count int) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_text_view_move_visually(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(iter)), C.gint(count))
+	__cgo__return__ = C.gtk_text_view_move_visually(self.CPointer, iter, C.gint(count))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -20245,8 +21468,8 @@ func (self *_TraitTextView) ResetImContext() {
 Scrolls @text_view the minimum distance such that @mark is contained
 within the visible area of the widget.
 */
-func (self *_TraitTextView) ScrollMarkOnscreen(mark *TextMark) {
-	C.gtk_text_view_scroll_mark_onscreen(self.CPointer, (*C.GtkTextMark)(mark.CPointer))
+func (self *_TraitTextView) ScrollMarkOnscreen(mark IsTextMark) {
+	C.gtk_text_view_scroll_mark_onscreen(self.CPointer, mark.GetTextMarkPointer())
 	return
 }
 
@@ -20266,13 +21489,13 @@ called before the height computations. To avoid oddness, consider
 using gtk_text_view_scroll_to_mark() which saves a point to be
 scrolled to after line validation.
 */
-func (self *_TraitTextView) ScrollToIter(iter *TextIter, within_margin float64, use_align bool, xalign float64, yalign float64) (return__ bool) {
+func (self *_TraitTextView) ScrollToIter(iter *C.GtkTextIter, within_margin float64, use_align bool, xalign float64, yalign float64) (return__ bool) {
 	__cgo__use_align := C.gboolean(0)
 	if use_align {
 		__cgo__use_align = C.gboolean(1)
 	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_text_view_scroll_to_iter(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(iter)), C.gdouble(within_margin), __cgo__use_align, C.gdouble(xalign), C.gdouble(yalign))
+	__cgo__return__ = C.gtk_text_view_scroll_to_iter(self.CPointer, iter, C.gdouble(within_margin), __cgo__use_align, C.gdouble(xalign), C.gdouble(yalign))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -20286,12 +21509,12 @@ get the mark onscreen, possibly not scrolling at all. The effective
 screen for purposes of this function is reduced by a margin of size
 @within_margin.
 */
-func (self *_TraitTextView) ScrollToMark(mark *TextMark, within_margin float64, use_align bool, xalign float64, yalign float64) {
+func (self *_TraitTextView) ScrollToMark(mark IsTextMark, within_margin float64, use_align bool, xalign float64, yalign float64) {
 	__cgo__use_align := C.gboolean(0)
 	if use_align {
 		__cgo__use_align = C.gboolean(1)
 	}
-	C.gtk_text_view_scroll_to_mark(self.CPointer, (*C.GtkTextMark)(mark.CPointer), C.gdouble(within_margin), __cgo__use_align, C.gdouble(xalign), C.gdouble(yalign))
+	C.gtk_text_view_scroll_to_mark(self.CPointer, mark.GetTextMarkPointer(), C.gdouble(within_margin), __cgo__use_align, C.gdouble(xalign), C.gdouble(yalign))
 	return
 }
 
@@ -20331,8 +21554,8 @@ added to @buffer. If you owned a reference to @buffer before passing it
 to this function, you must remove that reference yourself; #GtkTextView
 will not “adopt” it.
 */
-func (self *_TraitTextView) SetBuffer(buffer *TextBuffer) {
-	C.gtk_text_view_set_buffer(self.CPointer, (*C.GtkTextBuffer)(buffer.CPointer))
+func (self *_TraitTextView) SetBuffer(buffer IsTextBuffer) {
+	C.gtk_text_view_set_buffer(self.CPointer, buffer.GetTextBufferPointer())
 	return
 }
 
@@ -20482,9 +21705,9 @@ Determines whether @iter is at the start of a display line.
 See gtk_text_view_forward_display_line() for an explanation of
 display lines vs. paragraphs.
 */
-func (self *_TraitTextView) StartsDisplayLine(iter *TextIter) (return__ bool) {
+func (self *_TraitTextView) StartsDisplayLine(iter *C.GtkTextIter) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_text_view_starts_display_line(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(iter)))
+	__cgo__return__ = C.gtk_text_view_starts_display_line(self.CPointer, iter)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -20506,6 +21729,13 @@ func (self *_TraitTextView) WindowToBufferCoords(win C.GtkTextWindowType, window
 }
 
 type _TraitThemingEngine struct{ CPointer *C.GtkThemingEngine }
+type IsThemingEngine interface {
+	GetThemingEnginePointer() *C.GtkThemingEngine
+}
+
+func (self *_TraitThemingEngine) GetThemingEnginePointer() *C.GtkThemingEngine {
+	return self.CPointer
+}
 
 // gtk_theming_engine_get is not generated due to varargs
 
@@ -20572,10 +21802,8 @@ func (self *_TraitThemingEngine) GetPadding(state C.GtkStateFlags) (padding C.Gt
 /*
 Returns the widget path used for style matching.
 */
-func (self *_TraitThemingEngine) GetPath() (return__ *WidgetPath) {
-	var __cgo__return__ *C.GtkWidgetPath
-	__cgo__return__ = C.gtk_theming_engine_get_path(self.CPointer)
-	return__ = (*WidgetPath)(unsafe.Pointer(__cgo__return__))
+func (self *_TraitThemingEngine) GetPath() (return__ *C.GtkWidgetPath) {
+	return__ = C.gtk_theming_engine_get_path(self.CPointer)
 	return
 }
 
@@ -20664,6 +21892,13 @@ func (self *_TraitThemingEngine) LookupColor(color_name string) (color C.GdkRGBA
 // gtk_theming_engine_state_is_running is not generated due to deprecation attr
 
 type _TraitToggleAction struct{ CPointer *C.GtkToggleAction }
+type IsToggleAction interface {
+	GetToggleActionPointer() *C.GtkToggleAction
+}
+
+func (self *_TraitToggleAction) GetToggleActionPointer() *C.GtkToggleAction {
+	return self.CPointer
+}
 
 // gtk_toggle_action_get_active is not generated due to deprecation attr
 
@@ -20676,6 +21911,13 @@ type _TraitToggleAction struct{ CPointer *C.GtkToggleAction }
 // gtk_toggle_action_toggled is not generated due to deprecation attr
 
 type _TraitToggleButton struct{ CPointer *C.GtkToggleButton }
+type IsToggleButton interface {
+	GetToggleButtonPointer() *C.GtkToggleButton
+}
+
+func (self *_TraitToggleButton) GetToggleButtonPointer() *C.GtkToggleButton {
+	return self.CPointer
+}
 
 /*
 Queries a #GtkToggleButton and returns its current state. Returns %TRUE if
@@ -20772,6 +22014,13 @@ func (self *_TraitToggleButton) Toggled() {
 }
 
 type _TraitToggleToolButton struct{ CPointer *C.GtkToggleToolButton }
+type IsToggleToolButton interface {
+	GetToggleToolButtonPointer() *C.GtkToggleToolButton
+}
+
+func (self *_TraitToggleToolButton) GetToggleToolButtonPointer() *C.GtkToggleToolButton {
+	return self.CPointer
+}
 
 /*
 Queries a #GtkToggleToolButton and returns its current state.
@@ -20799,6 +22048,13 @@ func (self *_TraitToggleToolButton) SetActive(is_active bool) {
 }
 
 type _TraitToolButton struct{ CPointer *C.GtkToolButton }
+type IsToolButton interface {
+	GetToolButtonPointer() *C.GtkToolButton
+}
+
+func (self *_TraitToolButton) GetToolButtonPointer() *C.GtkToolButton {
+	return self.CPointer
+}
 
 /*
 Returns the name of the themed icon for the tool button,
@@ -20818,7 +22074,9 @@ See gtk_tool_button_set_icon_widget().
 func (self *_TraitToolButton) GetIconWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_tool_button_get_icon_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -20841,7 +22099,9 @@ See gtk_tool_button_set_label_widget().
 func (self *_TraitToolButton) GetLabelWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_tool_button_get_label_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -20877,8 +22137,8 @@ Sets @icon as the widget used as icon on @button. If @icon_widget is
 %NULL the icon is determined by the “stock_id” property. If the
 “stock_id” property is also %NULL, @button will not have an icon.
 */
-func (self *_TraitToolButton) SetIconWidget(icon_widget *Widget) {
-	C.gtk_tool_button_set_icon_widget(self.CPointer, (*C.GtkWidget)(icon_widget.CPointer))
+func (self *_TraitToolButton) SetIconWidget(icon_widget IsWidget) {
+	C.gtk_tool_button_set_icon_widget(self.CPointer, icon_widget.GetWidgetPointer())
 	return
 }
 
@@ -20903,8 +22163,8 @@ as label. If “label” is also %NULL, the label in the stock item
 determined by the “stock_id” property is used as label. If
 “stock_id” is also %NULL, @button does not have a label.
 */
-func (self *_TraitToolButton) SetLabelWidget(label_widget *Widget) {
-	C.gtk_tool_button_set_label_widget(self.CPointer, (*C.GtkWidget)(label_widget.CPointer))
+func (self *_TraitToolButton) SetLabelWidget(label_widget IsWidget) {
+	C.gtk_tool_button_set_label_widget(self.CPointer, label_widget.GetWidgetPointer())
 	return
 }
 
@@ -20930,6 +22190,13 @@ func (self *_TraitToolButton) SetUseUnderline(use_underline bool) {
 }
 
 type _TraitToolItem struct{ CPointer *C.GtkToolItem }
+type IsToolItem interface {
+	GetToolItemPointer() *C.GtkToolItem
+}
+
+func (self *_TraitToolItem) GetToolItemPointer() *C.GtkToolItem {
+	return self.CPointer
+}
 
 /*
 Returns the ellipsize mode used for @tool_item. Custom subclasses of
@@ -21008,7 +22275,9 @@ func (self *_TraitToolItem) GetProxyMenuItem(menu_item_id string) (return__ *Wid
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_tool_item_get_proxy_menu_item(self.CPointer, __cgo__menu_item_id)
 	C.free(unsafe.Pointer(__cgo__menu_item_id))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -21053,7 +22322,9 @@ and use the size group for labels.
 func (self *_TraitToolItem) GetTextSizeGroup() (return__ *SizeGroup) {
 	var __cgo__return__ *C.GtkSizeGroup
 	__cgo__return__ = C.gtk_tool_item_get_text_size_group(self.CPointer)
-	return__ = NewSizeGroupFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewSizeGroupFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -21131,7 +22402,9 @@ that is going to appear in the overflow menu.
 func (self *_TraitToolItem) RetrieveProxyMenuItem() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_tool_item_retrieve_proxy_menu_item(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -21185,9 +22458,9 @@ Sets the #GtkMenuItem used in the toolbar overflow menu. The
 @menu_item_id is used to identify the caller of this function and
 should also be used with gtk_tool_item_get_proxy_menu_item().
 */
-func (self *_TraitToolItem) SetProxyMenuItem(menu_item_id string, menu_item *Widget) {
+func (self *_TraitToolItem) SetProxyMenuItem(menu_item_id string, menu_item IsWidget) {
 	__cgo__menu_item_id := (*C.gchar)(unsafe.Pointer(C.CString(menu_item_id)))
-	C.gtk_tool_item_set_proxy_menu_item(self.CPointer, __cgo__menu_item_id, (*C.GtkWidget)(menu_item.CPointer))
+	C.gtk_tool_item_set_proxy_menu_item(self.CPointer, __cgo__menu_item_id, menu_item.GetWidgetPointer())
 	C.free(unsafe.Pointer(__cgo__menu_item_id))
 	return
 }
@@ -21267,6 +22540,13 @@ func (self *_TraitToolItem) ToolbarReconfigured() {
 }
 
 type _TraitToolItemGroup struct{ CPointer *C.GtkToolItemGroup }
+type IsToolItemGroup interface {
+	GetToolItemGroupPointer() *C.GtkToolItemGroup
+}
+
+func (self *_TraitToolItemGroup) GetToolItemGroupPointer() *C.GtkToolItemGroup {
+	return self.CPointer
+}
 
 /*
 Gets whether @group is collapsed or expanded.
@@ -21284,7 +22564,9 @@ Gets the tool item at position (x, y).
 func (self *_TraitToolItemGroup) GetDropItem(x int, y int) (return__ *ToolItem) {
 	var __cgo__return__ *C.GtkToolItem
 	__cgo__return__ = C.gtk_tool_item_group_get_drop_item(self.CPointer, C.gint(x), C.gint(y))
-	return__ = NewToolItemFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewToolItemFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -21307,9 +22589,9 @@ func (self *_TraitToolItemGroup) GetHeaderRelief() (return__ C.GtkReliefStyle) {
 /*
 Gets the position of @item in @group as index.
 */
-func (self *_TraitToolItemGroup) GetItemPosition(item *ToolItem) (return__ int) {
+func (self *_TraitToolItemGroup) GetItemPosition(item IsToolItem) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_tool_item_group_get_item_position(self.CPointer, (*C.GtkToolItem)(item.CPointer))
+	__cgo__return__ = C.gtk_tool_item_group_get_item_position(self.CPointer, item.GetToolItemPointer())
 	return__ = int(__cgo__return__)
 	return
 }
@@ -21331,7 +22613,9 @@ See gtk_tool_item_group_set_label_widget().
 func (self *_TraitToolItemGroup) GetLabelWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_tool_item_group_get_label_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -21351,15 +22635,17 @@ Gets the tool item at @index in group.
 func (self *_TraitToolItemGroup) GetNthItem(index uint) (return__ *ToolItem) {
 	var __cgo__return__ *C.GtkToolItem
 	__cgo__return__ = C.gtk_tool_item_group_get_nth_item(self.CPointer, C.guint(index))
-	return__ = NewToolItemFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewToolItemFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
 /*
 Inserts @item at @position in the list of children of @group.
 */
-func (self *_TraitToolItemGroup) Insert(item *ToolItem, position int) {
-	C.gtk_tool_item_group_insert(self.CPointer, (*C.GtkToolItem)(item.CPointer), C.gint(position))
+func (self *_TraitToolItemGroup) Insert(item IsToolItem, position int) {
+	C.gtk_tool_item_group_insert(self.CPointer, item.GetToolItemPointer(), C.gint(position))
 	return
 }
 
@@ -21395,8 +22681,8 @@ func (self *_TraitToolItemGroup) SetHeaderRelief(style C.GtkReliefStyle) {
 /*
 Sets the position of @item in the list of children of @group.
 */
-func (self *_TraitToolItemGroup) SetItemPosition(item *ToolItem, position int) {
-	C.gtk_tool_item_group_set_item_position(self.CPointer, (*C.GtkToolItem)(item.CPointer), C.gint(position))
+func (self *_TraitToolItemGroup) SetItemPosition(item IsToolItem, position int) {
+	C.gtk_tool_item_group_set_item_position(self.CPointer, item.GetToolItemPointer(), C.gint(position))
 	return
 }
 
@@ -21416,20 +22702,27 @@ Sets the label of the tool item group.
 The label widget is displayed in the header of the group, in place
 of the usual label.
 */
-func (self *_TraitToolItemGroup) SetLabelWidget(label_widget *Widget) {
-	C.gtk_tool_item_group_set_label_widget(self.CPointer, (*C.GtkWidget)(label_widget.CPointer))
+func (self *_TraitToolItemGroup) SetLabelWidget(label_widget IsWidget) {
+	C.gtk_tool_item_group_set_label_widget(self.CPointer, label_widget.GetWidgetPointer())
 	return
 }
 
 type _TraitToolPalette struct{ CPointer *C.GtkToolPalette }
+type IsToolPalette interface {
+	GetToolPalettePointer() *C.GtkToolPalette
+}
+
+func (self *_TraitToolPalette) GetToolPalettePointer() *C.GtkToolPalette {
+	return self.CPointer
+}
 
 /*
 Sets @palette as drag source (see gtk_tool_palette_set_drag_source())
 and sets @widget as a drag destination for drags from @palette.
 See gtk_drag_dest_set().
 */
-func (self *_TraitToolPalette) AddDragDest(widget *Widget, flags C.GtkDestDefaults, targets C.GtkToolPaletteDragTargets, actions C.GdkDragAction) {
-	C.gtk_tool_palette_add_drag_dest(self.CPointer, (*C.GtkWidget)(widget.CPointer), flags, targets, actions)
+func (self *_TraitToolPalette) AddDragDest(widget IsWidget, flags C.GtkDestDefaults, targets C.GtkToolPaletteDragTargets, actions C.GdkDragAction) {
+	C.gtk_tool_palette_add_drag_dest(self.CPointer, widget.GetWidgetPointer(), flags, targets, actions)
 	return
 }
 
@@ -21437,10 +22730,12 @@ func (self *_TraitToolPalette) AddDragDest(widget *Widget, flags C.GtkDestDefaul
 Get the dragged item from the selection.
 This could be a #GtkToolItem or a #GtkToolItemGroup.
 */
-func (self *_TraitToolPalette) GetDragItem(selection *SelectionData) (return__ *Widget) {
+func (self *_TraitToolPalette) GetDragItem(selection *C.GtkSelectionData) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
-	__cgo__return__ = C.gtk_tool_palette_get_drag_item(self.CPointer, (*C.GtkSelectionData)(unsafe.Pointer(selection)))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	__cgo__return__ = C.gtk_tool_palette_get_drag_item(self.CPointer, selection)
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -21450,7 +22745,9 @@ Gets the group at position (x, y).
 func (self *_TraitToolPalette) GetDropGroup(x int, y int) (return__ *ToolItemGroup) {
 	var __cgo__return__ *C.GtkToolItemGroup
 	__cgo__return__ = C.gtk_tool_palette_get_drop_group(self.CPointer, C.gint(x), C.gint(y))
-	return__ = NewToolItemGroupFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewToolItemGroupFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -21461,7 +22758,9 @@ See gtk_tool_palette_get_drop_group().
 func (self *_TraitToolPalette) GetDropItem(x int, y int) (return__ *ToolItem) {
 	var __cgo__return__ *C.GtkToolItem
 	__cgo__return__ = C.gtk_tool_palette_get_drop_item(self.CPointer, C.gint(x), C.gint(y))
-	return__ = NewToolItemFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewToolItemFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -21469,9 +22768,9 @@ func (self *_TraitToolPalette) GetDropItem(x int, y int) (return__ *ToolItem) {
 Gets whether @group is exclusive or not.
 See gtk_tool_palette_set_exclusive().
 */
-func (self *_TraitToolPalette) GetExclusive(group *ToolItemGroup) (return__ bool) {
+func (self *_TraitToolPalette) GetExclusive(group IsToolItemGroup) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_tool_palette_get_exclusive(self.CPointer, (*C.GtkToolItemGroup)(group.CPointer))
+	__cgo__return__ = C.gtk_tool_palette_get_exclusive(self.CPointer, group.GetToolItemGroupPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -21480,9 +22779,9 @@ func (self *_TraitToolPalette) GetExclusive(group *ToolItemGroup) (return__ bool
 Gets whether group should be given extra space.
 See gtk_tool_palette_set_expand().
 */
-func (self *_TraitToolPalette) GetExpand(group *ToolItemGroup) (return__ bool) {
+func (self *_TraitToolPalette) GetExpand(group IsToolItemGroup) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_tool_palette_get_expand(self.CPointer, (*C.GtkToolItemGroup)(group.CPointer))
+	__cgo__return__ = C.gtk_tool_palette_get_expand(self.CPointer, group.GetToolItemGroupPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -21491,9 +22790,9 @@ func (self *_TraitToolPalette) GetExpand(group *ToolItemGroup) (return__ bool) {
 Gets the position of @group in @palette as index.
 See gtk_tool_palette_set_group_position().
 */
-func (self *_TraitToolPalette) GetGroupPosition(group *ToolItemGroup) (return__ int) {
+func (self *_TraitToolPalette) GetGroupPosition(group IsToolItemGroup) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_tool_palette_get_group_position(self.CPointer, (*C.GtkToolItemGroup)(group.CPointer))
+	__cgo__return__ = C.gtk_tool_palette_get_group_position(self.CPointer, group.GetToolItemGroupPointer())
 	return__ = int(__cgo__return__)
 	return
 }
@@ -21534,24 +22833,24 @@ func (self *_TraitToolPalette) SetDragSource(targets C.GtkToolPaletteDragTargets
 Sets whether the group should be exclusive or not.
 If an exclusive group is expanded all other groups are collapsed.
 */
-func (self *_TraitToolPalette) SetExclusive(group *ToolItemGroup, exclusive bool) {
+func (self *_TraitToolPalette) SetExclusive(group IsToolItemGroup, exclusive bool) {
 	__cgo__exclusive := C.gboolean(0)
 	if exclusive {
 		__cgo__exclusive = C.gboolean(1)
 	}
-	C.gtk_tool_palette_set_exclusive(self.CPointer, (*C.GtkToolItemGroup)(group.CPointer), __cgo__exclusive)
+	C.gtk_tool_palette_set_exclusive(self.CPointer, group.GetToolItemGroupPointer(), __cgo__exclusive)
 	return
 }
 
 /*
 Sets whether the group should be given extra space.
 */
-func (self *_TraitToolPalette) SetExpand(group *ToolItemGroup, expand bool) {
+func (self *_TraitToolPalette) SetExpand(group IsToolItemGroup, expand bool) {
 	__cgo__expand := C.gboolean(0)
 	if expand {
 		__cgo__expand = C.gboolean(1)
 	}
-	C.gtk_tool_palette_set_expand(self.CPointer, (*C.GtkToolItemGroup)(group.CPointer), __cgo__expand)
+	C.gtk_tool_palette_set_expand(self.CPointer, group.GetToolItemGroupPointer(), __cgo__expand)
 	return
 }
 
@@ -21560,8 +22859,8 @@ Sets the position of the group as an index of the tool palette.
 If position is 0 the group will become the first child, if position is
 -1 it will become the last child.
 */
-func (self *_TraitToolPalette) SetGroupPosition(group *ToolItemGroup, position int) {
-	C.gtk_tool_palette_set_group_position(self.CPointer, (*C.GtkToolItemGroup)(group.CPointer), C.gint(position))
+func (self *_TraitToolPalette) SetGroupPosition(group IsToolItemGroup, position int) {
+	C.gtk_tool_palette_set_group_position(self.CPointer, group.GetToolItemGroupPointer(), C.gint(position))
 	return
 }
 
@@ -21600,6 +22899,13 @@ func (self *_TraitToolPalette) UnsetStyle() {
 }
 
 type _TraitToolbar struct{ CPointer *C.GtkToolbar }
+type IsToolbar interface {
+	GetToolbarPointer() *C.GtkToolbar
+}
+
+func (self *_TraitToolbar) GetToolbarPointer() *C.GtkToolbar {
+	return self.CPointer
+}
 
 /*
 Returns the position corresponding to the indicated point on
@@ -21628,9 +22934,9 @@ func (self *_TraitToolbar) GetIconSize() (return__ C.GtkIconSize) {
 Returns the position of @item on the toolbar, starting from 0.
 It is an error if @item is not a child of the toolbar.
 */
-func (self *_TraitToolbar) GetItemIndex(item *ToolItem) (return__ int) {
+func (self *_TraitToolbar) GetItemIndex(item IsToolItem) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_toolbar_get_item_index(self.CPointer, (*C.GtkToolItem)(item.CPointer))
+	__cgo__return__ = C.gtk_toolbar_get_item_index(self.CPointer, item.GetToolItemPointer())
 	return__ = int(__cgo__return__)
 	return
 }
@@ -21652,7 +22958,9 @@ toolbar does not contain an @n'th item.
 func (self *_TraitToolbar) GetNthItem(n int) (return__ *ToolItem) {
 	var __cgo__return__ *C.GtkToolItem
 	__cgo__return__ = C.gtk_toolbar_get_nth_item(self.CPointer, C.gint(n))
-	return__ = NewToolItemFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewToolItemFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -21690,8 +22998,8 @@ Insert a #GtkToolItem into the toolbar at position @pos. If @pos is
 0 the item is prepended to the start of the toolbar. If @pos is
 negative, the item is appended to the end of the toolbar.
 */
-func (self *_TraitToolbar) Insert(item *ToolItem, pos int) {
-	C.gtk_toolbar_insert(self.CPointer, (*C.GtkToolItem)(item.CPointer), C.gint(pos))
+func (self *_TraitToolbar) Insert(item IsToolItem, pos int) {
+	C.gtk_toolbar_insert(self.CPointer, item.GetToolItemPointer(), C.gint(pos))
 	return
 }
 
@@ -21706,8 +23014,8 @@ hierarchy. When an item is set as drop highlight item it can not
 added to any widget hierarchy or used as highlight item for another
 toolbar.
 */
-func (self *_TraitToolbar) SetDropHighlightItem(tool_item *ToolItem, index_ int) {
-	C.gtk_toolbar_set_drop_highlight_item(self.CPointer, (*C.GtkToolItem)(tool_item.CPointer), C.gint(index_))
+func (self *_TraitToolbar) SetDropHighlightItem(tool_item IsToolItem, index_ int) {
+	C.gtk_toolbar_set_drop_highlight_item(self.CPointer, tool_item.GetToolItemPointer(), C.gint(index_))
 	return
 }
 
@@ -21768,6 +23076,13 @@ func (self *_TraitToolbar) UnsetStyle() {
 }
 
 type _TraitTooltip struct{ CPointer *C.GtkTooltip }
+type IsTooltip interface {
+	GetTooltipPointer() *C.GtkTooltip
+}
+
+func (self *_TraitTooltip) GetTooltipPointer() *C.GtkTooltip {
+	return self.CPointer
+}
 
 /*
 Replaces the widget packed into the tooltip with
@@ -21777,8 +23092,8 @@ By default a box with a #GtkImage and #GtkLabel is embedded in
 the tooltip, which can be configured using gtk_tooltip_set_markup()
 and gtk_tooltip_set_icon().
 */
-func (self *_TraitTooltip) SetCustom(custom_widget *Widget) {
-	C.gtk_tooltip_set_custom(self.CPointer, (*C.GtkWidget)(custom_widget.CPointer))
+func (self *_TraitTooltip) SetCustom(custom_widget IsWidget) {
+	C.gtk_tooltip_set_custom(self.CPointer, custom_widget.GetWidgetPointer())
 	return
 }
 
@@ -21854,6 +23169,13 @@ func (self *_TraitTooltip) SetTipArea(rect *C.GdkRectangle) {
 }
 
 type _TraitTreeModelFilter struct{ CPointer *C.GtkTreeModelFilter }
+type IsTreeModelFilter interface {
+	GetTreeModelFilterPointer() *C.GtkTreeModelFilter
+}
+
+func (self *_TraitTreeModelFilter) GetTreeModelFilterPointer() *C.GtkTreeModelFilter {
+	return self.CPointer
+}
 
 /*
 This function should almost never be called. It clears the @filter
@@ -21873,9 +23195,9 @@ Sets @filter_iter to point to the row in @filter that corresponds to the
 row pointed at by @child_iter.  If @filter_iter was not set, %FALSE is
 returned.
 */
-func (self *_TraitTreeModelFilter) ConvertChildIterToIter(child_iter *TreeIter) (filter_iter C.GtkTreeIter, return__ bool) {
+func (self *_TraitTreeModelFilter) ConvertChildIterToIter(child_iter *C.GtkTreeIter) (filter_iter C.GtkTreeIter, return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_tree_model_filter_convert_child_iter_to_iter(self.CPointer, &filter_iter, (*C.GtkTreeIter)(unsafe.Pointer(child_iter)))
+	__cgo__return__ = C.gtk_tree_model_filter_convert_child_iter_to_iter(self.CPointer, &filter_iter, child_iter)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -21887,18 +23209,16 @@ same row in the filtered model. If @child_path isn’t a valid path on the
 child model or points to a row which is not visible in @filter, then %NULL
 is returned.
 */
-func (self *_TraitTreeModelFilter) ConvertChildPathToPath(child_path *TreePath) (return__ *TreePath) {
-	var __cgo__return__ *C.GtkTreePath
-	__cgo__return__ = C.gtk_tree_model_filter_convert_child_path_to_path(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(child_path)))
-	return__ = (*TreePath)(unsafe.Pointer(__cgo__return__))
+func (self *_TraitTreeModelFilter) ConvertChildPathToPath(child_path *C.GtkTreePath) (return__ *C.GtkTreePath) {
+	return__ = C.gtk_tree_model_filter_convert_child_path_to_path(self.CPointer, child_path)
 	return
 }
 
 /*
 Sets @child_iter to point to the row pointed to by @filter_iter.
 */
-func (self *_TraitTreeModelFilter) ConvertIterToChildIter(filter_iter *TreeIter) (child_iter C.GtkTreeIter) {
-	C.gtk_tree_model_filter_convert_iter_to_child_iter(self.CPointer, &child_iter, (*C.GtkTreeIter)(unsafe.Pointer(filter_iter)))
+func (self *_TraitTreeModelFilter) ConvertIterToChildIter(filter_iter *C.GtkTreeIter) (child_iter C.GtkTreeIter) {
+	C.gtk_tree_model_filter_convert_iter_to_child_iter(self.CPointer, &child_iter, filter_iter)
 	return
 }
 
@@ -21908,10 +23228,8 @@ Converts @filter_path to a path on the child model of @filter. That is,
 point to the same location in the model not being filtered. If @filter_path
 does not point to a location in the child model, %NULL is returned.
 */
-func (self *_TraitTreeModelFilter) ConvertPathToChildPath(filter_path *TreePath) (return__ *TreePath) {
-	var __cgo__return__ *C.GtkTreePath
-	__cgo__return__ = C.gtk_tree_model_filter_convert_path_to_child_path(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(filter_path)))
-	return__ = (*TreePath)(unsafe.Pointer(__cgo__return__))
+func (self *_TraitTreeModelFilter) ConvertPathToChildPath(filter_path *C.GtkTreePath) (return__ *C.GtkTreePath) {
+	return__ = C.gtk_tree_model_filter_convert_path_to_child_path(self.CPointer, filter_path)
 	return
 }
 
@@ -21996,6 +23314,13 @@ func (self *_TraitTreeModelFilter) SetVisibleFunc(func_ C.GtkTreeModelFilterVisi
 }
 
 type _TraitTreeModelSort struct{ CPointer *C.GtkTreeModelSort }
+type IsTreeModelSort interface {
+	GetTreeModelSortPointer() *C.GtkTreeModelSort
+}
+
+func (self *_TraitTreeModelSort) GetTreeModelSortPointer() *C.GtkTreeModelSort {
+	return self.CPointer
+}
 
 /*
 This function should almost never be called.  It clears the @tree_model_sort
@@ -22015,9 +23340,9 @@ Sets @sort_iter to point to the row in @tree_model_sort that corresponds to
 the row pointed at by @child_iter.  If @sort_iter was not set, %FALSE
 is returned.  Note: a boolean is only returned since 2.14.
 */
-func (self *_TraitTreeModelSort) ConvertChildIterToIter(child_iter *TreeIter) (sort_iter C.GtkTreeIter, return__ bool) {
+func (self *_TraitTreeModelSort) ConvertChildIterToIter(child_iter *C.GtkTreeIter) (sort_iter C.GtkTreeIter, return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_tree_model_sort_convert_child_iter_to_iter(self.CPointer, &sort_iter, (*C.GtkTreeIter)(unsafe.Pointer(child_iter)))
+	__cgo__return__ = C.gtk_tree_model_sort_convert_child_iter_to_iter(self.CPointer, &sort_iter, child_iter)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -22028,18 +23353,16 @@ Converts @child_path to a path relative to @tree_model_sort.  That is,
 point to the same row in the sorted model.  If @child_path isn’t a valid
 path on the child model, then %NULL is returned.
 */
-func (self *_TraitTreeModelSort) ConvertChildPathToPath(child_path *TreePath) (return__ *TreePath) {
-	var __cgo__return__ *C.GtkTreePath
-	__cgo__return__ = C.gtk_tree_model_sort_convert_child_path_to_path(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(child_path)))
-	return__ = (*TreePath)(unsafe.Pointer(__cgo__return__))
+func (self *_TraitTreeModelSort) ConvertChildPathToPath(child_path *C.GtkTreePath) (return__ *C.GtkTreePath) {
+	return__ = C.gtk_tree_model_sort_convert_child_path_to_path(self.CPointer, child_path)
 	return
 }
 
 /*
 Sets @child_iter to point to the row pointed to by @sorted_iter.
 */
-func (self *_TraitTreeModelSort) ConvertIterToChildIter(sorted_iter *TreeIter) (child_iter C.GtkTreeIter) {
-	C.gtk_tree_model_sort_convert_iter_to_child_iter(self.CPointer, &child_iter, (*C.GtkTreeIter)(unsafe.Pointer(sorted_iter)))
+func (self *_TraitTreeModelSort) ConvertIterToChildIter(sorted_iter *C.GtkTreeIter) (child_iter C.GtkTreeIter) {
+	C.gtk_tree_model_sort_convert_iter_to_child_iter(self.CPointer, &child_iter, sorted_iter)
 	return
 }
 
@@ -22050,10 +23373,8 @@ returned path will point to the same location in the model not being
 sorted.  If @sorted_path does not point to a location in the child model,
 %NULL is returned.
 */
-func (self *_TraitTreeModelSort) ConvertPathToChildPath(sorted_path *TreePath) (return__ *TreePath) {
-	var __cgo__return__ *C.GtkTreePath
-	__cgo__return__ = C.gtk_tree_model_sort_convert_path_to_child_path(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(sorted_path)))
-	return__ = (*TreePath)(unsafe.Pointer(__cgo__return__))
+func (self *_TraitTreeModelSort) ConvertPathToChildPath(sorted_path *C.GtkTreePath) (return__ *C.GtkTreePath) {
+	return__ = C.gtk_tree_model_sort_convert_path_to_child_path(self.CPointer, sorted_path)
 	return
 }
 
@@ -22071,9 +23392,9 @@ func (self *_TraitTreeModelSort) GetModel() (return__ *C.GtkTreeModel) {
 
 Checks if the given iter is a valid iter for this #GtkTreeModelSort.
 */
-func (self *_TraitTreeModelSort) IterIsValid(iter *TreeIter) (return__ bool) {
+func (self *_TraitTreeModelSort) IterIsValid(iter *C.GtkTreeIter) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_tree_model_sort_iter_is_valid(self.CPointer, (*C.GtkTreeIter)(unsafe.Pointer(iter)))
+	__cgo__return__ = C.gtk_tree_model_sort_iter_is_valid(self.CPointer, iter)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -22090,6 +23411,13 @@ func (self *_TraitTreeModelSort) ResetDefaultSortFunc() {
 }
 
 type _TraitTreeSelection struct{ CPointer *C.GtkTreeSelection }
+type IsTreeSelection interface {
+	GetTreeSelectionPointer() *C.GtkTreeSelection
+}
+
+func (self *_TraitTreeSelection) GetTreeSelectionPointer() *C.GtkTreeSelection {
+	return self.CPointer
+}
 
 /*
 Returns the number of rows that have been selected in @tree.
@@ -22154,7 +23482,9 @@ Returns the tree view associated with @selection.
 func (self *_TraitTreeSelection) GetTreeView() (return__ *TreeView) {
 	var __cgo__return__ *C.GtkTreeView
 	__cgo__return__ = C.gtk_tree_selection_get_tree_view(self.CPointer)
-	return__ = NewTreeViewFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewTreeViewFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -22171,9 +23501,9 @@ func (self *_TraitTreeSelection) GetUserData() (return__ unsafe.Pointer) {
 /*
 Returns %TRUE if the row at @iter is currently selected.
 */
-func (self *_TraitTreeSelection) IterIsSelected(iter *TreeIter) (return__ bool) {
+func (self *_TraitTreeSelection) IterIsSelected(iter *C.GtkTreeIter) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_tree_selection_iter_is_selected(self.CPointer, (*C.GtkTreeIter)(unsafe.Pointer(iter)))
+	__cgo__return__ = C.gtk_tree_selection_iter_is_selected(self.CPointer, iter)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -22182,9 +23512,9 @@ func (self *_TraitTreeSelection) IterIsSelected(iter *TreeIter) (return__ bool) 
 Returns %TRUE if the row pointed to by @path is currently selected.  If @path
 does not point to a valid location, %FALSE is returned
 */
-func (self *_TraitTreeSelection) PathIsSelected(path *TreePath) (return__ bool) {
+func (self *_TraitTreeSelection) PathIsSelected(path *C.GtkTreePath) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_tree_selection_path_is_selected(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)))
+	__cgo__return__ = C.gtk_tree_selection_path_is_selected(self.CPointer, path)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -22201,16 +23531,16 @@ func (self *_TraitTreeSelection) SelectAll() {
 /*
 Selects the specified iterator.
 */
-func (self *_TraitTreeSelection) SelectIter(iter *TreeIter) {
-	C.gtk_tree_selection_select_iter(self.CPointer, (*C.GtkTreeIter)(unsafe.Pointer(iter)))
+func (self *_TraitTreeSelection) SelectIter(iter *C.GtkTreeIter) {
+	C.gtk_tree_selection_select_iter(self.CPointer, iter)
 	return
 }
 
 /*
 Select the row at @path.
 */
-func (self *_TraitTreeSelection) SelectPath(path *TreePath) {
-	C.gtk_tree_selection_select_path(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)))
+func (self *_TraitTreeSelection) SelectPath(path *C.GtkTreePath) {
+	C.gtk_tree_selection_select_path(self.CPointer, path)
 	return
 }
 
@@ -22218,8 +23548,8 @@ func (self *_TraitTreeSelection) SelectPath(path *TreePath) {
 Selects a range of nodes, determined by @start_path and @end_path inclusive.
 @selection must be set to #GTK_SELECTION_MULTIPLE mode.
 */
-func (self *_TraitTreeSelection) SelectRange(start_path *TreePath, end_path *TreePath) {
-	C.gtk_tree_selection_select_range(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(start_path)), (*C.GtkTreePath)(unsafe.Pointer(end_path)))
+func (self *_TraitTreeSelection) SelectRange(start_path *C.GtkTreePath, end_path *C.GtkTreePath) {
+	C.gtk_tree_selection_select_range(self.CPointer, start_path, end_path)
 	return
 }
 
@@ -22267,16 +23597,16 @@ func (self *_TraitTreeSelection) UnselectAll() {
 /*
 Unselects the specified iterator.
 */
-func (self *_TraitTreeSelection) UnselectIter(iter *TreeIter) {
-	C.gtk_tree_selection_unselect_iter(self.CPointer, (*C.GtkTreeIter)(unsafe.Pointer(iter)))
+func (self *_TraitTreeSelection) UnselectIter(iter *C.GtkTreeIter) {
+	C.gtk_tree_selection_unselect_iter(self.CPointer, iter)
 	return
 }
 
 /*
 Unselects the row at @path.
 */
-func (self *_TraitTreeSelection) UnselectPath(path *TreePath) {
-	C.gtk_tree_selection_unselect_path(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)))
+func (self *_TraitTreeSelection) UnselectPath(path *C.GtkTreePath) {
+	C.gtk_tree_selection_unselect_path(self.CPointer, path)
 	return
 }
 
@@ -22284,12 +23614,19 @@ func (self *_TraitTreeSelection) UnselectPath(path *TreePath) {
 Unselects a range of nodes, determined by @start_path and @end_path
 inclusive.
 */
-func (self *_TraitTreeSelection) UnselectRange(start_path *TreePath, end_path *TreePath) {
-	C.gtk_tree_selection_unselect_range(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(start_path)), (*C.GtkTreePath)(unsafe.Pointer(end_path)))
+func (self *_TraitTreeSelection) UnselectRange(start_path *C.GtkTreePath, end_path *C.GtkTreePath) {
+	C.gtk_tree_selection_unselect_range(self.CPointer, start_path, end_path)
 	return
 }
 
 type _TraitTreeStore struct{ CPointer *C.GtkTreeStore }
+type IsTreeStore interface {
+	GetTreeStorePointer() *C.GtkTreeStore
+}
+
+func (self *_TraitTreeStore) GetTreeStorePointer() *C.GtkTreeStore {
+	return self.CPointer
+}
 
 /*
 Appends a new row to @tree_store.  If @parent is non-%NULL, then it will append the
@@ -22298,8 +23635,8 @@ the top level.  @iter will be changed to point to this new row.  The row will
 be empty after this function is called.  To fill in values, you need to call
 gtk_tree_store_set() or gtk_tree_store_set_value().
 */
-func (self *_TraitTreeStore) Append(parent *TreeIter) (iter C.GtkTreeIter) {
-	C.gtk_tree_store_append(self.CPointer, &iter, (*C.GtkTreeIter)(unsafe.Pointer(parent)))
+func (self *_TraitTreeStore) Append(parent *C.GtkTreeIter) (iter C.GtkTreeIter) {
+	C.gtk_tree_store_append(self.CPointer, &iter, parent)
 	return
 }
 
@@ -22320,8 +23657,8 @@ to point to this new row.  The row will be empty after this function is
 called.  To fill in values, you need to call gtk_tree_store_set() or
 gtk_tree_store_set_value().
 */
-func (self *_TraitTreeStore) Insert(parent *TreeIter, position int) (iter C.GtkTreeIter) {
-	C.gtk_tree_store_insert(self.CPointer, &iter, (*C.GtkTreeIter)(unsafe.Pointer(parent)), C.gint(position))
+func (self *_TraitTreeStore) Insert(parent *C.GtkTreeIter, position int) (iter C.GtkTreeIter) {
+	C.gtk_tree_store_insert(self.CPointer, &iter, parent, C.gint(position))
 	return
 }
 
@@ -22336,8 +23673,8 @@ set, then @parent must be the parent of @sibling.  When @sibling is set,
 this function is called.  To fill in values, you need to call
 gtk_tree_store_set() or gtk_tree_store_set_value().
 */
-func (self *_TraitTreeStore) InsertAfter(parent *TreeIter, sibling *TreeIter) (iter C.GtkTreeIter) {
-	C.gtk_tree_store_insert_after(self.CPointer, &iter, (*C.GtkTreeIter)(unsafe.Pointer(parent)), (*C.GtkTreeIter)(unsafe.Pointer(sibling)))
+func (self *_TraitTreeStore) InsertAfter(parent *C.GtkTreeIter, sibling *C.GtkTreeIter) (iter C.GtkTreeIter) {
+	C.gtk_tree_store_insert_after(self.CPointer, &iter, parent, sibling)
 	return
 }
 
@@ -22352,8 +23689,8 @@ set, then @parent must be the parent of @sibling.  When @sibling is set,
 this function is called.  To fill in values, you need to call
 gtk_tree_store_set() or gtk_tree_store_set_value().
 */
-func (self *_TraitTreeStore) InsertBefore(parent *TreeIter, sibling *TreeIter) (iter C.GtkTreeIter) {
-	C.gtk_tree_store_insert_before(self.CPointer, &iter, (*C.GtkTreeIter)(unsafe.Pointer(parent)), (*C.GtkTreeIter)(unsafe.Pointer(sibling)))
+func (self *_TraitTreeStore) InsertBefore(parent *C.GtkTreeIter, sibling *C.GtkTreeIter) (iter C.GtkTreeIter) {
+	C.gtk_tree_store_insert_before(self.CPointer, &iter, parent, sibling)
 	return
 }
 
@@ -22364,9 +23701,9 @@ A variant of gtk_tree_store_insert_with_values() which takes
 the columns and values as two arrays, instead of varargs.  This
 function is mainly intended for language bindings.
 */
-func (self *_TraitTreeStore) InsertWithValuesv(parent *TreeIter, position int, columns []int, values *C.GValue, n_values int) (iter C.GtkTreeIter) {
+func (self *_TraitTreeStore) InsertWithValuesv(parent *C.GtkTreeIter, position int, columns []int, values *C.GValue, n_values int) (iter C.GtkTreeIter) {
 	__header__columns := (*reflect.SliceHeader)(unsafe.Pointer(&columns))
-	C.gtk_tree_store_insert_with_valuesv(self.CPointer, &iter, (*C.GtkTreeIter)(unsafe.Pointer(parent)), C.gint(position), (*C.gint)(unsafe.Pointer(__header__columns.Data)), values, C.gint(n_values))
+	C.gtk_tree_store_insert_with_valuesv(self.CPointer, &iter, parent, C.gint(position), (*C.gint)(unsafe.Pointer(__header__columns.Data)), values, C.gint(n_values))
 	return
 }
 
@@ -22374,9 +23711,9 @@ func (self *_TraitTreeStore) InsertWithValuesv(parent *TreeIter, position int, c
 Returns %TRUE if @iter is an ancestor of @descendant.  That is, @iter is the
 parent (or grandparent or great-grandparent) of @descendant.
 */
-func (self *_TraitTreeStore) IsAncestor(iter *TreeIter, descendant *TreeIter) (return__ bool) {
+func (self *_TraitTreeStore) IsAncestor(iter *C.GtkTreeIter, descendant *C.GtkTreeIter) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_tree_store_is_ancestor(self.CPointer, (*C.GtkTreeIter)(unsafe.Pointer(iter)), (*C.GtkTreeIter)(unsafe.Pointer(descendant)))
+	__cgo__return__ = C.gtk_tree_store_is_ancestor(self.CPointer, iter, descendant)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -22385,9 +23722,9 @@ func (self *_TraitTreeStore) IsAncestor(iter *TreeIter, descendant *TreeIter) (r
 Returns the depth of @iter.  This will be 0 for anything on the root level, 1
 for anything down a level, etc.
 */
-func (self *_TraitTreeStore) IterDepth(iter *TreeIter) (return__ int) {
+func (self *_TraitTreeStore) IterDepth(iter *C.GtkTreeIter) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_tree_store_iter_depth(self.CPointer, (*C.GtkTreeIter)(unsafe.Pointer(iter)))
+	__cgo__return__ = C.gtk_tree_store_iter_depth(self.CPointer, iter)
 	return__ = int(__cgo__return__)
 	return
 }
@@ -22398,9 +23735,9 @@ purposes.
 
 Checks if the given iter is a valid iter for this #GtkTreeStore.
 */
-func (self *_TraitTreeStore) IterIsValid(iter *TreeIter) (return__ bool) {
+func (self *_TraitTreeStore) IterIsValid(iter *C.GtkTreeIter) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_tree_store_iter_is_valid(self.CPointer, (*C.GtkTreeIter)(unsafe.Pointer(iter)))
+	__cgo__return__ = C.gtk_tree_store_iter_is_valid(self.CPointer, iter)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -22411,8 +23748,8 @@ Moves @iter in @tree_store to the position after @position. @iter and
 works with unsorted stores. If @position is %NULL, @iter will be moved
 to the start of the level.
 */
-func (self *_TraitTreeStore) MoveAfter(iter *TreeIter, position *TreeIter) {
-	C.gtk_tree_store_move_after(self.CPointer, (*C.GtkTreeIter)(unsafe.Pointer(iter)), (*C.GtkTreeIter)(unsafe.Pointer(position)))
+func (self *_TraitTreeStore) MoveAfter(iter *C.GtkTreeIter, position *C.GtkTreeIter) {
+	C.gtk_tree_store_move_after(self.CPointer, iter, position)
 	return
 }
 
@@ -22422,8 +23759,8 @@ Moves @iter in @tree_store to the position before @position. @iter and
 works with unsorted stores. If @position is %NULL, @iter will be
 moved to the end of the level.
 */
-func (self *_TraitTreeStore) MoveBefore(iter *TreeIter, position *TreeIter) {
-	C.gtk_tree_store_move_before(self.CPointer, (*C.GtkTreeIter)(unsafe.Pointer(iter)), (*C.GtkTreeIter)(unsafe.Pointer(position)))
+func (self *_TraitTreeStore) MoveBefore(iter *C.GtkTreeIter, position *C.GtkTreeIter) {
+	C.gtk_tree_store_move_before(self.CPointer, iter, position)
 	return
 }
 
@@ -22434,8 +23771,8 @@ to the top level.  @iter will be changed to point to this new row.  The row
 will be empty after this function is called.  To fill in values, you need to
 call gtk_tree_store_set() or gtk_tree_store_set_value().
 */
-func (self *_TraitTreeStore) Prepend(parent *TreeIter) (iter C.GtkTreeIter) {
-	C.gtk_tree_store_prepend(self.CPointer, &iter, (*C.GtkTreeIter)(unsafe.Pointer(parent)))
+func (self *_TraitTreeStore) Prepend(parent *C.GtkTreeIter) (iter C.GtkTreeIter) {
+	C.gtk_tree_store_prepend(self.CPointer, &iter, parent)
 	return
 }
 
@@ -22444,9 +23781,9 @@ Removes @iter from @tree_store.  After being removed, @iter is set to the
 next valid row at that level, or invalidated if it previously pointed to the
 last one.
 */
-func (self *_TraitTreeStore) Remove(iter *TreeIter) (return__ bool) {
+func (self *_TraitTreeStore) Remove(iter *C.GtkTreeIter) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_tree_store_remove(self.CPointer, (*C.GtkTreeIter)(unsafe.Pointer(iter)))
+	__cgo__return__ = C.gtk_tree_store_remove(self.CPointer, iter)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -22456,8 +23793,9 @@ Reorders the children of @parent in @tree_store to follow the order
 indicated by @new_order. Note that this function only works with
 unsorted stores.
 */
-func (self *_TraitTreeStore) Reorder(parent *TreeIter, new_order *C.gint) {
-	C.gtk_tree_store_reorder(self.CPointer, (*C.GtkTreeIter)(unsafe.Pointer(parent)), new_order)
+func (self *_TraitTreeStore) Reorder(parent *C.GtkTreeIter, new_order []int) {
+	__header__new_order := (*reflect.SliceHeader)(unsafe.Pointer(&new_order))
+	C.gtk_tree_store_reorder(self.CPointer, parent, (*C.gint)(unsafe.Pointer(__header__new_order.Data)))
 	return
 }
 
@@ -22481,8 +23819,8 @@ Sets the data in the cell specified by @iter and @column.
 The type of @value must be convertible to the type of the
 column.
 */
-func (self *_TraitTreeStore) SetValue(iter *TreeIter, column int, value *C.GValue) {
-	C.gtk_tree_store_set_value(self.CPointer, (*C.GtkTreeIter)(unsafe.Pointer(iter)), C.gint(column), value)
+func (self *_TraitTreeStore) SetValue(iter *C.GtkTreeIter, column int, value *C.GValue) {
+	C.gtk_tree_store_set_value(self.CPointer, iter, C.gint(column), value)
 	return
 }
 
@@ -22492,9 +23830,9 @@ the columns and values as two arrays, instead of varargs.  This
 function is mainly intended for language bindings or in case
 the number of columns to change is not known until run-time.
 */
-func (self *_TraitTreeStore) SetValuesv(iter *TreeIter, columns []int, values *C.GValue, n_values int) {
+func (self *_TraitTreeStore) SetValuesv(iter *C.GtkTreeIter, columns []int, values *C.GValue, n_values int) {
 	__header__columns := (*reflect.SliceHeader)(unsafe.Pointer(&columns))
-	C.gtk_tree_store_set_valuesv(self.CPointer, (*C.GtkTreeIter)(unsafe.Pointer(iter)), (*C.gint)(unsafe.Pointer(__header__columns.Data)), values, C.gint(n_values))
+	C.gtk_tree_store_set_valuesv(self.CPointer, iter, (*C.gint)(unsafe.Pointer(__header__columns.Data)), values, C.gint(n_values))
 	return
 }
 
@@ -22502,21 +23840,28 @@ func (self *_TraitTreeStore) SetValuesv(iter *TreeIter, columns []int, values *C
 Swaps @a and @b in the same level of @tree_store. Note that this function
 only works with unsorted stores.
 */
-func (self *_TraitTreeStore) Swap(a *TreeIter, b *TreeIter) {
-	C.gtk_tree_store_swap(self.CPointer, (*C.GtkTreeIter)(unsafe.Pointer(a)), (*C.GtkTreeIter)(unsafe.Pointer(b)))
+func (self *_TraitTreeStore) Swap(a *C.GtkTreeIter, b *C.GtkTreeIter) {
+	C.gtk_tree_store_swap(self.CPointer, a, b)
 	return
 }
 
 type _TraitTreeView struct{ CPointer *C.GtkTreeView }
+type IsTreeView interface {
+	GetTreeViewPointer() *C.GtkTreeView
+}
+
+func (self *_TraitTreeView) GetTreeViewPointer() *C.GtkTreeView {
+	return self.CPointer
+}
 
 /*
 Appends @column to the list of columns. If @tree_view has “fixed_height”
 mode enabled, then @column must have its “sizing” property set to be
 GTK_TREE_VIEW_COLUMN_FIXED.
 */
-func (self *_TraitTreeView) AppendColumn(column *TreeViewColumn) (return__ int) {
+func (self *_TraitTreeView) AppendColumn(column IsTreeViewColumn) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_tree_view_append_column(self.CPointer, (*C.GtkTreeViewColumn)(column.CPointer))
+	__cgo__return__ = C.gtk_tree_view_append_column(self.CPointer, column.GetTreeViewColumnPointer())
 	return__ = int(__cgo__return__)
 	return
 }
@@ -22532,9 +23877,9 @@ func (self *_TraitTreeView) CollapseAll() {
 /*
 Collapses a row (hides its child rows, if they exist).
 */
-func (self *_TraitTreeView) CollapseRow(path *TreePath) (return__ bool) {
+func (self *_TraitTreeView) CollapseRow(path *C.GtkTreePath) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_tree_view_collapse_row(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)))
+	__cgo__return__ = C.gtk_tree_view_collapse_row(self.CPointer, path)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -22630,8 +23975,8 @@ func (self *_TraitTreeView) ConvertWidgetToTreeCoords(wx int, wy int) (tx int, t
 Creates a #cairo_surface_t representation of the row at @path.
 This image is used for a drag icon.
 */
-func (self *_TraitTreeView) CreateRowDragIcon(path *TreePath) (return__ *C.cairo_surface_t) {
-	return__ = C.gtk_tree_view_create_row_drag_icon(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)))
+func (self *_TraitTreeView) CreateRowDragIcon(path *C.GtkTreePath) (return__ *C.cairo_surface_t) {
+	return__ = C.gtk_tree_view_create_row_drag_icon(self.CPointer, path)
 	return
 }
 
@@ -22639,8 +23984,8 @@ func (self *_TraitTreeView) CreateRowDragIcon(path *TreePath) (return__ *C.cairo
 Turns @tree_view into a drop destination for automatic DND. Calling
 this method sets #GtkTreeView:reorderable to %FALSE.
 */
-func (self *_TraitTreeView) EnableModelDragDest(targets *TargetEntry, n_targets int, actions C.GdkDragAction) {
-	C.gtk_tree_view_enable_model_drag_dest(self.CPointer, (*C.GtkTargetEntry)(unsafe.Pointer(targets)), C.gint(n_targets), actions)
+func (self *_TraitTreeView) EnableModelDragDest(targets *C.GtkTargetEntry, n_targets int, actions C.GdkDragAction) {
+	C.gtk_tree_view_enable_model_drag_dest(self.CPointer, targets, C.gint(n_targets), actions)
 	return
 }
 
@@ -22648,8 +23993,8 @@ func (self *_TraitTreeView) EnableModelDragDest(targets *TargetEntry, n_targets 
 Turns @tree_view into a drag source for automatic DND. Calling this
 method sets #GtkTreeView:reorderable to %FALSE.
 */
-func (self *_TraitTreeView) EnableModelDragSource(start_button_mask C.GdkModifierType, targets *TargetEntry, n_targets int, actions C.GdkDragAction) {
-	C.gtk_tree_view_enable_model_drag_source(self.CPointer, start_button_mask, (*C.GtkTargetEntry)(unsafe.Pointer(targets)), C.gint(n_targets), actions)
+func (self *_TraitTreeView) EnableModelDragSource(start_button_mask C.GdkModifierType, targets *C.GtkTargetEntry, n_targets int, actions C.GdkDragAction) {
+	C.gtk_tree_view_enable_model_drag_source(self.CPointer, start_button_mask, targets, C.gint(n_targets), actions)
 	return
 }
 
@@ -22664,13 +24009,13 @@ func (self *_TraitTreeView) ExpandAll() {
 /*
 Opens the row so its children are visible.
 */
-func (self *_TraitTreeView) ExpandRow(path *TreePath, open_all bool) (return__ bool) {
+func (self *_TraitTreeView) ExpandRow(path *C.GtkTreePath, open_all bool) (return__ bool) {
 	__cgo__open_all := C.gboolean(0)
 	if open_all {
 		__cgo__open_all = C.gboolean(1)
 	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_tree_view_expand_row(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)), __cgo__open_all)
+	__cgo__return__ = C.gtk_tree_view_expand_row(self.CPointer, path, __cgo__open_all)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -22679,8 +24024,8 @@ func (self *_TraitTreeView) ExpandRow(path *TreePath, open_all bool) (return__ b
 Expands the row at @path. This will also expand all parent rows of
 @path as necessary.
 */
-func (self *_TraitTreeView) ExpandToPath(path *TreePath) {
-	C.gtk_tree_view_expand_to_path(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)))
+func (self *_TraitTreeView) ExpandToPath(path *C.GtkTreePath) {
+	C.gtk_tree_view_expand_to_path(self.CPointer, path)
 	return
 }
 
@@ -22705,8 +24050,8 @@ areas tile to cover the entire bin window.  Contrast with the @cell_area,
 returned by gtk_tree_view_get_cell_area(), which returns only the cell
 itself, excluding surrounding borders and the tree expander area.
 */
-func (self *_TraitTreeView) GetBackgroundArea(path *TreePath, column *TreeViewColumn) (rect C.GdkRectangle) {
-	C.gtk_tree_view_get_background_area(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)), (*C.GtkTreeViewColumn)(column.CPointer), &rect)
+func (self *_TraitTreeView) GetBackgroundArea(path *C.GtkTreePath, column IsTreeViewColumn) (rect C.GdkRectangle) {
+	C.gtk_tree_view_get_background_area(self.CPointer, path, column.GetTreeViewColumnPointer(), &rect)
 	return
 }
 
@@ -22731,8 +24076,8 @@ returned rectangle is equivalent to the @cell_area passed to
 gtk_cell_renderer_render().  This function is only valid if @tree_view is
 realized.
 */
-func (self *_TraitTreeView) GetCellArea(path *TreePath, column *TreeViewColumn) (rect C.GdkRectangle) {
-	C.gtk_tree_view_get_cell_area(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)), (*C.GtkTreeViewColumn)(column.CPointer), &rect)
+func (self *_TraitTreeView) GetCellArea(path *C.GtkTreePath, column IsTreeViewColumn) (rect C.GdkRectangle) {
+	C.gtk_tree_view_get_cell_area(self.CPointer, path, column.GetTreeViewColumnPointer(), &rect)
 	return
 }
 
@@ -22742,7 +24087,9 @@ Gets the #GtkTreeViewColumn at the given position in the #tree_view.
 func (self *_TraitTreeView) GetColumn(n int) (return__ *TreeViewColumn) {
 	var __cgo__return__ *C.GtkTreeViewColumn
 	__cgo__return__ = C.gtk_tree_view_get_column(self.CPointer, C.gint(n))
-	return__ = NewTreeViewColumnFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewTreeViewColumnFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -22763,12 +24110,12 @@ currently has focus, then *@focus_column will be %NULL.
 The returned #GtkTreePath must be freed with gtk_tree_path_free() when
 you are done with it.
 */
-func (self *_TraitTreeView) GetCursor() (path *TreePath, focus_column *TreeViewColumn) {
-	var __cgo__path *C.GtkTreePath
+func (self *_TraitTreeView) GetCursor() (path *C.GtkTreePath, focus_column *TreeViewColumn) {
 	var __cgo__focus_column *C.GtkTreeViewColumn
-	C.gtk_tree_view_get_cursor(self.CPointer, &__cgo__path, &__cgo__focus_column)
-	path = (*TreePath)(unsafe.Pointer(__cgo__path))
-	focus_column = NewTreeViewColumnFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__focus_column).Pointer()))
+	C.gtk_tree_view_get_cursor(self.CPointer, &path, &__cgo__focus_column)
+	if __cgo__focus_column != nil {
+		focus_column = NewTreeViewColumnFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__focus_column).Pointer()))
+	}
 	return
 }
 
@@ -22778,11 +24125,9 @@ Determines the destination row for a given position.  @drag_x and
 meaningful if @tree_view is realized.  Therefore this function will always
 return %FALSE if @tree_view is not realized or does not have a model.
 */
-func (self *_TraitTreeView) GetDestRowAtPos(drag_x int, drag_y int) (path *TreePath, pos C.GtkTreeViewDropPosition, return__ bool) {
-	var __cgo__path *C.GtkTreePath
+func (self *_TraitTreeView) GetDestRowAtPos(drag_x int, drag_y int) (path *C.GtkTreePath, pos C.GtkTreeViewDropPosition, return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_tree_view_get_dest_row_at_pos(self.CPointer, C.gint(drag_x), C.gint(drag_y), &__cgo__path, &pos)
-	path = (*TreePath)(unsafe.Pointer(__cgo__path))
+	__cgo__return__ = C.gtk_tree_view_get_dest_row_at_pos(self.CPointer, C.gint(drag_x), C.gint(drag_y), &path, &pos)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -22790,10 +24135,8 @@ func (self *_TraitTreeView) GetDestRowAtPos(drag_x int, drag_y int) (path *TreeP
 /*
 Gets information about the row that is highlighted for feedback.
 */
-func (self *_TraitTreeView) GetDragDestRow() (path *TreePath, pos C.GtkTreeViewDropPosition) {
-	var __cgo__path *C.GtkTreePath
-	C.gtk_tree_view_get_drag_dest_row(self.CPointer, &__cgo__path, &pos)
-	path = (*TreePath)(unsafe.Pointer(__cgo__path))
+func (self *_TraitTreeView) GetDragDestRow() (path *C.GtkTreePath, pos C.GtkTreeViewDropPosition) {
+	C.gtk_tree_view_get_drag_dest_row(self.CPointer, &path, &pos)
 	return
 }
 
@@ -22825,7 +24168,9 @@ This column has the expander arrow drawn next to it.
 func (self *_TraitTreeView) GetExpanderColumn() (return__ *TreeViewColumn) {
 	var __cgo__return__ *C.GtkTreeViewColumn
 	__cgo__return__ = C.gtk_tree_view_get_expander_column(self.CPointer)
-	return__ = NewTreeViewColumnFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewTreeViewColumnFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -22938,15 +24283,15 @@ For converting widget coordinates (eg. the ones you get from
 GtkWidget::query-tooltip), please see
 gtk_tree_view_convert_widget_to_bin_window_coords().
 */
-func (self *_TraitTreeView) GetPathAtPos(x int, y int) (path *TreePath, column *TreeViewColumn, cell_x int, cell_y int, return__ bool) {
-	var __cgo__path *C.GtkTreePath
+func (self *_TraitTreeView) GetPathAtPos(x int, y int) (path *C.GtkTreePath, column *TreeViewColumn, cell_x int, cell_y int, return__ bool) {
 	var __cgo__column *C.GtkTreeViewColumn
 	var __cgo__cell_x C.gint
 	var __cgo__cell_y C.gint
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_tree_view_get_path_at_pos(self.CPointer, C.gint(x), C.gint(y), &__cgo__path, &__cgo__column, &__cgo__cell_x, &__cgo__cell_y)
-	path = (*TreePath)(unsafe.Pointer(__cgo__path))
-	column = NewTreeViewColumnFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__column).Pointer()))
+	__cgo__return__ = C.gtk_tree_view_get_path_at_pos(self.CPointer, C.gint(x), C.gint(y), &path, &__cgo__column, &__cgo__cell_x, &__cgo__cell_y)
+	if __cgo__column != nil {
+		column = NewTreeViewColumnFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__column).Pointer()))
+	}
 	cell_x = int(__cgo__cell_x)
 	cell_y = int(__cgo__cell_y)
 	return__ = __cgo__return__ == C.gboolean(1)
@@ -23012,7 +24357,9 @@ will be returned.
 func (self *_TraitTreeView) GetSearchEntry() (return__ *Entry) {
 	var __cgo__return__ *C.GtkEntry
 	__cgo__return__ = C.gtk_tree_view_get_search_entry(self.CPointer)
-	return__ = NewEntryFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewEntryFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -23038,7 +24385,9 @@ Gets the #GtkTreeSelection associated with @tree_view.
 func (self *_TraitTreeView) GetSelection() (return__ *TreeSelection) {
 	var __cgo__return__ *C.GtkTreeSelection
 	__cgo__return__ = C.gtk_tree_view_get_selection(self.CPointer)
-	return__ = NewTreeSelectionFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewTreeSelectionFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -23073,13 +24422,9 @@ Note that there may be invisible paths in between.
 
 The paths should be freed with gtk_tree_path_free() after use.
 */
-func (self *_TraitTreeView) GetVisibleRange() (start_path *TreePath, end_path *TreePath, return__ bool) {
-	var __cgo__start_path *C.GtkTreePath
-	var __cgo__end_path *C.GtkTreePath
+func (self *_TraitTreeView) GetVisibleRange() (start_path *C.GtkTreePath, end_path *C.GtkTreePath, return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_tree_view_get_visible_range(self.CPointer, &__cgo__start_path, &__cgo__end_path)
-	start_path = (*TreePath)(unsafe.Pointer(__cgo__start_path))
-	end_path = (*TreePath)(unsafe.Pointer(__cgo__end_path))
+	__cgo__return__ = C.gtk_tree_view_get_visible_range(self.CPointer, &start_path, &end_path)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -23102,9 +24447,9 @@ This inserts the @column into the @tree_view at @position.  If @position is
 “fixed_height” mode enabled, then @column must have its “sizing” property
 set to be GTK_TREE_VIEW_COLUMN_FIXED.
 */
-func (self *_TraitTreeView) InsertColumn(column *TreeViewColumn, position int) (return__ int) {
+func (self *_TraitTreeView) InsertColumn(column IsTreeViewColumn, position int) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_tree_view_insert_column(self.CPointer, (*C.GtkTreeViewColumn)(column.CPointer), C.gint(position))
+	__cgo__return__ = C.gtk_tree_view_insert_column(self.CPointer, column.GetTreeViewColumnPointer(), C.gint(position))
 	return__ = int(__cgo__return__)
 	return
 }
@@ -23119,10 +24464,10 @@ gtk_tree_view_column_set_cell_data_func(), gtk_tree_view_column_pack_start().
 If @tree_view has “fixed_height” mode enabled, then the new column will have its
 “sizing” property set to be GTK_TREE_VIEW_COLUMN_FIXED.
 */
-func (self *_TraitTreeView) InsertColumnWithDataFunc(position int, title string, cell *CellRenderer, func_ C.GtkTreeCellDataFunc, data unsafe.Pointer, dnotify C.GDestroyNotify) (return__ int) {
+func (self *_TraitTreeView) InsertColumnWithDataFunc(position int, title string, cell IsCellRenderer, func_ C.GtkTreeCellDataFunc, data unsafe.Pointer, dnotify C.GDestroyNotify) (return__ int) {
 	__cgo__title := (*C.gchar)(unsafe.Pointer(C.CString(title)))
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_tree_view_insert_column_with_data_func(self.CPointer, C.gint(position), __cgo__title, (*C.GtkCellRenderer)(cell.CPointer), func_, (C.gpointer)(data), dnotify)
+	__cgo__return__ = C.gtk_tree_view_insert_column_with_data_func(self.CPointer, C.gint(position), __cgo__title, cell.GetCellRendererPointer(), func_, (C.gpointer)(data), dnotify)
 	C.free(unsafe.Pointer(__cgo__title))
 	return__ = int(__cgo__return__)
 	return
@@ -23147,15 +24492,15 @@ The @path, @column, @cell_x and @cell_y arguments will be filled in
 likewise as for gtk_tree_view_get_path_at_pos().  Please see
 gtk_tree_view_get_path_at_pos() for more information.
 */
-func (self *_TraitTreeView) IsBlankAtPos(x int, y int) (path *TreePath, column *TreeViewColumn, cell_x int, cell_y int, return__ bool) {
-	var __cgo__path *C.GtkTreePath
+func (self *_TraitTreeView) IsBlankAtPos(x int, y int) (path *C.GtkTreePath, column *TreeViewColumn, cell_x int, cell_y int, return__ bool) {
 	var __cgo__column *C.GtkTreeViewColumn
 	var __cgo__cell_x C.gint
 	var __cgo__cell_y C.gint
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_tree_view_is_blank_at_pos(self.CPointer, C.gint(x), C.gint(y), &__cgo__path, &__cgo__column, &__cgo__cell_x, &__cgo__cell_y)
-	path = (*TreePath)(unsafe.Pointer(__cgo__path))
-	column = NewTreeViewColumnFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__column).Pointer()))
+	__cgo__return__ = C.gtk_tree_view_is_blank_at_pos(self.CPointer, C.gint(x), C.gint(y), &path, &__cgo__column, &__cgo__cell_x, &__cgo__cell_y)
+	if __cgo__column != nil {
+		column = NewTreeViewColumnFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__column).Pointer()))
+	}
 	cell_x = int(__cgo__cell_x)
 	cell_y = int(__cgo__cell_y)
 	return__ = __cgo__return__ == C.gboolean(1)
@@ -23185,17 +24530,17 @@ func (self *_TraitTreeView) MapExpandedRows(func_ C.GtkTreeViewMappingFunc, data
 Moves @column to be after to @base_column.  If @base_column is %NULL, then
 @column is placed in the first position.
 */
-func (self *_TraitTreeView) MoveColumnAfter(column *TreeViewColumn, base_column *TreeViewColumn) {
-	C.gtk_tree_view_move_column_after(self.CPointer, (*C.GtkTreeViewColumn)(column.CPointer), (*C.GtkTreeViewColumn)(base_column.CPointer))
+func (self *_TraitTreeView) MoveColumnAfter(column IsTreeViewColumn, base_column IsTreeViewColumn) {
+	C.gtk_tree_view_move_column_after(self.CPointer, column.GetTreeViewColumnPointer(), base_column.GetTreeViewColumnPointer())
 	return
 }
 
 /*
 Removes @column from @tree_view.
 */
-func (self *_TraitTreeView) RemoveColumn(column *TreeViewColumn) (return__ int) {
+func (self *_TraitTreeView) RemoveColumn(column IsTreeViewColumn) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_tree_view_remove_column(self.CPointer, (*C.GtkTreeViewColumn)(column.CPointer))
+	__cgo__return__ = C.gtk_tree_view_remove_column(self.CPointer, column.GetTreeViewColumnPointer())
 	return__ = int(__cgo__return__)
 	return
 }
@@ -23203,17 +24548,17 @@ func (self *_TraitTreeView) RemoveColumn(column *TreeViewColumn) (return__ int) 
 /*
 Activates the cell determined by @path and @column.
 */
-func (self *_TraitTreeView) RowActivated(path *TreePath, column *TreeViewColumn) {
-	C.gtk_tree_view_row_activated(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)), (*C.GtkTreeViewColumn)(column.CPointer))
+func (self *_TraitTreeView) RowActivated(path *C.GtkTreePath, column IsTreeViewColumn) {
+	C.gtk_tree_view_row_activated(self.CPointer, path, column.GetTreeViewColumnPointer())
 	return
 }
 
 /*
 Returns %TRUE if the node pointed to by @path is expanded in @tree_view.
 */
-func (self *_TraitTreeView) RowExpanded(path *TreePath) (return__ bool) {
+func (self *_TraitTreeView) RowExpanded(path *C.GtkTreePath) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_tree_view_row_expanded(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)))
+	__cgo__return__ = C.gtk_tree_view_row_expanded(self.CPointer, path)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -23236,12 +24581,12 @@ This function only works if the model is set, and @path is a valid row on the
 model.  If the model changes before the @tree_view is realized, the centered
 path will be modified to reflect this change.
 */
-func (self *_TraitTreeView) ScrollToCell(path *TreePath, column *TreeViewColumn, use_align bool, row_align float32, col_align float32) {
+func (self *_TraitTreeView) ScrollToCell(path *C.GtkTreePath, column IsTreeViewColumn, use_align bool, row_align float32, col_align float32) {
 	__cgo__use_align := C.gboolean(0)
 	if use_align {
 		__cgo__use_align = C.gboolean(1)
 	}
-	C.gtk_tree_view_scroll_to_cell(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)), (*C.GtkTreeViewColumn)(column.CPointer), __cgo__use_align, C.gfloat(row_align), C.gfloat(col_align))
+	C.gtk_tree_view_scroll_to_cell(self.CPointer, path, column.GetTreeViewColumnPointer(), __cgo__use_align, C.gfloat(row_align), C.gfloat(col_align))
 	return
 }
 
@@ -23301,12 +24646,12 @@ can only happen when the widget is realized.
 If @path is invalid for @model, the current cursor (if any) will be unset
 and the function will return without failing.
 */
-func (self *_TraitTreeView) SetCursor(path *TreePath, focus_column *TreeViewColumn, start_editing bool) {
+func (self *_TraitTreeView) SetCursor(path *C.GtkTreePath, focus_column IsTreeViewColumn, start_editing bool) {
 	__cgo__start_editing := C.gboolean(0)
 	if start_editing {
 		__cgo__start_editing = C.gboolean(1)
 	}
-	C.gtk_tree_view_set_cursor(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)), (*C.GtkTreeViewColumn)(focus_column.CPointer), __cgo__start_editing)
+	C.gtk_tree_view_set_cursor(self.CPointer, path, focus_column.GetTreeViewColumnPointer(), __cgo__start_editing)
 	return
 }
 
@@ -23326,12 +24671,12 @@ realized.
 If @path is invalid for @model, the current cursor (if any) will be unset
 and the function will return without failing.
 */
-func (self *_TraitTreeView) SetCursorOnCell(path *TreePath, focus_column *TreeViewColumn, focus_cell *CellRenderer, start_editing bool) {
+func (self *_TraitTreeView) SetCursorOnCell(path *C.GtkTreePath, focus_column IsTreeViewColumn, focus_cell IsCellRenderer, start_editing bool) {
 	__cgo__start_editing := C.gboolean(0)
 	if start_editing {
 		__cgo__start_editing = C.gboolean(1)
 	}
-	C.gtk_tree_view_set_cursor_on_cell(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)), (*C.GtkTreeViewColumn)(focus_column.CPointer), (*C.GtkCellRenderer)(focus_cell.CPointer), __cgo__start_editing)
+	C.gtk_tree_view_set_cursor_on_cell(self.CPointer, path, focus_column.GetTreeViewColumnPointer(), focus_cell.GetCellRendererPointer(), __cgo__start_editing)
 	return
 }
 
@@ -23341,8 +24686,8 @@ func (self *_TraitTreeView) SetCursorOnCell(path *TreePath, focus_column *TreeVi
 Sets the row that is highlighted for feedback.
 If @path is %NULL, an existing highlight is removed.
 */
-func (self *_TraitTreeView) SetDragDestRow(path *TreePath, pos C.GtkTreeViewDropPosition) {
-	C.gtk_tree_view_set_drag_dest_row(self.CPointer, (*C.GtkTreePath)(unsafe.Pointer(path)), pos)
+func (self *_TraitTreeView) SetDragDestRow(path *C.GtkTreePath, pos C.GtkTreeViewDropPosition) {
+	C.gtk_tree_view_set_drag_dest_row(self.CPointer, path, pos)
 	return
 }
 
@@ -23383,8 +24728,8 @@ visible column.
 If you do not want expander arrow to appear in your tree, set the
 expander column to a hidden column.
 */
-func (self *_TraitTreeView) SetExpanderColumn(column *TreeViewColumn) {
-	C.gtk_tree_view_set_expander_column(self.CPointer, (*C.GtkTreeViewColumn)(column.CPointer))
+func (self *_TraitTreeView) SetExpanderColumn(column IsTreeViewColumn) {
+	C.gtk_tree_view_set_expander_column(self.CPointer, column.GetTreeViewColumnPointer())
 	return
 }
 
@@ -23584,8 +24929,8 @@ in our interface at all time at a fixed position.  Passing %NULL for
 @entry will make the interactive search code use the built-in popup
 entry again.
 */
-func (self *_TraitTreeView) SetSearchEntry(entry *Entry) {
-	C.gtk_tree_view_set_search_entry(self.CPointer, (*C.GtkEntry)(entry.CPointer))
+func (self *_TraitTreeView) SetSearchEntry(entry IsEntry) {
+	C.gtk_tree_view_set_search_entry(self.CPointer, entry.GetEntryPointer())
 	return
 }
 
@@ -23638,8 +24983,8 @@ mouse cursor for this function to operate correctly.
 
 See also gtk_tree_view_set_tooltip_column() for a simpler alternative.
 */
-func (self *_TraitTreeView) SetTooltipCell(tooltip *Tooltip, path *TreePath, column *TreeViewColumn, cell *CellRenderer) {
-	C.gtk_tree_view_set_tooltip_cell(self.CPointer, (*C.GtkTooltip)(tooltip.CPointer), (*C.GtkTreePath)(unsafe.Pointer(path)), (*C.GtkTreeViewColumn)(column.CPointer), (*C.GtkCellRenderer)(cell.CPointer))
+func (self *_TraitTreeView) SetTooltipCell(tooltip IsTooltip, path *C.GtkTreePath, column IsTreeViewColumn, cell IsCellRenderer) {
+	C.gtk_tree_view_set_tooltip_cell(self.CPointer, tooltip.GetTooltipPointer(), path, column.GetTreeViewColumnPointer(), cell.GetCellRendererPointer())
 	return
 }
 
@@ -23665,8 +25010,8 @@ Sets the tip area of @tooltip to be the area covered by the row at @path.
 See also gtk_tree_view_set_tooltip_column() for a simpler alternative.
 See also gtk_tooltip_set_tip_area().
 */
-func (self *_TraitTreeView) SetTooltipRow(tooltip *Tooltip, path *TreePath) {
-	C.gtk_tree_view_set_tooltip_row(self.CPointer, (*C.GtkTooltip)(tooltip.CPointer), (*C.GtkTreePath)(unsafe.Pointer(path)))
+func (self *_TraitTreeView) SetTooltipRow(tooltip IsTooltip, path *C.GtkTreePath) {
+	C.gtk_tree_view_set_tooltip_row(self.CPointer, tooltip.GetTooltipPointer(), path)
 	return
 }
 
@@ -23693,6 +25038,13 @@ func (self *_TraitTreeView) UnsetRowsDragSource() {
 }
 
 type _TraitTreeViewColumn struct{ CPointer *C.GtkTreeViewColumn }
+type IsTreeViewColumn interface {
+	GetTreeViewColumnPointer() *C.GtkTreeViewColumn
+}
+
+func (self *_TraitTreeViewColumn) GetTreeViewColumnPointer() *C.GtkTreeViewColumn {
+	return self.CPointer
+}
 
 /*
 Adds an attribute mapping to the list in @tree_column.  The @column is the
@@ -23702,9 +25054,9 @@ if column 2 of the model contains strings, you could have the
 “text” attribute of a #GtkCellRendererText get its values from
 column 2.
 */
-func (self *_TraitTreeViewColumn) AddAttribute(cell_renderer *CellRenderer, attribute string, column int) {
+func (self *_TraitTreeViewColumn) AddAttribute(cell_renderer IsCellRenderer, attribute string, column int) {
 	__cgo__attribute := (*C.gchar)(unsafe.Pointer(C.CString(attribute)))
-	C.gtk_tree_view_column_add_attribute(self.CPointer, (*C.GtkCellRenderer)(cell_renderer.CPointer), __cgo__attribute, C.gint(column))
+	C.gtk_tree_view_column_add_attribute(self.CPointer, cell_renderer.GetCellRendererPointer(), __cgo__attribute, C.gint(column))
 	C.free(unsafe.Pointer(__cgo__attribute))
 	return
 }
@@ -23714,11 +25066,11 @@ Obtains the horizontal position and size of a cell in a column. If the
 cell is not found in the column, @start_pos and @width are not changed and
 %FALSE is returned.
 */
-func (self *_TraitTreeViewColumn) CellGetPosition(cell_renderer *CellRenderer) (x_offset int, width int, return__ bool) {
+func (self *_TraitTreeViewColumn) CellGetPosition(cell_renderer IsCellRenderer) (x_offset int, width int, return__ bool) {
 	var __cgo__x_offset C.gint
 	var __cgo__width C.gint
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_tree_view_column_cell_get_position(self.CPointer, (*C.GtkCellRenderer)(cell_renderer.CPointer), &__cgo__x_offset, &__cgo__width)
+	__cgo__return__ = C.gtk_tree_view_column_cell_get_position(self.CPointer, cell_renderer.GetCellRendererPointer(), &__cgo__x_offset, &__cgo__width)
 	x_offset = int(__cgo__x_offset)
 	width = int(__cgo__width)
 	return__ = __cgo__return__ == C.gboolean(1)
@@ -23760,7 +25112,7 @@ every attribute mapping in @tree_column, it will get a value from the set
 column on the @iter, and use that value to set the attribute on the cell
 renderer.  This is used primarily by the #GtkTreeView.
 */
-func (self *_TraitTreeViewColumn) CellSetCellData(tree_model *C.GtkTreeModel, iter *TreeIter, is_expander bool, is_expanded bool) {
+func (self *_TraitTreeViewColumn) CellSetCellData(tree_model *C.GtkTreeModel, iter *C.GtkTreeIter, is_expander bool, is_expanded bool) {
 	__cgo__is_expander := C.gboolean(0)
 	if is_expander {
 		__cgo__is_expander = C.gboolean(1)
@@ -23769,7 +25121,7 @@ func (self *_TraitTreeViewColumn) CellSetCellData(tree_model *C.GtkTreeModel, it
 	if is_expanded {
 		__cgo__is_expanded = C.gboolean(1)
 	}
-	C.gtk_tree_view_column_cell_set_cell_data(self.CPointer, tree_model, (*C.GtkTreeIter)(unsafe.Pointer(iter)), __cgo__is_expander, __cgo__is_expanded)
+	C.gtk_tree_view_column_cell_set_cell_data(self.CPointer, tree_model, iter, __cgo__is_expander, __cgo__is_expanded)
 	return
 }
 
@@ -23785,8 +25137,8 @@ func (self *_TraitTreeViewColumn) Clear() {
 Clears all existing attributes previously set with
 gtk_tree_view_column_set_attributes().
 */
-func (self *_TraitTreeViewColumn) ClearAttributes(cell_renderer *CellRenderer) {
-	C.gtk_tree_view_column_clear_attributes(self.CPointer, (*C.GtkCellRenderer)(cell_renderer.CPointer))
+func (self *_TraitTreeViewColumn) ClearAttributes(cell_renderer IsCellRenderer) {
+	C.gtk_tree_view_column_clear_attributes(self.CPointer, cell_renderer.GetCellRendererPointer())
 	return
 }
 
@@ -23803,8 +25155,8 @@ func (self *_TraitTreeViewColumn) Clicked() {
 Sets the current keyboard focus to be at @cell, if the column contains
 2 or more editable and activatable cells.
 */
-func (self *_TraitTreeViewColumn) FocusCell(cell *CellRenderer) {
-	C.gtk_tree_view_column_focus_cell(self.CPointer, (*C.GtkCellRenderer)(cell.CPointer))
+func (self *_TraitTreeViewColumn) FocusCell(cell IsCellRenderer) {
+	C.gtk_tree_view_column_focus_cell(self.CPointer, cell.GetCellRendererPointer())
 	return
 }
 
@@ -23825,7 +25177,9 @@ Returns the button used in the treeview column header
 func (self *_TraitTreeViewColumn) GetButton() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_tree_view_column_get_button(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -23968,7 +25322,9 @@ returned.
 func (self *_TraitTreeViewColumn) GetTreeView() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_tree_view_column_get_tree_view(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -23989,7 +25345,9 @@ If a custom widget has not been set then %NULL is returned.
 func (self *_TraitTreeViewColumn) GetWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_tree_view_column_get_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -24018,12 +25376,12 @@ Adds the @cell to end of the column. If @expand is %FALSE, then the @cell
 is allocated no more space than it needs. Any unused space is divided
 evenly between cells for which @expand is %TRUE.
 */
-func (self *_TraitTreeViewColumn) PackEnd(cell *CellRenderer, expand bool) {
+func (self *_TraitTreeViewColumn) PackEnd(cell IsCellRenderer, expand bool) {
 	__cgo__expand := C.gboolean(0)
 	if expand {
 		__cgo__expand = C.gboolean(1)
 	}
-	C.gtk_tree_view_column_pack_end(self.CPointer, (*C.GtkCellRenderer)(cell.CPointer), __cgo__expand)
+	C.gtk_tree_view_column_pack_end(self.CPointer, cell.GetCellRendererPointer(), __cgo__expand)
 	return
 }
 
@@ -24032,12 +25390,12 @@ Packs the @cell into the beginning of the column. If @expand is %FALSE, then
 the @cell is allocated no more space than it needs. Any unused space is divided
 evenly between cells for which @expand is %TRUE.
 */
-func (self *_TraitTreeViewColumn) PackStart(cell *CellRenderer, expand bool) {
+func (self *_TraitTreeViewColumn) PackStart(cell IsCellRenderer, expand bool) {
 	__cgo__expand := C.gboolean(0)
 	if expand {
 		__cgo__expand = C.gboolean(1)
 	}
-	C.gtk_tree_view_column_pack_start(self.CPointer, (*C.GtkCellRenderer)(cell.CPointer), __cgo__expand)
+	C.gtk_tree_view_column_pack_start(self.CPointer, cell.GetCellRendererPointer(), __cgo__expand)
 	return
 }
 
@@ -24069,8 +25427,8 @@ setting the column value, and should set the value of @tree_column's
 cell renderer as appropriate.  @func may be %NULL to remove an
 older one.
 */
-func (self *_TraitTreeViewColumn) SetCellDataFunc(cell_renderer *CellRenderer, func_ C.GtkTreeCellDataFunc, func_data unsafe.Pointer, destroy C.GDestroyNotify) {
-	C.gtk_tree_view_column_set_cell_data_func(self.CPointer, (*C.GtkCellRenderer)(cell_renderer.CPointer), func_, (C.gpointer)(func_data), destroy)
+func (self *_TraitTreeViewColumn) SetCellDataFunc(cell_renderer IsCellRenderer, func_ C.GtkTreeCellDataFunc, func_data unsafe.Pointer, destroy C.GDestroyNotify) {
+	C.gtk_tree_view_column_set_cell_data_func(self.CPointer, cell_renderer.GetCellRendererPointer(), func_, (C.gpointer)(func_data), destroy)
 	return
 }
 
@@ -24257,12 +25615,19 @@ func (self *_TraitTreeViewColumn) SetVisible(visible bool) {
 Sets the widget in the header to be @widget.  If widget is %NULL, then the
 header button is set with a #GtkLabel set to the title of @tree_column.
 */
-func (self *_TraitTreeViewColumn) SetWidget(widget *Widget) {
-	C.gtk_tree_view_column_set_widget(self.CPointer, (*C.GtkWidget)(widget.CPointer))
+func (self *_TraitTreeViewColumn) SetWidget(widget IsWidget) {
+	C.gtk_tree_view_column_set_widget(self.CPointer, widget.GetWidgetPointer())
 	return
 }
 
 type _TraitUIManager struct{ CPointer *C.GtkUIManager }
+type IsUIManager interface {
+	GetUIManagerPointer() *C.GtkUIManager
+}
+
+func (self *_TraitUIManager) GetUIManagerPointer() *C.GtkUIManager {
+	return self.CPointer
+}
 
 // gtk_ui_manager_add_ui is not generated due to deprecation attr
 
@@ -24299,18 +25664,67 @@ type _TraitUIManager struct{ CPointer *C.GtkUIManager }
 // gtk_ui_manager_set_add_tearoffs is not generated due to deprecation attr
 
 type _TraitVBox struct{ CPointer *C.GtkVBox }
+type IsVBox interface {
+	GetVBoxPointer() *C.GtkVBox
+}
+
+func (self *_TraitVBox) GetVBoxPointer() *C.GtkVBox {
+	return self.CPointer
+}
 
 type _TraitVButtonBox struct{ CPointer *C.GtkVButtonBox }
+type IsVButtonBox interface {
+	GetVButtonBoxPointer() *C.GtkVButtonBox
+}
+
+func (self *_TraitVButtonBox) GetVButtonBoxPointer() *C.GtkVButtonBox {
+	return self.CPointer
+}
 
 type _TraitVPaned struct{ CPointer *C.GtkVPaned }
+type IsVPaned interface {
+	GetVPanedPointer() *C.GtkVPaned
+}
+
+func (self *_TraitVPaned) GetVPanedPointer() *C.GtkVPaned {
+	return self.CPointer
+}
 
 type _TraitVScale struct{ CPointer *C.GtkVScale }
+type IsVScale interface {
+	GetVScalePointer() *C.GtkVScale
+}
+
+func (self *_TraitVScale) GetVScalePointer() *C.GtkVScale {
+	return self.CPointer
+}
 
 type _TraitVScrollbar struct{ CPointer *C.GtkVScrollbar }
+type IsVScrollbar interface {
+	GetVScrollbarPointer() *C.GtkVScrollbar
+}
+
+func (self *_TraitVScrollbar) GetVScrollbarPointer() *C.GtkVScrollbar {
+	return self.CPointer
+}
 
 type _TraitVSeparator struct{ CPointer *C.GtkVSeparator }
+type IsVSeparator interface {
+	GetVSeparatorPointer() *C.GtkVSeparator
+}
+
+func (self *_TraitVSeparator) GetVSeparatorPointer() *C.GtkVSeparator {
+	return self.CPointer
+}
 
 type _TraitViewport struct{ CPointer *C.GtkViewport }
+type IsViewport interface {
+	GetViewportPointer() *C.GtkViewport
+}
+
+func (self *_TraitViewport) GetViewportPointer() *C.GtkViewport {
+	return self.CPointer
+}
 
 /*
 Gets the bin window of the #GtkViewport.
@@ -24354,8 +25768,22 @@ func (self *_TraitViewport) SetShadowType(type_ C.GtkShadowType) {
 // gtk_viewport_set_vadjustment is not generated due to deprecation attr
 
 type _TraitVolumeButton struct{ CPointer *C.GtkVolumeButton }
+type IsVolumeButton interface {
+	GetVolumeButtonPointer() *C.GtkVolumeButton
+}
+
+func (self *_TraitVolumeButton) GetVolumeButtonPointer() *C.GtkVolumeButton {
+	return self.CPointer
+}
 
 type _TraitWidget struct{ CPointer *C.GtkWidget }
+type IsWidget interface {
+	GetWidgetPointer() *C.GtkWidget
+}
+
+func (self *_TraitWidget) GetWidgetPointer() *C.GtkWidget {
+	return self.CPointer
+}
 
 /*
 For widgets that can be “activated” (buttons, menu items, etc.)
@@ -24380,9 +25808,9 @@ runtime. If you want to support accelerators that can be changed by the
 user, use gtk_accel_map_add_entry() and gtk_widget_set_accel_path() or
 gtk_menu_item_set_accel_path() instead.
 */
-func (self *_TraitWidget) AddAccelerator(accel_signal string, accel_group *AccelGroup, accel_key uint, accel_mods C.GdkModifierType, accel_flags C.GtkAccelFlags) {
+func (self *_TraitWidget) AddAccelerator(accel_signal string, accel_group IsAccelGroup, accel_key uint, accel_mods C.GdkModifierType, accel_flags C.GtkAccelFlags) {
 	__cgo__accel_signal := (*C.gchar)(unsafe.Pointer(C.CString(accel_signal)))
-	C.gtk_widget_add_accelerator(self.CPointer, __cgo__accel_signal, (*C.GtkAccelGroup)(accel_group.CPointer), C.guint(accel_key), accel_mods, accel_flags)
+	C.gtk_widget_add_accelerator(self.CPointer, __cgo__accel_signal, accel_group.GetAccelGroupPointer(), C.guint(accel_key), accel_mods, accel_flags)
 	C.free(unsafe.Pointer(__cgo__accel_signal))
 	return
 }
@@ -24413,8 +25841,8 @@ widget is destroyed, so the caller must make sure to update
 its internal state at this point as well, by using a connection
 to the #GtkWidget::destroy signal or a weak notifier.
 */
-func (self *_TraitWidget) AddMnemonicLabel(label *Widget) {
-	C.gtk_widget_add_mnemonic_label(self.CPointer, (*C.GtkWidget)(label.CPointer))
+func (self *_TraitWidget) AddMnemonicLabel(label IsWidget) {
+	C.gtk_widget_add_mnemonic_label(self.CPointer, label.GetWidgetPointer())
 	return
 }
 
@@ -24623,8 +26051,8 @@ from the mouse, using gdk_event_copy(), and pass it to this function
 (remember to free the event with gdk_event_free() when you are done).
 If you can really not pass a real event, pass #NULL instead.
 */
-func (self *_TraitWidget) DragBeginWithCoordinates(targets *TargetList, actions C.GdkDragAction, button int, event *C.GdkEvent, x int, y int) (return__ *C.GdkDragContext) {
-	return__ = C.gtk_drag_begin_with_coordinates(self.CPointer, (*C.GtkTargetList)(unsafe.Pointer(targets)), actions, C.gint(button), event, C.gint(x), C.gint(y))
+func (self *_TraitWidget) DragBeginWithCoordinates(targets *C.GtkTargetList, actions C.GdkDragAction, button int, event *C.GdkEvent, x int, y int) (return__ *C.GdkDragContext) {
+	return__ = C.gtk_drag_begin_with_coordinates(self.CPointer, targets, actions, C.gint(button), event, C.gint(x), C.gint(y))
 	return
 }
 
@@ -24685,8 +26113,8 @@ have different valid targets for different parts of the widget; in
 that case, they will have to implement a drag_motion handler that
 passes the correct target list to this function.
 */
-func (self *_TraitWidget) DragDestFindTarget(context *C.GdkDragContext, target_list *TargetList) (return__ C.GdkAtom) {
-	return__ = C.gtk_drag_dest_find_target(self.CPointer, context, (*C.GtkTargetList)(unsafe.Pointer(target_list)))
+func (self *_TraitWidget) DragDestFindTarget(context *C.GdkDragContext, target_list *C.GtkTargetList) (return__ C.GdkAtom) {
+	return__ = C.gtk_drag_dest_find_target(self.CPointer, context, target_list)
 	return
 }
 
@@ -24694,10 +26122,8 @@ func (self *_TraitWidget) DragDestFindTarget(context *C.GdkDragContext, target_l
 Returns the list of targets this widget can accept from
 drag-and-drop.
 */
-func (self *_TraitWidget) DragDestGetTargetList() (return__ *TargetList) {
-	var __cgo__return__ *C.GtkTargetList
-	__cgo__return__ = C.gtk_drag_dest_get_target_list(self.CPointer)
-	return__ = (*TargetList)(unsafe.Pointer(__cgo__return__))
+func (self *_TraitWidget) DragDestGetTargetList() (return__ *C.GtkTargetList) {
+	return__ = C.gtk_drag_dest_get_target_list(self.CPointer)
 	return
 }
 
@@ -24753,8 +26179,8 @@ drag_motion (GtkWidget *widget,
 }
 ]|
 */
-func (self *_TraitWidget) DragDestSet(flags C.GtkDestDefaults, targets *TargetEntry, n_targets int, actions C.GdkDragAction) {
-	C.gtk_drag_dest_set(self.CPointer, flags, (*C.GtkTargetEntry)(unsafe.Pointer(targets)), C.gint(n_targets), actions)
+func (self *_TraitWidget) DragDestSet(flags C.GtkDestDefaults, targets *C.GtkTargetEntry, n_targets int, actions C.GdkDragAction) {
+	C.gtk_drag_dest_set(self.CPointer, flags, targets, C.gint(n_targets), actions)
 	return
 }
 
@@ -24775,8 +26201,8 @@ Sets the target types that this widget can accept from drag-and-drop.
 The widget must first be made into a drag destination with
 gtk_drag_dest_set().
 */
-func (self *_TraitWidget) DragDestSetTargetList(target_list *TargetList) {
-	C.gtk_drag_dest_set_target_list(self.CPointer, (*C.GtkTargetList)(unsafe.Pointer(target_list)))
+func (self *_TraitWidget) DragDestSetTargetList(target_list *C.GtkTargetList) {
+	C.gtk_drag_dest_set_target_list(self.CPointer, target_list)
 	return
 }
 
@@ -24873,10 +26299,8 @@ func (self *_TraitWidget) DragSourceAddUriTargets() {
 Gets the list of targets this widget can provide for
 drag-and-drop.
 */
-func (self *_TraitWidget) DragSourceGetTargetList() (return__ *TargetList) {
-	var __cgo__return__ *C.GtkTargetList
-	__cgo__return__ = C.gtk_drag_source_get_target_list(self.CPointer)
-	return__ = (*TargetList)(unsafe.Pointer(__cgo__return__))
+func (self *_TraitWidget) DragSourceGetTargetList() (return__ *C.GtkTargetList) {
+	return__ = C.gtk_drag_source_get_target_list(self.CPointer)
 	return
 }
 
@@ -24884,8 +26308,8 @@ func (self *_TraitWidget) DragSourceGetTargetList() (return__ *TargetList) {
 Sets up a widget so that GTK+ will start a drag operation when the user
 clicks and drags on the widget. The widget must have a window.
 */
-func (self *_TraitWidget) DragSourceSet(start_button_mask C.GdkModifierType, targets *TargetEntry, n_targets int, actions C.GdkDragAction) {
-	C.gtk_drag_source_set(self.CPointer, start_button_mask, (*C.GtkTargetEntry)(unsafe.Pointer(targets)), C.gint(n_targets), actions)
+func (self *_TraitWidget) DragSourceSet(start_button_mask C.GdkModifierType, targets *C.GtkTargetEntry, n_targets int, actions C.GdkDragAction) {
+	C.gtk_drag_source_set(self.CPointer, start_button_mask, targets, C.gint(n_targets), actions)
 	return
 }
 
@@ -24926,8 +26350,8 @@ Changes the target types that this widget offers for drag-and-drop.
 The widget must first be made into a drag source with
 gtk_drag_source_set().
 */
-func (self *_TraitWidget) DragSourceSetTargetList(target_list *TargetList) {
-	C.gtk_drag_source_set_target_list(self.CPointer, (*C.GtkTargetList)(unsafe.Pointer(target_list)))
+func (self *_TraitWidget) DragSourceSetTargetList(target_list *C.GtkTargetList) {
+	C.gtk_drag_source_set_target_list(self.CPointer, target_list)
 	return
 }
 
@@ -25110,7 +26534,9 @@ considers @widget to be an ancestor of itself.
 func (self *_TraitWidget) GetAncestor(widget_type C.GType) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_widget_get_ancestor(self.CPointer, widget_type)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -25175,7 +26601,9 @@ window.
 func (self *_TraitWidget) GetClipboard(selection C.GdkAtom) (return__ *Clipboard) {
 	var __cgo__return__ *C.GtkClipboard
 	__cgo__return__ = C.gtk_widget_get_clipboard(self.CPointer, selection)
-	return__ = NewClipboardFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewClipboardFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -25474,7 +26902,9 @@ Returns the parent container of @widget.
 func (self *_TraitWidget) GetParent() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_widget_get_parent(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -25491,10 +26921,8 @@ Returns the #GtkWidgetPath representing @widget, if the widget
 is not connected to a toplevel widget, a partial path will be
 created.
 */
-func (self *_TraitWidget) GetPath() (return__ *WidgetPath) {
-	var __cgo__return__ *C.GtkWidgetPath
-	__cgo__return__ = C.gtk_widget_get_path(self.CPointer)
-	return__ = (*WidgetPath)(unsafe.Pointer(__cgo__return__))
+func (self *_TraitWidget) GetPath() (return__ *C.GtkWidgetPath) {
+	return__ = C.gtk_widget_get_path(self.CPointer)
 	return
 }
 
@@ -25719,7 +27147,9 @@ to a particular #GdkScreen.
 func (self *_TraitWidget) GetSettings() (return__ *Settings) {
 	var __cgo__return__ *C.GtkSettings
 	__cgo__return__ = C.gtk_widget_get_settings(self.CPointer)
-	return__ = NewSettingsFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewSettingsFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -25762,7 +27192,9 @@ Returns the style context associated to @widget.
 func (self *_TraitWidget) GetStyleContext() (return__ *StyleContext) {
 	var __cgo__return__ *C.GtkStyleContext
 	__cgo__return__ = C.gtk_widget_get_style_context(self.CPointer)
-	return__ = NewStyleContextFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewStyleContextFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -25823,7 +27255,9 @@ using gtk_widget_set_tooltip_window().
 func (self *_TraitWidget) GetTooltipWindow() (return__ *Window) {
 	var __cgo__return__ *C.GtkWindow
 	__cgo__return__ = C.gtk_widget_get_tooltip_window(self.CPointer)
-	return__ = NewWindowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWindowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -25856,7 +27290,9 @@ on the result.
 func (self *_TraitWidget) GetToplevel() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_widget_get_toplevel(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -26172,9 +27608,9 @@ func (self *_TraitWidget) Intersect(area *C.GdkRectangle, intersection *C.GdkRec
 Determines whether @widget is somewhere inside @ancestor, possibly with
 intermediate containers.
 */
-func (self *_TraitWidget) IsAncestor(ancestor *Widget) (return__ bool) {
+func (self *_TraitWidget) IsAncestor(ancestor IsWidget) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_widget_is_ancestor(self.CPointer, (*C.GtkWidget)(ancestor.CPointer))
+	__cgo__return__ = C.gtk_widget_is_ancestor(self.CPointer, ancestor.GetWidgetPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -26582,9 +28018,9 @@ func (self *_TraitWidget) RegisterWindow(window *C.GdkWindow) {
 Removes an accelerator from @widget, previously installed with
 gtk_widget_add_accelerator().
 */
-func (self *_TraitWidget) RemoveAccelerator(accel_group *AccelGroup, accel_key uint, accel_mods C.GdkModifierType) (return__ bool) {
+func (self *_TraitWidget) RemoveAccelerator(accel_group IsAccelGroup, accel_key uint, accel_mods C.GdkModifierType) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_widget_remove_accelerator(self.CPointer, (*C.GtkAccelGroup)(accel_group.CPointer), C.guint(accel_key), accel_mods)
+	__cgo__return__ = C.gtk_widget_remove_accelerator(self.CPointer, accel_group.GetAccelGroupPointer(), C.guint(accel_key), accel_mods)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -26595,8 +28031,8 @@ this widget. (See gtk_widget_list_mnemonic_labels()). The widget
 must have previously been added to the list with
 gtk_widget_add_mnemonic_label().
 */
-func (self *_TraitWidget) RemoveMnemonicLabel(label *Widget) {
-	C.gtk_widget_remove_mnemonic_label(self.CPointer, (*C.GtkWidget)(label.CPointer))
+func (self *_TraitWidget) RemoveMnemonicLabel(label IsWidget) {
+	C.gtk_widget_remove_mnemonic_label(self.CPointer, label.GetWidgetPointer())
 	return
 }
 
@@ -26617,8 +28053,8 @@ func (self *_TraitWidget) RemoveTickCallback(id uint) {
 Moves a widget from one #GtkContainer to another, handling reference
 count issues to avoid destroying the widget.
 */
-func (self *_TraitWidget) Reparent(new_parent *Widget) {
-	C.gtk_widget_reparent(self.CPointer, (*C.GtkWidget)(new_parent.CPointer))
+func (self *_TraitWidget) Reparent(new_parent IsWidget) {
+	C.gtk_widget_reparent(self.CPointer, new_parent.GetWidgetPointer())
 	return
 }
 
@@ -26709,9 +28145,9 @@ Note that @accel_path string will be stored in a #GQuark. Therefore, if you
 pass a static string, you can save some memory by interning it first with
 g_intern_static_string().
 */
-func (self *_TraitWidget) SetAccelPath(accel_path string, accel_group *AccelGroup) {
+func (self *_TraitWidget) SetAccelPath(accel_path string, accel_group IsAccelGroup) {
 	__cgo__accel_path := (*C.gchar)(unsafe.Pointer(C.CString(accel_path)))
-	C.gtk_widget_set_accel_path(self.CPointer, __cgo__accel_path, (*C.GtkAccelGroup)(accel_group.CPointer))
+	C.gtk_widget_set_accel_path(self.CPointer, __cgo__accel_path, accel_group.GetAccelGroupPointer())
 	C.free(unsafe.Pointer(__cgo__accel_path))
 	return
 }
@@ -27138,8 +28574,8 @@ some details such as updating the state and style of the child
 to reflect its new location. The opposite function is
 gtk_widget_unparent().
 */
-func (self *_TraitWidget) SetParent(parent *Widget) {
-	C.gtk_widget_set_parent(self.CPointer, (*C.GtkWidget)(parent.CPointer))
+func (self *_TraitWidget) SetParent(parent IsWidget) {
+	C.gtk_widget_set_parent(self.CPointer, parent.GetWidgetPointer())
 	return
 }
 
@@ -27354,8 +28790,8 @@ tooltip window will be used.
 If the custom window should have the default theming it needs to
 have the name “gtk-tooltip”, see gtk_widget_set_name().
 */
-func (self *_TraitWidget) SetTooltipWindow(custom_window *Window) {
-	C.gtk_widget_set_tooltip_window(self.CPointer, (*C.GtkWindow)(custom_window.CPointer))
+func (self *_TraitWidget) SetTooltipWindow(custom_window IsWindow) {
+	C.gtk_widget_set_tooltip_window(self.CPointer, custom_window.GetWindowPointer())
 	return
 }
 
@@ -27569,11 +29005,11 @@ relative to @dest_widget’s allocations. In order to perform this
 operation, both widgets must be realized, and must share a common
 toplevel.
 */
-func (self *_TraitWidget) TranslateCoordinates(dest_widget *Widget, src_x int, src_y int) (dest_x int, dest_y int, return__ bool) {
+func (self *_TraitWidget) TranslateCoordinates(dest_widget IsWidget, src_x int, src_y int) (dest_x int, dest_y int, return__ bool) {
 	var __cgo__dest_x C.gint
 	var __cgo__dest_y C.gint
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_widget_translate_coordinates(self.CPointer, (*C.GtkWidget)(dest_widget.CPointer), C.gint(src_x), C.gint(src_y), &__cgo__dest_x, &__cgo__dest_y)
+	__cgo__return__ = C.gtk_widget_translate_coordinates(self.CPointer, dest_widget.GetWidgetPointer(), C.gint(src_x), C.gint(src_y), &__cgo__dest_x, &__cgo__dest_y)
 	dest_x = int(__cgo__dest_x)
 	dest_y = int(__cgo__dest_y)
 	return__ = __cgo__return__ == C.gboolean(1)
@@ -27640,6 +29076,13 @@ func (self *_TraitWidget) UnsetStateFlags(flags C.GtkStateFlags) {
 }
 
 type _TraitWindow struct{ CPointer *C.GtkWindow }
+type IsWindow interface {
+	GetWindowPointer() *C.GtkWindow
+}
+
+func (self *_TraitWindow) GetWindowPointer() *C.GtkWindow {
+	return self.CPointer
+}
 
 /*
 Activates the default widget for the window, unless the current
@@ -27682,16 +29125,16 @@ Associate @accel_group with @window, such that calling
 gtk_accel_groups_activate() on @window will activate accelerators
 in @accel_group.
 */
-func (self *_TraitWindow) AddAccelGroup(accel_group *AccelGroup) {
-	C.gtk_window_add_accel_group(self.CPointer, (*C.GtkAccelGroup)(accel_group.CPointer))
+func (self *_TraitWindow) AddAccelGroup(accel_group IsAccelGroup) {
+	C.gtk_window_add_accel_group(self.CPointer, accel_group.GetAccelGroupPointer())
 	return
 }
 
 /*
 Adds a mnemonic to this window.
 */
-func (self *_TraitWindow) AddMnemonic(keyval uint, target *Widget) {
-	C.gtk_window_add_mnemonic(self.CPointer, C.guint(keyval), (*C.GtkWidget)(target.CPointer))
+func (self *_TraitWindow) AddMnemonic(keyval uint, target IsWidget) {
+	C.gtk_window_add_mnemonic(self.CPointer, C.guint(keyval), target.GetWidgetPointer())
 	return
 }
 
@@ -27781,7 +29224,9 @@ Gets the #GtkApplication associated with the window (if any).
 func (self *_TraitWindow) GetApplication() (return__ *Application) {
 	var __cgo__return__ *C.GtkApplication
 	__cgo__return__ = C.gtk_window_get_application(self.CPointer)
-	return__ = NewApplicationFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewApplicationFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -27792,7 +29237,9 @@ gtk_window_set_attached_to().
 func (self *_TraitWindow) GetAttachedTo() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_window_get_attached_to(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -27829,7 +29276,9 @@ for more details.
 func (self *_TraitWindow) GetDefaultWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_window_get_default_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -27865,7 +29314,9 @@ not be %TRUE for the widget.
 func (self *_TraitWindow) GetFocus() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_window_get_focus(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -27905,7 +29356,9 @@ window group.
 func (self *_TraitWindow) GetGroup() (return__ *WindowGroup) {
 	var __cgo__return__ *C.GtkWindowGroup
 	__cgo__return__ = C.gtk_window_get_group(self.CPointer)
-	return__ = NewWindowGroupFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWindowGroupFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -28172,7 +29625,9 @@ gtk_window_set_transient_for().
 func (self *_TraitWindow) GetTransientFor() (return__ *Window) {
 	var __cgo__return__ *C.GtkWindow
 	__cgo__return__ = C.gtk_window_get_transient_for(self.CPointer)
-	return__ = NewWindowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWindowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -28483,16 +29938,16 @@ func (self *_TraitWindow) PropagateKeyEvent(event *C.GdkEventKey) (return__ bool
 /*
 Reverses the effects of gtk_window_add_accel_group().
 */
-func (self *_TraitWindow) RemoveAccelGroup(accel_group *AccelGroup) {
-	C.gtk_window_remove_accel_group(self.CPointer, (*C.GtkAccelGroup)(accel_group.CPointer))
+func (self *_TraitWindow) RemoveAccelGroup(accel_group IsAccelGroup) {
+	C.gtk_window_remove_accel_group(self.CPointer, accel_group.GetAccelGroupPointer())
 	return
 }
 
 /*
 Removes a mnemonic from this window.
 */
-func (self *_TraitWindow) RemoveMnemonic(keyval uint, target *Widget) {
-	C.gtk_window_remove_mnemonic(self.CPointer, C.guint(keyval), (*C.GtkWidget)(target.CPointer))
+func (self *_TraitWindow) RemoveMnemonic(keyval uint, target IsWidget) {
+	C.gtk_window_remove_mnemonic(self.CPointer, C.guint(keyval), target.GetWidgetPointer())
 	return
 }
 
@@ -28555,8 +30010,8 @@ Sets or unsets the #GtkApplication associated with the window.
 The application will be kept alive for at least as long as the window
 is open.
 */
-func (self *_TraitWindow) SetApplication(application *Application) {
-	C.gtk_window_set_application(self.CPointer, (*C.GtkApplication)(application.CPointer))
+func (self *_TraitWindow) SetApplication(application IsApplication) {
+	C.gtk_window_set_application(self.CPointer, application.GetApplicationPointer())
 	return
 }
 
@@ -28576,8 +30031,8 @@ between two toplevels instead.
 
 Passing %NULL for @attach_widget detaches the window.
 */
-func (self *_TraitWindow) SetAttachedTo(attach_widget *Widget) {
-	C.gtk_window_set_attached_to(self.CPointer, (*C.GtkWidget)(attach_widget.CPointer))
+func (self *_TraitWindow) SetAttachedTo(attach_widget IsWidget) {
+	C.gtk_window_set_attached_to(self.CPointer, attach_widget.GetWidgetPointer())
 	return
 }
 
@@ -28612,8 +30067,8 @@ gtk_widget_grab_default() on the widget. Before making a widget
 the default widget, you must call gtk_widget_set_can_default() on
 the widget you’d like to make the default.
 */
-func (self *_TraitWindow) SetDefault(default_widget *Widget) {
-	C.gtk_window_set_default(self.CPointer, (*C.GtkWidget)(default_widget.CPointer))
+func (self *_TraitWindow) SetDefault(default_widget IsWidget) {
+	C.gtk_window_set_default(self.CPointer, default_widget.GetWidgetPointer())
 	return
 }
 
@@ -28705,8 +30160,8 @@ the focus widget for this window. To set the focus to a particular
 widget in the toplevel, it is usually more convenient to use
 gtk_widget_grab_focus() instead of this function.
 */
-func (self *_TraitWindow) SetFocus(focus *Widget) {
-	C.gtk_window_set_focus(self.CPointer, (*C.GtkWidget)(focus.CPointer))
+func (self *_TraitWindow) SetFocus(focus IsWidget) {
+	C.gtk_window_set_focus(self.CPointer, focus.GetWidgetPointer())
 	return
 }
 
@@ -28742,8 +30197,8 @@ the user.  You can set a minimum and maximum size; allowed resize
 increments (e.g. for xterm, you can only resize by the size of a
 character); aspect ratios; and more. See the #GdkGeometry struct.
 */
-func (self *_TraitWindow) SetGeometryHints(geometry_widget *Widget, geometry *C.GdkGeometry, geom_mask C.GdkWindowHints) {
-	C.gtk_window_set_geometry_hints(self.CPointer, (*C.GtkWidget)(geometry_widget.CPointer), geometry, geom_mask)
+func (self *_TraitWindow) SetGeometryHints(geometry_widget IsWidget, geometry *C.GdkGeometry, geom_mask C.GdkWindowHints) {
+	C.gtk_window_set_geometry_hints(self.CPointer, geometry_widget.GetWidgetPointer(), geometry, geom_mask)
 	return
 }
 
@@ -29135,8 +30590,8 @@ Depending on the system, this function may not work for a window
 that is already visible, so you set the titlebar before calling
 gtk_widget_show().
 */
-func (self *_TraitWindow) SetTitlebar(titlebar *Widget) {
-	C.gtk_window_set_titlebar(self.CPointer, (*C.GtkWidget)(titlebar.CPointer))
+func (self *_TraitWindow) SetTitlebar(titlebar IsWidget) {
+	C.gtk_window_set_titlebar(self.CPointer, titlebar.GetWidgetPointer())
 	return
 }
 
@@ -29154,8 +30609,8 @@ Passing %NULL for @parent unsets the current transient window.
 On Windows, this function puts the child window on top of the parent,
 much as the window manager would have done on X.
 */
-func (self *_TraitWindow) SetTransientFor(parent *Window) {
-	C.gtk_window_set_transient_for(self.CPointer, (*C.GtkWindow)(parent.CPointer))
+func (self *_TraitWindow) SetTransientFor(parent IsWindow) {
+	C.gtk_window_set_transient_for(self.CPointer, parent.GetWindowPointer())
 	return
 }
 
@@ -29275,12 +30730,19 @@ func (self *_TraitWindow) Unstick() {
 }
 
 type _TraitWindowGroup struct{ CPointer *C.GtkWindowGroup }
+type IsWindowGroup interface {
+	GetWindowGroupPointer() *C.GtkWindowGroup
+}
+
+func (self *_TraitWindowGroup) GetWindowGroupPointer() *C.GtkWindowGroup {
+	return self.CPointer
+}
 
 /*
 Adds a window to a #GtkWindowGroup.
 */
-func (self *_TraitWindowGroup) AddWindow(window *Window) {
-	C.gtk_window_group_add_window(self.CPointer, (*C.GtkWindow)(window.CPointer))
+func (self *_TraitWindowGroup) AddWindow(window IsWindow) {
+	C.gtk_window_group_add_window(self.CPointer, window.GetWindowPointer())
 	return
 }
 
@@ -29290,7 +30752,9 @@ Returns the current grab widget for @device, or %NULL if none.
 func (self *_TraitWindowGroup) GetCurrentDeviceGrab(device *C.GdkDevice) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_window_group_get_current_device_grab(self.CPointer, device)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -29301,7 +30765,9 @@ see gtk_grab_add().
 func (self *_TraitWindowGroup) GetCurrentGrab() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_window_group_get_current_grab(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	if __cgo__return__ != nil {
+		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
 	return
 }
 
@@ -29316,7 +30782,7 @@ func (self *_TraitWindowGroup) ListWindows() (return__ *C.GList) {
 /*
 Removes a window from a #GtkWindowGroup.
 */
-func (self *_TraitWindowGroup) RemoveWindow(window *Window) {
-	C.gtk_window_group_remove_window(self.CPointer, (*C.GtkWindow)(window.CPointer))
+func (self *_TraitWindowGroup) RemoveWindow(window IsWindow) {
+	C.gtk_window_group_remove_window(self.CPointer, window.GetWindowPointer())
 	return
 }
