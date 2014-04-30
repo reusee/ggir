@@ -66,6 +66,6 @@ func Gen(outputDir, buildFilePath string) {
 	// class traits
 	generator.GenTraits(ns)
 
-	// classes
-	generator.GenClasses(ns)
+	// class constructors
+	generator.GenClassConstructors(ns)
 }

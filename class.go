@@ -87,7 +87,7 @@ func (self *Generator) GenClassTypes(ns *Namespace) {
 	self.formatAndOutput("class_types", output.Bytes())
 }
 
-func (self *Generator) GenClasses(ns *Namespace) {
+func (self *Generator) GenClassConstructors(ns *Namespace) {
 	output := new(bytes.Buffer)
 	w(output, "package %s\n\n", self.PackageName)
 	w(output, "/*\n")
@@ -115,9 +115,5 @@ func (self *Generator) GenClasses(ns *Namespace) {
 		}
 	}
 
-	//p("%v\n", c.Properties)
-	//p("%v\n", c.Fields)
-	//p("%v\n", c.Signals)
-
-	self.formatAndOutput("classes", output.Bytes())
+	self.formatAndOutput("class_constructors", output.Bytes())
 }
