@@ -29,7 +29,7 @@ func (self *Generator) genEnums(enums []*Enum, file string) {
 		for _, m := range f.Members {
 			parts := strings.Split(m.CIdentifier, "_")
 			goName := strings.Join(parts[1:], "_")
-			w(output, "%s = C.%s\n", goName, m.CIdentifier)
+			w(output, "%s = C.%s(C.%s)\n", goName, f.CType, m.CIdentifier)
 		}
 		w(output, "\n")
 	}
