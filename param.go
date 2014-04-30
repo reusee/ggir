@@ -114,12 +114,15 @@ func (self *Param) MapType() (ret string) {
 	// skip complex types
 	if strings.HasPrefix(self.GoType, "C.") && unicode.IsUpper(rune(self.GoType[2])) {
 		ret = self.GoType
+		return
 	}
 	if strings.HasPrefix(self.GoType, "*C.") && unicode.IsUpper(rune(self.GoType[3])) {
 		ret = self.GoType
+		return
 	}
 	if strings.HasPrefix(self.GoType, "**C.") && unicode.IsUpper(rune(self.GoType[4])) {
 		ret = self.GoType
+		return
 	}
 
 	switch self.TypeSpec {
@@ -140,7 +143,8 @@ func (self *Param) MapType() (ret string) {
 	case "false GoType C.uint8_t TypeName guint8",
 		"false GoType C.guint8 TypeName guint8":
 		ret = "uint8"
-	case "false GoType C.uint16_t TypeName guint16":
+	case "false GoType C.uint16_t TypeName guint16",
+		"false GoType C.guint16 TypeName guint16":
 		ret = "uint16"
 	case "false GoType C.gint32 TypeName gint32":
 		ret = "int32"
@@ -164,19 +168,17 @@ func (self *Param) MapType() (ret string) {
 		ret = "float64"
 
 	// numeric slice, must be array to get length
-	case "true GoType *C.gint ElemType C.gint ElemName gint",
-		"true GoType *C.int ElemType C.int ElemName gint":
-		ret = "[]int"
 	case "true GoType *C.guint ElemType C.guint ElemName guint HasLenParam":
 		ret = "[]uint"
-	case "true GoType *C.gfloat ElemType C.gfloat ElemName gfloat",
-		"true GoType *C.float ElemType C.float ElemName gfloat":
-		ret = "[]float32"
+	case "true GoType *C.gint ElemType C.gint ElemName gint HasLenParam":
+		ret = "[]int"
 
 	// string
 	case "true GoType *C.gchar ElemType C.gchar ElemName utf8",
 		"false GoType *C.gchar TypeName utf8",
 		"false GoType *C.gchar TypeName filename",
+		"true GoType *C.gchar ElemName filename HasLenParam",
+		"false GoType *C.char TypeName filename",
 		"false GoType *C.char TypeName utf8":
 		ret = "string"
 
@@ -209,7 +211,7 @@ func (self *Param) MapType() (ret string) {
 		"false GoType C.gpointer TypeName gpointer":
 		ret = "unsafe.Pointer"
 
-	// do not map pointer to basic types
+	// do not map pointer to basic types FIXME patch xml
 	case "false GoType *C.gunichar2 TypeName guint16",
 		"false GoType **C.char TypeName utf8",
 		"false GoType ***C.gchar TypeName utf8",
@@ -222,6 +224,8 @@ func (self *Param) MapType() (ret string) {
 		"false GoType **C.gchar TypeName filename",
 		"false GoType *C.gint64 TypeName gint64",
 		"false GoType *C.guint8 TypeName guint8",
+		"false GoType *C.guint16 TypeName guint16",
+		"true GoType *C.gint ElemType C.gint ElemName gint",
 		"false GoType *C.gint TypeName gint",
 		"false GoType *C.guchar TypeName guint8",
 		"true GoType *C.gchar ElemName guint8", // no len param nor zero-terminated
@@ -231,6 +235,7 @@ func (self *Param) MapType() (ret string) {
 
 	// cairo FIXME
 	case "false GoType *C.cairo_t TypeName cairo.Context",
+		"false GoType *C.cairo_region_t TypeName cairo.Region",
 		"false GoType *C.cairo_surface_t TypeName cairo.Surface":
 		ret = self.GoType
 
@@ -238,6 +243,10 @@ func (self *Param) MapType() (ret string) {
 	case "false GoType C.gpointer TypeName TypeClass",
 		"false GoType C.gpointer TypeName TypeInterface",
 		"false GoType C.gpointer TypeName Object":
+		ret = self.GoType
+
+	default:
+		p("==fixme== no map for %s\n", self.TypeSpec)
 		ret = self.GoType
 
 	}
@@ -259,7 +268,7 @@ func (self *Param) PrepareInParam() {
 		}
 
 		// helpers
-		byteSliceToPointer := func(p string) {
+		sliceToPointer := func(p string) {
 			self.CgoBeforeStmt = fs("__header__%s := (*reflect.SliceHeader)(unsafe.Pointer(&%s))",
 				self.GoName, self.GoName)
 			self.CgoParam = fs("(%s)(unsafe.Pointer(__header__%s.Data))", p, self.GoName)
@@ -301,6 +310,8 @@ func (self *Param) PrepareInParam() {
 			self.CgoParam = fs("C.gint8(%s)", self.GoName)
 		case "uint8 -> C.guint8":
 			self.CgoParam = fs("C.guint8(%s)", self.GoName)
+		case "uint16 -> C.guint16":
+			self.CgoParam = fs("C.guint16(%s)", self.GoName)
 		case "int32 -> C.gint32":
 			self.CgoParam = fs("C.gint32(%s)", self.GoName)
 		case "uint32 -> C.guint32":
@@ -328,17 +339,17 @@ func (self *Param) PrepareInParam() {
 		case "float64 -> C.gdouble":
 			self.CgoParam = fs("C.gdouble(%s)", self.GoName)
 
-		// byte slice
-		case "[]byte -> *C.gchar":
-			byteSliceToPointer("*C.gchar")
-		case "[]byte -> *C.guchar":
-			byteSliceToPointer("*C.guchar")
-		case "[]byte -> *C.guint8":
-			byteSliceToPointer("*C.guint8")
-
 		// slice
+		case "[]byte -> *C.gchar":
+			sliceToPointer("*C.gchar")
+		case "[]byte -> *C.guchar":
+			sliceToPointer("*C.guchar")
+		case "[]byte -> *C.guint8":
+			sliceToPointer("*C.guint8")
 		case "[]string -> **C.gchar":
-			byteSliceToPointer("**C.gchar")
+			sliceToPointer("**C.gchar")
+		case "[]int -> *C.gint":
+			sliceToPointer("*C.gint")
 
 		// untyped pointer
 		case "unsafe.Pointer -> C.gpointer":
@@ -397,6 +408,8 @@ func (self *Param) PrepareOutParam() {
 			self.CgoAfterStmt += fs("%s = uint(__cgo__%s);", self.GoName, self.GoName)
 		case "C.guint8 -> uint8":
 			self.CgoAfterStmt += fs("%s = uint8(__cgo__%s);", self.GoName, self.GoName)
+		case "C.guint16 -> uint16":
+			self.CgoAfterStmt += fs("%s = uint16(__cgo__%s);", self.GoName, self.GoName)
 		case "C.gint32 -> int32":
 			self.CgoAfterStmt += fs("%s = int32(__cgo__%s);", self.GoName, self.GoName)
 		case "C.guint32 -> uint32":
@@ -409,13 +422,16 @@ func (self *Param) PrepareOutParam() {
 		case "C.guint64 -> uint64",
 			"C.gulong -> uint64":
 			self.CgoAfterStmt += fs("%s = uint64(__cgo__%s);", self.GoName, self.GoName)
+		case "C.gfloat -> float32":
+			self.CgoAfterStmt += fs("%s = float32(__cgo__%s);", self.GoName, self.GoName)
 		case "C.double -> float64",
 			"C.gdouble -> float64":
 			self.CgoAfterStmt += fs("%s = float64(__cgo__%s);", self.GoName, self.GoName)
 
 		// bytes
 		case "*C.gchar -> []byte",
-			"*C.guchar -> []byte":
+			"*C.guchar -> []byte",
+			"*C.guint8 -> []byte":
 			if self.LenParamName != "" { // len param
 				// defer is needed because length param may be later.
 				self.CgoAfterStmt += fs(`defer func() { %s = C.GoBytes(unsafe.Pointer(__cgo__%s), C.int(%s)) }();`,

@@ -18,6 +18,10 @@ func (self *Generator) GenClassTypes(ns *Namespace) {
 	w(output, "*/\n")
 	w(output, "import \"C\"\n")
 	w(output, "import \"unsafe\"\n")
+	w(output, `func init() {
+		_ = unsafe.Pointer(nil)
+	}
+	`)
 
 	// generate class map
 	classes := make(map[string]*Class)
@@ -43,6 +47,7 @@ func (self *Generator) GenClassTypes(ns *Namespace) {
 			continue
 		}
 
+		//FIXME interfaces
 		w(output, "type %s struct {\n", typeName)
 		currentClass := c
 		constructExpr := ""

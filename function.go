@@ -30,7 +30,7 @@ func init() {
 }
 `)
 	for _, fn := range ns.Functions {
-		self.GenFunction(fn, output)
+		self.GenFunction(fn, output, nil)
 	}
 	for typeSpec, funcs := range typeStat {
 		p("===fixme=== %s TYPE NOT MAPPED => %s\n", self.PackageName, typeSpec)
@@ -51,7 +51,7 @@ func init() {
 
 var typeStat = make(map[string][]string)
 
-func (self *Generator) GenFunction(fn *Function, output io.Writer) {
+func (self *Generator) GenFunction(fn *Function, output io.Writer, receiver *Class) {
 	// skip deprecated
 	if fn.Deprecated != "" {
 		w(output, "// %s is not generated due to deprecation attr\n\n", fn.CIdentifier)
@@ -124,7 +124,10 @@ func (self *Generator) GenFunction(fn *Function, output io.Writer) {
 	// generate signature
 	w(output, "func ")
 
-	// generate receiver FIXME
+	// generate receiver
+	if receiver != nil {
+		w(output, "(self *_Trait%s)", receiver.Name)
+	}
 
 	// generate function name
 	w(output, fn.GoName)
@@ -180,6 +183,9 @@ func (self *Generator) GenFunction(fn *Function, output io.Writer) {
 
 	// cgo call
 	w(output, "C.%s(", fn.CIdentifier)
+	if receiver != nil {
+		w(output, "self.CPointer,")
+	}
 	for _, param := range fn.Params {
 		if !param.IsVoid {
 			w(output, "%s,", param.CgoParam)

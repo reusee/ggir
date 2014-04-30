@@ -16,19 +16,33 @@ func (self *Generator) GenTraits(ns *Namespace) {
 	}
 	w(output, "*/\n")
 	w(output, "import \"C\"\n")
+	w(output, "import \"unsafe\"\n")
+	w(output, "import \"reflect\"\n")
+	w(output, "import \"errors\"\n")
+	w(output, `func init() {
+		_ = unsafe.Pointer(nil)
+		_ = reflect.ValueOf(nil)
+		_ = errors.New("")
+	}
+	`)
 
-	// virtual methods methods functions
 	// classes
 	for _, c := range ns.Classes {
 		goType := cTypeToGoType(c.CType)
 		w(output, "type _Trait%s struct { CPointer *%s }\n", c.Name, goType)
-		//p("%v\n", c.VirtualMethods)
-		//p("%v\n", c.Methods)
-		//p("%v\n", c.Functions)
+		for _, m := range c.Methods {
+			self.GenFunction(m, output, c)
+		}
+		//p("%v\n", c.VirtualMethods) FIXME
+		//p("%v\n", c.Methods) FIXME
+		//p("%v\n", c.Functions) FIXME
 
 		w(output, "\n")
 	}
-	// interfaces
+	// interfaces FIXME
+	//p("%v\n", c.VirtualMethods) FIXME
+	//p("%v\n", c.Methods) FIXME
+	//p("%v\n", c.Functions) FIXME
 
 	f, err := os.Create(filepath.Join(self.outputDir, self.PackageName+"_traits.go"))
 	checkError(err)
