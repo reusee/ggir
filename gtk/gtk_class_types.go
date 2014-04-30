@@ -8,6 +8,10 @@ package gtk
 import "C"
 import "unsafe"
 
+func init() {
+	_ = unsafe.Pointer(nil)
+}
+
 type AboutDialog struct {
 	*_TraitAboutDialog
 	*_TraitDialog
