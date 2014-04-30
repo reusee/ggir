@@ -2,9 +2,6 @@ package main
 
 import (
 	"bytes"
-	"go/format"
-	"os"
-	"path/filepath"
 	"regexp"
 	"strings"
 )
@@ -66,14 +63,5 @@ func (self *Generator) GenStructTypes(ns *Namespace) {
 	next:
 	}
 
-	f, err := os.Create(filepath.Join(self.outputDir, self.PackageName+"_struct_types.go"))
-	checkError(err)
-	formatted, err := format.Source(output.Bytes())
-	if err != nil {
-		f.Write(output.Bytes())
-		f.Close()
-		checkError(err)
-	}
-	f.Write(formatted)
-	f.Close()
+	self.formatAndOutput("struct_types", output.Bytes())
 }

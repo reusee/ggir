@@ -2,10 +2,7 @@ package main
 
 import (
 	"bytes"
-	"go/format"
 	"io"
-	"os"
-	"path/filepath"
 	"regexp"
 	"strings"
 )
@@ -36,17 +33,8 @@ func init() {
 		p("===fixme=== %s TYPE NOT MAPPED => %s\n", self.PackageName, typeSpec)
 		p("%s\n\n", strings.Join(funcs, "\n"))
 	}
-	f, err := os.Create(filepath.Join(self.outputDir, self.PackageName+"_functions.go"))
-	checkError(err)
-	formatted, err := format.Source(output.Bytes())
-	if err != nil {
-		f.Write(output.Bytes())
-		f.Close()
-		p("==> %s\n", self.GirPath)
-		checkError(err)
-	}
-	f.Write(formatted)
-	f.Close()
+
+	self.formatAndOutput("functions", output.Bytes())
 }
 
 var typeStat = make(map[string][]string)
@@ -174,8 +162,13 @@ func (self *Generator) GenFunction(fn *Function, output io.Writer, receiver *Cla
 	// cgo return value
 	if !fn.Return.IsVoid {
 		if fn.Return.GoType != fn.Return.MappedType { // mapped
-			w(output, "var __cgo__return__ %s\n", fn.Return.GoType)
-			w(output, "__cgo__return__ = ")
+			if fn.IsConstructor { // cgo return and constructor return may be different type
+				w(output, "var __cgo__return__ interface{}\n")
+				w(output, "__cgo__return__ = ")
+			} else {
+				w(output, "var __cgo__return__ %s\n", fn.Return.GoType)
+				w(output, "__cgo__return__ = ")
+			}
 		} else { // not mapped
 			w(output, "%s = ", fn.Return.GoName)
 		}

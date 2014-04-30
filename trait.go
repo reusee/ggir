@@ -1,11 +1,6 @@
 package main
 
-import (
-	"bytes"
-	"go/format"
-	"os"
-	"path/filepath"
-)
+import "bytes"
 
 func (self *Generator) GenTraits(ns *Namespace) {
 	output := new(bytes.Buffer)
@@ -44,14 +39,5 @@ func (self *Generator) GenTraits(ns *Namespace) {
 	//p("%v\n", c.Methods) FIXME
 	//p("%v\n", c.Functions) FIXME
 
-	f, err := os.Create(filepath.Join(self.outputDir, self.PackageName+"_traits.go"))
-	checkError(err)
-	formatted, err := format.Source(output.Bytes())
-	if err != nil {
-		f.Write(output.Bytes())
-		f.Close()
-		checkError(err)
-	}
-	f.Write(formatted)
-	f.Close()
+	self.formatAndOutput("traits", output.Bytes())
 }

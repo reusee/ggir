@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"go/format"
+	"os"
+	"path/filepath"
+)
 
 var (
 	p  = fmt.Printf
@@ -80,4 +85,17 @@ func isGoReservedWord(s string) bool {
 		"uint8":      true,
 		"uintptr":    true,
 	}[s]
+}
+
+func (self *Generator) formatAndOutput(name string, source []byte) {
+	f, err := os.Create(filepath.Join(self.outputDir, self.PackageName+"_"+name+".go"))
+	checkError(err)
+	formatted, err := format.Source(source)
+	if err != nil {
+		f.Write(source)
+		f.Close()
+		checkError(err)
+	}
+	f.Write(formatted)
+	f.Close()
 }

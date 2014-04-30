@@ -230,6 +230,7 @@ type Function struct {
 	Params        []*Param `xml:"parameters>parameter"`
 	GoName        string
 	IsVarargs     bool
+	IsConstructor bool
 }
 
 type Param struct {

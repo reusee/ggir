@@ -2,9 +2,6 @@ package main
 
 import (
 	"bytes"
-	"go/format"
-	"os"
-	"path/filepath"
 	"strings"
 )
 
@@ -38,14 +35,5 @@ func (self *Generator) genEnums(enums []*Enum, file string) {
 	}
 	w(output, ")\n")
 
-	f, err := os.Create(filepath.Join(self.outputDir, self.PackageName+"_"+file+".go"))
-	checkError(err)
-	formatted, err := format.Source(output.Bytes())
-	if err != nil {
-		f.Write(output.Bytes())
-		f.Close()
-		checkError(err)
-	}
-	f.Write(formatted)
-	f.Close()
+	self.formatAndOutput(file, output.Bytes())
 }

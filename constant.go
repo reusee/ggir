@@ -2,9 +2,6 @@ package main
 
 import (
 	"bytes"
-	"go/format"
-	"os"
-	"path/filepath"
 	"regexp"
 )
 
@@ -45,14 +42,5 @@ func (self *Generator) GenConstants(ns *Namespace) {
 	}
 	w(output, ")\n")
 
-	f, err := os.Create(filepath.Join(self.outputDir, self.PackageName+"_constants.go"))
-	checkError(err)
-	formatted, err := format.Source(output.Bytes())
-	if err != nil {
-		f.Write(output.Bytes())
-		f.Close()
-		checkError(err)
-	}
-	f.Write(formatted)
-	f.Close()
+	self.formatAndOutput("constants", output.Bytes())
 }
