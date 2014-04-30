@@ -472,7 +472,7 @@ from (but not including) @nth_bit upwards. Bits are numbered
 from 0 (least significant) to sizeof(#gulong) * 8 - 1 (31 or 63,
 usually). To start searching from the 0th bit, set @nth_bit to -1.
 */
-func BitNthLsf(mask int64, nth_bit int) (return__ int) {
+func BitNthLsf(mask uint64, nth_bit int) (return__ int) {
 	var __cgo__return__ C.gint
 	__cgo__return__ = C.g_bit_nth_lsf(C.gulong(mask), C.gint(nth_bit))
 	return__ = int(__cgo__return__)
@@ -486,7 +486,7 @@ from 0 (least significant) to sizeof(#gulong) * 8 - 1 (31 or 63,
 usually). To start searching from the last bit, set @nth_bit to
 -1 or GLIB_SIZEOF_LONG * 8.
 */
-func BitNthMsf(mask int64, nth_bit int) (return__ int) {
+func BitNthMsf(mask uint64, nth_bit int) (return__ int) {
 	var __cgo__return__ C.gint
 	__cgo__return__ = C.g_bit_nth_msf(C.gulong(mask), C.gint(nth_bit))
 	return__ = int(__cgo__return__)
@@ -497,7 +497,7 @@ func BitNthMsf(mask int64, nth_bit int) (return__ int) {
 Gets the number of bits used to hold @number,
 e.g. if @number is 4, 3 bits are needed.
 */
-func BitStorage(number int64) (return__ uint) {
+func BitStorage(number uint64) (return__ uint) {
 	var __cgo__return__ C.guint
 	__cgo__return__ = C.g_bit_storage(C.gulong(number))
 	return__ = uint(__cgo__return__)
@@ -1510,7 +1510,7 @@ translations for the current locale.
 See g_dgettext() for details of how this differs from dngettext()
 proper.
 */
-func Dngettext(domain string, msgid string, msgid_plural string, n int64) (return__ string) {
+func Dngettext(domain string, msgid string, msgid_plural string, n uint64) (return__ string) {
 	__cgo__domain := (*C.gchar)(unsafe.Pointer(C.CString(domain)))
 	__cgo__msgid := (*C.gchar)(unsafe.Pointer(C.CString(msgid)))
 	__cgo__msgid_plural := (*C.gchar)(unsafe.Pointer(C.CString(msgid_plural)))
@@ -2803,7 +2803,7 @@ func HashTableUnref(hash_table *HashTable) {
 /*
 Destroys a #GHook, given its ID.
 */
-func HookDestroy(hook_list *HookList, hook_id int64) (return__ bool) {
+func HookDestroy(hook_list *HookList, hook_id uint64) (return__ bool) {
 	var __cgo__return__ C.gboolean
 	__cgo__return__ = C.g_hook_destroy((*C.GHookList)(unsafe.Pointer(hook_list)), C.gulong(hook_id))
 	return__ = __cgo__return__ == C.gboolean(1)
@@ -7816,7 +7816,7 @@ There are 1 million microseconds per second (represented by the
 depending on hardware and operating system; don't rely on the exact
 length of the sleep.
 */
-func Usleep(microseconds int64) {
+func Usleep(microseconds uint64) {
 	C.g_usleep(C.gulong(microseconds))
 	return
 }
