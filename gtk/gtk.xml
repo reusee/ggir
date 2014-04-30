@@ -11,25 +11,8 @@
 
   <function-ignore-patterns>
     <!-- deprecated -->
-    <entry>gtk_color_selection_dialog_get_color_selection</entry>
-    <entry>gtk_color_selection_get_current_alpha</entry>
-    <entry>gtk_color_selection_get_current_rgba</entry>
-    <entry>gtk_color_selection_get_has_opacity_control</entry>
-    <entry>gtk_color_selection_get_has_palette</entry>
-    <entry>gtk_color_selection_get_previous_alpha</entry>
-    <entry>gtk_color_selection_get_previous_rgba</entry>
-    <entry>gtk_color_selection_is_adjusting</entry>
-    <entry>gtk_color_selection_set_current_alpha</entry>
-    <entry>gtk_color_selection_set_current_rgba</entry>
-    <entry>gtk_color_selection_set_has_opacity_control</entry>
-    <entry>gtk_color_selection_set_has_palette</entry>
-    <entry>gtk_color_selection_set_previous_alpha</entry>
-    <entry>gtk_color_selection_set_previous_rgba</entry>
-    <entry>gtk_hsv_get_color</entry>
-    <entry>gtk_hsv_get_metrics</entry>
-    <entry>gtk_hsv_is_adjusting</entry>
-    <entry>gtk_hsv_set_color</entry>
-    <entry>gtk_hsv_set_metrics</entry>
+    <entry>gtk_color_selection_*</entry>
+    <entry>gtk_hsv_*</entry>
     <entry>gtk_style_get_style_property</entry>
     <entry>gtk_style_has_context</entry>
     <!-- gir info error FIXME -->

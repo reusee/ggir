@@ -459,7 +459,7 @@ Determines the source widget for a drag.
 func DragGetSourceWidget(context *C.GdkDragContext) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_drag_get_source_widget(context)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -670,7 +670,7 @@ originally.
 func GetEventWidget(event *C.GdkEvent) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_get_event_widget(event)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -786,7 +786,7 @@ Queries the current grab of the default window group.
 func GrabGetCurrent() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_grab_get_current()
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -1026,7 +1026,7 @@ a problem.
 func PrintRunPageSetupDialog(parent *Window, page_setup *PageSetup, settings *PrintSettings) (return__ *PageSetup) {
 	var __cgo__return__ *C.GtkPageSetup
 	__cgo__return__ = C.gtk_print_run_page_setup_dialog((*C.GtkWindow)(parent.CPointer), (*C.GtkPageSetup)(page_setup.CPointer), (*C.GtkPrintSettings)(settings.CPointer))
-	return__ = NewPageSetupFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewPageSetupFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -1614,7 +1614,7 @@ func TestCreateSimpleWindow(window_title string, dialog_text string) (return__ *
 	__cgo__return__ = C.gtk_test_create_simple_window(__cgo__window_title, __cgo__dialog_text)
 	C.free(unsafe.Pointer(__cgo__window_title))
 	C.free(unsafe.Pointer(__cgo__dialog_text))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -1636,7 +1636,7 @@ func TestFindLabel(widget *Widget, label_pattern string) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_test_find_label((*C.GtkWidget)(widget.CPointer), __cgo__label_pattern)
 	C.free(unsafe.Pointer(__cgo__label_pattern))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -1652,7 +1652,7 @@ button or text entry widget, given its corresponding label widget.
 func TestFindSibling(base_widget *Widget, widget_type C.GType) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_test_find_sibling((*C.GtkWidget)(base_widget.CPointer), widget_type)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -1670,7 +1670,7 @@ func TestFindWidget(widget *Widget, label_pattern string, widget_type C.GType) (
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_test_find_widget((*C.GtkWidget)(widget.CPointer), __cgo__label_pattern, widget_type)
 	C.free(unsafe.Pointer(__cgo__label_pattern))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 

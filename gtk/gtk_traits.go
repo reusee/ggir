@@ -548,7 +548,7 @@ gtk_accel_label_set_accel_widget().
 func (self *_TraitAccelLabel) GetAccelWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_accel_label_get_accel_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -621,7 +621,7 @@ you do not need to unref it.
 func (self *_TraitAccessible) GetWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_accessible_get_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -730,7 +730,7 @@ Retrieves the center bar widget of the bar.
 func (self *_TraitActionBar) GetCenterWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_action_bar_get_center_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -1174,7 +1174,7 @@ Returns the #GtkAppChooserWidget of this dialog.
 func (self *_TraitAppChooserDialog) GetWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_app_chooser_dialog_get_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -1414,7 +1414,7 @@ recently-focused window within this application.
 func (self *_TraitApplication) GetActiveWindow() (return__ *Window) {
 	var __cgo__return__ *C.GtkWindow
 	__cgo__return__ = C.gtk_application_get_active_window(self.CPointer)
-	return__ = NewWindowFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWindowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -1442,7 +1442,7 @@ Returns the #GtkApplicationWindow with the given ID.
 func (self *_TraitApplication) GetWindowById(id uint) (return__ *Window) {
 	var __cgo__return__ *C.GtkWindow
 	__cgo__return__ = C.gtk_application_get_window_by_id(self.CPointer, C.guint(id))
-	return__ = NewWindowFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWindowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -1746,7 +1746,7 @@ Returns the child widget contained in page number @page_num.
 func (self *_TraitAssistant) GetNthPage(page_num int) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_assistant_get_nth_page(self.CPointer, C.gint(page_num))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -1940,7 +1940,7 @@ added, so you do not need to unref it.
 func (self *_TraitBin) GetChild() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_bin_get_child(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -1960,7 +1960,7 @@ Retrieves the center widget of the box.
 func (self *_TraitBox) GetCenterWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_box_get_center_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -2358,7 +2358,7 @@ for constructing proxies, use gtk_builder_set_application().
 func (self *_TraitBuilder) GetApplication() (return__ *Application) {
 	var __cgo__return__ *C.GtkApplication
 	__cgo__return__ = C.gtk_builder_get_application(self.CPointer)
-	return__ = NewApplicationFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewApplicationFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -2553,7 +2553,7 @@ or constructed by gtk_button_new_from_stock().
 func (self *_TraitButton) GetImage() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_button_get_image(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -3058,7 +3058,7 @@ to be displayed.
 func (self *_TraitCellArea) CopyContext(context *CellAreaContext) (return__ *CellAreaContext) {
 	var __cgo__return__ *C.GtkCellAreaContext
 	__cgo__return__ = C.gtk_cell_area_copy_context(self.CPointer, (*C.GtkCellAreaContext)(context.CPointer))
-	return__ = NewCellAreaContextFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewCellAreaContextFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -3073,7 +3073,7 @@ which was used to request the size of those rows of data).
 func (self *_TraitCellArea) CreateContext() (return__ *CellAreaContext) {
 	var __cgo__return__ *C.GtkCellAreaContext
 	__cgo__return__ = C.gtk_cell_area_create_context(self.CPointer)
-	return__ = NewCellAreaContextFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewCellAreaContextFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -3136,7 +3136,7 @@ returns the full cell allocation for it inside @cell_area.
 func (self *_TraitCellArea) GetCellAtPosition(context *CellAreaContext, widget *Widget, cell_area *C.GdkRectangle, x int, y int) (alloc_area C.GdkRectangle, return__ *CellRenderer) {
 	var __cgo__return__ *C.GtkCellRenderer
 	__cgo__return__ = C.gtk_cell_area_get_cell_at_position(self.CPointer, (*C.GtkCellAreaContext)(context.CPointer), (*C.GtkWidget)(widget.CPointer), cell_area, C.gint(x), C.gint(y), &alloc_area)
-	return__ = NewCellRendererFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewCellRendererFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -3170,7 +3170,7 @@ being edited.
 func (self *_TraitCellArea) GetEditedCell() (return__ *CellRenderer) {
 	var __cgo__return__ *C.GtkCellRenderer
 	__cgo__return__ = C.gtk_cell_area_get_edited_cell(self.CPointer)
-	return__ = NewCellRendererFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewCellRendererFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -3180,7 +3180,7 @@ Retrieves the currently focused cell for @area
 func (self *_TraitCellArea) GetFocusCell() (return__ *CellRenderer) {
 	var __cgo__return__ *C.GtkCellRenderer
 	__cgo__return__ = C.gtk_cell_area_get_focus_cell(self.CPointer)
-	return__ = NewCellRendererFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewCellRendererFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -3196,7 +3196,7 @@ cell may have been a sibling.
 func (self *_TraitCellArea) GetFocusFromSibling(renderer *CellRenderer) (return__ *CellRenderer) {
 	var __cgo__return__ *C.GtkCellRenderer
 	__cgo__return__ = C.gtk_cell_area_get_focus_from_sibling(self.CPointer, (*C.GtkCellRenderer)(renderer.CPointer))
-	return__ = NewCellRendererFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewCellRendererFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -3541,7 +3541,7 @@ compute a proper allocation.
 func (self *_TraitCellAreaContext) GetArea() (return__ *CellArea) {
 	var __cgo__return__ *C.GtkCellArea
 	__cgo__return__ = C.gtk_cell_area_context_get_area(self.CPointer)
-	return__ = NewCellAreaFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewCellAreaFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -5302,7 +5302,7 @@ gtk_window_get_focus().
 func (self *_TraitContainer) GetFocusChild() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_container_get_focus_child(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -5313,7 +5313,7 @@ gtk_container_set_focus_hadjustment ().
 func (self *_TraitContainer) GetFocusHadjustment() (return__ *Adjustment) {
 	var __cgo__return__ *C.GtkAdjustment
 	__cgo__return__ = C.gtk_container_get_focus_hadjustment(self.CPointer)
-	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -5324,7 +5324,7 @@ gtk_container_set_focus_vadjustment().
 func (self *_TraitContainer) GetFocusVadjustment() (return__ *Adjustment) {
 	var __cgo__return__ *C.GtkAdjustment
 	__cgo__return__ = C.gtk_container_get_focus_vadjustment(self.CPointer)
-	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -5577,7 +5577,7 @@ func (self *_TraitDialog) AddButton(button_text string, response_id int) (return
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_dialog_add_button(self.CPointer, __cgo__button_text, C.gint(response_id))
 	C.free(unsafe.Pointer(__cgo__button_text))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -5591,7 +5591,7 @@ Returns the content area of @dialog.
 func (self *_TraitDialog) GetContentArea() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_dialog_get_content_area(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -5603,7 +5603,7 @@ headerbar is only used by the dialog if the
 func (self *_TraitDialog) GetHeaderBar() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_dialog_get_header_bar(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -5625,7 +5625,7 @@ of a dialog.
 func (self *_TraitDialog) GetWidgetForResponse(response_id int) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_dialog_get_widget_for_response(self.CPointer, C.gint(response_id))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -5759,7 +5759,7 @@ this widget.
 func (self *_TraitEntry) GetBuffer() (return__ *EntryBuffer) {
 	var __cgo__return__ *C.GtkEntryBuffer
 	__cgo__return__ = C.gtk_entry_get_buffer(self.CPointer)
-	return__ = NewEntryBufferFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewEntryBufferFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -5769,7 +5769,7 @@ Returns the auxiliary completion object currently in use by @entry.
 func (self *_TraitEntry) GetCompletion() (return__ *EntryCompletion) {
 	var __cgo__return__ *C.GtkEntryCompletion
 	__cgo__return__ = C.gtk_entry_get_completion(self.CPointer)
-	return__ = NewEntryCompletionFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewEntryCompletionFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -5794,7 +5794,7 @@ See gtk_entry_set_cursor_hadjustment().
 func (self *_TraitEntry) GetCursorHadjustment() (return__ *Adjustment) {
 	var __cgo__return__ *C.GtkAdjustment
 	__cgo__return__ = C.gtk_entry_get_cursor_hadjustment(self.CPointer)
-	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -6780,7 +6780,7 @@ Gets the entry @completion has been attached to.
 func (self *_TraitEntryCompletion) GetEntry() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_entry_completion_get_entry(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -7149,7 +7149,7 @@ gtk_expander_set_label_widget().
 func (self *_TraitExpander) GetLabelWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_expander_get_label_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -7495,7 +7495,7 @@ Gets the nth child in the @box.
 func (self *_TraitFlowBox) GetChildAtIndex(idx int) (return__ *FlowBoxChild) {
 	var __cgo__return__ *C.GtkFlowBoxChild
 	__cgo__return__ = C.gtk_flow_box_get_child_at_index(self.CPointer, C.gint(idx))
-	return__ = NewFlowBoxChildFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewFlowBoxChildFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -8057,7 +8057,7 @@ gtk_frame_set_label_widget().
 func (self *_TraitFrame) GetLabelWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_frame_get_label_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -8155,7 +8155,7 @@ cell whose upper left corner is at @left, @top.
 func (self *_TraitGrid) GetChildAt(left int, top int) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_grid_get_child_at(self.CPointer, C.gint(left), C.gint(top))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -8381,7 +8381,7 @@ gtk_header_bar_set_custom_title().
 func (self *_TraitHeaderBar) GetCustomTitle() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_header_bar_get_custom_title(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -9244,7 +9244,7 @@ gtk_icon_info_load_icon().
 func (self *_TraitIconTheme) LookupByGicon(icon *C.GIcon, size int, flags C.GtkIconLookupFlags) (return__ *IconInfo) {
 	var __cgo__return__ *C.GtkIconInfo
 	__cgo__return__ = C.gtk_icon_theme_lookup_by_gicon(self.CPointer, icon, C.gint(size), flags)
-	return__ = NewIconInfoFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewIconInfoFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -9257,7 +9257,7 @@ gtk_icon_info_load_icon().
 func (self *_TraitIconTheme) LookupByGiconForScale(icon *C.GIcon, size int, scale int, flags C.GtkIconLookupFlags) (return__ *IconInfo) {
 	var __cgo__return__ *C.GtkIconInfo
 	__cgo__return__ = C.gtk_icon_theme_lookup_by_gicon_for_scale(self.CPointer, icon, C.gint(size), C.gint(scale), flags)
-	return__ = NewIconInfoFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewIconInfoFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -9273,7 +9273,7 @@ func (self *_TraitIconTheme) LookupIcon(icon_name string, size int, flags C.GtkI
 	var __cgo__return__ *C.GtkIconInfo
 	__cgo__return__ = C.gtk_icon_theme_lookup_icon(self.CPointer, __cgo__icon_name, C.gint(size), flags)
 	C.free(unsafe.Pointer(__cgo__icon_name))
-	return__ = NewIconInfoFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewIconInfoFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -9289,7 +9289,7 @@ func (self *_TraitIconTheme) LookupIconForScale(icon_name string, size int, scal
 	var __cgo__return__ *C.GtkIconInfo
 	__cgo__return__ = C.gtk_icon_theme_lookup_icon_for_scale(self.CPointer, __cgo__icon_name, C.gint(size), C.gint(scale), flags)
 	C.free(unsafe.Pointer(__cgo__icon_name))
-	return__ = NewIconInfoFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewIconInfoFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -9439,7 +9439,7 @@ func (self *_TraitIconView) GetCursor() (path *TreePath, cell *CellRenderer, ret
 	var __cgo__return__ C.gboolean
 	__cgo__return__ = C.gtk_icon_view_get_cursor(self.CPointer, &__cgo__path, &__cgo__cell)
 	path = (*TreePath)(unsafe.Pointer(__cgo__path))
-	cell = NewCellRendererFromCPointer(unsafe.Pointer(__cgo__cell))
+	cell = NewCellRendererFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__cell).Pointer()))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -9480,7 +9480,7 @@ func (self *_TraitIconView) GetItemAtPos(x int, y int) (path *TreePath, cell *Ce
 	var __cgo__return__ C.gboolean
 	__cgo__return__ = C.gtk_icon_view_get_item_at_pos(self.CPointer, C.gint(x), C.gint(y), &__cgo__path, &__cgo__cell)
 	path = (*TreePath)(unsafe.Pointer(__cgo__path))
-	cell = NewCellRendererFromCPointer(unsafe.Pointer(__cgo__cell))
+	cell = NewCellRendererFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__cell).Pointer()))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -10217,7 +10217,7 @@ func (self *_TraitInfoBar) AddButton(button_text string, response_id int) (retur
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_info_bar_add_button(self.CPointer, __cgo__button_text, C.gint(response_id))
 	C.free(unsafe.Pointer(__cgo__button_text))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -10229,7 +10229,7 @@ Returns the action area of @info_bar.
 func (self *_TraitInfoBar) GetActionArea() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_info_bar_get_action_area(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -10239,7 +10239,7 @@ Returns the content area of @info_bar.
 func (self *_TraitInfoBar) GetContentArea() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_info_bar_get_content_area(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -10499,7 +10499,7 @@ label. See gtk_label_set_mnemonic_widget().
 func (self *_TraitLabel) GetMnemonicWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_label_get_mnemonic_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -11174,7 +11174,7 @@ for vertical scrolling.
 func (self *_TraitListBox) GetAdjustment() (return__ *Adjustment) {
 	var __cgo__return__ *C.GtkAdjustment
 	__cgo__return__ = C.gtk_list_box_get_adjustment(self.CPointer)
-	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -11184,7 +11184,7 @@ Gets the n:th child in the list (not counting headers).
 func (self *_TraitListBox) GetRowAtIndex(index_ int) (return__ *ListBoxRow) {
 	var __cgo__return__ *C.GtkListBoxRow
 	__cgo__return__ = C.gtk_list_box_get_row_at_index(self.CPointer, C.gint(index_))
-	return__ = NewListBoxRowFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewListBoxRowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -11194,7 +11194,7 @@ Gets the row at the @y position.
 func (self *_TraitListBox) GetRowAtY(y int) (return__ *ListBoxRow) {
 	var __cgo__return__ *C.GtkListBoxRow
 	__cgo__return__ = C.gtk_list_box_get_row_at_y(self.CPointer, C.gint(y))
-	return__ = NewListBoxRowFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewListBoxRowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -11204,7 +11204,7 @@ Gets the selected row.
 func (self *_TraitListBox) GetSelectedRow() (return__ *ListBoxRow) {
 	var __cgo__return__ *C.GtkListBoxRow
 	__cgo__return__ = C.gtk_list_box_get_selected_row(self.CPointer)
-	return__ = NewListBoxRowFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewListBoxRowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -11412,7 +11412,7 @@ set already, and if so to update the state of it.
 func (self *_TraitListBoxRow) GetHeader() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_list_box_row_get_header(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -11681,7 +11681,7 @@ menu. See gtk_menu_set_accel_group().
 func (self *_TraitMenu) GetAccelGroup() (return__ *AccelGroup) {
 	var __cgo__return__ *C.GtkAccelGroup
 	__cgo__return__ = C.gtk_menu_get_accel_group(self.CPointer)
-	return__ = NewAccelGroupFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewAccelGroupFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -11702,7 +11702,7 @@ Returns the selected menu item from the menu.  This is used by the
 func (self *_TraitMenu) GetActive() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_menu_get_active(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -11712,7 +11712,7 @@ Returns the #GtkWidget that the menu is attached to.
 func (self *_TraitMenu) GetAttachWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_menu_get_attach_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -11954,7 +11954,7 @@ Returns the parent #GtkWidget to use to line up with menu.
 func (self *_TraitMenuButton) GetAlignWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_menu_button_get_align_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -11982,7 +11982,7 @@ returns %NULL.
 func (self *_TraitMenuButton) GetPopover() (return__ *Popover) {
 	var __cgo__return__ *C.GtkPopover
 	__cgo__return__ = C.gtk_menu_button_get_popover(self.CPointer)
-	return__ = NewPopoverFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewPopoverFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -11994,7 +11994,7 @@ returns %NULL.
 func (self *_TraitMenuButton) GetPopup() (return__ *Menu) {
 	var __cgo__return__ *C.GtkMenu
 	__cgo__return__ = C.gtk_menu_button_get_popup(self.CPointer)
-	return__ = NewMenuFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewMenuFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -12152,7 +12152,7 @@ See gtk_menu_item_set_submenu().
 func (self *_TraitMenuItem) GetSubmenu() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_menu_item_get_submenu(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -12370,7 +12370,7 @@ from which it was opened up.
 func (self *_TraitMenuShell) GetParentShell() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_menu_shell_get_parent_shell(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -12380,7 +12380,7 @@ Gets the currently selected item.
 func (self *_TraitMenuShell) GetSelectedItem() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_menu_shell_get_selected_item(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -12479,7 +12479,7 @@ Gets the #GtkMenu associated with #GtkMenuToolButton.
 func (self *_TraitMenuToolButton) GetMenu() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_menu_tool_button_get_menu(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -12534,7 +12534,7 @@ function in the parent #GtkDialog.
 func (self *_TraitMessageDialog) GetMessageArea() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_message_dialog_get_message_area(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -12603,7 +12603,7 @@ Gets the transient parent used by the #GtkMountOperation
 func (self *_TraitMountOperation) GetParent() (return__ *Window) {
 	var __cgo__return__ *C.GtkWindow
 	__cgo__return__ = C.gtk_mount_operation_get_parent(self.CPointer)
-	return__ = NewWindowFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWindowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -12673,7 +12673,7 @@ Gets one of the action widgets. See gtk_notebook_set_action_widget().
 func (self *_TraitNotebook) GetActionWidget(pack_type C.GtkPackType) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_notebook_get_action_widget(self.CPointer, pack_type)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -12703,7 +12703,7 @@ Retrieves the menu label widget of the page containing @child.
 func (self *_TraitNotebook) GetMenuLabel(child *Widget) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_notebook_get_menu_label(self.CPointer, (*C.GtkWidget)(child.CPointer))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -12734,7 +12734,7 @@ Returns the child widget contained in page number @page_num.
 func (self *_TraitNotebook) GetNthPage(page_num int) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_notebook_get_nth_page(self.CPointer, C.gint(page_num))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -12791,7 +12791,7 @@ if no tab label has specifically been set for @child.
 func (self *_TraitNotebook) GetTabLabel(child *Widget) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_notebook_get_tab_label(self.CPointer, (*C.GtkWidget)(child.CPointer))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -13175,7 +13175,7 @@ or %NULL if there’s none.
 func (self *_TraitNumerableIcon) GetStyleContext() (return__ *StyleContext) {
 	var __cgo__return__ *C.GtkStyleContext
 	__cgo__return__ = C.gtk_numerable_icon_get_style_context(self.CPointer)
-	return__ = NewStyleContextFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewStyleContextFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -13305,7 +13305,7 @@ Copies a #GtkPageSetup.
 func (self *_TraitPageSetup) Copy() (return__ *PageSetup) {
 	var __cgo__return__ *C.GtkPageSetup
 	__cgo__return__ = C.gtk_page_setup_copy(self.CPointer)
-	return__ = NewPageSetupFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewPageSetupFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -13570,7 +13570,7 @@ Obtains the first child of the paned widget.
 func (self *_TraitPaned) GetChild1() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_paned_get_child1(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -13580,7 +13580,7 @@ Obtains the second child of the paned widget.
 func (self *_TraitPaned) GetChild2() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_paned_get_child2(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -13943,7 +13943,7 @@ Returns the widget @popover is currently attached to
 func (self *_TraitPopover) GetRelativeTo() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_popover_get_relative_to(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -14085,7 +14085,7 @@ dimensions of the #GtkPrintContext.
 func (self *_TraitPrintContext) GetPageSetup() (return__ *PageSetup) {
 	var __cgo__return__ *C.GtkPageSetup
 	__cgo__return__ = C.gtk_print_context_get_page_setup(self.CPointer)
-	return__ = NewPageSetupFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewPageSetupFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -14156,7 +14156,7 @@ gtk_print_operation_set_default_page_setup().
 func (self *_TraitPrintOperation) GetDefaultPageSetup() (return__ *PageSetup) {
 	var __cgo__return__ *C.GtkPageSetup
 	__cgo__return__ = C.gtk_print_operation_get_default_page_setup(self.CPointer)
-	return__ = NewPageSetupFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewPageSetupFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -14223,7 +14223,7 @@ gtk_print_operation_run() have been called.
 func (self *_TraitPrintOperation) GetPrintSettings() (return__ *PrintSettings) {
 	var __cgo__return__ *C.GtkPrintSettings
 	__cgo__return__ = C.gtk_print_operation_get_print_settings(self.CPointer)
-	return__ = NewPrintSettingsFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewPrintSettingsFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -14570,7 +14570,7 @@ Copies a #GtkPrintSettings object.
 func (self *_TraitPrintSettings) Copy() (return__ *PrintSettings) {
 	var __cgo__return__ *C.GtkPrintSettings
 	__cgo__return__ = C.gtk_print_settings_copy(self.CPointer)
-	return__ = NewPrintSettingsFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewPrintSettingsFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -15570,7 +15570,7 @@ be unreferenced.
 func (self *_TraitRange) GetAdjustment() (return__ *Adjustment) {
 	var __cgo__return__ *C.GtkAdjustment
 	__cgo__return__ = C.gtk_range_get_adjustment(self.CPointer)
-	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -16438,7 +16438,7 @@ See gtk_range_get_adjustment() for details.
 func (self *_TraitScaleButton) GetAdjustment() (return__ *Adjustment) {
 	var __cgo__return__ *C.GtkAdjustment
 	__cgo__return__ = C.gtk_scale_button_get_adjustment(self.CPointer)
-	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -16448,7 +16448,7 @@ Retrieves the minus button of the #GtkScaleButton.
 func (self *_TraitScaleButton) GetMinusButton() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_scale_button_get_minus_button(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -16458,7 +16458,7 @@ Retrieves the plus button of the #GtkScaleButton.
 func (self *_TraitScaleButton) GetPlusButton() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_scale_button_get_plus_button(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -16468,7 +16468,7 @@ Retrieves the popup of the #GtkScaleButton.
 func (self *_TraitScaleButton) GetPopup() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_scale_button_get_popup(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -16538,7 +16538,7 @@ functionality.
 func (self *_TraitScrolledWindow) GetHadjustment() (return__ *Adjustment) {
 	var __cgo__return__ *C.GtkAdjustment
 	__cgo__return__ = C.gtk_scrolled_window_get_hadjustment(self.CPointer)
-	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -16548,7 +16548,7 @@ Returns the horizontal scrollbar of @scrolled_window.
 func (self *_TraitScrolledWindow) GetHscrollbar() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_scrolled_window_get_hscrollbar(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -16616,7 +16616,7 @@ vertical scrollbar to the child widget’s vertical scroll functionality.
 func (self *_TraitScrolledWindow) GetVadjustment() (return__ *Adjustment) {
 	var __cgo__return__ *C.GtkAdjustment
 	__cgo__return__ = C.gtk_scrolled_window_get_vadjustment(self.CPointer)
-	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -16626,7 +16626,7 @@ Returns the vertical scrollbar of @scrolled_window.
 func (self *_TraitScrolledWindow) GetVscrollbar() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_scrolled_window_get_vscrollbar(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -17063,7 +17063,7 @@ Get the adjustment associated with a #GtkSpinButton
 func (self *_TraitSpinButton) GetAdjustment() (return__ *Adjustment) {
 	var __cgo__return__ *C.GtkAdjustment
 	__cgo__return__ = C.gtk_spin_button_get_adjustment(self.CPointer)
-	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewAdjustmentFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -17335,7 +17335,7 @@ func (self *_TraitStack) GetChildByName(name string) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_stack_get_child_by_name(self.CPointer, __cgo__name)
 	C.free(unsafe.Pointer(__cgo__name))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -17388,7 +17388,7 @@ there are no visible children.
 func (self *_TraitStack) GetVisibleChild() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_stack_get_visible_child(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -17500,7 +17500,7 @@ See gtk_stack_switcher_set_stack().
 func (self *_TraitStackSwitcher) GetStack() (return__ *Stack) {
 	var __cgo__return__ *C.GtkStack
 	__cgo__return__ = C.gtk_stack_switcher_get_stack(self.CPointer)
-	return__ = NewStackFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewStackFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -17856,7 +17856,7 @@ Retrieves the box containing the label widget.
 func (self *_TraitStatusbar) GetMessageArea() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_statusbar_get_message_area(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -18085,7 +18085,7 @@ See that function for details.
 func (self *_TraitStyleContext) GetParent() (return__ *StyleContext) {
 	var __cgo__return__ *C.GtkStyleContext
 	__cgo__return__ = C.gtk_style_context_get_parent(self.CPointer)
-	return__ = NewStyleContextFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewStyleContextFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -18640,7 +18640,7 @@ the caller of gtk_text_buffer_create_child_anchor().
 func (self *_TraitTextBuffer) CreateChildAnchor(iter *TextIter) (return__ *TextChildAnchor) {
 	var __cgo__return__ *C.GtkTextChildAnchor
 	__cgo__return__ = C.gtk_text_buffer_create_child_anchor(self.CPointer, (*C.GtkTextIter)(unsafe.Pointer(iter)))
-	return__ = NewTextChildAnchorFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewTextChildAnchorFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -18672,7 +18672,7 @@ func (self *_TraitTextBuffer) CreateMark(mark_name string, where *TextIter, left
 	var __cgo__return__ *C.GtkTextMark
 	__cgo__return__ = C.gtk_text_buffer_create_mark(self.CPointer, __cgo__mark_name, (*C.GtkTextIter)(unsafe.Pointer(where)), __cgo__left_gravity)
 	C.free(unsafe.Pointer(__cgo__mark_name))
-	return__ = NewTextMarkFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewTextMarkFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -18919,7 +18919,7 @@ typing.
 func (self *_TraitTextBuffer) GetInsert() (return__ *TextMark) {
 	var __cgo__return__ *C.GtkTextMark
 	__cgo__return__ = C.gtk_text_buffer_get_insert(self.CPointer)
-	return__ = NewTextMarkFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewTextMarkFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -19001,7 +19001,7 @@ func (self *_TraitTextBuffer) GetMark(name string) (return__ *TextMark) {
 	var __cgo__return__ *C.GtkTextMark
 	__cgo__return__ = C.gtk_text_buffer_get_mark(self.CPointer, __cgo__name)
 	C.free(unsafe.Pointer(__cgo__name))
-	return__ = NewTextMarkFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewTextMarkFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -19048,7 +19048,7 @@ selection and what its bounds are.
 func (self *_TraitTextBuffer) GetSelectionBound() (return__ *TextMark) {
 	var __cgo__return__ *C.GtkTextMark
 	__cgo__return__ = C.gtk_text_buffer_get_selection_bound(self.CPointer)
-	return__ = NewTextMarkFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewTextMarkFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -19118,7 +19118,7 @@ Get the #GtkTextTagTable associated with this buffer.
 func (self *_TraitTextBuffer) GetTagTable() (return__ *TextTagTable) {
 	var __cgo__return__ *C.GtkTextTagTable
 	__cgo__return__ = C.gtk_text_buffer_get_tag_table(self.CPointer)
-	return__ = NewTextTagTableFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewTextTagTableFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -19550,7 +19550,7 @@ or %NULL if the mark is deleted.
 func (self *_TraitTextMark) GetBuffer() (return__ *TextBuffer) {
 	var __cgo__return__ *C.GtkTextBuffer
 	__cgo__return__ = C.gtk_text_mark_get_buffer(self.CPointer)
-	return__ = NewTextBufferFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewTextBufferFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -19695,7 +19695,7 @@ func (self *_TraitTextTagTable) Lookup(name string) (return__ *TextTag) {
 	var __cgo__return__ *C.GtkTextTag
 	__cgo__return__ = C.gtk_text_tag_table_lookup(self.CPointer, __cgo__name)
 	C.free(unsafe.Pointer(__cgo__name))
-	return__ = NewTextTagFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewTextTagFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -19851,7 +19851,7 @@ of this function won’t own a new reference.
 func (self *_TraitTextView) GetBuffer() (return__ *TextBuffer) {
 	var __cgo__return__ *C.GtkTextBuffer
 	__cgo__return__ = C.gtk_text_view_get_buffer(self.CPointer)
-	return__ = NewTextBufferFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewTextBufferFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -20818,7 +20818,7 @@ See gtk_tool_button_set_icon_widget().
 func (self *_TraitToolButton) GetIconWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_tool_button_get_icon_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -20841,7 +20841,7 @@ See gtk_tool_button_set_label_widget().
 func (self *_TraitToolButton) GetLabelWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_tool_button_get_label_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -21008,7 +21008,7 @@ func (self *_TraitToolItem) GetProxyMenuItem(menu_item_id string) (return__ *Wid
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_tool_item_get_proxy_menu_item(self.CPointer, __cgo__menu_item_id)
 	C.free(unsafe.Pointer(__cgo__menu_item_id))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -21053,7 +21053,7 @@ and use the size group for labels.
 func (self *_TraitToolItem) GetTextSizeGroup() (return__ *SizeGroup) {
 	var __cgo__return__ *C.GtkSizeGroup
 	__cgo__return__ = C.gtk_tool_item_get_text_size_group(self.CPointer)
-	return__ = NewSizeGroupFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewSizeGroupFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -21131,7 +21131,7 @@ that is going to appear in the overflow menu.
 func (self *_TraitToolItem) RetrieveProxyMenuItem() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_tool_item_retrieve_proxy_menu_item(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -21284,7 +21284,7 @@ Gets the tool item at position (x, y).
 func (self *_TraitToolItemGroup) GetDropItem(x int, y int) (return__ *ToolItem) {
 	var __cgo__return__ *C.GtkToolItem
 	__cgo__return__ = C.gtk_tool_item_group_get_drop_item(self.CPointer, C.gint(x), C.gint(y))
-	return__ = NewToolItemFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewToolItemFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -21331,7 +21331,7 @@ See gtk_tool_item_group_set_label_widget().
 func (self *_TraitToolItemGroup) GetLabelWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_tool_item_group_get_label_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -21351,7 +21351,7 @@ Gets the tool item at @index in group.
 func (self *_TraitToolItemGroup) GetNthItem(index uint) (return__ *ToolItem) {
 	var __cgo__return__ *C.GtkToolItem
 	__cgo__return__ = C.gtk_tool_item_group_get_nth_item(self.CPointer, C.guint(index))
-	return__ = NewToolItemFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewToolItemFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -21440,7 +21440,7 @@ This could be a #GtkToolItem or a #GtkToolItemGroup.
 func (self *_TraitToolPalette) GetDragItem(selection *SelectionData) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_tool_palette_get_drag_item(self.CPointer, (*C.GtkSelectionData)(unsafe.Pointer(selection)))
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -21450,7 +21450,7 @@ Gets the group at position (x, y).
 func (self *_TraitToolPalette) GetDropGroup(x int, y int) (return__ *ToolItemGroup) {
 	var __cgo__return__ *C.GtkToolItemGroup
 	__cgo__return__ = C.gtk_tool_palette_get_drop_group(self.CPointer, C.gint(x), C.gint(y))
-	return__ = NewToolItemGroupFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewToolItemGroupFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -21461,7 +21461,7 @@ See gtk_tool_palette_get_drop_group().
 func (self *_TraitToolPalette) GetDropItem(x int, y int) (return__ *ToolItem) {
 	var __cgo__return__ *C.GtkToolItem
 	__cgo__return__ = C.gtk_tool_palette_get_drop_item(self.CPointer, C.gint(x), C.gint(y))
-	return__ = NewToolItemFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewToolItemFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -21652,7 +21652,7 @@ toolbar does not contain an @n'th item.
 func (self *_TraitToolbar) GetNthItem(n int) (return__ *ToolItem) {
 	var __cgo__return__ *C.GtkToolItem
 	__cgo__return__ = C.gtk_toolbar_get_nth_item(self.CPointer, C.gint(n))
-	return__ = NewToolItemFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewToolItemFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -22154,7 +22154,7 @@ Returns the tree view associated with @selection.
 func (self *_TraitTreeSelection) GetTreeView() (return__ *TreeView) {
 	var __cgo__return__ *C.GtkTreeView
 	__cgo__return__ = C.gtk_tree_selection_get_tree_view(self.CPointer)
-	return__ = NewTreeViewFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewTreeViewFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -22742,7 +22742,7 @@ Gets the #GtkTreeViewColumn at the given position in the #tree_view.
 func (self *_TraitTreeView) GetColumn(n int) (return__ *TreeViewColumn) {
 	var __cgo__return__ *C.GtkTreeViewColumn
 	__cgo__return__ = C.gtk_tree_view_get_column(self.CPointer, C.gint(n))
-	return__ = NewTreeViewColumnFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewTreeViewColumnFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -22768,7 +22768,7 @@ func (self *_TraitTreeView) GetCursor() (path *TreePath, focus_column *TreeViewC
 	var __cgo__focus_column *C.GtkTreeViewColumn
 	C.gtk_tree_view_get_cursor(self.CPointer, &__cgo__path, &__cgo__focus_column)
 	path = (*TreePath)(unsafe.Pointer(__cgo__path))
-	focus_column = NewTreeViewColumnFromCPointer(unsafe.Pointer(__cgo__focus_column))
+	focus_column = NewTreeViewColumnFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__focus_column).Pointer()))
 	return
 }
 
@@ -22825,7 +22825,7 @@ This column has the expander arrow drawn next to it.
 func (self *_TraitTreeView) GetExpanderColumn() (return__ *TreeViewColumn) {
 	var __cgo__return__ *C.GtkTreeViewColumn
 	__cgo__return__ = C.gtk_tree_view_get_expander_column(self.CPointer)
-	return__ = NewTreeViewColumnFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewTreeViewColumnFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -22946,7 +22946,7 @@ func (self *_TraitTreeView) GetPathAtPos(x int, y int) (path *TreePath, column *
 	var __cgo__return__ C.gboolean
 	__cgo__return__ = C.gtk_tree_view_get_path_at_pos(self.CPointer, C.gint(x), C.gint(y), &__cgo__path, &__cgo__column, &__cgo__cell_x, &__cgo__cell_y)
 	path = (*TreePath)(unsafe.Pointer(__cgo__path))
-	column = NewTreeViewColumnFromCPointer(unsafe.Pointer(__cgo__column))
+	column = NewTreeViewColumnFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__column).Pointer()))
 	cell_x = int(__cgo__cell_x)
 	cell_y = int(__cgo__cell_y)
 	return__ = __cgo__return__ == C.gboolean(1)
@@ -23012,7 +23012,7 @@ will be returned.
 func (self *_TraitTreeView) GetSearchEntry() (return__ *Entry) {
 	var __cgo__return__ *C.GtkEntry
 	__cgo__return__ = C.gtk_tree_view_get_search_entry(self.CPointer)
-	return__ = NewEntryFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewEntryFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -23038,7 +23038,7 @@ Gets the #GtkTreeSelection associated with @tree_view.
 func (self *_TraitTreeView) GetSelection() (return__ *TreeSelection) {
 	var __cgo__return__ *C.GtkTreeSelection
 	__cgo__return__ = C.gtk_tree_view_get_selection(self.CPointer)
-	return__ = NewTreeSelectionFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewTreeSelectionFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -23155,7 +23155,7 @@ func (self *_TraitTreeView) IsBlankAtPos(x int, y int) (path *TreePath, column *
 	var __cgo__return__ C.gboolean
 	__cgo__return__ = C.gtk_tree_view_is_blank_at_pos(self.CPointer, C.gint(x), C.gint(y), &__cgo__path, &__cgo__column, &__cgo__cell_x, &__cgo__cell_y)
 	path = (*TreePath)(unsafe.Pointer(__cgo__path))
-	column = NewTreeViewColumnFromCPointer(unsafe.Pointer(__cgo__column))
+	column = NewTreeViewColumnFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__column).Pointer()))
 	cell_x = int(__cgo__cell_x)
 	cell_y = int(__cgo__cell_y)
 	return__ = __cgo__return__ == C.gboolean(1)
@@ -23825,7 +23825,7 @@ Returns the button used in the treeview column header
 func (self *_TraitTreeViewColumn) GetButton() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_tree_view_column_get_button(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -23968,7 +23968,7 @@ returned.
 func (self *_TraitTreeViewColumn) GetTreeView() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_tree_view_column_get_tree_view(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -23989,7 +23989,7 @@ If a custom widget has not been set then %NULL is returned.
 func (self *_TraitTreeViewColumn) GetWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_tree_view_column_get_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -25110,7 +25110,7 @@ considers @widget to be an ancestor of itself.
 func (self *_TraitWidget) GetAncestor(widget_type C.GType) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_widget_get_ancestor(self.CPointer, widget_type)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -25175,7 +25175,7 @@ window.
 func (self *_TraitWidget) GetClipboard(selection C.GdkAtom) (return__ *Clipboard) {
 	var __cgo__return__ *C.GtkClipboard
 	__cgo__return__ = C.gtk_widget_get_clipboard(self.CPointer, selection)
-	return__ = NewClipboardFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewClipboardFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -25474,7 +25474,7 @@ Returns the parent container of @widget.
 func (self *_TraitWidget) GetParent() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_widget_get_parent(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -25719,7 +25719,7 @@ to a particular #GdkScreen.
 func (self *_TraitWidget) GetSettings() (return__ *Settings) {
 	var __cgo__return__ *C.GtkSettings
 	__cgo__return__ = C.gtk_widget_get_settings(self.CPointer)
-	return__ = NewSettingsFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewSettingsFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -25762,7 +25762,7 @@ Returns the style context associated to @widget.
 func (self *_TraitWidget) GetStyleContext() (return__ *StyleContext) {
 	var __cgo__return__ *C.GtkStyleContext
 	__cgo__return__ = C.gtk_widget_get_style_context(self.CPointer)
-	return__ = NewStyleContextFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewStyleContextFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -25823,7 +25823,7 @@ using gtk_widget_set_tooltip_window().
 func (self *_TraitWidget) GetTooltipWindow() (return__ *Window) {
 	var __cgo__return__ *C.GtkWindow
 	__cgo__return__ = C.gtk_widget_get_tooltip_window(self.CPointer)
-	return__ = NewWindowFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWindowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -25856,7 +25856,7 @@ on the result.
 func (self *_TraitWidget) GetToplevel() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_widget_get_toplevel(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -27781,7 +27781,7 @@ Gets the #GtkApplication associated with the window (if any).
 func (self *_TraitWindow) GetApplication() (return__ *Application) {
 	var __cgo__return__ *C.GtkApplication
 	__cgo__return__ = C.gtk_window_get_application(self.CPointer)
-	return__ = NewApplicationFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewApplicationFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -27792,7 +27792,7 @@ gtk_window_set_attached_to().
 func (self *_TraitWindow) GetAttachedTo() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_window_get_attached_to(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -27829,7 +27829,7 @@ for more details.
 func (self *_TraitWindow) GetDefaultWidget() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_window_get_default_widget(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -27865,7 +27865,7 @@ not be %TRUE for the widget.
 func (self *_TraitWindow) GetFocus() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_window_get_focus(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -27905,7 +27905,7 @@ window group.
 func (self *_TraitWindow) GetGroup() (return__ *WindowGroup) {
 	var __cgo__return__ *C.GtkWindowGroup
 	__cgo__return__ = C.gtk_window_get_group(self.CPointer)
-	return__ = NewWindowGroupFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWindowGroupFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -28172,7 +28172,7 @@ gtk_window_set_transient_for().
 func (self *_TraitWindow) GetTransientFor() (return__ *Window) {
 	var __cgo__return__ *C.GtkWindow
 	__cgo__return__ = C.gtk_window_get_transient_for(self.CPointer)
-	return__ = NewWindowFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWindowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -29290,7 +29290,7 @@ Returns the current grab widget for @device, or %NULL if none.
 func (self *_TraitWindowGroup) GetCurrentDeviceGrab(device *C.GdkDevice) (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_window_group_get_current_device_grab(self.CPointer, device)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
@@ -29301,7 +29301,7 @@ see gtk_grab_add().
 func (self *_TraitWindowGroup) GetCurrentGrab() (return__ *Widget) {
 	var __cgo__return__ *C.GtkWidget
 	__cgo__return__ = C.gtk_window_group_get_current_grab(self.CPointer)
-	return__ = NewWidgetFromCPointer(unsafe.Pointer(__cgo__return__))
+	return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	return
 }
 
