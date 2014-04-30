@@ -16,6 +16,8 @@ type Generator struct {
 	FunctionRenames        []*Rename `xml:"function-rename>rename"`
 	ConstantIgnorePatterns []string  `xml:"constant-ignore-patterns>entry"`
 	TypesIgnorePatterns    []string  `xml:"type-ignore-patterns>entry"`
+	ParamDirectionEntries  []*Entry  `xml:"param-direction>entry"`
+	ParamDirections        map[string]string
 }
 
 type Rename struct {
@@ -23,14 +25,26 @@ type Rename struct {
 	To   string `xml:",chardata"`
 }
 
+type Entry struct {
+	Text string `xml:",chardata"`
+	Spec string `xml:"spec,attr"`
+}
+
 func Gen(outputDir, buildFilePath string) {
 	// read build file
 	buildFileContent, err := ioutil.ReadFile(buildFilePath)
 	checkError(err)
-	generator := new(Generator)
+	generator := &Generator{
+		ParamDirections: make(map[string]string),
+	}
 	err = xml.Unmarshal(buildFileContent, generator)
 	checkError(err)
 	generator.outputDir = outputDir
+
+	// prepares
+	for _, entry := range generator.ParamDirectionEntries {
+		generator.ParamDirections[entry.Spec] = entry.Text
+	}
 
 	// read gir file contents
 	contents, err := ioutil.ReadFile(generator.GirPath)

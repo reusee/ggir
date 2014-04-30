@@ -211,9 +211,11 @@ func (self *Param) MapType() (ret string) {
 		"false GoType C.gpointer TypeName gpointer":
 		ret = "unsafe.Pointer"
 
-	// do not map pointer to basic types FIXME patch xml
+	// do not map pointer to basic types
 	case "false GoType *C.gunichar2 TypeName guint16",
 		"false GoType **C.char TypeName utf8",
+		"true GoType ***C.char ElemType **C.char ElemName utf8 HasLenParam",
+		"true GoType ***C.gchar ElemType **C.gchar ElemName utf8 HasLenParam",
 		"false GoType ***C.gchar TypeName utf8",
 		"false GoType *C.gpointer TypeName gpointer",
 		"false GoType *C.gsize TypeName gsize",
@@ -230,6 +232,7 @@ func (self *Param) MapType() (ret string) {
 		"false GoType *C.guchar TypeName guint8",
 		"true GoType *C.gchar ElemName guint8", // no len param nor zero-terminated
 		"true GoType *C.guint ElemType *C.guint ElemName guint",
+		"false GoType *C.int TypeName gint",
 		"false GoType **C.gchar TypeName utf8":
 		ret = self.GoType
 
