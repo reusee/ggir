@@ -43,10 +43,13 @@ func (self *Generator) GenClassTypes(ns *Namespace) {
 			continue
 		}
 
-		w(output, "type %s struct {\n", c.Name)
+		w(output, "type %s struct {\n", typeName)
 		currentClass := c
+		constructExpr := ""
 		for currentClass != nil {
 			w(output, "*_Trait%s\n", currentClass.Name)
+			constructExpr += fs("&_Trait%s{(*%s)(p)},\n",
+				currentClass.Name, cTypeToGoType(currentClass.CType))
 			parent := currentClass.Parent
 			currentClass = classes[parent]
 			if parent != "" && currentClass == nil {
@@ -54,7 +57,13 @@ func (self *Generator) GenClassTypes(ns *Namespace) {
 			}
 		}
 		w(output, "CPointer unsafe.Pointer\n")
-		w(output, "}\n\n")
+		w(output, "}\n")
+		w(output, `func New%sFromCPointer(p unsafe.Pointer) *%s {
+			return &%s{
+				%sp,
+			}
+		}
+		`, typeName, typeName, typeName, constructExpr)
 
 		// type mapping
 		TypeMapping["*"+goType] = "*" + typeName
@@ -62,7 +71,8 @@ func (self *Generator) GenClassTypes(ns *Namespace) {
 			param.CgoParam = fs("(*%s)(%s.CPointer)", goType, param.GoName)
 		}
 		OutParamMapping[fs("*%s -> *%s", goType, typeName)] = func(param *Param) {
-			param.CgoAfterStmt += fs("_ = __cgo__%s", param.GoName) //FIXME
+			param.CgoAfterStmt += fs("%s = New%sFromCPointer(unsafe.Pointer(__cgo__%s))",
+				param.GoName, typeName, param.GoName)
 		}
 	}
 
