@@ -62,4 +62,7 @@ func Gen(outputDir, buildFilePath string) {
 
 	// structs
 	generator.GenStructs(ns)
+
+	// class traits
+	generator.GenTraits(ns)
 }

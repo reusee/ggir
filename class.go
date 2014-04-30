@@ -19,26 +19,42 @@ func (self *Generator) GenClassTypes(ns *Namespace) {
 	w(output, "import \"C\"\n")
 	w(output, "import \"unsafe\"\n")
 
+	// generate class map
+	classes := make(map[string]*Class)
 	for _, c := range ns.Classes {
-		parent := c.Parent
+		classes[c.Name] = c
+	}
+
+	for _, c := range ns.Classes {
 		goType := cTypeToGoType(c.CType)
 		typeName := c.Name
 
 		// skip
+		skip := false
 		for _, t := range self.TypesIgnorePatterns {
 			matched, err := regexp.MatchString(t, typeName)
 			checkError(err)
 			if matched {
-				goto next
+				skip = true
+				break
 			}
 		}
-
-		// declaration
-		if parent != "" {
-			w(output, "type %s struct { %s };", typeName, c.Parent)
-		} else {
-			w(output, "type %s struct { CPointer unsafe.Pointer };", typeName)
+		if skip {
+			continue
 		}
+
+		w(output, "type %s struct {\n", c.Name)
+		currentClass := c
+		for currentClass != nil {
+			w(output, "*_Trait%s\n", currentClass.Name)
+			parent := currentClass.Parent
+			currentClass = classes[parent]
+			if parent != "" && currentClass == nil {
+				p("==fixme== external class %s\n", parent)
+			}
+		}
+		w(output, "CPointer unsafe.Pointer\n")
+		w(output, "}\n\n")
 
 		// type mapping
 		TypeMapping["*"+goType] = "*" + typeName
@@ -48,7 +64,6 @@ func (self *Generator) GenClassTypes(ns *Namespace) {
 		OutParamMapping[fs("*%s -> *%s", goType, typeName)] = func(param *Param) {
 			param.CgoAfterStmt += fs("_ = __cgo__%s", param.GoName) //FIXME
 		}
-	next:
 	}
 
 	f, err := os.Create(filepath.Join(self.outputDir, self.PackageName+"_class_types.go"))
