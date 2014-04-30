@@ -263,6 +263,7 @@ type Param struct {
 	CgoParam          string
 	CgoBeforeStmt     string
 	CgoAfterStmt      string
+	Function          *Function
 }
 
 type Varargs struct {

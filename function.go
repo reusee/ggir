@@ -93,6 +93,7 @@ func (self *Generator) GenFunction(fn *Function, output io.Writer, receiver *Cla
 
 	// collect params and return info
 	for _, param := range fn.Params {
+		param.Function = fn
 		param.CollectInfo(false, fn)
 
 		//FIXME skip functions with long double param
@@ -106,6 +107,7 @@ func (self *Generator) GenFunction(fn *Function, output io.Writer, receiver *Cla
 			typeStat[param.TypeSpec] = append(typeStat[param.TypeSpec], param.Name+" @ "+fn.Name)
 		}
 	}
+	fn.Return.Function = fn
 	fn.Return.CollectInfo(true, fn)
 	if !fn.Return.IsVoid {
 		if fn.Return.MappedType == "" { // add rules for return type

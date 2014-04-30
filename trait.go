@@ -25,6 +25,9 @@ func (self *Generator) GenTraits(ns *Namespace) {
 	for _, c := range ns.Classes {
 		goType := cTypeToGoType(c.CType)
 		w(output, "type _Trait%s struct { CPointer *%s }\n", c.Name, goType)
+		w(output, "type Is%s interface { Get%sPointer() *%s }\n", c.Name, c.Name, goType)
+		w(output, "func (self *_Trait%s) Get%sPointer() *%s {\n return self.CPointer\n }\n",
+			c.Name, c.Name, goType)
 		for _, m := range c.Methods {
 			self.GenFunction(m, output, c)
 		}

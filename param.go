@@ -70,12 +70,15 @@ func (self *Param) CollectInfo(isReturn bool, fn *Function) {
 	}
 
 	// type spec, for type mapping
-	spec := fmt.Sprintf("%v", self.IsArray)
+	spec := fs("%s", self.Direction)
 	if self.GoType != "" {
 		spec += " GoType " + self.GoType
 	}
 	if self.CTypeName != "" {
 		spec += " TypeName " + self.CTypeName
+	}
+	if self.IsArray {
+		spec += " IsArray"
 	}
 	if self.ElementGoType != "" {
 		spec += " ElemType " + self.ElementGoType
@@ -107,7 +110,7 @@ var TypeMapping = make(map[string]string)
 func (self *Param) MapType() (ret string) {
 	// query type mapping dict
 	var ok bool
-	if ret, ok = TypeMapping[self.GoType]; ok {
+	if ret, ok = TypeMapping[self.TypeSpec]; ok {
 		return
 	}
 
@@ -128,128 +131,100 @@ func (self *Param) MapType() (ret string) {
 	switch self.TypeSpec {
 
 	// bool
-	case "false GoType C.gboolean TypeName gboolean":
+	case "in GoType C.gboolean TypeName gboolean",
+		"out GoType C.gboolean TypeName gboolean":
 		ret = "bool"
 
 	// numeric
-	case "false GoType C.int TypeName gint",
-		"false GoType C.gint TypeName gint":
+	case "in GoType C.gint TypeName gint",
+		"in GoType C.int TypeName gint",
+		"out GoType C.int TypeName gint",
+		"out GoType C.gint TypeName gint":
 		ret = "int"
-	case "false GoType C.guint TypeName guint",
-		"false GoType C.uint TypeName guint":
+	case "in GoType C.guint TypeName guint",
+		"out GoType C.guint TypeName guint":
 		ret = "uint"
-	case "false GoType C.gint8 TypeName gint8":
-		ret = "int8"
-	case "false GoType C.uint8_t TypeName guint8",
-		"false GoType C.guint8 TypeName guint8":
-		ret = "uint8"
-	case "false GoType C.uint16_t TypeName guint16",
-		"false GoType C.guint16 TypeName guint16":
+	case "out GoType C.gunichar TypeName gunichar",
+		"in GoType C.gunichar TypeName gunichar":
+		ret = "rune"
+	case "out GoType C.guint16 TypeName guint16":
 		ret = "uint16"
-	case "false GoType C.gint32 TypeName gint32":
-		ret = "int32"
-	case "false GoType C.guint32 TypeName guint32":
+	case "in GoType C.guint32 TypeName guint32",
+		"out GoType C.guint32 TypeName guint32":
 		ret = "uint32"
-	case "false GoType C.goffset TypeName gint64",
-		"false GoType C.gsize TypeName gsize",
-		"false GoType C.glong TypeName glong",
-		"false GoType C.gint64 TypeName gint64",
-		"false GoType C.gssize TypeName gssize":
+	case "in GoType C.glong TypeName glong",
+		"in GoType C.gsize TypeName gsize",
+		"in GoType C.gssize TypeName gssize",
+		"out GoType C.gsize TypeName gsize":
 		ret = "int64"
-	case "false GoType C.guint64 TypeName guint64",
-		"false GoType C.gulong TypeName gulong",
-		"false GoType C.ulong TypeName gulong":
-		ret = "uint64"
-	case "false GoType C.gfloat TypeName gfloat":
+	case "in GoType C.gfloat TypeName gfloat",
+		"out GoType C.gfloat TypeName gfloat":
 		ret = "float32"
-	case "false GoType C.double TypeName gdouble",
-		"false GoType C.gdouble TypeName gdouble",
-		"false GoType C.double TypeName long double":
+	case "in GoType C.gdouble TypeName gdouble",
+		"in GoType C.double TypeName gdouble",
+		"out GoType C.double TypeName gdouble",
+		"out GoType C.gdouble TypeName gdouble":
 		ret = "float64"
 
-	// numeric slice, must be array to get length
-	case "true GoType *C.guint ElemType C.guint ElemName guint HasLenParam":
-		ret = "[]uint"
-	case "true GoType *C.gint ElemType C.gint ElemName gint HasLenParam":
-		ret = "[]int"
-
 	// string
-	case "true GoType *C.gchar ElemType C.gchar ElemName utf8",
-		"false GoType *C.gchar TypeName utf8",
-		"false GoType *C.gchar TypeName filename",
-		"true GoType *C.gchar ElemName filename HasLenParam",
-		"false GoType *C.char TypeName filename",
-		"false GoType *C.char TypeName utf8":
+	case "in GoType *C.gchar TypeName utf8",
+		"in GoType *C.char TypeName utf8",
+		"in GoType *C.gchar TypeName filename",
+		"out GoType *C.char TypeName utf8",
+		"out GoType *C.gchar TypeName filename",
+		"in GoType *C.char TypeName filename",
+		"out GoType *C.gchar TypeName utf8":
 		ret = "string"
 
-	// string slice, must be array to get length
-	case "true GoType **C.gchar ElemType *C.gchar ElemName utf8",
-		"true GoType **C.gchar ElemName utf8",
-		"true GoType **C.gchar ElemType **C.gchar ElemName utf8",
-		"true GoType **C.gchar ElemType **C.gchar ElemName utf8 HasLenParam ZeroTerminated",
-		"true GoType **C.gchar ElemName filename":
-		ret = "[]string"
-
-	// char
-	case "false GoType C.char TypeName gchar",
-		"false GoType C.gchar TypeName gchar":
-		ret = "byte"
-	case "false GoType C.gunichar TypeName gunichar":
-		ret = "rune"
-
-	// bytes
-	case "true GoType *C.guchar ElemName guint8 HasLenParam",
-		"true GoType *C.gchar ElemType C.gchar ElemName utf8 HasLenParam",
-		"true GoType *C.guchar ElemType C.guchar ElemName guint8 HasLenParam",
-		"true GoType *C.gchar ElemName guint8 HasLenParam",
-		"true GoType *C.guint8 ElemType C.guint8 ElemName guint8 HasLenParam":
-		ret = "[]byte"
-
 	// untyped pointer
-	case "false GoType *C.void TypeName gpointer",
-		"false GoType C.gconstpointer TypeName gpointer",
-		"false GoType C.gpointer TypeName gpointer":
+	case "in GoType C.gpointer TypeName gpointer",
+		"out GoType C.gpointer TypeName gpointer":
 		ret = "unsafe.Pointer"
 
-	// do not map pointer to basic types
-	case "false GoType *C.gunichar2 TypeName guint16",
-		"false GoType **C.char TypeName utf8",
-		"true GoType ***C.char ElemType **C.char ElemName utf8 HasLenParam",
-		"true GoType ***C.gchar ElemType **C.gchar ElemName utf8 HasLenParam",
-		"false GoType ***C.gchar TypeName utf8",
-		"false GoType *C.gpointer TypeName gpointer",
-		"false GoType *C.gsize TypeName gsize",
-		"false GoType *C.glong TypeName glong",
-		"false GoType *C.gunichar TypeName gunichar",
-		"false GoType *C.guint TypeName guint",
-		"false GoType *C.gboolean TypeName gboolean",
-		"false GoType **C.gchar TypeName filename",
-		"false GoType *C.gint64 TypeName gint64",
-		"false GoType *C.guint8 TypeName guint8",
-		"false GoType *C.guint16 TypeName guint16",
-		"true GoType *C.gint ElemType C.gint ElemName gint",
-		"false GoType *C.gint TypeName gint",
-		"false GoType *C.guchar TypeName guint8",
-		"true GoType *C.gchar ElemName guint8", // no len param nor zero-terminated
-		"true GoType *C.guint ElemType *C.guint ElemName guint",
-		"false GoType *C.int TypeName gint",
-		"false GoType **C.gchar TypeName utf8":
+	// string slice
+	case "in GoType **C.gchar IsArray ElemType *C.gchar ElemName utf8",
+		"in GoType **C.gchar IsArray ElemName utf8":
+		ret = "[]string"
+
+	// numeric slice
+	case "in GoType *C.gint IsArray ElemType C.gint ElemName gint",
+		"in GoType *C.gint IsArray ElemType C.gint ElemName gint HasLenParam":
+		ret = "[]int"
+
+	// bytes
+	case "out GoType *C.guint8 IsArray ElemType C.guint8 ElemName guint8 HasLenParam",
+		"in GoType *C.guint8 IsArray ElemType C.guint8 ElemName guint8 HasLenParam",
+		"in GoType *C.gchar IsArray ElemName guint8 HasLenParam":
+		ret = "[]byte"
+
+	// pointer to fundamental types
+	case "in GoType *C.gint TypeName gint",
+		"in GoType *C.guint16 TypeName guint16",
+		"in GoType *C.int TypeName gint":
 		ret = self.GoType
 
-	// cairo FIXME
-	case "false GoType *C.cairo_t TypeName cairo.Context",
-		"false GoType *C.cairo_region_t TypeName cairo.Region",
-		"false GoType *C.cairo_surface_t TypeName cairo.Surface":
+	// not enough info FIXME patch it
+	case "out GoType *C.gint IsArray ElemType C.gint ElemName gint",
+		"out GoType **C.gchar IsArray ElemName utf8",
+		"out GoType *C.guint IsArray ElemType *C.guint ElemName guint":
 		ret = self.GoType
 
-	// gobject FIXME
-	case "false GoType C.gpointer TypeName TypeClass",
-		"false GoType C.gpointer TypeName TypeInterface",
-		"false GoType C.gpointer TypeName Object":
+	// inout to in param
+	case "in GoType ***C.char IsArray ElemType **C.char ElemName utf8 HasLenParam",
+		"in GoType ***C.gchar IsArray ElemType **C.gchar ElemName utf8 HasLenParam":
+		ret = self.GoType
+
+	// cairo TODO
+	case "in GoType *C.cairo_surface_t TypeName cairo.Surface",
+		"out GoType *C.cairo_region_t TypeName cairo.Region",
+		"in GoType *C.cairo_t TypeName cairo.Context",
+		"out GoType *C.cairo_surface_t TypeName cairo.Surface",
+		"out GoType *C.cairo_t TypeName cairo.Context",
+		"in GoType *C.cairo_region_t TypeName cairo.Region":
 		ret = self.GoType
 
 	default:
-		p("==fixme== no map for %s\n", self.TypeSpec)
+		p("FIXME type mapping %s @ %s -> %s\n", self.Name, self.Function.CIdentifier, self.TypeSpec)
 		ret = self.GoType
 
 	}
@@ -363,7 +338,7 @@ func (self *Param) PrepareInParam() {
 			self.CgoParam = fs("(C.gconstpointer)(%s)", self.GoName)
 
 		default:
-			p("==fixme in param mapping== %s\n", spec)
+			p("FIXME in param -> %s\n", spec)
 		}
 	}
 }
@@ -478,7 +453,7 @@ func (self *Param) PrepareOutParam() {
 			self.CgoAfterStmt += fs("%s = unsafe.Pointer(__cgo__%s);", self.GoName, self.GoName)
 
 		default:
-			p("==fixme out param mapping== %s\n", spec)
+			p("FIXME out param -> %s\n", spec)
 		}
 	}
 }

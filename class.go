@@ -74,13 +74,15 @@ func (self *Generator) GenClassTypes(ns *Namespace) {
 		`, typeName, typeName, typeName, constructExpr)
 
 		// type mapping
-		TypeMapping["*"+goType] = "*" + typeName
-		InParamMapping[fs("*%s -> *%s", typeName, goType)] = func(param *Param) {
-			param.CgoParam = fs("(*%s)(%s.CPointer)", goType, param.GoName)
+		TypeMapping[fs("in GoType *%s TypeName %s", goType, typeName)] = "Is" + typeName
+		TypeMapping[fs("out GoType *%s TypeName %s", goType, typeName)] = "*" + typeName
+		InParamMapping[fs("Is%s -> *%s", typeName, goType)] = func(param *Param) {
+			param.CgoParam = fs("%s.Get%sPointer()", param.GoName, typeName)
 		}
 		OutParamMapping[fs("*%s -> *%s", goType, typeName)] = func(param *Param) {
-			param.CgoAfterStmt += fs("%s = New%sFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__%s).Pointer()))",
-				param.GoName, typeName, param.GoName)
+			param.CgoAfterStmt += fs(`if __cgo__%s != nil {
+				%s = New%sFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__%s).Pointer()))
+			}`, param.GoName, param.GoName, typeName, param.GoName)
 		}
 	}
 
@@ -110,6 +112,7 @@ func (self *Generator) GenClassConstructors(ns *Namespace) {
 		for _, ctor := range c.Constructors {
 			ctor.Name = c.Name + "_" + ctor.Name
 			ctor.Return.Type.CType = c.CType + "*"
+			ctor.Return.Type.Name = c.Name
 			ctor.IsConstructor = true
 			self.GenFunction(ctor, output, nil)
 		}
