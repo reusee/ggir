@@ -2,6 +2,7 @@ package gtk
 
 /*
 #include <gtk/gtk.h>
+#include <gtk/gtkx.h>
 #include <stdlib.h>
 #cgo pkg-config: gtk+-3.0
 */
@@ -338,8 +339,8 @@ preparing an expose event to be emitted with the #GtkWidget::draw
 signal. It is intended to help porting multiwindow widgets from
 GTK+ 2 to the rendering architecture of GTK+ 3.
 */
-func CairoTransformToWindow(cr *C.cairo_t, widget *C.GtkWidget, window *C.GdkWindow) {
-	C.gtk_cairo_transform_to_window(cr, widget, window)
+func CairoTransformToWindow(cr *C.cairo_t, widget *Widget, window *C.GdkWindow) {
+	C.gtk_cairo_transform_to_window(cr, (*C.GtkWidget)(widget.CPointer), window)
 	return
 }
 
@@ -385,12 +386,12 @@ associated pointer or keyboard (if any) are delivered to @widget.
 If the @block_others parameter is %TRUE, any other devices will be
 unable to interact with @widget during the grab.
 */
-func DeviceGrabAdd(widget *C.GtkWidget, device *C.GdkDevice, block_others bool) {
+func DeviceGrabAdd(widget *Widget, device *C.GdkDevice, block_others bool) {
 	__cgo__block_others := C.gboolean(0)
 	if block_others {
 		__cgo__block_others = C.gboolean(1)
 	}
-	C.gtk_device_grab_add(widget, device, __cgo__block_others)
+	C.gtk_device_grab_add((*C.GtkWidget)(widget.CPointer), device, __cgo__block_others)
 	return
 }
 
@@ -400,8 +401,8 @@ Removes a device grab from the given widget.
 You have to pair calls to gtk_device_grab_add() and
 gtk_device_grab_remove().
 */
-func DeviceGrabRemove(widget *C.GtkWidget, device *C.GdkDevice) {
-	C.gtk_device_grab_remove(widget, device)
+func DeviceGrabRemove(widget *Widget, device *C.GdkDevice) {
+	C.gtk_device_grab_remove((*C.GtkWidget)(widget.CPointer), device)
 	return
 }
 
@@ -455,8 +456,10 @@ func DragFinish(context *C.GdkDragContext, success bool, del bool, time_ uint32)
 /*
 Determines the source widget for a drag.
 */
-func DragGetSourceWidget(context *C.GdkDragContext) (return__ *C.GtkWidget) {
-	return__ = C.gtk_drag_get_source_widget(context)
+func DragGetSourceWidget(context *C.GdkDragContext) (return__ *Widget) {
+	var __cgo__return__ *C.GtkWidget
+	__cgo__return__ = C.gtk_drag_get_source_widget(context)
+	_ = __cgo__return__
 	return
 }
 
@@ -524,8 +527,8 @@ will not destroy the icon, so if you don’t want
 it to persist, you should connect to the “drag-end”
 signal and destroy it yourself.
 */
-func DragSetIconWidget(context *C.GdkDragContext, widget *C.GtkWidget, hot_x int, hot_y int) {
-	C.gtk_drag_set_icon_widget(context, widget, C.gint(hot_x), C.gint(hot_y))
+func DragSetIconWidget(context *C.GdkDragContext, widget *Widget, hot_x int, hot_y int) {
+	C.gtk_drag_set_icon_widget(context, (*C.GtkWidget)(widget.CPointer), C.gint(hot_x), C.gint(hot_y))
 	return
 }
 
@@ -664,8 +667,10 @@ If @event is %NULL or the event was not associated with any widget,
 returns %NULL, otherwise returns the widget that received the event
 originally.
 */
-func GetEventWidget(event *C.GdkEvent) (return__ *C.GtkWidget) {
-	return__ = C.gtk_get_event_widget(event)
+func GetEventWidget(event *C.GdkEvent) (return__ *Widget) {
+	var __cgo__return__ *C.GtkWidget
+	__cgo__return__ = C.gtk_get_event_widget(event)
+	_ = __cgo__return__
 	return
 }
 
@@ -778,8 +783,10 @@ func GetOptionGroup(open_default_display bool) (return__ *C.GOptionGroup) {
 /*
 Queries the current grab of the default window group.
 */
-func GrabGetCurrent() (return__ *C.GtkWidget) {
-	return__ = C.gtk_grab_get_current()
+func GrabGetCurrent() (return__ *Widget) {
+	var __cgo__return__ *C.GtkWidget
+	__cgo__return__ = C.gtk_grab_get_current()
+	_ = __cgo__return__
 	return
 }
 
@@ -1016,8 +1023,10 @@ Note that this function may use a recursive mainloop to show the page
 setup dialog. See gtk_print_run_page_setup_dialog_async() if this is
 a problem.
 */
-func PrintRunPageSetupDialog(parent *C.GtkWindow, page_setup *C.GtkPageSetup, settings *C.GtkPrintSettings) (return__ *C.GtkPageSetup) {
-	return__ = C.gtk_print_run_page_setup_dialog(parent, page_setup, settings)
+func PrintRunPageSetupDialog(parent *Window, page_setup *PageSetup, settings *PrintSettings) (return__ *PageSetup) {
+	var __cgo__return__ *C.GtkPageSetup
+	__cgo__return__ = C.gtk_print_run_page_setup_dialog((*C.GtkWindow)(parent.CPointer), (*C.GtkPageSetup)(page_setup.CPointer), (*C.GtkPrintSettings)(settings.CPointer))
+	_ = __cgo__return__
 	return
 }
 
@@ -1028,8 +1037,8 @@ In contrast to gtk_print_run_page_setup_dialog(), this function  returns after
 showing the page setup dialog on platforms that support this, and calls @done_cb
 from a signal handler for the ::response signal of the dialog.
 */
-func PrintRunPageSetupDialogAsync(parent *C.GtkWindow, page_setup *C.GtkPageSetup, settings *C.GtkPrintSettings, done_cb C.GtkPageSetupDoneFunc, data unsafe.Pointer) {
-	C.gtk_print_run_page_setup_dialog_async(parent, page_setup, settings, done_cb, (C.gpointer)(data))
+func PrintRunPageSetupDialogAsync(parent *Window, page_setup *PageSetup, settings *PrintSettings, done_cb C.GtkPageSetupDoneFunc, data unsafe.Pointer) {
+	C.gtk_print_run_page_setup_dialog_async((*C.GtkWindow)(parent.CPointer), (*C.GtkPageSetup)(page_setup.CPointer), (*C.GtkPrintSettings)(settings.CPointer), done_cb, (C.gpointer)(data))
 	return
 }
 
@@ -1053,8 +1062,8 @@ certainly better ways to achieve your goals. For example, use
 gdk_window_invalidate_rect() or gtk_widget_queue_draw() instead
 of making up expose events.
 */
-func PropagateEvent(widget *C.GtkWidget, event *C.GdkEvent) {
-	C.gtk_propagate_event(widget, event)
+func PropagateEvent(widget *Widget, event *C.GdkEvent) {
+	C.gtk_propagate_event((*C.GtkWidget)(widget.CPointer), event)
 	return
 }
 
@@ -1188,8 +1197,8 @@ Renders an activity area (Such as in #GtkSpinner or the
 fill line in #GtkRange), the state %GTK_STATE_FLAG_ACTIVE
 determines whether there is activity going on.
 */
-func RenderActivity(context *C.GtkStyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64) {
-	C.gtk_render_activity(context, cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
+func RenderActivity(context *StyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64) {
+	C.gtk_render_activity((*C.GtkStyleContext)(context.CPointer), cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
 	return
 }
 
@@ -1200,8 +1209,8 @@ Typical arrow rendering at 0, 1&solidus;2 &pi;, &pi; and 3&solidus;2 &pi;:
 
 ![](arrows.png)
 */
-func RenderArrow(context *C.GtkStyleContext, cr *C.cairo_t, angle float64, x float64, y float64, size float64) {
-	C.gtk_render_arrow(context, cr, C.gdouble(angle), C.gdouble(x), C.gdouble(y), C.gdouble(size))
+func RenderArrow(context *StyleContext, cr *C.cairo_t, angle float64, x float64, y float64, size float64) {
+	C.gtk_render_arrow((*C.GtkStyleContext)(context.CPointer), cr, C.gdouble(angle), C.gdouble(x), C.gdouble(y), C.gdouble(size))
 	return
 }
 
@@ -1213,8 +1222,8 @@ Typical background rendering, showing the effect of
 
 ![](background.png)
 */
-func RenderBackground(context *C.GtkStyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64) {
-	C.gtk_render_background(context, cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
+func RenderBackground(context *StyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64) {
+	C.gtk_render_background((*C.GtkStyleContext)(context.CPointer), cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
 	return
 }
 
@@ -1229,8 +1238,8 @@ Typical checkmark rendering:
 
 ![](checks.png)
 */
-func RenderCheck(context *C.GtkStyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64) {
-	C.gtk_render_check(context, cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
+func RenderCheck(context *StyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64) {
+	C.gtk_render_check((*C.GtkStyleContext)(context.CPointer), cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
 	return
 }
 
@@ -1243,8 +1252,8 @@ Typical expander rendering:
 
 ![](expanders.png)
 */
-func RenderExpander(context *C.GtkStyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64) {
-	C.gtk_render_expander(context, cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
+func RenderExpander(context *StyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64) {
+	C.gtk_render_expander((*C.GtkStyleContext)(context.CPointer), cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
 	return
 }
 
@@ -1257,8 +1266,8 @@ Typical extension rendering:
 
 ![](extensions.png)
 */
-func RenderExtension(context *C.GtkStyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64, gap_side C.GtkPositionType) {
-	C.gtk_render_extension(context, cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height), gap_side)
+func RenderExtension(context *StyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64, gap_side C.GtkPositionType) {
+	C.gtk_render_extension((*C.GtkStyleContext)(context.CPointer), cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height), gap_side)
 	return
 }
 
@@ -1269,8 +1278,8 @@ Typical focus rendering:
 
 ![](focus.png)
 */
-func RenderFocus(context *C.GtkStyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64) {
-	C.gtk_render_focus(context, cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
+func RenderFocus(context *StyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64) {
+	C.gtk_render_focus((*C.GtkStyleContext)(context.CPointer), cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
 	return
 }
 
@@ -1282,8 +1291,8 @@ Examples of frame rendering, showing the effect of `border-image`,
 
 ![](frames.png)
 */
-func RenderFrame(context *C.GtkStyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64) {
-	C.gtk_render_frame(context, cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
+func RenderFrame(context *StyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64) {
+	C.gtk_render_frame((*C.GtkStyleContext)(context.CPointer), cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
 	return
 }
 
@@ -1297,8 +1306,8 @@ Typical rendering of a frame with a gap:
 
 ![](frame-gap.png)
 */
-func RenderFrameGap(context *C.GtkStyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64, gap_side C.GtkPositionType, xy0_gap float64, xy1_gap float64) {
-	C.gtk_render_frame_gap(context, cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height), gap_side, C.gdouble(xy0_gap), C.gdouble(xy1_gap))
+func RenderFrameGap(context *StyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64, gap_side C.GtkPositionType, xy0_gap float64, xy1_gap float64) {
+	C.gtk_render_frame_gap((*C.GtkStyleContext)(context.CPointer), cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height), gap_side, C.gdouble(xy0_gap), C.gdouble(xy1_gap))
 	return
 }
 
@@ -1311,16 +1320,16 @@ Handles rendered for the paned and grip classes:
 
 ![](handles.png)
 */
-func RenderHandle(context *C.GtkStyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64) {
-	C.gtk_render_handle(context, cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
+func RenderHandle(context *StyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64) {
+	C.gtk_render_handle((*C.GtkStyleContext)(context.CPointer), cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
 	return
 }
 
 /*
 Renders the icon in @pixbuf at the specified @x and @y coordinates.
 */
-func RenderIcon(context *C.GtkStyleContext, cr *C.cairo_t, pixbuf *C.GdkPixbuf, x float64, y float64) {
-	C.gtk_render_icon(context, cr, pixbuf, C.gdouble(x), C.gdouble(y))
+func RenderIcon(context *StyleContext, cr *C.cairo_t, pixbuf *C.GdkPixbuf, x float64, y float64) {
+	C.gtk_render_icon((*C.GtkStyleContext)(context.CPointer), cr, pixbuf, C.gdouble(x), C.gdouble(y))
 	return
 }
 
@@ -1329,32 +1338,32 @@ func RenderIcon(context *C.GtkStyleContext, cr *C.cairo_t, pixbuf *C.GdkPixbuf, 
 /*
 Renders the icon in @surface at the specified @x and @y coordinates.
 */
-func RenderIconSurface(context *C.GtkStyleContext, cr *C.cairo_t, surface *C.cairo_surface_t, x float64, y float64) {
-	C.gtk_render_icon_surface(context, cr, surface, C.gdouble(x), C.gdouble(y))
+func RenderIconSurface(context *StyleContext, cr *C.cairo_t, surface *C.cairo_surface_t, x float64, y float64) {
+	C.gtk_render_icon_surface((*C.GtkStyleContext)(context.CPointer), cr, surface, C.gdouble(x), C.gdouble(y))
 	return
 }
 
 /*
 Draws a text caret on @cr at the specified index of @layout.
 */
-func RenderInsertionCursor(context *C.GtkStyleContext, cr *C.cairo_t, x float64, y float64, layout *C.PangoLayout, index int, direction C.PangoDirection) {
-	C.gtk_render_insertion_cursor(context, cr, C.gdouble(x), C.gdouble(y), layout, C.int(index), direction)
+func RenderInsertionCursor(context *StyleContext, cr *C.cairo_t, x float64, y float64, layout *C.PangoLayout, index int, direction C.PangoDirection) {
+	C.gtk_render_insertion_cursor((*C.GtkStyleContext)(context.CPointer), cr, C.gdouble(x), C.gdouble(y), layout, C.int(index), direction)
 	return
 }
 
 /*
 Renders @layout on the coordinates @x, @y
 */
-func RenderLayout(context *C.GtkStyleContext, cr *C.cairo_t, x float64, y float64, layout *C.PangoLayout) {
-	C.gtk_render_layout(context, cr, C.gdouble(x), C.gdouble(y), layout)
+func RenderLayout(context *StyleContext, cr *C.cairo_t, x float64, y float64, layout *C.PangoLayout) {
+	C.gtk_render_layout((*C.GtkStyleContext)(context.CPointer), cr, C.gdouble(x), C.gdouble(y), layout)
 	return
 }
 
 /*
 Renders a line from (x0, y0) to (x1, y1).
 */
-func RenderLine(context *C.GtkStyleContext, cr *C.cairo_t, x0 float64, y0 float64, x1 float64, y1 float64) {
-	C.gtk_render_line(context, cr, C.gdouble(x0), C.gdouble(y0), C.gdouble(x1), C.gdouble(y1))
+func RenderLine(context *StyleContext, cr *C.cairo_t, x0 float64, y0 float64, x1 float64, y1 float64) {
+	C.gtk_render_line((*C.GtkStyleContext)(context.CPointer), cr, C.gdouble(x0), C.gdouble(y0), C.gdouble(x1), C.gdouble(y1))
 	return
 }
 
@@ -1367,8 +1376,8 @@ Typical option mark rendering:
 
 ![](options.png)
 */
-func RenderOption(context *C.GtkStyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64) {
-	C.gtk_render_option(context, cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
+func RenderOption(context *StyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64) {
+	C.gtk_render_option((*C.GtkStyleContext)(context.CPointer), cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
 	return
 }
 
@@ -1381,8 +1390,8 @@ Typical slider rendering:
 
 ![](sliders.png)
 */
-func RenderSlider(context *C.GtkStyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64, orientation C.GtkOrientation) {
-	C.gtk_render_slider(context, cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height), orientation)
+func RenderSlider(context *StyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64, orientation C.GtkOrientation) {
+	C.gtk_render_slider((*C.GtkStyleContext)(context.CPointer), cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height), orientation)
 	return
 }
 
@@ -1407,8 +1416,8 @@ func RgbToHsv(r float64, g float64, b float64) (h float64, s float64, v float64)
 Appends a specified target to the list of supported targets for a
 given widget and selection.
 */
-func SelectionAddTarget(widget *C.GtkWidget, selection C.GdkAtom, target C.GdkAtom, info uint) {
-	C.gtk_selection_add_target(widget, selection, target, C.guint(info))
+func SelectionAddTarget(widget *Widget, selection C.GdkAtom, target C.GdkAtom, info uint) {
+	C.gtk_selection_add_target((*C.GtkWidget)(widget.CPointer), selection, target, C.guint(info))
 	return
 }
 
@@ -1416,8 +1425,8 @@ func SelectionAddTarget(widget *C.GtkWidget, selection C.GdkAtom, target C.GdkAt
 Prepends a table of targets to the list of supported targets
 for a given widget and selection.
 */
-func SelectionAddTargets(widget *C.GtkWidget, selection C.GdkAtom, targets *TargetEntry, ntargets uint) {
-	C.gtk_selection_add_targets(widget, selection, (*C.GtkTargetEntry)(unsafe.Pointer(targets)), C.guint(ntargets))
+func SelectionAddTargets(widget *Widget, selection C.GdkAtom, targets *TargetEntry, ntargets uint) {
+	C.gtk_selection_add_targets((*C.GtkWidget)(widget.CPointer), selection, (*C.GtkTargetEntry)(unsafe.Pointer(targets)), C.guint(ntargets))
 	return
 }
 
@@ -1425,8 +1434,8 @@ func SelectionAddTargets(widget *C.GtkWidget, selection C.GdkAtom, targets *Targ
 Remove all targets registered for the given selection for the
 widget.
 */
-func SelectionClearTargets(widget *C.GtkWidget, selection C.GdkAtom) {
-	C.gtk_selection_clear_targets(widget, selection)
+func SelectionClearTargets(widget *Widget, selection C.GdkAtom) {
+	C.gtk_selection_clear_targets((*C.GtkWidget)(widget.CPointer), selection)
 	return
 }
 
@@ -1434,9 +1443,9 @@ func SelectionClearTargets(widget *C.GtkWidget, selection C.GdkAtom) {
 Requests the contents of a selection. When received,
 a “selection-received” signal will be generated.
 */
-func SelectionConvert(widget *C.GtkWidget, selection C.GdkAtom, target C.GdkAtom, time_ uint32) (return__ bool) {
+func SelectionConvert(widget *Widget, selection C.GdkAtom, target C.GdkAtom, time_ uint32) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_selection_convert(widget, selection, target, C.guint32(time_))
+	__cgo__return__ = C.gtk_selection_convert((*C.GtkWidget)(widget.CPointer), selection, target, C.guint32(time_))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -1445,9 +1454,9 @@ func SelectionConvert(widget *C.GtkWidget, selection C.GdkAtom, target C.GdkAtom
 Claims ownership of a given selection for a particular widget,
 or, if @widget is %NULL, release ownership of the selection.
 */
-func SelectionOwnerSet(widget *C.GtkWidget, selection C.GdkAtom, time_ uint32) (return__ bool) {
+func SelectionOwnerSet(widget *Widget, selection C.GdkAtom, time_ uint32) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_selection_owner_set(widget, selection, C.guint32(time_))
+	__cgo__return__ = C.gtk_selection_owner_set((*C.GtkWidget)(widget.CPointer), selection, C.guint32(time_))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -1456,9 +1465,9 @@ func SelectionOwnerSet(widget *C.GtkWidget, selection C.GdkAtom, time_ uint32) (
 Claim ownership of a given selection for a particular widget, or,
 if @widget is %NULL, release ownership of the selection.
 */
-func SelectionOwnerSetForDisplay(display *C.GdkDisplay, widget *C.GtkWidget, selection C.GdkAtom, time_ uint32) (return__ bool) {
+func SelectionOwnerSetForDisplay(display *C.GdkDisplay, widget *Widget, selection C.GdkAtom, time_ uint32) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_selection_owner_set_for_display(display, widget, selection, C.guint32(time_))
+	__cgo__return__ = C.gtk_selection_owner_set_for_display(display, (*C.GtkWidget)(widget.CPointer), selection, C.guint32(time_))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -1469,8 +1478,8 @@ selections for a widget. Called when widget is being
 destroyed. This function will not generally be
 called by applications.
 */
-func SelectionRemoveAll(widget *C.GtkWidget) {
-	C.gtk_selection_remove_all(widget)
+func SelectionRemoveAll(widget *Widget) {
+	C.gtk_selection_remove_all((*C.GtkWidget)(widget.CPointer))
 	return
 }
 
@@ -1563,9 +1572,9 @@ func TargetsIncludeImage(targets *C.GdkAtom, n_targets int, writable bool) (retu
 Determines if any of the targets in @targets can be used to
 provide rich text.
 */
-func TargetsIncludeRichText(targets *C.GdkAtom, n_targets int, buffer *C.GtkTextBuffer) (return__ bool) {
+func TargetsIncludeRichText(targets *C.GdkAtom, n_targets int, buffer *TextBuffer) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_targets_include_rich_text(targets, C.gint(n_targets), buffer)
+	__cgo__return__ = C.gtk_targets_include_rich_text(targets, C.gint(n_targets), (*C.GtkTextBuffer)(buffer.CPointer))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -1598,12 +1607,14 @@ text contents @dialog_text.
 The window will quit any running gtk_main()-loop when destroyed, and it
 will automatically be destroyed upon test function teardown.
 */
-func TestCreateSimpleWindow(window_title string, dialog_text string) (return__ *C.GtkWidget) {
+func TestCreateSimpleWindow(window_title string, dialog_text string) (return__ *Widget) {
 	__cgo__window_title := (*C.gchar)(unsafe.Pointer(C.CString(window_title)))
 	__cgo__dialog_text := (*C.gchar)(unsafe.Pointer(C.CString(dialog_text)))
-	return__ = C.gtk_test_create_simple_window(__cgo__window_title, __cgo__dialog_text)
+	var __cgo__return__ *C.GtkWidget
+	__cgo__return__ = C.gtk_test_create_simple_window(__cgo__window_title, __cgo__dialog_text)
 	C.free(unsafe.Pointer(__cgo__window_title))
 	C.free(unsafe.Pointer(__cgo__dialog_text))
+	_ = __cgo__return__
 	return
 }
 
@@ -1620,10 +1631,12 @@ Note that locales other than "C“ tend to alter (translate” label strings,
 so this function is genrally only useful in test programs with
 predetermined locales, see gtk_test_init() for more details.
 */
-func TestFindLabel(widget *C.GtkWidget, label_pattern string) (return__ *C.GtkWidget) {
+func TestFindLabel(widget *Widget, label_pattern string) (return__ *Widget) {
 	__cgo__label_pattern := (*C.gchar)(unsafe.Pointer(C.CString(label_pattern)))
-	return__ = C.gtk_test_find_label(widget, __cgo__label_pattern)
+	var __cgo__return__ *C.GtkWidget
+	__cgo__return__ = C.gtk_test_find_label((*C.GtkWidget)(widget.CPointer), __cgo__label_pattern)
 	C.free(unsafe.Pointer(__cgo__label_pattern))
+	_ = __cgo__return__
 	return
 }
 
@@ -1636,8 +1649,10 @@ The general purpose of this function is to find the most likely “action”
 widget, relative to another labeling widget. Such as finding a
 button or text entry widget, given its corresponding label widget.
 */
-func TestFindSibling(base_widget *C.GtkWidget, widget_type C.GType) (return__ *C.GtkWidget) {
-	return__ = C.gtk_test_find_sibling(base_widget, widget_type)
+func TestFindSibling(base_widget *Widget, widget_type C.GType) (return__ *Widget) {
+	var __cgo__return__ *C.GtkWidget
+	__cgo__return__ = C.gtk_test_find_sibling((*C.GtkWidget)(base_widget.CPointer), widget_type)
+	_ = __cgo__return__
 	return
 }
 
@@ -1650,10 +1665,12 @@ However see gtk_test_find_label(), gtk_test_find_sibling() and
 gtk_test_widget_click() for possible caveats involving the search of
 such widgets and synthesizing widget events.
 */
-func TestFindWidget(widget *C.GtkWidget, label_pattern string, widget_type C.GType) (return__ *C.GtkWidget) {
+func TestFindWidget(widget *Widget, label_pattern string, widget_type C.GType) (return__ *Widget) {
 	__cgo__label_pattern := (*C.gchar)(unsafe.Pointer(C.CString(label_pattern)))
-	return__ = C.gtk_test_find_widget(widget, __cgo__label_pattern, widget_type)
+	var __cgo__return__ *C.GtkWidget
+	__cgo__return__ = C.gtk_test_find_widget((*C.GtkWidget)(widget.CPointer), __cgo__label_pattern, widget_type)
 	C.free(unsafe.Pointer(__cgo__label_pattern))
+	_ = __cgo__return__
 	return
 }
 
@@ -1687,9 +1704,9 @@ this function is anything between the lower and upper bounds
 of the adjustment belonging to @widget, and is not a percentage
 as passed in to gtk_test_slider_set_perc().
 */
-func TestSliderGetValue(widget *C.GtkWidget) (return__ float64) {
+func TestSliderGetValue(widget *Widget) (return__ float64) {
 	var __cgo__return__ C.double
-	__cgo__return__ = C.gtk_test_slider_get_value(widget)
+	__cgo__return__ = C.gtk_test_slider_get_value((*C.GtkWidget)(widget.CPointer))
 	return__ = float64(__cgo__return__)
 	return
 }
@@ -1701,8 +1718,8 @@ spin buttons. The adjustment value of these widgets is set to
 a value between the lower and upper limits, according to the
 @percentage argument.
 */
-func TestSliderSetPerc(widget *C.GtkWidget, percentage float64) {
-	C.gtk_test_slider_set_perc(widget, C.double(percentage))
+func TestSliderSetPerc(widget *Widget, percentage float64) {
+	C.gtk_test_slider_set_perc((*C.GtkWidget)(widget.CPointer), C.double(percentage))
 	return
 }
 
@@ -1711,13 +1728,13 @@ This function will generate a @button click in the upwards or downwards
 spin button arrow areas, usually leading to an increase or decrease of
 spin button’s value.
 */
-func TestSpinButtonClick(spinner *C.GtkSpinButton, button uint, upwards bool) (return__ bool) {
+func TestSpinButtonClick(spinner *SpinButton, button uint, upwards bool) (return__ bool) {
 	__cgo__upwards := C.gboolean(0)
 	if upwards {
 		__cgo__upwards = C.gboolean(1)
 	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_test_spin_button_click(spinner, C.guint(button), __cgo__upwards)
+	__cgo__return__ = C.gtk_test_spin_button_click((*C.GtkSpinButton)(spinner.CPointer), C.guint(button), __cgo__upwards)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -1726,9 +1743,9 @@ func TestSpinButtonClick(spinner *C.GtkSpinButton, button uint, upwards bool) (r
 Retrive the text string of @widget if it is a GtkLabel,
 GtkEditable (entry and text widgets) or GtkTextView.
 */
-func TestTextGet(widget *C.GtkWidget) (return__ string) {
+func TestTextGet(widget *Widget) (return__ string) {
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.gtk_test_text_get(widget)
+	__cgo__return__ = C.gtk_test_text_get((*C.GtkWidget)(widget.CPointer))
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -1737,9 +1754,9 @@ func TestTextGet(widget *C.GtkWidget) (return__ string) {
 Set the text string of @widget to @string if it is a GtkLabel,
 GtkEditable (entry and text widgets) or GtkTextView.
 */
-func TestTextSet(widget *C.GtkWidget, string_ string) {
+func TestTextSet(widget *Widget, string_ string) {
 	__cgo__string_ := (*C.gchar)(unsafe.Pointer(C.CString(string_)))
-	C.gtk_test_text_set(widget, __cgo__string_)
+	C.gtk_test_text_set((*C.GtkWidget)(widget.CPointer), __cgo__string_)
 	C.free(unsafe.Pointer(__cgo__string_))
 	return
 }
@@ -1754,9 +1771,9 @@ Certain caveats should be considered when using this function, in
 particular because the mouse pointer is warped to the button click
 location, see gdk_test_simulate_button() for details.
 */
-func TestWidgetClick(widget *C.GtkWidget, button uint, modifiers C.GdkModifierType) (return__ bool) {
+func TestWidgetClick(widget *Widget, button uint, modifiers C.GdkModifierType) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_test_widget_click(widget, C.guint(button), modifiers)
+	__cgo__return__ = C.gtk_test_widget_click((*C.GtkWidget)(widget.CPointer), C.guint(button), modifiers)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -1770,9 +1787,9 @@ Certain caveats should be considered when using this function, in
 particular because the mouse pointer is warped to the key press
 location, see gdk_test_simulate_key() for details.
 */
-func TestWidgetSendKey(widget *C.GtkWidget, keyval uint, modifiers C.GdkModifierType) (return__ bool) {
+func TestWidgetSendKey(widget *Widget, keyval uint, modifiers C.GdkModifierType) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_test_widget_send_key(widget, C.guint(keyval), modifiers)
+	__cgo__return__ = C.gtk_test_widget_send_key((*C.GtkWidget)(widget.CPointer), C.guint(keyval), modifiers)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -1786,8 +1803,8 @@ This function is intended to be used for syncing with actions that
 depend on @widget relayouting or on interaction with the display
 server.
 */
-func TestWidgetWaitForDraw(widget *C.GtkWidget) {
-	C.gtk_test_widget_wait_for_draw(widget)
+func TestWidgetWaitForDraw(widget *Widget) {
+	C.gtk_test_widget_wait_for_draw((*C.GtkWidget)(widget.CPointer))
 	return
 }
 

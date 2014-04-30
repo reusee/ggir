@@ -2,6 +2,7 @@ package gtk
 
 /*
 #include <gtk/gtk.h>
+#include <gtk/gtkx.h>
 #include <stdlib.h>
 
 gint __GTK_BINARY_AGE = GTK_BINARY_AGE;
