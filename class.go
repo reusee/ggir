@@ -74,6 +74,7 @@ func (self *Generator) GenClassTypes(ns *Namespace) {
 		`, typeName, typeName, typeName, constructExpr)
 
 		// type mapping
+		// typed pointer
 		TypeMapping[fs("in GoType *%s TypeName %s", goType, typeName)] = "Is" + typeName
 		TypeMapping[fs("out GoType *%s TypeName %s", goType, typeName)] = "*" + typeName
 		InParamMapping[fs("Is%s -> *%s", typeName, goType)] = func(param *Param) {
@@ -83,6 +84,16 @@ func (self *Generator) GenClassTypes(ns *Namespace) {
 			param.CgoAfterStmt += fs(`if __cgo__%s != nil {
 				%s = New%sFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__%s).Pointer()))
 			}`, param.GoName, param.GoName, typeName, param.GoName)
+		}
+		// untyped pointer
+		TypeMapping[fs("in GoType C.gpointer TypeName %s", typeName)] = "Is" + typeName
+		TypeMapping[fs("out GoType C.gpointer TypeName %s", typeName)] = "*" + typeName
+		InParamMapping[fs("Is%s -> C.gpointer", typeName)] = func(param *Param) {
+			param.CgoParam = fs("C.gpointer(unsafe.Pointer(%s.Get%sPointer()))", param.GoName, typeName)
+		}
+		OutParamMapping[fs("C.gpointer -> *%s", typeName)] = func(param *Param) {
+			param.CgoAfterStmt += fs(`%s = New%sFromCPointer(unsafe.Pointer(__cgo__%s))`,
+				param.GoName, typeName, param.GoName)
 		}
 	}
 

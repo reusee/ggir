@@ -94,6 +94,7 @@ func (self *Generator) GenFunction(fn *Function, output io.Writer, receiver *Cla
 	// collect params and return info
 	for _, param := range fn.Params {
 		param.Function = fn
+		param.Generator = self
 		param.CollectInfo(false, fn)
 
 		//FIXME skip functions with long double param
@@ -108,6 +109,7 @@ func (self *Generator) GenFunction(fn *Function, output io.Writer, receiver *Cla
 		}
 	}
 	fn.Return.Function = fn
+	fn.Return.Generator = self
 	fn.Return.CollectInfo(true, fn)
 	if !fn.Return.IsVoid {
 		if fn.Return.MappedType == "" { // add rules for return type
@@ -188,7 +190,8 @@ func (self *Generator) GenFunction(fn *Function, output io.Writer, receiver *Cla
 	// cgo call
 	w(output, "C.%s(", fn.CIdentifier)
 	if receiver != nil {
-		w(output, "self.CPointer,")
+		w(output, fs("(%s)(unsafe.Pointer(self.CPointer)),",
+			cTypeToGoType(fn.InstanceParam.Type.CType)))
 	}
 	for _, param := range fn.Params {
 		if !param.IsVoid {

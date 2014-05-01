@@ -264,6 +264,7 @@ type Param struct {
 	CgoBeforeStmt     string
 	CgoAfterStmt      string
 	Function          *Function
+	Generator         *Generator
 }
 
 type Varargs struct {

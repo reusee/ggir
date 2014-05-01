@@ -18,6 +18,11 @@ type Generator struct {
 	TypesIgnorePatterns    []string  `xml:"type-ignore-patterns>entry"`
 	ParamDirectionEntries  []*Entry  `xml:"param-direction>entry"`
 	ParamDirections        map[string]string
+	TypeMappingEntries     []*Entry `xml:"type-mapping>entry"`
+	InParamMarshalEntries  []*Entry `xml:"in-param-marshal>entry"`
+	OutParamMarshalEntries []*Entry `xml:"out-param-marshal>entry"`
+	InParamMarshals        map[string]*Entry
+	OutParamMarshals       map[string]*Entry
 }
 
 type Rename struct {
@@ -26,8 +31,11 @@ type Rename struct {
 }
 
 type Entry struct {
-	Text string `xml:",chardata"`
-	Spec string `xml:"spec,attr"`
+	Text   string `xml:",chardata"`
+	Spec   string `xml:"spec,attr"`
+	Param  string `xml:"param"`
+	Before string `xml:"before"`
+	After  string `xml:"after"`
 }
 
 func Gen(outputDir, buildFilePath string) {
@@ -35,7 +43,9 @@ func Gen(outputDir, buildFilePath string) {
 	buildFileContent, err := ioutil.ReadFile(buildFilePath)
 	checkError(err)
 	generator := &Generator{
-		ParamDirections: make(map[string]string),
+		ParamDirections:  make(map[string]string),
+		InParamMarshals:  make(map[string]*Entry),
+		OutParamMarshals: make(map[string]*Entry),
 	}
 	err = xml.Unmarshal(buildFileContent, generator)
 	checkError(err)
@@ -44,6 +54,15 @@ func Gen(outputDir, buildFilePath string) {
 	// prepares
 	for _, entry := range generator.ParamDirectionEntries {
 		generator.ParamDirections[entry.Spec] = entry.Text
+	}
+	for _, entry := range generator.TypeMappingEntries {
+		TypeMapping[entry.Spec] = entry.Text
+	}
+	for _, entry := range generator.InParamMarshalEntries {
+		generator.InParamMarshals[entry.Spec] = entry
+	}
+	for _, entry := range generator.OutParamMarshalEntries {
+		generator.OutParamMarshals[entry.Spec] = entry
 	}
 
 	// read gir file contents

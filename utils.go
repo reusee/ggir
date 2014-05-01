@@ -5,6 +5,7 @@ import (
 	"go/format"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 var (
@@ -98,4 +99,11 @@ func (self *Generator) formatAndOutput(name string, source []byte) {
 	}
 	f.Write(formatted)
 	f.Close()
+}
+
+func replace(t string, m map[string]string) string {
+	for key, value := range m {
+		t = strings.Replace(t, fs("$$%s", key), value, -1)
+	}
+	return t
 }
