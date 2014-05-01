@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<generator>
+  <package-name>gobject</package-name>
+  <gir-path>/usr/share/gir-1.0/GObject-2.0.gir</gir-path>
+
+  <include>glib-object.h</include>
+  <include>gobject/gvaluecollector.h</include>
+  <include>stdlib.h</include>
+
+  <function-ignore-patterns>
+    <entry>g_clear_pointer</entry>
+    <entry>g_clear_object</entry>
+  </function-ignore-patterns>
+
+  <function-rename>
+    <rename from="SignalQuery">GSignalQuery</rename>
+    <rename from="TypeQuery">GTypeQuery</rename>
+    <rename from="(ParamSpec.*)">G$1</rename>
+  </function-rename>
+
+  <pkg-config>gobject-2.0</pkg-config>
+
+  <type-mapping>
+    <entry spec="out GoType C.gpointer TypeName TypeInterface">*C.GTypeInterface</entry>
+    <entry spec="in GoType C.gpointer TypeName TypeInterface">*C.GTypeInterface</entry>
+    <entry spec="in GoType C.gpointer TypeName TypeClass">*C.GTypeClass</entry>
+    <entry spec="out GoType C.gpointer TypeName TypeClass">*C.GTypeClass</entry>
+  </type-mapping>
+
+  <in-param-marshal>
+    <entry spec="*C.GTypeClass -> C.gpointer">
+      <param>C.gpointer(unsafe.Pointer($$name))</param>
+    </entry>
+    <entry spec="*C.GTypeInterface -> C.gpointer">
+      <param>C.gpointer(unsafe.Pointer($$name))</param>
+    </entry>
+  </in-param-marshal>
+
+  <out-param-marshal>
+    <entry spec="C.gpointer -> *C.GTypeClass">
+      <after>$$name = (*C.GTypeClass)(unsafe.Pointer(__cgo__$$name));</after>
+    </entry>
+    <entry spec="C.gpointer -> *C.GTypeInterface">
+      <after>$$name = (*C.GTypeInterface)(unsafe.Pointer(__cgo__$$name));</after>
+    </entry>
+  </out-param-marshal>
+
+</generator>
