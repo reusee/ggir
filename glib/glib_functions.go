@@ -50,9 +50,9 @@ Determines the numeric value of a character as a decimal digit.
 Differs from g_unichar_digit_value() because it takes a char, so
 there's no worry about sign extension if characters are signed.
 */
-func AsciiDigitValue(c C.gchar) (return__ int) {
+func AsciiDigitValue(c byte) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.g_ascii_digit_value(c)
+	__cgo__return__ = C.g_ascii_digit_value(C.gchar(c))
 	return__ = int(__cgo__return__)
 	return
 }
@@ -184,10 +184,11 @@ zero is returned and %ERANGE is stored in %errno.
 This function resets %errno before calling strtod() so that
 you can reliably detect overflow and underflow.
 */
-func AsciiStrtod(nptr string, endptr **C.gchar) (return__ float64) {
+func AsciiStrtod(nptr string, endptr []string) (return__ float64) {
 	__cgo__nptr := (*C.gchar)(unsafe.Pointer(C.CString(nptr)))
+	__header__endptr := (*reflect.SliceHeader)(unsafe.Pointer(&endptr))
 	var __cgo__return__ C.gdouble
-	__cgo__return__ = C.g_ascii_strtod(__cgo__nptr, endptr)
+	__cgo__return__ = C.g_ascii_strtod(__cgo__nptr, (**C.gchar)(unsafe.Pointer(__header__endptr.Data)))
 	C.free(unsafe.Pointer(__cgo__nptr))
 	return__ = float64(__cgo__return__)
 	return
@@ -212,10 +213,13 @@ If the base is outside the valid range, zero is returned, and
 string conversion fails, zero is returned, and @endptr returns @nptr
 (if @endptr is non-%NULL).
 */
-func AsciiStrtoll(nptr string, endptr **C.gchar, base uint) (return__ C.gint64) {
+func AsciiStrtoll(nptr string, endptr []string, base uint) (return__ int64) {
 	__cgo__nptr := (*C.gchar)(unsafe.Pointer(C.CString(nptr)))
-	return__ = C.g_ascii_strtoll(__cgo__nptr, endptr, C.guint(base))
+	__header__endptr := (*reflect.SliceHeader)(unsafe.Pointer(&endptr))
+	var __cgo__return__ C.gint64
+	__cgo__return__ = C.g_ascii_strtoll(__cgo__nptr, (**C.gchar)(unsafe.Pointer(__header__endptr.Data)), C.guint(base))
 	C.free(unsafe.Pointer(__cgo__nptr))
+	return__ = int64(__cgo__return__)
 	return
 }
 
@@ -238,10 +242,13 @@ If the base is outside the valid range, zero is returned, and
 If the string conversion fails, zero is returned, and @endptr returns
 @nptr (if @endptr is non-%NULL).
 */
-func AsciiStrtoull(nptr string, endptr **C.gchar, base uint) (return__ C.guint64) {
+func AsciiStrtoull(nptr string, endptr []string, base uint) (return__ uint64) {
 	__cgo__nptr := (*C.gchar)(unsafe.Pointer(C.CString(nptr)))
-	return__ = C.g_ascii_strtoull(__cgo__nptr, endptr, C.guint(base))
+	__header__endptr := (*reflect.SliceHeader)(unsafe.Pointer(&endptr))
+	var __cgo__return__ C.guint64
+	__cgo__return__ = C.g_ascii_strtoull(__cgo__nptr, (**C.gchar)(unsafe.Pointer(__header__endptr.Data)), C.guint(base))
 	C.free(unsafe.Pointer(__cgo__nptr))
+	return__ = uint64(__cgo__return__)
 	return
 }
 
@@ -268,8 +275,10 @@ library function, this takes and returns a char, not an int, so
 don't call it on %EOF but no need to worry about casting to #guchar
 before passing a possibly non-ASCII character in.
 */
-func AsciiTolower(c C.gchar) (return__ C.gchar) {
-	return__ = C.g_ascii_tolower(c)
+func AsciiTolower(c byte) (return__ byte) {
+	var __cgo__return__ C.gchar
+	__cgo__return__ = C.g_ascii_tolower(C.gchar(c))
+	return__ = byte(__cgo__return__)
 	return
 }
 
@@ -284,8 +293,10 @@ library function, this takes and returns a char, not an int, so
 don't call it on %EOF but no need to worry about casting to #guchar
 before passing a possibly non-ASCII character in.
 */
-func AsciiToupper(c C.gchar) (return__ C.gchar) {
-	return__ = C.g_ascii_toupper(c)
+func AsciiToupper(c byte) (return__ byte) {
+	var __cgo__return__ C.gchar
+	__cgo__return__ = C.g_ascii_toupper(C.gchar(c))
+	return__ = byte(__cgo__return__)
 	return
 }
 
@@ -295,9 +306,9 @@ digit. Differs from g_unichar_xdigit_value() because it takes
 a char, so there's no worry about sign extension if characters
 are signed.
 */
-func AsciiXdigitValue(c C.gchar) (return__ int) {
+func AsciiXdigitValue(c byte) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.g_ascii_xdigit_value(c)
+	__cgo__return__ = C.g_ascii_xdigit_value(C.gchar(c))
 	return__ = int(__cgo__return__)
 	return
 }
@@ -405,12 +416,14 @@ Decode a sequence of Base-64 encoded text into binary data.  Note
 that the returned binary data is not necessarily zero-terminated,
 so it should not be used as a character string.
 */
-func Base64Decode(text string) (out_len int64, return__ *C.guchar) {
+func Base64Decode(text string) (out_len int64, return__ []byte) {
 	__cgo__text := (*C.gchar)(unsafe.Pointer(C.CString(text)))
 	var __cgo__out_len C.gsize
-	return__ = C.g_base64_decode(__cgo__text, &__cgo__out_len)
+	var __cgo__return__ *C.guchar
+	__cgo__return__ = C.g_base64_decode(__cgo__text, &__cgo__out_len)
 	C.free(unsafe.Pointer(__cgo__text))
 	out_len = int64(__cgo__out_len)
+	defer func() { return__ = C.GoBytes(unsafe.Pointer(__cgo__return__), C.int(out_len)) }()
 	return
 }
 
@@ -422,9 +435,10 @@ func Base64Decode(text string) (out_len int64, return__ *C.guchar) {
 Encode a sequence of binary data into its Base-64 stringified
 representation.
 */
-func Base64Encode(data *C.guchar, len_ int64) (return__ string) {
+func Base64Encode(data []byte, len_ int64) (return__ string) {
+	__header__data := (*reflect.SliceHeader)(unsafe.Pointer(&data))
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_base64_encode(data, C.gsize(len_))
+	__cgo__return__ = C.g_base64_encode((*C.guchar)(unsafe.Pointer(__header__data.Data)), C.gsize(len_))
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -665,8 +679,10 @@ func CheckVersion(required_major uint, required_minor uint, required_micro uint)
 /*
 Gets the length in bytes of digests of type @checksum_type
 */
-func ChecksumTypeGetLength(checksum_type C.GChecksumType) (return__ C.gssize) {
-	return__ = C.g_checksum_type_get_length(checksum_type)
+func ChecksumTypeGetLength(checksum_type C.GChecksumType) (return__ int64) {
+	var __cgo__return__ C.gssize
+	__cgo__return__ = C.g_checksum_type_get_length(checksum_type)
+	return__ = int64(__cgo__return__)
 	return
 }
 
@@ -813,9 +829,10 @@ and g_checksum_free().
 
 The hexadecimal string returned will be in lower case.
 */
-func ComputeChecksumForData(checksum_type C.GChecksumType, data *C.guchar, length int64) (return__ string) {
+func ComputeChecksumForData(checksum_type C.GChecksumType, data []byte, length int64) (return__ string) {
+	__header__data := (*reflect.SliceHeader)(unsafe.Pointer(&data))
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_compute_checksum_for_data(checksum_type, data, C.gsize(length))
+	__cgo__return__ = C.g_compute_checksum_for_data(checksum_type, (*C.guchar)(unsafe.Pointer(__header__data.Data)), C.gsize(length))
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -841,9 +858,10 @@ and g_hmac_unref().
 
 The hexadecimal string returned will be in lower case.
 */
-func ComputeHmacForData(digest_type C.GChecksumType, key *C.guchar, key_len int64, data *C.guchar, length int64) (return__ string) {
+func ComputeHmacForData(digest_type C.GChecksumType, key []byte, key_len int64, data *C.guchar, length int64) (return__ string) {
+	__header__key := (*reflect.SliceHeader)(unsafe.Pointer(&key))
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_compute_hmac_for_data(digest_type, key, C.gsize(key_len), data, C.gsize(length))
+	__cgo__return__ = C.g_compute_hmac_for_data(digest_type, (*C.guchar)(unsafe.Pointer(__header__key.Data)), C.gsize(key_len), data, C.gsize(length))
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -853,10 +871,11 @@ Computes the HMAC for a string.
 
 The hexadecimal string returned will be in lower case.
 */
-func ComputeHmacForString(digest_type C.GChecksumType, key *C.guchar, key_len int64, str string, length int64) (return__ string) {
+func ComputeHmacForString(digest_type C.GChecksumType, key []byte, key_len int64, str string, length int64) (return__ string) {
+	__header__key := (*reflect.SliceHeader)(unsafe.Pointer(&key))
 	__cgo__str := (*C.gchar)(unsafe.Pointer(C.CString(str)))
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_compute_hmac_for_string(digest_type, key, C.gsize(key_len), __cgo__str, C.gssize(length))
+	__cgo__return__ = C.g_compute_hmac_for_string(digest_type, (*C.guchar)(unsafe.Pointer(__header__key.Data)), C.gsize(key_len), __cgo__str, C.gssize(length))
 	C.free(unsafe.Pointer(__cgo__str))
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
@@ -1177,8 +1196,10 @@ func DatasetIdSetDataFull(dataset_location unsafe.Pointer, key_id C.GQuark, data
 Returns the number of days in a month, taking leap
 years into account.
 */
-func DateGetDaysInMonth(month C.GDateMonth, year C.GDateYear) (return__ C.guint8) {
-	return__ = C.g_date_get_days_in_month(month, year)
+func DateGetDaysInMonth(month C.GDateMonth, year C.GDateYear) (return__ uint8) {
+	var __cgo__return__ C.guint8
+	__cgo__return__ = C.g_date_get_days_in_month(month, year)
+	return__ = uint8(__cgo__return__)
 	return
 }
 
@@ -1191,8 +1212,10 @@ year. This function is basically telling you how many
 Mondays are in the year, i.e. there are 53 Mondays if
 one of the extra days happens to be a Monday.)
 */
-func DateGetMondayWeeksInYear(year C.GDateYear) (return__ C.guint8) {
-	return__ = C.g_date_get_monday_weeks_in_year(year)
+func DateGetMondayWeeksInYear(year C.GDateYear) (return__ uint8) {
+	var __cgo__return__ C.guint8
+	__cgo__return__ = C.g_date_get_monday_weeks_in_year(year)
+	return__ = uint8(__cgo__return__)
 	return
 }
 
@@ -1205,8 +1228,10 @@ year. This function is basically telling you how many
 Sundays are in the year, i.e. there are 53 Sundays if
 one of the extra days happens to be a Sunday.)
 */
-func DateGetSundayWeeksInYear(year C.GDateYear) (return__ C.guint8) {
-	return__ = C.g_date_get_sunday_weeks_in_year(year)
+func DateGetSundayWeeksInYear(year C.GDateYear) (return__ uint8) {
+	var __cgo__return__ C.guint8
+	__cgo__return__ = C.g_date_get_sunday_weeks_in_year(year)
+	return__ = uint8(__cgo__return__)
 	return
 }
 
@@ -1647,13 +1672,15 @@ stored in @contents will be nul-terminated, so for text files you can pass
 codes are those in the #GFileError enumeration. In the error case,
 @contents is set to %NULL and @length is set to zero.
 */
-func FileGetContents(filename string) (contents *C.gchar, length int64, return__ bool, __err__ error) {
+func FileGetContents(filename string) (contents []byte, length int64, return__ bool, __err__ error) {
 	__cgo__filename := (*C.gchar)(unsafe.Pointer(C.CString(filename)))
+	var __cgo__contents *C.gchar
 	var __cgo__length C.gsize
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_file_get_contents(__cgo__filename, &contents, &__cgo__length, &__cgo_error__)
+	__cgo__return__ = C.g_file_get_contents(__cgo__filename, &__cgo__contents, &__cgo__length, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__filename))
+	defer func() { contents = C.GoBytes(unsafe.Pointer(__cgo__contents), C.int(length)) }()
 	length = int64(__cgo__length)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
@@ -1884,15 +1911,17 @@ filenames. Note that on Windows GLib uses UTF-8 for filenames;
 on other platforms, this function indirectly depends on the
 [current locale][setlocale].
 */
-func FilenameFromUtf8(utf8string string, len_ int64) (bytes_read int64, bytes_written int64, return__ *C.gchar, __err__ error) {
+func FilenameFromUtf8(utf8string string, len_ int64) (bytes_read int64, bytes_written int64, return__ []byte, __err__ error) {
 	__cgo__utf8string := (*C.gchar)(unsafe.Pointer(C.CString(utf8string)))
 	var __cgo__bytes_read C.gsize
 	var __cgo__bytes_written C.gsize
 	var __cgo_error__ *C.GError
-	return__ = C.g_filename_from_utf8(__cgo__utf8string, C.gssize(len_), &__cgo__bytes_read, &__cgo__bytes_written, &__cgo_error__)
+	var __cgo__return__ *C.gchar
+	__cgo__return__ = C.g_filename_from_utf8(__cgo__utf8string, C.gssize(len_), &__cgo__bytes_read, &__cgo__bytes_written, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__utf8string))
 	bytes_read = int64(__cgo__bytes_read)
 	bytes_written = int64(__cgo__bytes_written)
+	defer func() { return__ = C.GoBytes(unsafe.Pointer(__cgo__return__), C.int(bytes_written)) }()
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
 	}
@@ -2240,8 +2269,10 @@ We try to use the clock that corresponds as closely as possible to
 the passage of time as measured by system calls such as poll() but it
 may not always be possible to do this.
 */
-func GetMonotonicTime() (return__ C.gint64) {
-	return__ = C.g_get_monotonic_time()
+func GetMonotonicTime() (return__ int64) {
+	var __cgo__return__ C.gint64
+	__cgo__return__ = C.g_get_monotonic_time()
+	return__ = int64(__cgo__return__)
 	return
 }
 
@@ -2298,8 +2329,10 @@ You should only use this call if you are actually interested in the real
 wall-clock time.  g_get_monotonic_time() is probably more useful for
 measuring intervals.
 */
-func GetRealTime() (return__ C.gint64) {
-	return__ = C.g_get_real_time()
+func GetRealTime() (return__ int64) {
+	var __cgo__return__ C.gint64
+	__cgo__return__ = C.g_get_real_time()
+	return__ = int64(__cgo__return__)
 	return
 }
 
@@ -2822,9 +2855,11 @@ a native implementation.
 GLib provides g_convert() and g_locale_to_utf8() which are likely
 more convenient than the raw iconv wrappers.
 */
-func Iconv(converter C.GIConv, inbuf **C.gchar, inbytes_left *C.gsize, outbuf **C.gchar, outbytes_left *C.gsize) (return__ int64) {
+func Iconv(converter C.GIConv, inbuf []string, inbytes_left *C.gsize, outbuf []string, outbytes_left *C.gsize) (return__ int64) {
+	__header__inbuf := (*reflect.SliceHeader)(unsafe.Pointer(&inbuf))
+	__header__outbuf := (*reflect.SliceHeader)(unsafe.Pointer(&outbuf))
 	var __cgo__return__ C.gsize
-	__cgo__return__ = C.g_iconv(converter, inbuf, inbytes_left, outbuf, outbytes_left)
+	__cgo__return__ = C.g_iconv(converter, (**C.gchar)(unsafe.Pointer(__header__inbuf.Data)), inbytes_left, (**C.gchar)(unsafe.Pointer(__header__outbuf.Data)), outbytes_left)
 	return__ = int64(__cgo__return__)
 	return
 }
@@ -4022,8 +4057,10 @@ func RandomInt() (return__ uint32) {
 Returns a random #gint32 equally distributed over the range
 [@begin..@end-1].
 */
-func RandomIntRange(begin C.gint32, end C.gint32) (return__ C.gint32) {
-	return__ = C.g_random_int_range(begin, end)
+func RandomIntRange(begin int32, end int32) (return__ int32) {
+	var __cgo__return__ C.gint32
+	__cgo__return__ = C.g_random_int_range(C.gint32(begin), C.gint32(end))
+	return__ = int32(__cgo__return__)
 	return
 }
 
@@ -4117,9 +4154,10 @@ function is useful to dynamically generate regular expressions.
 in this case remember to specify the correct length of @string
 in @length.
 */
-func RegexEscapeString(string_ *C.gchar, length int) (return__ string) {
+func RegexEscapeString(string_ []byte, length int) (return__ string) {
+	__header__string_ := (*reflect.SliceHeader)(unsafe.Pointer(&string_))
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_regex_escape_string(string_, C.gint(length))
+	__cgo__return__ = C.g_regex_escape_string((*C.gchar)(unsafe.Pointer(__header__string_.Data)), C.gint(length))
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -4425,14 +4463,26 @@ does contain such expansions, they are passed through
 literally. Possible errors are those from the #G_SHELL_ERROR
 domain. Free the returned vector with g_strfreev().
 */
-func ShellParseArgv(command_line string) (argcp int, argvp **C.gchar, return__ bool, __err__ error) {
+func ShellParseArgv(command_line string) (argcp int, argvp []string, return__ bool, __err__ error) {
 	__cgo__command_line := (*C.gchar)(unsafe.Pointer(C.CString(command_line)))
 	var __cgo__argcp C.gint
+	var __cgo__argvp **C.gchar
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_shell_parse_argv(__cgo__command_line, &__cgo__argcp, &argvp, &__cgo_error__)
+	__cgo__return__ = C.g_shell_parse_argv(__cgo__command_line, &__cgo__argcp, &__cgo__argvp, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__command_line))
 	argcp = int(__cgo__argcp)
+	var __slice__argvp []*C.gchar
+	__header__argvp := (*reflect.SliceHeader)(unsafe.Pointer(&__slice__argvp))
+	__header__argvp.Len = 4294967296
+	__header__argvp.Cap = 4294967296
+	__header__argvp.Data = uintptr(unsafe.Pointer(__cgo__argvp))
+	for _, p := range __slice__argvp {
+		if p == nil {
+			break
+		}
+		argvp = append(argvp, C.GoString((*C.char)(unsafe.Pointer(p))))
+	}
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -5225,11 +5275,11 @@ nesting such as
   g_ascii_strup (g_strcanon (str, "abc", '?'))
 ]|
 */
-func Strcanon(string_ string, valid_chars string, substitutor C.gchar) (return__ string) {
+func Strcanon(string_ string, valid_chars string, substitutor byte) (return__ string) {
 	__cgo__string_ := (*C.gchar)(unsafe.Pointer(C.CString(string_)))
 	__cgo__valid_chars := (*C.gchar)(unsafe.Pointer(C.CString(valid_chars)))
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_strcanon(__cgo__string_, __cgo__valid_chars, substitutor)
+	__cgo__return__ = C.g_strcanon(__cgo__string_, __cgo__valid_chars, C.gchar(substitutor))
 	C.free(unsafe.Pointer(__cgo__string_))
 	C.free(unsafe.Pointer(__cgo__valid_chars))
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
@@ -5321,11 +5371,11 @@ allow nesting such as
   g_ascii_strup (g_strdelimit (str, "abc", '?'))
 ]|
 */
-func Strdelimit(string_ string, delimiters string, new_delimiter C.gchar) (return__ string) {
+func Strdelimit(string_ string, delimiters string, new_delimiter byte) (return__ string) {
 	__cgo__string_ := (*C.gchar)(unsafe.Pointer(C.CString(string_)))
 	__cgo__delimiters := (*C.gchar)(unsafe.Pointer(C.CString(delimiters)))
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_strdelimit(__cgo__string_, __cgo__delimiters, new_delimiter)
+	__cgo__return__ = C.g_strdelimit(__cgo__string_, __cgo__delimiters, C.gchar(new_delimiter))
 	C.free(unsafe.Pointer(__cgo__string_))
 	C.free(unsafe.Pointer(__cgo__delimiters))
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
@@ -5358,8 +5408,9 @@ the new array should be freed by first freeing each string, then
 the array itself. g_strfreev() does this for you. If called
 on a %NULL value, g_strdupv() simply returns %NULL.
 */
-func Strdupv(str_array **C.gchar) (return__ **C.gchar) {
-	return__ = C.g_strdupv(str_array)
+func Strdupv(str_array []string) (return__ **C.gchar) {
+	__header__str_array := (*reflect.SliceHeader)(unsafe.Pointer(&str_array))
+	return__ = C.g_strdupv((**C.gchar)(unsafe.Pointer(__header__str_array.Data)))
 	return
 }
 
@@ -5401,8 +5452,9 @@ func Strescape(source string, exceptions string) (return__ string) {
 Frees a %NULL-terminated array of strings, and the array itself.
 If called on a %NULL value, g_strfreev() simply returns.
 */
-func Strfreev(str_array **C.gchar) {
-	C.g_strfreev(str_array)
+func Strfreev(str_array []string) {
+	__header__str_array := (*reflect.SliceHeader)(unsafe.Pointer(&str_array))
+	C.g_strfreev((**C.gchar)(unsafe.Pointer(__header__str_array.Data)))
 	return
 }
 
@@ -5464,10 +5516,11 @@ Joins a number of strings together to form one long string, with the
 optional @separator inserted between each of them. The returned string
 should be freed with g_free().
 */
-func Strjoinv(separator string, str_array **C.gchar) (return__ string) {
+func Strjoinv(separator string, str_array []string) (return__ string) {
 	__cgo__separator := (*C.gchar)(unsafe.Pointer(C.CString(separator)))
+	__header__str_array := (*reflect.SliceHeader)(unsafe.Pointer(&str_array))
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_strjoinv(__cgo__separator, str_array)
+	__cgo__return__ = C.g_strjoinv(__cgo__separator, (**C.gchar)(unsafe.Pointer(__header__str_array.Data)))
 	C.free(unsafe.Pointer(__cgo__separator))
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
@@ -5551,9 +5604,9 @@ func Strndup(str string, n int64) (return__ string) {
 Creates a new string @length bytes long filled with @fill_char.
 The returned string should be freed when no longer needed.
 */
-func Strnfill(length int64, fill_char C.gchar) (return__ string) {
+func Strnfill(length int64, fill_char byte) (return__ string) {
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_strnfill(C.gsize(length), fill_char)
+	__cgo__return__ = C.g_strnfill(C.gsize(length), C.gchar(fill_char))
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -5701,10 +5754,11 @@ should you use this. Make sure that you don't pass strings such as comma
 separated lists of values, since the commas may be interpreted as a decimal
 point in some locales, causing unexpected results.
 */
-func Strtod(nptr string, endptr **C.gchar) (return__ float64) {
+func Strtod(nptr string, endptr []string) (return__ float64) {
 	__cgo__nptr := (*C.gchar)(unsafe.Pointer(C.CString(nptr)))
+	__header__endptr := (*reflect.SliceHeader)(unsafe.Pointer(&endptr))
 	var __cgo__return__ C.gdouble
-	__cgo__return__ = C.g_strtod(__cgo__nptr, endptr)
+	__cgo__return__ = C.g_strtod(__cgo__nptr, (**C.gchar)(unsafe.Pointer(__header__endptr.Data)))
 	C.free(unsafe.Pointer(__cgo__nptr))
 	return__ = float64(__cgo__return__)
 	return
@@ -5721,9 +5775,10 @@ func StrvGetType() (return__ C.GType) {
 Returns the length of the given %NULL-terminated
 string array @str_array.
 */
-func StrvLength(str_array **C.gchar) (return__ uint) {
+func StrvLength(str_array []string) (return__ uint) {
+	__header__str_array := (*reflect.SliceHeader)(unsafe.Pointer(&str_array))
 	var __cgo__return__ C.guint
-	__cgo__return__ = C.g_strv_length(str_array)
+	__cgo__return__ = C.g_strv_length((**C.gchar)(unsafe.Pointer(__header__str_array.Data)))
 	return__ = uint(__cgo__return__)
 	return
 }
@@ -6076,8 +6131,10 @@ For individual test cases however, the random number generator is
 reseeded, to avoid dependencies between tests and to make --seed
 effective for all test cases.
 */
-func TestRandInt() (return__ C.gint32) {
-	return__ = C.g_test_rand_int()
+func TestRandInt() (return__ int32) {
+	var __cgo__return__ C.gint32
+	__cgo__return__ = C.g_test_rand_int()
+	return__ = int32(__cgo__return__)
 	return
 }
 
@@ -6085,8 +6142,10 @@ func TestRandInt() (return__ C.gint32) {
 Get a reproducible random integer number out of a specified range,
 see g_test_rand_int() for details on test case random numbers.
 */
-func TestRandIntRange(begin C.gint32, end C.gint32) (return__ C.gint32) {
-	return__ = C.g_test_rand_int_range(begin, end)
+func TestRandIntRange(begin int32, end int32) (return__ int32) {
+	var __cgo__return__ C.gint32
+	__cgo__return__ = C.g_test_rand_int_range(C.gint32(begin), C.gint32(end))
+	return__ = int32(__cgo__return__)
 	return
 }
 
@@ -7809,12 +7868,14 @@ character offset.
 Since 2.10, this function allows @pos to be before @str, and returns
 a negative offset in this case.
 */
-func Utf8PointerToOffset(str string, pos string) (return__ C.glong) {
+func Utf8PointerToOffset(str string, pos string) (return__ int64) {
 	__cgo__str := (*C.gchar)(unsafe.Pointer(C.CString(str)))
 	__cgo__pos := (*C.gchar)(unsafe.Pointer(C.CString(pos)))
-	return__ = C.g_utf8_pointer_to_offset(__cgo__str, __cgo__pos)
+	var __cgo__return__ C.glong
+	__cgo__return__ = C.g_utf8_pointer_to_offset(__cgo__str, __cgo__pos)
 	C.free(unsafe.Pointer(__cgo__str))
 	C.free(unsafe.Pointer(__cgo__pos))
+	return__ = int64(__cgo__return__)
 	return
 }
 
@@ -7869,10 +7930,12 @@ Computes the length of the string in characters, not including
 the terminating nul character. If the @max'th byte falls in the
 middle of a character, the last (partial) character is not counted.
 */
-func Utf8Strlen(p string, max int64) (return__ C.glong) {
+func Utf8Strlen(p string, max int64) (return__ int64) {
 	__cgo__p := (*C.gchar)(unsafe.Pointer(C.CString(p)))
-	return__ = C.g_utf8_strlen(__cgo__p, C.gssize(max))
+	var __cgo__return__ C.glong
+	__cgo__return__ = C.g_utf8_strlen(__cgo__p, C.gssize(max))
 	C.free(unsafe.Pointer(__cgo__p))
+	return__ = int64(__cgo__return__)
 	return
 }
 
@@ -8102,11 +8165,12 @@ then it will be set to reflect the error that occurred.
 Officially, the language understood by the parser is "any string
 produced by g_variant_print()".
 */
-func VariantParse(type_ *C.GVariantType, text string, limit string, endptr **C.gchar) (return__ *C.GVariant, __err__ error) {
+func VariantParse(type_ *C.GVariantType, text string, limit string, endptr []string) (return__ *C.GVariant, __err__ error) {
 	__cgo__text := (*C.gchar)(unsafe.Pointer(C.CString(text)))
 	__cgo__limit := (*C.gchar)(unsafe.Pointer(C.CString(limit)))
+	__header__endptr := (*reflect.SliceHeader)(unsafe.Pointer(&endptr))
 	var __cgo_error__ *C.GError
-	return__ = C.g_variant_parse(type_, __cgo__text, __cgo__limit, endptr, &__cgo_error__)
+	return__ = C.g_variant_parse(type_, __cgo__text, __cgo__limit, (**C.gchar)(unsafe.Pointer(__header__endptr.Data)), &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__text))
 	C.free(unsafe.Pointer(__cgo__limit))
 	if __cgo_error__ != nil {
