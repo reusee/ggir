@@ -13,14 +13,18 @@ func (self *Generator) GenClassTypes(ns *Namespace) {
 	for _, include := range self.Includes {
 		w(output, "#include <%s>\n", include)
 	}
+	w(output, "#include <glib-object.h>\n")
+	w(output, "#cgo pkg-config: gobject-2.0\n")
 	w(output, "*/\n")
 	w(output, "import \"C\"\n")
 	w(output, "import \"unsafe\"\n")
 	for _, ext := range self.ExternalPackages { // external import
 		w(output, "import \"%s\"\n", ext.Import)
 	}
+	w(output, "import \"runtime\"\n")
 	w(output, `func init() {
 		_ = unsafe.Pointer(nil)
+		_ = runtime.Compiler
 	}
 	`)
 
@@ -85,11 +89,16 @@ func (self *Generator) GenClassTypes(ns *Namespace) {
 
 		// wrapper
 		w(output, `func New%sFromCPointer(p unsafe.Pointer) *%s {
-			return &%s{
+			ret := &%s{
 				%sp,
 			}
+			C.g_object_ref_sink(C.gpointer(p))
+			runtime.SetFinalizer(ret, func(p *%s) {
+				C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+			})
+			return ret
 		}
-		`, typeName, typeName, typeName, constructExpr)
+		`, typeName, typeName, typeName, constructExpr, typeName)
 
 		// type mapping
 		// typed pointer
