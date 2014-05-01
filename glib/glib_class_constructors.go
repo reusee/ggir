@@ -6,14 +6,14 @@ package glib
 #include <glib-object.h>
 #include <glib-unix.h>
 #include <glib/gstdio.h>
-#include <glib-object.h>
-#cgo pkg-config: gobject-2.0
 */
 import "C"
 import "unsafe"
-import "runtime"
+import "reflect"
+import "errors"
 
 func init() {
 	_ = unsafe.Pointer(nil)
-	_ = runtime.Compiler
+	_ = reflect.ValueOf(nil)
+	_ = errors.New("")
 }

@@ -50,9 +50,9 @@ Determines the numeric value of a character as a decimal digit.
 Differs from g_unichar_digit_value() because it takes a char, so
 there's no worry about sign extension if characters are signed.
 */
-func AsciiDigitValue(c byte) (return__ int) {
+func AsciiDigitValue(c C.gchar) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.g_ascii_digit_value(C.gchar(c))
+	__cgo__return__ = C.g_ascii_digit_value(c)
 	return__ = int(__cgo__return__)
 	return
 }
@@ -212,12 +212,10 @@ If the base is outside the valid range, zero is returned, and
 string conversion fails, zero is returned, and @endptr returns @nptr
 (if @endptr is non-%NULL).
 */
-func AsciiStrtoll(nptr string, endptr **C.gchar, base uint) (return__ int64) {
+func AsciiStrtoll(nptr string, endptr **C.gchar, base uint) (return__ C.gint64) {
 	__cgo__nptr := (*C.gchar)(unsafe.Pointer(C.CString(nptr)))
-	var __cgo__return__ C.gint64
-	__cgo__return__ = C.g_ascii_strtoll(__cgo__nptr, endptr, C.guint(base))
+	return__ = C.g_ascii_strtoll(__cgo__nptr, endptr, C.guint(base))
 	C.free(unsafe.Pointer(__cgo__nptr))
-	return__ = int64(__cgo__return__)
 	return
 }
 
@@ -240,12 +238,10 @@ If the base is outside the valid range, zero is returned, and
 If the string conversion fails, zero is returned, and @endptr returns
 @nptr (if @endptr is non-%NULL).
 */
-func AsciiStrtoull(nptr string, endptr **C.gchar, base uint) (return__ uint64) {
+func AsciiStrtoull(nptr string, endptr **C.gchar, base uint) (return__ C.guint64) {
 	__cgo__nptr := (*C.gchar)(unsafe.Pointer(C.CString(nptr)))
-	var __cgo__return__ C.guint64
-	__cgo__return__ = C.g_ascii_strtoull(__cgo__nptr, endptr, C.guint(base))
+	return__ = C.g_ascii_strtoull(__cgo__nptr, endptr, C.guint(base))
 	C.free(unsafe.Pointer(__cgo__nptr))
-	return__ = uint64(__cgo__return__)
 	return
 }
 
@@ -272,10 +268,8 @@ library function, this takes and returns a char, not an int, so
 don't call it on %EOF but no need to worry about casting to #guchar
 before passing a possibly non-ASCII character in.
 */
-func AsciiTolower(c byte) (return__ byte) {
-	var __cgo__return__ C.gchar
-	__cgo__return__ = C.g_ascii_tolower(C.gchar(c))
-	return__ = byte(__cgo__return__)
+func AsciiTolower(c C.gchar) (return__ C.gchar) {
+	return__ = C.g_ascii_tolower(c)
 	return
 }
 
@@ -290,10 +284,8 @@ library function, this takes and returns a char, not an int, so
 don't call it on %EOF but no need to worry about casting to #guchar
 before passing a possibly non-ASCII character in.
 */
-func AsciiToupper(c byte) (return__ byte) {
-	var __cgo__return__ C.gchar
-	__cgo__return__ = C.g_ascii_toupper(C.gchar(c))
-	return__ = byte(__cgo__return__)
+func AsciiToupper(c C.gchar) (return__ C.gchar) {
+	return__ = C.g_ascii_toupper(c)
 	return
 }
 
@@ -303,9 +295,9 @@ digit. Differs from g_unichar_xdigit_value() because it takes
 a char, so there's no worry about sign extension if characters
 are signed.
 */
-func AsciiXdigitValue(c byte) (return__ int) {
+func AsciiXdigitValue(c C.gchar) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.g_ascii_xdigit_value(C.gchar(c))
+	__cgo__return__ = C.g_ascii_xdigit_value(c)
 	return__ = int(__cgo__return__)
 	return
 }
@@ -346,12 +338,12 @@ func AssertionMessageCmpstr(domain string, file string, line int, func_ string, 
 	return
 }
 
-func AssertionMessageError(domain string, file string, line int, func_ string, expr string, error_ *Error, error_domain C.GQuark, error_code int) {
+func AssertionMessageError(domain string, file string, line int, func_ string, expr string, error_ *C.GError, error_domain C.GQuark, error_code int) {
 	__cgo__domain := C.CString(domain)
 	__cgo__file := C.CString(file)
 	__cgo__func_ := C.CString(func_)
 	__cgo__expr := C.CString(expr)
-	C.g_assertion_message_error(__cgo__domain, __cgo__file, C.int(line), __cgo__func_, __cgo__expr, (*C.GError)(unsafe.Pointer(error_)), error_domain, C.int(error_code))
+	C.g_assertion_message_error(__cgo__domain, __cgo__file, C.int(line), __cgo__func_, __cgo__expr, error_, error_domain, C.int(error_code))
 	C.free(unsafe.Pointer(__cgo__domain))
 	C.free(unsafe.Pointer(__cgo__file))
 	C.free(unsafe.Pointer(__cgo__func_))
@@ -413,14 +405,12 @@ Decode a sequence of Base-64 encoded text into binary data.  Note
 that the returned binary data is not necessarily zero-terminated,
 so it should not be used as a character string.
 */
-func Base64Decode(text string) (out_len int64, return__ []byte) {
+func Base64Decode(text string) (out_len int64, return__ *C.guchar) {
 	__cgo__text := (*C.gchar)(unsafe.Pointer(C.CString(text)))
 	var __cgo__out_len C.gsize
-	var __cgo__return__ *C.guchar
-	__cgo__return__ = C.g_base64_decode(__cgo__text, &__cgo__out_len)
+	return__ = C.g_base64_decode(__cgo__text, &__cgo__out_len)
 	C.free(unsafe.Pointer(__cgo__text))
 	out_len = int64(__cgo__out_len)
-	defer func() { return__ = C.GoBytes(unsafe.Pointer(__cgo__return__), C.int(out_len)) }()
 	return
 }
 
@@ -432,10 +422,9 @@ func Base64Decode(text string) (out_len int64, return__ []byte) {
 Encode a sequence of binary data into its Base-64 stringified
 representation.
 */
-func Base64Encode(data []byte, len_ int64) (return__ string) {
-	__header__data := (*reflect.SliceHeader)(unsafe.Pointer(&data))
+func Base64Encode(data *C.guchar, len_ int64) (return__ string) {
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_base64_encode((*C.guchar)(unsafe.Pointer(__header__data.Data)), C.gsize(len_))
+	__cgo__return__ = C.g_base64_encode(data, C.gsize(len_))
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -582,12 +571,12 @@ Frees the memory allocated by the #GByteArray. If @free_segment is
 @array is greater than one, the #GByteArray wrapper is preserved but
 the size of @array will be set to zero.
 */
-func ByteArrayFree(array *ByteArray, free_segment bool) (return__ *C.guint8) {
+func ByteArrayFree(array *C.GByteArray, free_segment bool) (return__ *C.guint8) {
 	__cgo__free_segment := C.gboolean(0)
 	if free_segment {
 		__cgo__free_segment = C.gboolean(1)
 	}
-	return__ = C.g_byte_array_free((*C.GByteArray)(unsafe.Pointer(array)), __cgo__free_segment)
+	return__ = C.g_byte_array_free(array, __cgo__free_segment)
 	return
 }
 
@@ -601,20 +590,16 @@ will be set to zero.
 This is identical to using g_bytes_new_take() and g_byte_array_free()
 together.
 */
-func ByteArrayFreeToBytes(array *ByteArray) (return__ *Bytes) {
-	var __cgo__return__ *C.GBytes
-	__cgo__return__ = C.g_byte_array_free_to_bytes((*C.GByteArray)(unsafe.Pointer(array)))
-	return__ = (*Bytes)(unsafe.Pointer(__cgo__return__))
+func ByteArrayFreeToBytes(array *C.GByteArray) (return__ *C.GBytes) {
+	return__ = C.g_byte_array_free_to_bytes(array)
 	return
 }
 
 /*
 Creates a new #GByteArray with a reference count of 1.
 */
-func ByteArrayNew() (return__ *ByteArray) {
-	var __cgo__return__ *C.GByteArray
-	__cgo__return__ = C.g_byte_array_new()
-	return__ = (*ByteArray)(unsafe.Pointer(__cgo__return__))
+func ByteArrayNew() (return__ *C.GByteArray) {
+	return__ = C.g_byte_array_new()
 	return
 }
 
@@ -622,11 +607,9 @@ func ByteArrayNew() (return__ *ByteArray) {
 Create byte array containing the data. The data will be owned by the array
 and will be freed with g_free(), i.e. it could be allocated using g_strdup().
 */
-func ByteArrayNewTake(data []byte, len_ int64) (return__ *ByteArray) {
+func ByteArrayNewTake(data []byte, len_ int64) (return__ *C.GByteArray) {
 	__header__data := (*reflect.SliceHeader)(unsafe.Pointer(&data))
-	var __cgo__return__ *C.GByteArray
-	__cgo__return__ = C.g_byte_array_new_take((*C.guint8)(unsafe.Pointer(__header__data.Data)), C.gsize(len_))
-	return__ = (*ByteArray)(unsafe.Pointer(__cgo__return__))
+	return__ = C.g_byte_array_new_take((*C.guint8)(unsafe.Pointer(__header__data.Data)), C.gsize(len_))
 	return
 }
 
@@ -636,8 +619,8 @@ reference count drops to 0, all memory allocated by the array is
 released. This function is thread-safe and may be called from any
 thread.
 */
-func ByteArrayUnref(array *ByteArray) {
-	C.g_byte_array_unref((*C.GByteArray)(unsafe.Pointer(array)))
+func ByteArrayUnref(array *C.GByteArray) {
+	C.g_byte_array_unref(array)
 	return
 }
 
@@ -682,10 +665,8 @@ func CheckVersion(required_major uint, required_minor uint, required_micro uint)
 /*
 Gets the length in bytes of digests of type @checksum_type
 */
-func ChecksumTypeGetLength(checksum_type C.GChecksumType) (return__ int64) {
-	var __cgo__return__ C.gssize
-	__cgo__return__ = C.g_checksum_type_get_length(checksum_type)
-	return__ = int64(__cgo__return__)
+func ChecksumTypeGetLength(checksum_type C.GChecksumType) (return__ C.gssize) {
+	return__ = C.g_checksum_type_get_length(checksum_type)
 	return
 }
 
@@ -771,10 +752,8 @@ Similarly, on POSIX platforms, the @pid passed to this function must
 be greater than 0 (i.e. this function must wait for a specific child,
 and cannot wait for one of many children by using a nonpositive argument).
 */
-func ChildWatchSourceNew(pid C.GPid) (return__ *Source) {
-	var __cgo__return__ *C.GSource
-	__cgo__return__ = C.g_child_watch_source_new(pid)
-	return__ = (*Source)(unsafe.Pointer(__cgo__return__))
+func ChildWatchSourceNew(pid C.GPid) (return__ *C.GSource) {
+	return__ = C.g_child_watch_source_new(pid)
 	return
 }
 
@@ -820,9 +799,9 @@ and g_checksum_free().
 
 The hexadecimal string returned will be in lower case.
 */
-func ComputeChecksumForBytes(checksum_type C.GChecksumType, data *Bytes) (return__ string) {
+func ComputeChecksumForBytes(checksum_type C.GChecksumType, data *C.GBytes) (return__ string) {
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_compute_checksum_for_bytes(checksum_type, (*C.GBytes)(unsafe.Pointer(data)))
+	__cgo__return__ = C.g_compute_checksum_for_bytes(checksum_type, data)
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -834,10 +813,9 @@ and g_checksum_free().
 
 The hexadecimal string returned will be in lower case.
 */
-func ComputeChecksumForData(checksum_type C.GChecksumType, data []byte, length int64) (return__ string) {
-	__header__data := (*reflect.SliceHeader)(unsafe.Pointer(&data))
+func ComputeChecksumForData(checksum_type C.GChecksumType, data *C.guchar, length int64) (return__ string) {
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_compute_checksum_for_data(checksum_type, (*C.guchar)(unsafe.Pointer(__header__data.Data)), C.gsize(length))
+	__cgo__return__ = C.g_compute_checksum_for_data(checksum_type, data, C.gsize(length))
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -863,10 +841,9 @@ and g_hmac_unref().
 
 The hexadecimal string returned will be in lower case.
 */
-func ComputeHmacForData(digest_type C.GChecksumType, key []byte, key_len int64, data *C.guchar, length int64) (return__ string) {
-	__header__key := (*reflect.SliceHeader)(unsafe.Pointer(&key))
+func ComputeHmacForData(digest_type C.GChecksumType, key *C.guchar, key_len int64, data *C.guchar, length int64) (return__ string) {
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_compute_hmac_for_data(digest_type, (*C.guchar)(unsafe.Pointer(__header__key.Data)), C.gsize(key_len), data, C.gsize(length))
+	__cgo__return__ = C.g_compute_hmac_for_data(digest_type, key, C.gsize(key_len), data, C.gsize(length))
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -876,11 +853,10 @@ Computes the HMAC for a string.
 
 The hexadecimal string returned will be in lower case.
 */
-func ComputeHmacForString(digest_type C.GChecksumType, key []byte, key_len int64, str string, length int64) (return__ string) {
-	__header__key := (*reflect.SliceHeader)(unsafe.Pointer(&key))
+func ComputeHmacForString(digest_type C.GChecksumType, key *C.guchar, key_len int64, str string, length int64) (return__ string) {
 	__cgo__str := (*C.gchar)(unsafe.Pointer(C.CString(str)))
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_compute_hmac_for_string(digest_type, (*C.guchar)(unsafe.Pointer(__header__key.Data)), C.gsize(key_len), __cgo__str, C.gssize(length))
+	__cgo__return__ = C.g_compute_hmac_for_string(digest_type, key, C.gsize(key_len), __cgo__str, C.gssize(length))
 	C.free(unsafe.Pointer(__cgo__str))
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
@@ -1201,10 +1177,8 @@ func DatasetIdSetDataFull(dataset_location unsafe.Pointer, key_id C.GQuark, data
 Returns the number of days in a month, taking leap
 years into account.
 */
-func DateGetDaysInMonth(month C.GDateMonth, year C.GDateYear) (return__ uint8) {
-	var __cgo__return__ C.guint8
-	__cgo__return__ = C.g_date_get_days_in_month(month, year)
-	return__ = uint8(__cgo__return__)
+func DateGetDaysInMonth(month C.GDateMonth, year C.GDateYear) (return__ C.guint8) {
+	return__ = C.g_date_get_days_in_month(month, year)
 	return
 }
 
@@ -1217,10 +1191,8 @@ year. This function is basically telling you how many
 Mondays are in the year, i.e. there are 53 Mondays if
 one of the extra days happens to be a Monday.)
 */
-func DateGetMondayWeeksInYear(year C.GDateYear) (return__ uint8) {
-	var __cgo__return__ C.guint8
-	__cgo__return__ = C.g_date_get_monday_weeks_in_year(year)
-	return__ = uint8(__cgo__return__)
+func DateGetMondayWeeksInYear(year C.GDateYear) (return__ C.guint8) {
+	return__ = C.g_date_get_monday_weeks_in_year(year)
 	return
 }
 
@@ -1233,10 +1205,8 @@ year. This function is basically telling you how many
 Sundays are in the year, i.e. there are 53 Sundays if
 one of the extra days happens to be a Sunday.)
 */
-func DateGetSundayWeeksInYear(year C.GDateYear) (return__ uint8) {
-	var __cgo__return__ C.guint8
-	__cgo__return__ = C.g_date_get_sunday_weeks_in_year(year)
-	return__ = uint8(__cgo__return__)
+func DateGetSundayWeeksInYear(year C.GDateYear) (return__ C.guint8) {
+	return__ = C.g_date_get_sunday_weeks_in_year(year)
 	return
 }
 
@@ -1270,11 +1240,11 @@ For example, don't expect that using g_date_strftime() would
 make the \%F provided by the C99 strftime() work on Windows
 where the C library only complies to C89.
 */
-func DateStrftime(s string, slen int64, format string, date *Date) (return__ int64) {
+func DateStrftime(s string, slen int64, format string, date *C.GDate) (return__ int64) {
 	__cgo__s := (*C.gchar)(unsafe.Pointer(C.CString(s)))
 	__cgo__format := (*C.gchar)(unsafe.Pointer(C.CString(format)))
 	var __cgo__return__ C.gsize
-	__cgo__return__ = C.g_date_strftime(__cgo__s, C.gsize(slen), __cgo__format, (*C.GDate)(unsafe.Pointer(date)))
+	__cgo__return__ = C.g_date_strftime(__cgo__s, C.gsize(slen), __cgo__format, date)
 	C.free(unsafe.Pointer(__cgo__s))
 	C.free(unsafe.Pointer(__cgo__format))
 	return__ = int64(__cgo__return__)
@@ -1619,7 +1589,7 @@ func EnvironGetenv(envp []string, variable string) (return__ string) {
 Sets the environment variable @variable in the provided list
 @envp to @value.
 */
-func EnvironSetenv(envp []string, variable string, value string, overwrite bool) (return__ []string) {
+func EnvironSetenv(envp []string, variable string, value string, overwrite bool) (return__ **C.gchar) {
 	__header__envp := (*reflect.SliceHeader)(unsafe.Pointer(&envp))
 	__cgo__variable := (*C.gchar)(unsafe.Pointer(C.CString(variable)))
 	__cgo__value := (*C.gchar)(unsafe.Pointer(C.CString(value)))
@@ -1627,21 +1597,9 @@ func EnvironSetenv(envp []string, variable string, value string, overwrite bool)
 	if overwrite {
 		__cgo__overwrite = C.gboolean(1)
 	}
-	var __cgo__return__ **C.gchar
-	__cgo__return__ = C.g_environ_setenv((**C.gchar)(unsafe.Pointer(__header__envp.Data)), __cgo__variable, __cgo__value, __cgo__overwrite)
+	return__ = C.g_environ_setenv((**C.gchar)(unsafe.Pointer(__header__envp.Data)), __cgo__variable, __cgo__value, __cgo__overwrite)
 	C.free(unsafe.Pointer(__cgo__variable))
 	C.free(unsafe.Pointer(__cgo__value))
-	var __slice__return__ []*C.gchar
-	__header__return__ := (*reflect.SliceHeader)(unsafe.Pointer(&__slice__return__))
-	__header__return__.Len = 4294967296
-	__header__return__.Cap = 4294967296
-	__header__return__.Data = uintptr(unsafe.Pointer(__cgo__return__))
-	for _, p := range __slice__return__ {
-		if p == nil {
-			break
-		}
-		return__ = append(return__, C.GoString((*C.char)(unsafe.Pointer(p))))
-	}
 	return
 }
 
@@ -1649,23 +1607,11 @@ func EnvironSetenv(envp []string, variable string, value string, overwrite bool)
 Removes the environment variable @variable from the provided
 environment @envp.
 */
-func EnvironUnsetenv(envp []string, variable string) (return__ []string) {
+func EnvironUnsetenv(envp []string, variable string) (return__ **C.gchar) {
 	__header__envp := (*reflect.SliceHeader)(unsafe.Pointer(&envp))
 	__cgo__variable := (*C.gchar)(unsafe.Pointer(C.CString(variable)))
-	var __cgo__return__ **C.gchar
-	__cgo__return__ = C.g_environ_unsetenv((**C.gchar)(unsafe.Pointer(__header__envp.Data)), __cgo__variable)
+	return__ = C.g_environ_unsetenv((**C.gchar)(unsafe.Pointer(__header__envp.Data)), __cgo__variable)
 	C.free(unsafe.Pointer(__cgo__variable))
-	var __slice__return__ []*C.gchar
-	__header__return__ := (*reflect.SliceHeader)(unsafe.Pointer(&__slice__return__))
-	__header__return__.Len = 4294967296
-	__header__return__.Cap = 4294967296
-	__header__return__.Data = uintptr(unsafe.Pointer(__cgo__return__))
-	for _, p := range __slice__return__ {
-		if p == nil {
-			break
-		}
-		return__ = append(return__, C.GoString((*C.char)(unsafe.Pointer(p))))
-	}
 	return
 }
 
@@ -1701,15 +1647,13 @@ stored in @contents will be nul-terminated, so for text files you can pass
 codes are those in the #GFileError enumeration. In the error case,
 @contents is set to %NULL and @length is set to zero.
 */
-func FileGetContents(filename string) (contents []byte, length int64, return__ bool, __err__ error) {
+func FileGetContents(filename string) (contents *C.gchar, length int64, return__ bool, __err__ error) {
 	__cgo__filename := (*C.gchar)(unsafe.Pointer(C.CString(filename)))
-	var __cgo__contents *C.gchar
 	var __cgo__length C.gsize
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_file_get_contents(__cgo__filename, &__cgo__contents, &__cgo__length, &__cgo_error__)
+	__cgo__return__ = C.g_file_get_contents(__cgo__filename, &contents, &__cgo__length, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__filename))
-	defer func() { contents = C.GoBytes(unsafe.Pointer(__cgo__contents), C.int(length)) }()
 	length = int64(__cgo__length)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
@@ -1940,17 +1884,15 @@ filenames. Note that on Windows GLib uses UTF-8 for filenames;
 on other platforms, this function indirectly depends on the
 [current locale][setlocale].
 */
-func FilenameFromUtf8(utf8string string, len_ int64) (bytes_read int64, bytes_written int64, return__ []byte, __err__ error) {
+func FilenameFromUtf8(utf8string string, len_ int64) (bytes_read int64, bytes_written int64, return__ *C.gchar, __err__ error) {
 	__cgo__utf8string := (*C.gchar)(unsafe.Pointer(C.CString(utf8string)))
 	var __cgo__bytes_read C.gsize
 	var __cgo__bytes_written C.gsize
 	var __cgo_error__ *C.GError
-	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_filename_from_utf8(__cgo__utf8string, C.gssize(len_), &__cgo__bytes_read, &__cgo__bytes_written, &__cgo_error__)
+	return__ = C.g_filename_from_utf8(__cgo__utf8string, C.gssize(len_), &__cgo__bytes_read, &__cgo__bytes_written, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__utf8string))
 	bytes_read = int64(__cgo__bytes_read)
 	bytes_written = int64(__cgo__bytes_written)
-	defer func() { return__ = C.GoBytes(unsafe.Pointer(__cgo__return__), C.int(bytes_written)) }()
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
 	}
@@ -2144,8 +2086,8 @@ Equivalent to the UNIX gettimeofday() function, but portable.
 
 You may find g_get_real_time() to be more convenient.
 */
-func GetCurrentTime(result *TimeVal) {
-	C.g_get_current_time((*C.GTimeVal)(unsafe.Pointer(result)))
+func GetCurrentTime(result *C.GTimeVal) {
+	C.g_get_current_time(result)
 	return
 }
 
@@ -2161,20 +2103,8 @@ except portable.
 The return value is freshly allocated and it should be freed with
 g_strfreev() when it is no longer needed.
 */
-func GetEnviron() (return__ []string) {
-	var __cgo__return__ **C.gchar
-	__cgo__return__ = C.g_get_environ()
-	var __slice__return__ []*C.gchar
-	__header__return__ := (*reflect.SliceHeader)(unsafe.Pointer(&__slice__return__))
-	__header__return__.Len = 4294967296
-	__header__return__.Cap = 4294967296
-	__header__return__.Data = uintptr(unsafe.Pointer(__cgo__return__))
-	for _, p := range __slice__return__ {
-		if p == nil {
-			break
-		}
-		return__ = append(return__, C.GoString((*C.char)(unsafe.Pointer(p))))
-	}
+func GetEnviron() (return__ **C.gchar) {
+	return__ = C.g_get_environ()
 	return
 }
 
@@ -2274,20 +2204,8 @@ This function consults the environment variables `LANGUAGE`, `LC_ALL`,
 `LC_MESSAGES` and `LANG` to find the list of locales specified by the
 user.
 */
-func GetLanguageNames() (return__ []string) {
-	var __cgo__return__ **C.gchar
-	__cgo__return__ = C.g_get_language_names()
-	var __slice__return__ []*C.gchar
-	__header__return__ := (*reflect.SliceHeader)(unsafe.Pointer(&__slice__return__))
-	__header__return__.Len = 4294967296
-	__header__return__.Cap = 4294967296
-	__header__return__.Data = uintptr(unsafe.Pointer(__cgo__return__))
-	for _, p := range __slice__return__ {
-		if p == nil {
-			break
-		}
-		return__ = append(return__, C.GoString((*C.char)(unsafe.Pointer(p))))
-	}
+func GetLanguageNames() (return__ **C.gchar) {
+	return__ = C.g_get_language_names()
 	return
 }
 
@@ -2303,22 +2221,10 @@ is "fr_BE", "fr".
 If you need the list of variants for the current locale,
 use g_get_language_names().
 */
-func GetLocaleVariants(locale string) (return__ []string) {
+func GetLocaleVariants(locale string) (return__ **C.gchar) {
 	__cgo__locale := (*C.gchar)(unsafe.Pointer(C.CString(locale)))
-	var __cgo__return__ **C.gchar
-	__cgo__return__ = C.g_get_locale_variants(__cgo__locale)
+	return__ = C.g_get_locale_variants(__cgo__locale)
 	C.free(unsafe.Pointer(__cgo__locale))
-	var __slice__return__ []*C.gchar
-	__header__return__ := (*reflect.SliceHeader)(unsafe.Pointer(&__slice__return__))
-	__header__return__.Len = 4294967296
-	__header__return__.Cap = 4294967296
-	__header__return__.Data = uintptr(unsafe.Pointer(__cgo__return__))
-	for _, p := range __slice__return__ {
-		if p == nil {
-			break
-		}
-		return__ = append(return__, C.GoString((*C.char)(unsafe.Pointer(p))))
-	}
 	return
 }
 
@@ -2334,10 +2240,8 @@ We try to use the clock that corresponds as closely as possible to
 the passage of time as measured by system calls such as poll() but it
 may not always be possible to do this.
 */
-func GetMonotonicTime() (return__ int64) {
-	var __cgo__return__ C.gint64
-	__cgo__return__ = C.g_get_monotonic_time()
-	return__ = int64(__cgo__return__)
+func GetMonotonicTime() (return__ C.gint64) {
+	return__ = C.g_get_monotonic_time()
 	return
 }
 
@@ -2394,10 +2298,8 @@ You should only use this call if you are actually interested in the real
 wall-clock time.  g_get_monotonic_time() is probably more useful for
 measuring intervals.
 */
-func GetRealTime() (return__ int64) {
-	var __cgo__return__ C.gint64
-	__cgo__return__ = C.g_get_real_time()
-	return__ = int64(__cgo__return__)
+func GetRealTime() (return__ C.gint64) {
+	return__ = C.g_get_real_time()
 	return
 }
 
@@ -2417,20 +2319,8 @@ For example, an application can store a spell-check dictionary, a database
 of clip art, or a log file in the CSIDL_COMMON_APPDATA folder.
 This information will not roam and is available to anyone using the computer.
 */
-func GetSystemConfigDirs() (return__ []string) {
-	var __cgo__return__ **C.gchar
-	__cgo__return__ = C.g_get_system_config_dirs()
-	var __slice__return__ []*C.gchar
-	__header__return__ := (*reflect.SliceHeader)(unsafe.Pointer(&__slice__return__))
-	__header__return__.Len = 4294967296
-	__header__return__.Cap = 4294967296
-	__header__return__.Data = uintptr(unsafe.Pointer(__cgo__return__))
-	for _, p := range __slice__return__ {
-		if p == nil {
-			break
-		}
-		return__ = append(return__, C.GoString((*C.char)(unsafe.Pointer(p))))
-	}
+func GetSystemConfigDirs() (return__ **C.gchar) {
+	return__ = C.g_get_system_config_dirs()
 	return
 }
 
@@ -2465,20 +2355,8 @@ itself.
 Note that on Windows the returned list can vary depending on where
 this function is called.
 */
-func GetSystemDataDirs() (return__ []string) {
-	var __cgo__return__ **C.gchar
-	__cgo__return__ = C.g_get_system_data_dirs()
-	var __slice__return__ []*C.gchar
-	__header__return__ := (*reflect.SliceHeader)(unsafe.Pointer(&__slice__return__))
-	__header__return__.Len = 4294967296
-	__header__return__.Cap = 4294967296
-	__header__return__.Data = uintptr(unsafe.Pointer(__cgo__return__))
-	for _, p := range __slice__return__ {
-		if p == nil {
-			break
-		}
-		return__ = append(return__, C.GoString((*C.char)(unsafe.Pointer(p))))
-	}
+func GetSystemDataDirs() (return__ **C.gchar) {
+	return__ = C.g_get_system_data_dirs()
 	return
 }
 
@@ -2651,9 +2529,9 @@ When a hash table only ever contains keys that have themselves as the
 corresponding value it is able to be stored more efficiently.  See
 the discussion in the section description.
 */
-func HashTableAdd(hash_table *HashTable, key unsafe.Pointer) (return__ bool) {
+func HashTableAdd(hash_table *C.GHashTable, key unsafe.Pointer) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_hash_table_add((*C.GHashTable)(unsafe.Pointer(hash_table)), (C.gpointer)(key))
+	__cgo__return__ = C.g_hash_table_add(hash_table, (C.gpointer)(key))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -2661,9 +2539,9 @@ func HashTableAdd(hash_table *HashTable, key unsafe.Pointer) (return__ bool) {
 /*
 Checks if @key is in @hash_table.
 */
-func HashTableContains(hash_table *HashTable, key unsafe.Pointer) (return__ bool) {
+func HashTableContains(hash_table *C.GHashTable, key unsafe.Pointer) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_hash_table_contains((*C.GHashTable)(unsafe.Pointer(hash_table)), (C.gconstpointer)(key))
+	__cgo__return__ = C.g_hash_table_contains(hash_table, (C.gconstpointer)(key))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -2676,8 +2554,8 @@ notifiers using g_hash_table_new_full(). In the latter case the destroy
 functions you supplied will be called on all keys and values during the
 destruction phase.
 */
-func HashTableDestroy(hash_table *HashTable) {
-	C.g_hash_table_destroy((*C.GHashTable)(unsafe.Pointer(hash_table)))
+func HashTableDestroy(hash_table *C.GHashTable) {
+	C.g_hash_table_destroy(hash_table)
 	return
 }
 
@@ -2691,9 +2569,9 @@ value is freed using that function. If you supplied a
 @key_destroy_func when creating the #GHashTable, the passed
 key is freed using that function.
 */
-func HashTableInsert(hash_table *HashTable, key unsafe.Pointer, value unsafe.Pointer) (return__ bool) {
+func HashTableInsert(hash_table *C.GHashTable, key unsafe.Pointer, value unsafe.Pointer) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_hash_table_insert((*C.GHashTable)(unsafe.Pointer(hash_table)), (C.gpointer)(key), (C.gpointer)(value))
+	__cgo__return__ = C.g_hash_table_insert(hash_table, (C.gpointer)(key), (C.gpointer)(value))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -2708,9 +2586,9 @@ You can actually pass %NULL for @lookup_key to test
 whether the %NULL key exists, provided the hash and equal functions
 of @hash_table are %NULL-safe.
 */
-func HashTableLookupExtended(hash_table *HashTable, lookup_key unsafe.Pointer, orig_key *C.gpointer, value *C.gpointer) (return__ bool) {
+func HashTableLookupExtended(hash_table *C.GHashTable, lookup_key unsafe.Pointer, orig_key *C.gpointer, value *C.gpointer) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_hash_table_lookup_extended((*C.GHashTable)(unsafe.Pointer(hash_table)), (C.gconstpointer)(lookup_key), orig_key, value)
+	__cgo__return__ = C.g_hash_table_lookup_extended(hash_table, (C.gconstpointer)(lookup_key), orig_key, value)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -2723,9 +2601,9 @@ key and value are freed using the supplied destroy functions, otherwise
 you have to make sure that any dynamically allocated values are freed
 yourself.
 */
-func HashTableRemove(hash_table *HashTable, key unsafe.Pointer) (return__ bool) {
+func HashTableRemove(hash_table *C.GHashTable, key unsafe.Pointer) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_hash_table_remove((*C.GHashTable)(unsafe.Pointer(hash_table)), (C.gconstpointer)(key))
+	__cgo__return__ = C.g_hash_table_remove(hash_table, (C.gconstpointer)(key))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -2738,8 +2616,8 @@ the keys and values are freed using the supplied destroy functions,
 otherwise you have to make sure that any dynamically allocated
 values are freed yourself.
 */
-func HashTableRemoveAll(hash_table *HashTable) {
-	C.g_hash_table_remove_all((*C.GHashTable)(unsafe.Pointer(hash_table)))
+func HashTableRemoveAll(hash_table *C.GHashTable) {
+	C.g_hash_table_remove_all(hash_table)
 	return
 }
 
@@ -2752,9 +2630,9 @@ the #GHashTable, the old value is freed using that function.
 If you supplied a @key_destroy_func when creating the
 #GHashTable, the old key is freed using that function.
 */
-func HashTableReplace(hash_table *HashTable, key unsafe.Pointer, value unsafe.Pointer) (return__ bool) {
+func HashTableReplace(hash_table *C.GHashTable, key unsafe.Pointer, value unsafe.Pointer) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_hash_table_replace((*C.GHashTable)(unsafe.Pointer(hash_table)), (C.gpointer)(key), (C.gpointer)(value))
+	__cgo__return__ = C.g_hash_table_replace(hash_table, (C.gpointer)(key), (C.gpointer)(value))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -2762,9 +2640,9 @@ func HashTableReplace(hash_table *HashTable, key unsafe.Pointer, value unsafe.Po
 /*
 Returns the number of elements contained in the #GHashTable.
 */
-func HashTableSize(hash_table *HashTable) (return__ uint) {
+func HashTableSize(hash_table *C.GHashTable) (return__ uint) {
 	var __cgo__return__ C.guint
-	__cgo__return__ = C.g_hash_table_size((*C.GHashTable)(unsafe.Pointer(hash_table)))
+	__cgo__return__ = C.g_hash_table_size(hash_table)
 	return__ = uint(__cgo__return__)
 	return
 }
@@ -2773,9 +2651,9 @@ func HashTableSize(hash_table *HashTable) (return__ uint) {
 Removes a key and its associated value from a #GHashTable without
 calling the key and value destroy functions.
 */
-func HashTableSteal(hash_table *HashTable, key unsafe.Pointer) (return__ bool) {
+func HashTableSteal(hash_table *C.GHashTable, key unsafe.Pointer) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_hash_table_steal((*C.GHashTable)(unsafe.Pointer(hash_table)), (C.gconstpointer)(key))
+	__cgo__return__ = C.g_hash_table_steal(hash_table, (C.gconstpointer)(key))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -2784,8 +2662,8 @@ func HashTableSteal(hash_table *HashTable, key unsafe.Pointer) (return__ bool) {
 Removes all keys and their associated values from a #GHashTable
 without calling the key and value destroy functions.
 */
-func HashTableStealAll(hash_table *HashTable) {
-	C.g_hash_table_steal_all((*C.GHashTable)(unsafe.Pointer(hash_table)))
+func HashTableStealAll(hash_table *C.GHashTable) {
+	C.g_hash_table_steal_all(hash_table)
 	return
 }
 
@@ -2795,17 +2673,17 @@ If the reference count drops to 0, all keys and values will be
 destroyed, and all memory allocated by the hash table is released.
 This function is MT-safe and may be called from any thread.
 */
-func HashTableUnref(hash_table *HashTable) {
-	C.g_hash_table_unref((*C.GHashTable)(unsafe.Pointer(hash_table)))
+func HashTableUnref(hash_table *C.GHashTable) {
+	C.g_hash_table_unref(hash_table)
 	return
 }
 
 /*
 Destroys a #GHook, given its ID.
 */
-func HookDestroy(hook_list *HookList, hook_id uint64) (return__ bool) {
+func HookDestroy(hook_list *C.GHookList, hook_id uint64) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_hook_destroy((*C.GHookList)(unsafe.Pointer(hook_list)), C.gulong(hook_id))
+	__cgo__return__ = C.g_hook_destroy(hook_list, C.gulong(hook_id))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -2814,8 +2692,8 @@ func HookDestroy(hook_list *HookList, hook_id uint64) (return__ bool) {
 Removes one #GHook from a #GHookList, marking it
 inactive and calling g_hook_unref() on it.
 */
-func HookDestroyLink(hook_list *HookList, hook *Hook) {
-	C.g_hook_destroy_link((*C.GHookList)(unsafe.Pointer(hook_list)), (*C.GHook)(unsafe.Pointer(hook)))
+func HookDestroyLink(hook_list *C.GHookList, hook *C.GHook) {
+	C.g_hook_destroy_link(hook_list, hook)
 	return
 }
 
@@ -2823,24 +2701,24 @@ func HookDestroyLink(hook_list *HookList, hook *Hook) {
 Calls the #GHookList @finalize_hook function if it exists,
 and frees the memory allocated for the #GHook.
 */
-func HookFree(hook_list *HookList, hook *Hook) {
-	C.g_hook_free((*C.GHookList)(unsafe.Pointer(hook_list)), (*C.GHook)(unsafe.Pointer(hook)))
+func HookFree(hook_list *C.GHookList, hook *C.GHook) {
+	C.g_hook_free(hook_list, hook)
 	return
 }
 
 /*
 Inserts a #GHook into a #GHookList, before a given #GHook.
 */
-func HookInsertBefore(hook_list *HookList, sibling *Hook, hook *Hook) {
-	C.g_hook_insert_before((*C.GHookList)(unsafe.Pointer(hook_list)), (*C.GHook)(unsafe.Pointer(sibling)), (*C.GHook)(unsafe.Pointer(hook)))
+func HookInsertBefore(hook_list *C.GHookList, sibling *C.GHook, hook *C.GHook) {
+	C.g_hook_insert_before(hook_list, sibling, hook)
 	return
 }
 
 /*
 Prepends a #GHook on the start of a #GHookList.
 */
-func HookPrepend(hook_list *HookList, hook *Hook) {
-	C.g_hook_prepend((*C.GHookList)(unsafe.Pointer(hook_list)), (*C.GHook)(unsafe.Pointer(hook)))
+func HookPrepend(hook_list *C.GHookList, hook *C.GHook) {
+	C.g_hook_prepend(hook_list, hook)
 	return
 }
 
@@ -2849,8 +2727,8 @@ Decrements the reference count of a #GHook.
 If the reference count falls to 0, the #GHook is removed
 from the #GHookList and g_hook_free() is called to free it.
 */
-func HookUnref(hook_list *HookList, hook *Hook) {
-	C.g_hook_unref((*C.GHookList)(unsafe.Pointer(hook_list)), (*C.GHook)(unsafe.Pointer(hook)))
+func HookUnref(hook_list *C.GHookList, hook *C.GHook) {
+	C.g_hook_unref(hook_list, hook)
 	return
 }
 
@@ -3004,10 +2882,8 @@ executed. Note that the default priority for idle sources is
 %G_PRIORITY_DEFAULT_IDLE, as compared to other sources which
 have a default priority of %G_PRIORITY_DEFAULT.
 */
-func IdleSourceNew() (return__ *Source) {
-	var __cgo__return__ *C.GSource
-	__cgo__return__ = C.g_idle_source_new()
-	return__ = (*Source)(unsafe.Pointer(__cgo__return__))
+func IdleSourceNew() (return__ *C.GSource) {
+	return__ = C.g_idle_source_new()
 	return
 }
 
@@ -3106,9 +2982,9 @@ func InternString(string_ string) (return__ string) {
 Adds the #GIOChannel into the default main loop context
 with the default priority.
 */
-func IoAddWatch(channel *IOChannel, condition C.GIOCondition, func_ C.GIOFunc, user_data unsafe.Pointer) (return__ uint) {
+func IoAddWatch(channel *C.GIOChannel, condition C.GIOCondition, func_ C.GIOFunc, user_data unsafe.Pointer) (return__ uint) {
 	var __cgo__return__ C.guint
-	__cgo__return__ = C.g_io_add_watch((*C.GIOChannel)(unsafe.Pointer(channel)), condition, func_, (C.gpointer)(user_data))
+	__cgo__return__ = C.g_io_add_watch(channel, condition, func_, (C.gpointer)(user_data))
 	return__ = uint(__cgo__return__)
 	return
 }
@@ -3121,9 +2997,9 @@ This internally creates a main loop source using g_io_create_watch()
 and attaches it to the main loop context with g_source_attach().
 You can do these steps manually if you need greater control.
 */
-func IoAddWatchFull(channel *IOChannel, priority int, condition C.GIOCondition, func_ C.GIOFunc, user_data unsafe.Pointer, notify C.GDestroyNotify) (return__ uint) {
+func IoAddWatchFull(channel *C.GIOChannel, priority int, condition C.GIOCondition, func_ C.GIOFunc, user_data unsafe.Pointer, notify C.GDestroyNotify) (return__ uint) {
 	var __cgo__return__ C.guint
-	__cgo__return__ = C.g_io_add_watch_full((*C.GIOChannel)(unsafe.Pointer(channel)), C.gint(priority), condition, func_, (C.gpointer)(user_data), notify)
+	__cgo__return__ = C.g_io_add_watch_full(channel, C.gint(priority), condition, func_, (C.gpointer)(user_data), notify)
 	return__ = uint(__cgo__return__)
 	return
 }
@@ -3154,10 +3030,8 @@ On Windows, polling a #GSource created to watch a channel for a socket
 puts the socket in non-blocking mode. This is a side-effect of the
 implementation and unavoidable.
 */
-func IoCreateWatch(channel *IOChannel, condition C.GIOCondition) (return__ *Source) {
-	var __cgo__return__ *C.GSource
-	__cgo__return__ = C.g_io_create_watch((*C.GIOChannel)(unsafe.Pointer(channel)), condition)
-	return__ = (*Source)(unsafe.Pointer(__cgo__return__))
+func IoCreateWatch(channel *C.GIOChannel, condition C.GIOCondition) (return__ *C.GSource) {
+	return__ = C.g_io_create_watch(channel, condition)
 	return
 }
 
@@ -3176,20 +3050,8 @@ array are in system codepage encoding, while in most of the typical
 use cases for environment variables in GLib-using programs you want
 the UTF-8 encoding that this function and g_getenv() provide.
 */
-func Listenv() (return__ []string) {
-	var __cgo__return__ **C.gchar
-	__cgo__return__ = C.g_listenv()
-	var __slice__return__ []*C.gchar
-	__header__return__ := (*reflect.SliceHeader)(unsafe.Pointer(&__slice__return__))
-	__header__return__.Len = 4294967296
-	__header__return__.Cap = 4294967296
-	__header__return__.Data = uintptr(unsafe.Pointer(__cgo__return__))
-	for _, p := range __slice__return__ {
-		if p == nil {
-			break
-		}
-		return__ = append(return__, C.GoString((*C.char)(unsafe.Pointer(p))))
-	}
+func Listenv() (return__ **C.gchar) {
+	return__ = C.g_listenv()
 	return
 }
 
@@ -3358,10 +3220,8 @@ used for main loop functions when a main loop is not explicitly
 specified, and corresponds to the "main" main loop. See also
 g_main_context_get_thread_default().
 */
-func MainContextDefault() (return__ *MainContext) {
-	var __cgo__return__ *C.GMainContext
-	__cgo__return__ = C.g_main_context_default()
-	return__ = (*MainContext)(unsafe.Pointer(__cgo__return__))
+func MainContextDefault() (return__ *C.GMainContext) {
+	return__ = C.g_main_context_default()
 	return
 }
 
@@ -3378,10 +3238,8 @@ always return %NULL if you are running in the default thread.)
 If you need to hold a reference on the context, use
 g_main_context_ref_thread_default() instead.
 */
-func MainContextGetThreadDefault() (return__ *MainContext) {
-	var __cgo__return__ *C.GMainContext
-	__cgo__return__ = C.g_main_context_get_thread_default()
-	return__ = (*MainContext)(unsafe.Pointer(__cgo__return__))
+func MainContextGetThreadDefault() (return__ *C.GMainContext) {
+	return__ = C.g_main_context_get_thread_default()
 	return
 }
 
@@ -3393,20 +3251,16 @@ g_main_context_get_thread_default(), if the thread-default context
 is the global default context, this will return that #GMainContext
 (with a ref added to it) rather than returning %NULL.
 */
-func MainContextRefThreadDefault() (return__ *MainContext) {
-	var __cgo__return__ *C.GMainContext
-	__cgo__return__ = C.g_main_context_ref_thread_default()
-	return__ = (*MainContext)(unsafe.Pointer(__cgo__return__))
+func MainContextRefThreadDefault() (return__ *C.GMainContext) {
+	return__ = C.g_main_context_ref_thread_default()
 	return
 }
 
 /*
 Returns the currently firing source for this thread.
 */
-func MainCurrentSource() (return__ *Source) {
-	var __cgo__return__ *C.GSource
-	__cgo__return__ = C.g_main_current_source()
-	return__ = (*Source)(unsafe.Pointer(__cgo__return__))
+func MainCurrentSource() (return__ *C.GSource) {
+	return__ = C.g_main_current_source()
 	return
 }
 
@@ -3646,8 +3500,8 @@ so need not persist after this function has been called.
 Note that this function must be called before using any other GLib
 functions.
 */
-func MemSetVtable(vtable *MemVTable) {
-	C.g_mem_set_vtable((*C.GMemVTable)(unsafe.Pointer(vtable)))
+func MemSetVtable(vtable *C.GMemVTable) {
+	C.g_mem_set_vtable(vtable)
 	return
 }
 
@@ -3860,10 +3714,10 @@ corresponding to "foo" and "bar".
 If @string is equal to "help", all the available keys in @keys
 are printed out to standard error.
 */
-func ParseDebugString(string_ string, keys *DebugKey, nkeys uint) (return__ uint) {
+func ParseDebugString(string_ string, keys *C.GDebugKey, nkeys uint) (return__ uint) {
 	__cgo__string_ := (*C.gchar)(unsafe.Pointer(C.CString(string_)))
 	var __cgo__return__ C.guint
-	__cgo__return__ = C.g_parse_debug_string(__cgo__string_, (*C.GDebugKey)(unsafe.Pointer(keys)), C.guint(nkeys))
+	__cgo__return__ = C.g_parse_debug_string(__cgo__string_, keys, C.guint(nkeys))
 	C.free(unsafe.Pointer(__cgo__string_))
 	return__ = uint(__cgo__return__)
 	return
@@ -3969,11 +3823,11 @@ not be obtained by g_strreverse(). This works only if the string
 does not contain any multibyte characters. GLib offers the
 g_utf8_strreverse() function to reverse UTF-8 encoded strings.
 */
-func PatternMatch(pspec *PatternSpec, string_length uint, string_ string, string_reversed string) (return__ bool) {
+func PatternMatch(pspec *C.GPatternSpec, string_length uint, string_ string, string_reversed string) (return__ bool) {
 	__cgo__string_ := (*C.gchar)(unsafe.Pointer(C.CString(string_)))
 	__cgo__string_reversed := (*C.gchar)(unsafe.Pointer(C.CString(string_reversed)))
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_pattern_match((*C.GPatternSpec)(unsafe.Pointer(pspec)), C.guint(string_length), __cgo__string_, __cgo__string_reversed)
+	__cgo__return__ = C.g_pattern_match(pspec, C.guint(string_length), __cgo__string_, __cgo__string_reversed)
 	C.free(unsafe.Pointer(__cgo__string_))
 	C.free(unsafe.Pointer(__cgo__string_reversed))
 	return__ = __cgo__return__ == C.gboolean(1)
@@ -4002,10 +3856,10 @@ Matches a string against a compiled pattern. If the string is to be
 matched against more than one pattern, consider using
 g_pattern_match() instead while supplying the reversed string.
 */
-func PatternMatchString(pspec *PatternSpec, string_ string) (return__ bool) {
+func PatternMatchString(pspec *C.GPatternSpec, string_ string) (return__ bool) {
 	__cgo__string_ := (*C.gchar)(unsafe.Pointer(C.CString(string_)))
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_pattern_match_string((*C.GPatternSpec)(unsafe.Pointer(pspec)), __cgo__string_)
+	__cgo__return__ = C.g_pattern_match_string(pspec, __cgo__string_)
 	C.free(unsafe.Pointer(__cgo__string_))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
@@ -4036,9 +3890,9 @@ Windows. If you need to use g_poll() in code that has to run on
 Windows, the easiest solution is to construct all of your
 #GPollFDs with g_io_channel_win32_make_pollfd().
 */
-func Poll(fds *PollFD, nfds uint, timeout int) (return__ int) {
+func Poll(fds *C.GPollFD, nfds uint, timeout int) (return__ int) {
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.g_poll((*C.GPollFD)(unsafe.Pointer(fds)), C.guint(nfds), C.gint(timeout))
+	__cgo__return__ = C.g_poll(fds, C.guint(nfds), C.gint(timeout))
 	return__ = int(__cgo__return__)
 	return
 }
@@ -4057,8 +3911,8 @@ func Poll(fds *PollFD, nfds uint, timeout int) (return__ int) {
 If @dest is %NULL, free @src; otherwise, moves @src into *@dest.
 The error variable @dest points to must be %NULL.
 */
-func PropagateError(dest **C.GError, src *Error) {
-	C.g_propagate_error(dest, (*C.GError)(unsafe.Pointer(src)))
+func PropagateError(dest **C.GError, src *C.GError) {
+	C.g_propagate_error(dest, src)
 	return
 }
 
@@ -4168,10 +4022,8 @@ func RandomInt() (return__ uint32) {
 Returns a random #gint32 equally distributed over the range
 [@begin..@end-1].
 */
-func RandomIntRange(begin int32, end int32) (return__ int32) {
-	var __cgo__return__ C.gint32
-	__cgo__return__ = C.g_random_int_range(C.gint32(begin), C.gint32(end))
-	return__ = int32(__cgo__return__)
+func RandomIntRange(begin C.gint32, end C.gint32) (return__ C.gint32) {
+	return__ = C.g_random_int_range(begin, end)
 	return
 }
 
@@ -4265,10 +4117,9 @@ function is useful to dynamically generate regular expressions.
 in this case remember to specify the correct length of @string
 in @length.
 */
-func RegexEscapeString(string_ []byte, length int) (return__ string) {
-	__header__string_ := (*reflect.SliceHeader)(unsafe.Pointer(&string_))
+func RegexEscapeString(string_ *C.gchar, length int) (return__ string) {
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_regex_escape_string((*C.gchar)(unsafe.Pointer(__header__string_.Data)), C.gint(length))
+	__cgo__return__ = C.g_regex_escape_string(string_, C.gint(length))
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -4325,24 +4176,12 @@ separate characters wherever it matches the empty string between
 characters. For example splitting "ab c" using as a separator
 "\s*", you will get "a", "b" and "c".
 */
-func RegexSplitSimple(pattern string, string_ string, compile_options C.GRegexCompileFlags, match_options C.GRegexMatchFlags) (return__ []string) {
+func RegexSplitSimple(pattern string, string_ string, compile_options C.GRegexCompileFlags, match_options C.GRegexMatchFlags) (return__ **C.gchar) {
 	__cgo__pattern := (*C.gchar)(unsafe.Pointer(C.CString(pattern)))
 	__cgo__string_ := (*C.gchar)(unsafe.Pointer(C.CString(string_)))
-	var __cgo__return__ **C.gchar
-	__cgo__return__ = C.g_regex_split_simple(__cgo__pattern, __cgo__string_, compile_options, match_options)
+	return__ = C.g_regex_split_simple(__cgo__pattern, __cgo__string_, compile_options, match_options)
 	C.free(unsafe.Pointer(__cgo__pattern))
 	C.free(unsafe.Pointer(__cgo__string_))
-	var __slice__return__ []*C.gchar
-	__header__return__ := (*reflect.SliceHeader)(unsafe.Pointer(&__slice__return__))
-	__header__return__.Len = 4294967296
-	__header__return__.Cap = 4294967296
-	__header__return__.Data = uintptr(unsafe.Pointer(__cgo__return__))
-	for _, p := range __slice__return__ {
-		if p == nil {
-			break
-		}
-		return__ = append(return__, C.GoString((*C.char)(unsafe.Pointer(p))))
-	}
 	return
 }
 
@@ -4394,8 +4233,8 @@ After calling this function @dest will point to the position immediately
 after @src. It is allowed for @src and @dest to point into different
 sequences.
 */
-func SequenceMove(src *SequenceIter, dest *SequenceIter) {
-	C.g_sequence_move((*C.GSequenceIter)(unsafe.Pointer(src)), (*C.GSequenceIter)(unsafe.Pointer(dest)))
+func SequenceMove(src *C.GSequenceIter, dest *C.GSequenceIter) {
+	C.g_sequence_move(src, dest)
 	return
 }
 
@@ -4409,8 +4248,8 @@ If @dest is NULL, the range indicated by @begin and @end is
 removed from the sequence. If @dest iter points to a place within
 the (@begin, @end) range, the range does not move.
 */
-func SequenceMoveRange(dest *SequenceIter, begin *SequenceIter, end *SequenceIter) {
-	C.g_sequence_move_range((*C.GSequenceIter)(unsafe.Pointer(dest)), (*C.GSequenceIter)(unsafe.Pointer(begin)), (*C.GSequenceIter)(unsafe.Pointer(end)))
+func SequenceMoveRange(dest *C.GSequenceIter, begin *C.GSequenceIter, end *C.GSequenceIter) {
+	C.g_sequence_move_range(dest, begin, end)
 	return
 }
 
@@ -4421,8 +4260,8 @@ end iterator to this function.
 If the sequence has a data destroy function associated with it, this
 function is called on the data for the removed item.
 */
-func SequenceRemove(iter *SequenceIter) {
-	C.g_sequence_remove((*C.GSequenceIter)(unsafe.Pointer(iter)))
+func SequenceRemove(iter *C.GSequenceIter) {
+	C.g_sequence_remove(iter)
 	return
 }
 
@@ -4432,8 +4271,8 @@ Removes all items in the (@begin, @end) range.
 If the sequence has a data destroy function associated with it, this
 function is called on the data for the removed items.
 */
-func SequenceRemoveRange(begin *SequenceIter, end *SequenceIter) {
-	C.g_sequence_remove_range((*C.GSequenceIter)(unsafe.Pointer(begin)), (*C.GSequenceIter)(unsafe.Pointer(end)))
+func SequenceRemoveRange(begin *C.GSequenceIter, end *C.GSequenceIter) {
+	C.g_sequence_remove_range(begin, end)
 	return
 }
 
@@ -4442,8 +4281,8 @@ Changes the data for the item pointed to by @iter to be @data. If
 the sequence has a data destroy function associated with it, that
 function is called on the existing data that @iter pointed to.
 */
-func SequenceSet(iter *SequenceIter, data unsafe.Pointer) {
-	C.g_sequence_set((*C.GSequenceIter)(unsafe.Pointer(iter)), (C.gpointer)(data))
+func SequenceSet(iter *C.GSequenceIter, data unsafe.Pointer) {
+	C.g_sequence_set(iter, (C.gpointer)(data))
 	return
 }
 
@@ -4451,8 +4290,8 @@ func SequenceSet(iter *SequenceIter, data unsafe.Pointer) {
 Swaps the items pointed to by @a and @b. It is allowed for @a and @b
 to point into difference sequences.
 */
-func SequenceSwap(a *SequenceIter, b *SequenceIter) {
-	C.g_sequence_swap((*C.GSequenceIter)(unsafe.Pointer(a)), (*C.GSequenceIter)(unsafe.Pointer(b)))
+func SequenceSwap(a *C.GSequenceIter, b *C.GSequenceIter) {
+	C.g_sequence_swap(a, b)
 	return
 }
 
@@ -4586,26 +4425,14 @@ does contain such expansions, they are passed through
 literally. Possible errors are those from the #G_SHELL_ERROR
 domain. Free the returned vector with g_strfreev().
 */
-func ShellParseArgv(command_line string) (argcp int, argvp []string, return__ bool, __err__ error) {
+func ShellParseArgv(command_line string) (argcp int, argvp **C.gchar, return__ bool, __err__ error) {
 	__cgo__command_line := (*C.gchar)(unsafe.Pointer(C.CString(command_line)))
 	var __cgo__argcp C.gint
-	var __cgo__argvp **C.gchar
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_shell_parse_argv(__cgo__command_line, &__cgo__argcp, &__cgo__argvp, &__cgo_error__)
+	__cgo__return__ = C.g_shell_parse_argv(__cgo__command_line, &__cgo__argcp, &argvp, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__command_line))
 	argcp = int(__cgo__argcp)
-	var __slice__argvp []*C.gchar
-	__header__argvp := (*reflect.SliceHeader)(unsafe.Pointer(&__slice__argvp))
-	__header__argvp.Len = 4294967296
-	__header__argvp.Cap = 4294967296
-	__header__argvp.Data = uintptr(unsafe.Pointer(__cgo__argvp))
-	for _, p := range __slice__argvp {
-		if p == nil {
-			break
-		}
-		argvp = append(argvp, C.GoString((*C.char)(unsafe.Pointer(p))))
-	}
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -4772,9 +4599,9 @@ Removes a source from the default main loop context given the
 source functions and user data. If multiple sources exist with the
 same source functions and user data, only one will be destroyed.
 */
-func SourceRemoveByFuncsUserData(funcs *SourceFuncs, user_data unsafe.Pointer) (return__ bool) {
+func SourceRemoveByFuncsUserData(funcs *C.GSourceFuncs, user_data unsafe.Pointer) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_source_remove_by_funcs_user_data((*C.GSourceFuncs)(unsafe.Pointer(funcs)), (C.gpointer)(user_data))
+	__cgo__return__ = C.g_source_remove_by_funcs_user_data(funcs, (C.gpointer)(user_data))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -5380,36 +5207,12 @@ for doing so is unspecified, but @translit_locale (if specified) may
 improve the transliteration if the language of the source string is
 known.
 */
-func StrTokenizeAndFold(string_ string, translit_locale string) (ascii_alternates []string, return__ []string) {
+func StrTokenizeAndFold(string_ string, translit_locale string) (ascii_alternates **C.gchar, return__ **C.gchar) {
 	__cgo__string_ := (*C.gchar)(unsafe.Pointer(C.CString(string_)))
 	__cgo__translit_locale := (*C.gchar)(unsafe.Pointer(C.CString(translit_locale)))
-	var __cgo__ascii_alternates **C.gchar
-	var __cgo__return__ **C.gchar
-	__cgo__return__ = C.g_str_tokenize_and_fold(__cgo__string_, __cgo__translit_locale, &__cgo__ascii_alternates)
+	return__ = C.g_str_tokenize_and_fold(__cgo__string_, __cgo__translit_locale, &ascii_alternates)
 	C.free(unsafe.Pointer(__cgo__string_))
 	C.free(unsafe.Pointer(__cgo__translit_locale))
-	var __slice__ascii_alternates []*C.gchar
-	__header__ascii_alternates := (*reflect.SliceHeader)(unsafe.Pointer(&__slice__ascii_alternates))
-	__header__ascii_alternates.Len = 4294967296
-	__header__ascii_alternates.Cap = 4294967296
-	__header__ascii_alternates.Data = uintptr(unsafe.Pointer(__cgo__ascii_alternates))
-	for _, p := range __slice__ascii_alternates {
-		if p == nil {
-			break
-		}
-		ascii_alternates = append(ascii_alternates, C.GoString((*C.char)(unsafe.Pointer(p))))
-	}
-	var __slice__return__ []*C.gchar
-	__header__return__ := (*reflect.SliceHeader)(unsafe.Pointer(&__slice__return__))
-	__header__return__.Len = 4294967296
-	__header__return__.Cap = 4294967296
-	__header__return__.Data = uintptr(unsafe.Pointer(__cgo__return__))
-	for _, p := range __slice__return__ {
-		if p == nil {
-			break
-		}
-		return__ = append(return__, C.GoString((*C.char)(unsafe.Pointer(p))))
-	}
 	return
 }
 
@@ -5422,11 +5225,11 @@ nesting such as
   g_ascii_strup (g_strcanon (str, "abc", '?'))
 ]|
 */
-func Strcanon(string_ string, valid_chars string, substitutor byte) (return__ string) {
+func Strcanon(string_ string, valid_chars string, substitutor C.gchar) (return__ string) {
 	__cgo__string_ := (*C.gchar)(unsafe.Pointer(C.CString(string_)))
 	__cgo__valid_chars := (*C.gchar)(unsafe.Pointer(C.CString(valid_chars)))
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_strcanon(__cgo__string_, __cgo__valid_chars, C.gchar(substitutor))
+	__cgo__return__ = C.g_strcanon(__cgo__string_, __cgo__valid_chars, substitutor)
 	C.free(unsafe.Pointer(__cgo__string_))
 	C.free(unsafe.Pointer(__cgo__valid_chars))
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
@@ -5518,11 +5321,11 @@ allow nesting such as
   g_ascii_strup (g_strdelimit (str, "abc", '?'))
 ]|
 */
-func Strdelimit(string_ string, delimiters string, new_delimiter byte) (return__ string) {
+func Strdelimit(string_ string, delimiters string, new_delimiter C.gchar) (return__ string) {
 	__cgo__string_ := (*C.gchar)(unsafe.Pointer(C.CString(string_)))
 	__cgo__delimiters := (*C.gchar)(unsafe.Pointer(C.CString(delimiters)))
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_strdelimit(__cgo__string_, __cgo__delimiters, C.gchar(new_delimiter))
+	__cgo__return__ = C.g_strdelimit(__cgo__string_, __cgo__delimiters, new_delimiter)
 	C.free(unsafe.Pointer(__cgo__string_))
 	C.free(unsafe.Pointer(__cgo__delimiters))
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
@@ -5555,20 +5358,8 @@ the new array should be freed by first freeing each string, then
 the array itself. g_strfreev() does this for you. If called
 on a %NULL value, g_strdupv() simply returns %NULL.
 */
-func Strdupv(str_array **C.gchar) (return__ []string) {
-	var __cgo__return__ **C.gchar
-	__cgo__return__ = C.g_strdupv(str_array)
-	var __slice__return__ []*C.gchar
-	__header__return__ := (*reflect.SliceHeader)(unsafe.Pointer(&__slice__return__))
-	__header__return__.Len = 4294967296
-	__header__return__.Cap = 4294967296
-	__header__return__.Data = uintptr(unsafe.Pointer(__cgo__return__))
-	for _, p := range __slice__return__ {
-		if p == nil {
-			break
-		}
-		return__ = append(return__, C.GoString((*C.char)(unsafe.Pointer(p))))
-	}
+func Strdupv(str_array **C.gchar) (return__ **C.gchar) {
+	return__ = C.g_strdupv(str_array)
 	return
 }
 
@@ -5618,12 +5409,10 @@ func Strfreev(str_array **C.gchar) {
 /*
 Creates a new #GString, initialized with the given string.
 */
-func StringNew(init string) (return__ *String) {
+func StringNew(init string) (return__ *C.GString) {
 	__cgo__init := (*C.gchar)(unsafe.Pointer(C.CString(init)))
-	var __cgo__return__ *C.GString
-	__cgo__return__ = C.g_string_new(__cgo__init)
+	return__ = C.g_string_new(__cgo__init)
 	C.free(unsafe.Pointer(__cgo__init))
-	return__ = (*String)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -5636,12 +5425,10 @@ Since this function does not stop at nul bytes, it is the caller's
 responsibility to ensure that @init has at least @len addressable
 bytes.
 */
-func StringNewLen(init string, len_ int64) (return__ *String) {
+func StringNewLen(init string, len_ int64) (return__ *C.GString) {
 	__cgo__init := (*C.gchar)(unsafe.Pointer(C.CString(init)))
-	var __cgo__return__ *C.GString
-	__cgo__return__ = C.g_string_new_len(__cgo__init, C.gssize(len_))
+	return__ = C.g_string_new_len(__cgo__init, C.gssize(len_))
 	C.free(unsafe.Pointer(__cgo__init))
-	return__ = (*String)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -5651,10 +5438,8 @@ bytes. This is useful if you are going to add a lot of
 text to the string and don't want it to be reallocated
 too often.
 */
-func StringSizedNew(dfl_size int64) (return__ *String) {
-	var __cgo__return__ *C.GString
-	__cgo__return__ = C.g_string_sized_new(C.gsize(dfl_size))
-	return__ = (*String)(unsafe.Pointer(__cgo__return__))
+func StringSizedNew(dfl_size int64) (return__ *C.GString) {
+	return__ = C.g_string_sized_new(C.gsize(dfl_size))
 	return
 }
 
@@ -5766,9 +5551,9 @@ func Strndup(str string, n int64) (return__ string) {
 Creates a new string @length bytes long filled with @fill_char.
 The returned string should be freed when no longer needed.
 */
-func Strnfill(length int64, fill_char byte) (return__ string) {
+func Strnfill(length int64, fill_char C.gchar) (return__ string) {
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_strnfill(C.gsize(length), C.gchar(fill_char))
+	__cgo__return__ = C.g_strnfill(C.gsize(length), fill_char)
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -5846,24 +5631,12 @@ more useful than consistent handling of empty elements. If you do need
 to represent empty elements, you'll need to check for the empty string
 before calling g_strsplit().
 */
-func Strsplit(string_ string, delimiter string, max_tokens int) (return__ []string) {
+func Strsplit(string_ string, delimiter string, max_tokens int) (return__ **C.gchar) {
 	__cgo__string_ := (*C.gchar)(unsafe.Pointer(C.CString(string_)))
 	__cgo__delimiter := (*C.gchar)(unsafe.Pointer(C.CString(delimiter)))
-	var __cgo__return__ **C.gchar
-	__cgo__return__ = C.g_strsplit(__cgo__string_, __cgo__delimiter, C.gint(max_tokens))
+	return__ = C.g_strsplit(__cgo__string_, __cgo__delimiter, C.gint(max_tokens))
 	C.free(unsafe.Pointer(__cgo__string_))
 	C.free(unsafe.Pointer(__cgo__delimiter))
-	var __slice__return__ []*C.gchar
-	__header__return__ := (*reflect.SliceHeader)(unsafe.Pointer(&__slice__return__))
-	__header__return__.Len = 4294967296
-	__header__return__.Cap = 4294967296
-	__header__return__.Data = uintptr(unsafe.Pointer(__cgo__return__))
-	for _, p := range __slice__return__ {
-		if p == nil {
-			break
-		}
-		return__ = append(return__, C.GoString((*C.char)(unsafe.Pointer(p))))
-	}
 	return
 }
 
@@ -5890,24 +5663,12 @@ before calling g_strsplit_set().
 Note that this function works on bytes not characters, so it can't be used
 to delimit UTF-8 strings for anything but ASCII characters.
 */
-func StrsplitSet(string_ string, delimiters string, max_tokens int) (return__ []string) {
+func StrsplitSet(string_ string, delimiters string, max_tokens int) (return__ **C.gchar) {
 	__cgo__string_ := (*C.gchar)(unsafe.Pointer(C.CString(string_)))
 	__cgo__delimiters := (*C.gchar)(unsafe.Pointer(C.CString(delimiters)))
-	var __cgo__return__ **C.gchar
-	__cgo__return__ = C.g_strsplit_set(__cgo__string_, __cgo__delimiters, C.gint(max_tokens))
+	return__ = C.g_strsplit_set(__cgo__string_, __cgo__delimiters, C.gint(max_tokens))
 	C.free(unsafe.Pointer(__cgo__string_))
 	C.free(unsafe.Pointer(__cgo__delimiters))
-	var __slice__return__ []*C.gchar
-	__header__return__ := (*reflect.SliceHeader)(unsafe.Pointer(&__slice__return__))
-	__header__return__.Len = 4294967296
-	__header__return__.Cap = 4294967296
-	__header__return__.Data = uintptr(unsafe.Pointer(__cgo__return__))
-	for _, p := range __slice__return__ {
-		if p == nil {
-			break
-		}
-		return__ = append(return__, C.GoString((*C.char)(unsafe.Pointer(p))))
-	}
 	return
 }
 
@@ -6082,24 +5843,20 @@ multiple tests. In this cases, g_test_create_case() will be
 called with the same fixture, but varying @test_name and
 @data_test arguments.
 */
-func TestCreateCase(test_name string, data_size int64, test_data unsafe.Pointer, data_setup C.GTestFixtureFunc, data_test C.GTestFixtureFunc, data_teardown C.GTestFixtureFunc) (return__ *TestCase) {
+func TestCreateCase(test_name string, data_size int64, test_data unsafe.Pointer, data_setup C.GTestFixtureFunc, data_test C.GTestFixtureFunc, data_teardown C.GTestFixtureFunc) (return__ *C.GTestCase) {
 	__cgo__test_name := C.CString(test_name)
-	var __cgo__return__ *C.GTestCase
-	__cgo__return__ = C.g_test_create_case(__cgo__test_name, C.gsize(data_size), (C.gconstpointer)(test_data), data_setup, data_test, data_teardown)
+	return__ = C.g_test_create_case(__cgo__test_name, C.gsize(data_size), (C.gconstpointer)(test_data), data_setup, data_test, data_teardown)
 	C.free(unsafe.Pointer(__cgo__test_name))
-	return__ = (*TestCase)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
 /*
 Create a new test suite with the name @suite_name.
 */
-func TestCreateSuite(suite_name string) (return__ *TestSuite) {
+func TestCreateSuite(suite_name string) (return__ *C.GTestSuite) {
 	__cgo__suite_name := C.CString(suite_name)
-	var __cgo__return__ *C.GTestSuite
-	__cgo__return__ = C.g_test_create_suite(__cgo__suite_name)
+	return__ = C.g_test_create_suite(__cgo__suite_name)
 	C.free(unsafe.Pointer(__cgo__suite_name))
-	return__ = (*TestSuite)(unsafe.Pointer(__cgo__return__))
 	return
 }
 
@@ -6202,10 +5959,8 @@ func TestGetDir(file_type C.GTestFileType) (return__ string) {
 /*
 Get the toplevel test suite for the test path API.
 */
-func TestGetRoot() (return__ *TestSuite) {
-	var __cgo__return__ *C.GTestSuite
-	__cgo__return__ = C.g_test_get_root()
-	return__ = (*TestSuite)(unsafe.Pointer(__cgo__return__))
+func TestGetRoot() (return__ *C.GTestSuite) {
+	return__ = C.g_test_get_root()
 	return
 }
 
@@ -6321,10 +6076,8 @@ For individual test cases however, the random number generator is
 reseeded, to avoid dependencies between tests and to make --seed
 effective for all test cases.
 */
-func TestRandInt() (return__ int32) {
-	var __cgo__return__ C.gint32
-	__cgo__return__ = C.g_test_rand_int()
-	return__ = int32(__cgo__return__)
+func TestRandInt() (return__ C.gint32) {
+	return__ = C.g_test_rand_int()
 	return
 }
 
@@ -6332,10 +6085,8 @@ func TestRandInt() (return__ int32) {
 Get a reproducible random integer number out of a specified range,
 see g_test_rand_int() for details on test case random numbers.
 */
-func TestRandIntRange(begin int32, end int32) (return__ int32) {
-	var __cgo__return__ C.gint32
-	__cgo__return__ = C.g_test_rand_int_range(C.gint32(begin), C.gint32(end))
-	return__ = int32(__cgo__return__)
+func TestRandIntRange(begin C.gint32, end C.gint32) (return__ C.gint32) {
+	return__ = C.g_test_rand_int_range(begin, end)
 	return
 }
 
@@ -6388,9 +6139,9 @@ order that tests are run in.
 g_test_run_suite() or g_test_run() may only be called once
 in a program.
 */
-func TestRunSuite(suite *TestSuite) (return__ int) {
+func TestRunSuite(suite *C.GTestSuite) (return__ int) {
 	var __cgo__return__ C.int
-	__cgo__return__ = C.g_test_run_suite((*C.GTestSuite)(unsafe.Pointer(suite)))
+	__cgo__return__ = C.g_test_run_suite(suite)
 	return__ = int(__cgo__return__)
 	return
 }
@@ -6686,10 +6437,8 @@ APIs). This may be useful for thread identification purposes
 (i.e. comparisons) but you must not use GLib functions (such
 as g_thread_join()) on these threads.
 */
-func ThreadSelf() (return__ *Thread) {
-	var __cgo__return__ *C.GThread
-	__cgo__return__ = C.g_thread_self()
-	return__ = (*Thread)(unsafe.Pointer(__cgo__return__))
+func ThreadSelf() (return__ *C.GThread) {
+	return__ = C.g_thread_self()
 	return
 }
 
@@ -6859,10 +6608,8 @@ executed.
 The interval given is in terms of monotonic time, not wall clock
 time.  See g_get_monotonic_time().
 */
-func TimeoutSourceNew(interval uint) (return__ *Source) {
-	var __cgo__return__ *C.GSource
-	__cgo__return__ = C.g_timeout_source_new(C.guint(interval))
-	return__ = (*Source)(unsafe.Pointer(__cgo__return__))
+func TimeoutSourceNew(interval uint) (return__ *C.GSource) {
+	return__ = C.g_timeout_source_new(C.guint(interval))
 	return
 }
 
@@ -6879,10 +6626,8 @@ in seconds.
 The interval given in terms of monotonic time, not wall clock time.
 See g_get_monotonic_time().
 */
-func TimeoutSourceNewSeconds(interval uint) (return__ *Source) {
-	var __cgo__return__ *C.GSource
-	__cgo__return__ = C.g_timeout_source_new_seconds(C.guint(interval))
-	return__ = (*Source)(unsafe.Pointer(__cgo__return__))
+func TimeoutSourceNewSeconds(interval uint) (return__ *C.GSource) {
+	return__ = C.g_timeout_source_new_seconds(C.guint(interval))
 	return
 }
 
@@ -7552,10 +7297,8 @@ descriptor.
 
 The source will never close the fd -- you must do it yourself.
 */
-func UnixFdSourceNew(fd int, condition C.GIOCondition) (return__ *Source) {
-	var __cgo__return__ *C.GSource
-	__cgo__return__ = C.g_unix_fd_source_new(C.gint(fd), condition)
-	return__ = (*Source)(unsafe.Pointer(__cgo__return__))
+func UnixFdSourceNew(fd int, condition C.GIOCondition) (return__ *C.GSource) {
+	return__ = C.g_unix_fd_source_new(C.gint(fd), condition)
 	return
 }
 
@@ -7649,10 +7392,8 @@ The source will not initially be associated with any #GMainContext
 and must be added to one with g_source_attach() before it will be
 executed.
 */
-func UnixSignalSourceNew(signum int) (return__ *Source) {
-	var __cgo__return__ *C.GSource
-	__cgo__return__ = C.g_unix_signal_source_new(C.gint(signum))
-	return__ = (*Source)(unsafe.Pointer(__cgo__return__))
+func UnixSignalSourceNew(signum int) (return__ *C.GSource) {
+	return__ = C.g_unix_signal_source_new(C.gint(signum))
 	return
 }
 
@@ -7731,22 +7472,10 @@ Splits an URI list conforming to the text/uri-list
 mime type defined in RFC 2483 into individual URIs,
 discarding any comments. The URIs are not validated.
 */
-func UriListExtractUris(uri_list string) (return__ []string) {
+func UriListExtractUris(uri_list string) (return__ **C.gchar) {
 	__cgo__uri_list := (*C.gchar)(unsafe.Pointer(C.CString(uri_list)))
-	var __cgo__return__ **C.gchar
-	__cgo__return__ = C.g_uri_list_extract_uris(__cgo__uri_list)
+	return__ = C.g_uri_list_extract_uris(__cgo__uri_list)
 	C.free(unsafe.Pointer(__cgo__uri_list))
-	var __slice__return__ []*C.gchar
-	__header__return__ := (*reflect.SliceHeader)(unsafe.Pointer(&__slice__return__))
-	__header__return__.Len = 4294967296
-	__header__return__.Cap = 4294967296
-	__header__return__.Data = uintptr(unsafe.Pointer(__cgo__return__))
-	for _, p := range __slice__return__ {
-		if p == nil {
-			break
-		}
-		return__ = append(return__, C.GoString((*C.char)(unsafe.Pointer(p))))
-	}
 	return
 }
 
@@ -8080,14 +7809,12 @@ character offset.
 Since 2.10, this function allows @pos to be before @str, and returns
 a negative offset in this case.
 */
-func Utf8PointerToOffset(str string, pos string) (return__ int64) {
+func Utf8PointerToOffset(str string, pos string) (return__ C.glong) {
 	__cgo__str := (*C.gchar)(unsafe.Pointer(C.CString(str)))
 	__cgo__pos := (*C.gchar)(unsafe.Pointer(C.CString(pos)))
-	var __cgo__return__ C.glong
-	__cgo__return__ = C.g_utf8_pointer_to_offset(__cgo__str, __cgo__pos)
+	return__ = C.g_utf8_pointer_to_offset(__cgo__str, __cgo__pos)
 	C.free(unsafe.Pointer(__cgo__str))
 	C.free(unsafe.Pointer(__cgo__pos))
-	return__ = int64(__cgo__return__)
 	return
 }
 
@@ -8142,12 +7869,10 @@ Computes the length of the string in characters, not including
 the terminating nul character. If the @max'th byte falls in the
 middle of a character, the last (partial) character is not counted.
 */
-func Utf8Strlen(p string, max int64) (return__ int64) {
+func Utf8Strlen(p string, max int64) (return__ C.glong) {
 	__cgo__p := (*C.gchar)(unsafe.Pointer(C.CString(p)))
-	var __cgo__return__ C.glong
-	__cgo__return__ = C.g_utf8_strlen(__cgo__p, C.gssize(max))
+	return__ = C.g_utf8_strlen(__cgo__p, C.gssize(max))
 	C.free(unsafe.Pointer(__cgo__p))
-	return__ = int64(__cgo__return__)
 	return
 }
 
@@ -8377,15 +8102,13 @@ then it will be set to reflect the error that occurred.
 Officially, the language understood by the parser is "any string
 produced by g_variant_print()".
 */
-func VariantParse(type_ *VariantType, text string, limit string, endptr **C.gchar) (return__ *Variant, __err__ error) {
+func VariantParse(type_ *C.GVariantType, text string, limit string, endptr **C.gchar) (return__ *C.GVariant, __err__ error) {
 	__cgo__text := (*C.gchar)(unsafe.Pointer(C.CString(text)))
 	__cgo__limit := (*C.gchar)(unsafe.Pointer(C.CString(limit)))
 	var __cgo_error__ *C.GError
-	var __cgo__return__ *C.GVariant
-	__cgo__return__ = C.g_variant_parse((*C.GVariantType)(unsafe.Pointer(type_)), __cgo__text, __cgo__limit, endptr, &__cgo_error__)
+	return__ = C.g_variant_parse(type_, __cgo__text, __cgo__limit, endptr, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__text))
 	C.free(unsafe.Pointer(__cgo__limit))
-	return__ = (*Variant)(unsafe.Pointer(__cgo__return__))
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
 	}
@@ -8423,10 +8146,10 @@ If @source_str was not nul-terminated when you passed it to
 g_variant_parse() then you must add nul termination before using this
 function.
 */
-func VariantParseErrorPrintContext(error_ *Error, source_str string) (return__ string) {
+func VariantParseErrorPrintContext(error_ *C.GError, source_str string) (return__ string) {
 	__cgo__source_str := (*C.gchar)(unsafe.Pointer(C.CString(source_str)))
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_variant_parse_error_print_context((*C.GError)(unsafe.Pointer(error_)), __cgo__source_str)
+	__cgo__return__ = C.g_variant_parse_error_print_context(error_, __cgo__source_str)
 	C.free(unsafe.Pointer(__cgo__source_str))
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
@@ -8439,12 +8162,10 @@ func VariantParseErrorQuark() (return__ C.GQuark) {
 
 // g_variant_parser_get_error_quark is not generated due to deprecation attr
 
-func VariantTypeChecked(arg0 string) (return__ *VariantType) {
+func VariantTypeChecked(arg0 string) (return__ *C.GVariantType) {
 	__cgo__arg0 := (*C.gchar)(unsafe.Pointer(C.CString(arg0)))
-	var __cgo__return__ *C.GVariantType
-	__cgo__return__ = C.g_variant_type_checked_(__cgo__arg0)
+	return__ = C.g_variant_type_checked_(__cgo__arg0)
 	C.free(unsafe.Pointer(__cgo__arg0))
-	return__ = (*VariantType)(unsafe.Pointer(__cgo__return__))
 	return
 }
 

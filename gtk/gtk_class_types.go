@@ -4,13 +4,17 @@ package gtk
 #include <gtk/gtk.h>
 #include <gtk/gtkx.h>
 #include <stdlib.h>
+#include <glib-object.h>
+#cgo pkg-config: gobject-2.0
 */
 import "C"
 import "unsafe"
 import "../gobject"
+import "runtime"
 
 func init() {
 	_ = unsafe.Pointer(nil)
+	_ = runtime.Compiler
 }
 
 type AboutDialog struct {
@@ -26,7 +30,7 @@ type AboutDialog struct {
 }
 
 func NewAboutDialogFromCPointer(p unsafe.Pointer) *AboutDialog {
-	return &AboutDialog{
+	ret := &AboutDialog{
 		NewTraitAboutDialog(p),
 		NewTraitDialog(p),
 		NewTraitWindow(p),
@@ -37,6 +41,11 @@ func NewAboutDialogFromCPointer(p unsafe.Pointer) *AboutDialog {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *AboutDialog) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type AccelGroup struct {
@@ -46,11 +55,16 @@ type AccelGroup struct {
 }
 
 func NewAccelGroupFromCPointer(p unsafe.Pointer) *AccelGroup {
-	return &AccelGroup{
+	ret := &AccelGroup{
 		NewTraitAccelGroup(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *AccelGroup) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type AccelLabel struct {
@@ -64,7 +78,7 @@ type AccelLabel struct {
 }
 
 func NewAccelLabelFromCPointer(p unsafe.Pointer) *AccelLabel {
-	return &AccelLabel{
+	ret := &AccelLabel{
 		NewTraitAccelLabel(p),
 		NewTraitLabel(p),
 		NewTraitMisc(p),
@@ -73,6 +87,11 @@ func NewAccelLabelFromCPointer(p unsafe.Pointer) *AccelLabel {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *AccelLabel) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type AccelMap struct {
@@ -82,11 +101,16 @@ type AccelMap struct {
 }
 
 func NewAccelMapFromCPointer(p unsafe.Pointer) *AccelMap {
-	return &AccelMap{
+	ret := &AccelMap{
 		NewTraitAccelMap(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *AccelMap) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Accessible struct {
@@ -95,10 +119,15 @@ type Accessible struct {
 }
 
 func NewAccessibleFromCPointer(p unsafe.Pointer) *Accessible {
-	return &Accessible{
+	ret := &Accessible{
 		NewTraitAccessible(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Accessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Action struct {
@@ -108,11 +137,16 @@ type Action struct {
 }
 
 func NewActionFromCPointer(p unsafe.Pointer) *Action {
-	return &Action{
+	ret := &Action{
 		NewTraitAction(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Action) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ActionBar struct {
@@ -126,7 +160,7 @@ type ActionBar struct {
 }
 
 func NewActionBarFromCPointer(p unsafe.Pointer) *ActionBar {
-	return &ActionBar{
+	ret := &ActionBar{
 		NewTraitActionBar(p),
 		NewTraitBin(p),
 		NewTraitContainer(p),
@@ -135,6 +169,11 @@ func NewActionBarFromCPointer(p unsafe.Pointer) *ActionBar {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ActionBar) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ActionGroup struct {
@@ -144,11 +183,16 @@ type ActionGroup struct {
 }
 
 func NewActionGroupFromCPointer(p unsafe.Pointer) *ActionGroup {
-	return &ActionGroup{
+	ret := &ActionGroup{
 		NewTraitActionGroup(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ActionGroup) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Adjustment struct {
@@ -159,12 +203,17 @@ type Adjustment struct {
 }
 
 func NewAdjustmentFromCPointer(p unsafe.Pointer) *Adjustment {
-	return &Adjustment{
+	ret := &Adjustment{
 		NewTraitAdjustment(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Adjustment) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Alignment struct {
@@ -178,7 +227,7 @@ type Alignment struct {
 }
 
 func NewAlignmentFromCPointer(p unsafe.Pointer) *Alignment {
-	return &Alignment{
+	ret := &Alignment{
 		NewTraitAlignment(p),
 		NewTraitBin(p),
 		NewTraitContainer(p),
@@ -187,6 +236,11 @@ func NewAlignmentFromCPointer(p unsafe.Pointer) *Alignment {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Alignment) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type AppChooserButton struct {
@@ -201,7 +255,7 @@ type AppChooserButton struct {
 }
 
 func NewAppChooserButtonFromCPointer(p unsafe.Pointer) *AppChooserButton {
-	return &AppChooserButton{
+	ret := &AppChooserButton{
 		NewTraitAppChooserButton(p),
 		NewTraitComboBox(p),
 		NewTraitBin(p),
@@ -211,6 +265,11 @@ func NewAppChooserButtonFromCPointer(p unsafe.Pointer) *AppChooserButton {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *AppChooserButton) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type AppChooserDialog struct {
@@ -226,7 +285,7 @@ type AppChooserDialog struct {
 }
 
 func NewAppChooserDialogFromCPointer(p unsafe.Pointer) *AppChooserDialog {
-	return &AppChooserDialog{
+	ret := &AppChooserDialog{
 		NewTraitAppChooserDialog(p),
 		NewTraitDialog(p),
 		NewTraitWindow(p),
@@ -237,6 +296,11 @@ func NewAppChooserDialogFromCPointer(p unsafe.Pointer) *AppChooserDialog {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *AppChooserDialog) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type AppChooserWidget struct {
@@ -250,7 +314,7 @@ type AppChooserWidget struct {
 }
 
 func NewAppChooserWidgetFromCPointer(p unsafe.Pointer) *AppChooserWidget {
-	return &AppChooserWidget{
+	ret := &AppChooserWidget{
 		NewTraitAppChooserWidget(p),
 		NewTraitBox(p),
 		NewTraitContainer(p),
@@ -259,6 +323,11 @@ func NewAppChooserWidgetFromCPointer(p unsafe.Pointer) *AppChooserWidget {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *AppChooserWidget) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Application struct {
@@ -267,10 +336,15 @@ type Application struct {
 }
 
 func NewApplicationFromCPointer(p unsafe.Pointer) *Application {
-	return &Application{
+	ret := &Application{
 		NewTraitApplication(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Application) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ApplicationWindow struct {
@@ -285,7 +359,7 @@ type ApplicationWindow struct {
 }
 
 func NewApplicationWindowFromCPointer(p unsafe.Pointer) *ApplicationWindow {
-	return &ApplicationWindow{
+	ret := &ApplicationWindow{
 		NewTraitApplicationWindow(p),
 		NewTraitWindow(p),
 		NewTraitBin(p),
@@ -295,6 +369,11 @@ func NewApplicationWindowFromCPointer(p unsafe.Pointer) *ApplicationWindow {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ApplicationWindow) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Arrow struct {
@@ -307,7 +386,7 @@ type Arrow struct {
 }
 
 func NewArrowFromCPointer(p unsafe.Pointer) *Arrow {
-	return &Arrow{
+	ret := &Arrow{
 		NewTraitArrow(p),
 		NewTraitMisc(p),
 		NewTraitWidget(p),
@@ -315,6 +394,11 @@ func NewArrowFromCPointer(p unsafe.Pointer) *Arrow {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Arrow) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type AspectFrame struct {
@@ -329,7 +413,7 @@ type AspectFrame struct {
 }
 
 func NewAspectFrameFromCPointer(p unsafe.Pointer) *AspectFrame {
-	return &AspectFrame{
+	ret := &AspectFrame{
 		NewTraitAspectFrame(p),
 		NewTraitFrame(p),
 		NewTraitBin(p),
@@ -339,6 +423,11 @@ func NewAspectFrameFromCPointer(p unsafe.Pointer) *AspectFrame {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *AspectFrame) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Assistant struct {
@@ -353,7 +442,7 @@ type Assistant struct {
 }
 
 func NewAssistantFromCPointer(p unsafe.Pointer) *Assistant {
-	return &Assistant{
+	ret := &Assistant{
 		NewTraitAssistant(p),
 		NewTraitWindow(p),
 		NewTraitBin(p),
@@ -363,6 +452,11 @@ func NewAssistantFromCPointer(p unsafe.Pointer) *Assistant {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Assistant) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Bin struct {
@@ -375,7 +469,7 @@ type Bin struct {
 }
 
 func NewBinFromCPointer(p unsafe.Pointer) *Bin {
-	return &Bin{
+	ret := &Bin{
 		NewTraitBin(p),
 		NewTraitContainer(p),
 		NewTraitWidget(p),
@@ -383,6 +477,11 @@ func NewBinFromCPointer(p unsafe.Pointer) *Bin {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Bin) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Box struct {
@@ -395,7 +494,7 @@ type Box struct {
 }
 
 func NewBoxFromCPointer(p unsafe.Pointer) *Box {
-	return &Box{
+	ret := &Box{
 		NewTraitBox(p),
 		NewTraitContainer(p),
 		NewTraitWidget(p),
@@ -403,6 +502,11 @@ func NewBoxFromCPointer(p unsafe.Pointer) *Box {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Box) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Builder struct {
@@ -412,11 +516,16 @@ type Builder struct {
 }
 
 func NewBuilderFromCPointer(p unsafe.Pointer) *Builder {
-	return &Builder{
+	ret := &Builder{
 		NewTraitBuilder(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Builder) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Button struct {
@@ -430,7 +539,7 @@ type Button struct {
 }
 
 func NewButtonFromCPointer(p unsafe.Pointer) *Button {
-	return &Button{
+	ret := &Button{
 		NewTraitButton(p),
 		NewTraitBin(p),
 		NewTraitContainer(p),
@@ -439,6 +548,11 @@ func NewButtonFromCPointer(p unsafe.Pointer) *Button {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Button) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ButtonBox struct {
@@ -452,7 +566,7 @@ type ButtonBox struct {
 }
 
 func NewButtonBoxFromCPointer(p unsafe.Pointer) *ButtonBox {
-	return &ButtonBox{
+	ret := &ButtonBox{
 		NewTraitButtonBox(p),
 		NewTraitBox(p),
 		NewTraitContainer(p),
@@ -461,6 +575,11 @@ func NewButtonBoxFromCPointer(p unsafe.Pointer) *ButtonBox {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ButtonBox) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Calendar struct {
@@ -472,13 +591,18 @@ type Calendar struct {
 }
 
 func NewCalendarFromCPointer(p unsafe.Pointer) *Calendar {
-	return &Calendar{
+	ret := &Calendar{
 		NewTraitCalendar(p),
 		NewTraitWidget(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Calendar) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type CellArea struct {
@@ -489,12 +613,17 @@ type CellArea struct {
 }
 
 func NewCellAreaFromCPointer(p unsafe.Pointer) *CellArea {
-	return &CellArea{
+	ret := &CellArea{
 		NewTraitCellArea(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *CellArea) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type CellAreaBox struct {
@@ -506,13 +635,18 @@ type CellAreaBox struct {
 }
 
 func NewCellAreaBoxFromCPointer(p unsafe.Pointer) *CellAreaBox {
-	return &CellAreaBox{
+	ret := &CellAreaBox{
 		NewTraitCellAreaBox(p),
 		NewTraitCellArea(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *CellAreaBox) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type CellAreaContext struct {
@@ -522,11 +656,16 @@ type CellAreaContext struct {
 }
 
 func NewCellAreaContextFromCPointer(p unsafe.Pointer) *CellAreaContext {
-	return &CellAreaContext{
+	ret := &CellAreaContext{
 		NewTraitCellAreaContext(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *CellAreaContext) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type CellRenderer struct {
@@ -537,12 +676,17 @@ type CellRenderer struct {
 }
 
 func NewCellRendererFromCPointer(p unsafe.Pointer) *CellRenderer {
-	return &CellRenderer{
+	ret := &CellRenderer{
 		NewTraitCellRenderer(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *CellRenderer) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type CellRendererAccel struct {
@@ -555,7 +699,7 @@ type CellRendererAccel struct {
 }
 
 func NewCellRendererAccelFromCPointer(p unsafe.Pointer) *CellRendererAccel {
-	return &CellRendererAccel{
+	ret := &CellRendererAccel{
 		NewTraitCellRendererAccel(p),
 		NewTraitCellRendererText(p),
 		NewTraitCellRenderer(p),
@@ -563,6 +707,11 @@ func NewCellRendererAccelFromCPointer(p unsafe.Pointer) *CellRendererAccel {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *CellRendererAccel) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type CellRendererCombo struct {
@@ -575,7 +724,7 @@ type CellRendererCombo struct {
 }
 
 func NewCellRendererComboFromCPointer(p unsafe.Pointer) *CellRendererCombo {
-	return &CellRendererCombo{
+	ret := &CellRendererCombo{
 		NewTraitCellRendererCombo(p),
 		NewTraitCellRendererText(p),
 		NewTraitCellRenderer(p),
@@ -583,6 +732,11 @@ func NewCellRendererComboFromCPointer(p unsafe.Pointer) *CellRendererCombo {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *CellRendererCombo) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type CellRendererPixbuf struct {
@@ -594,13 +748,18 @@ type CellRendererPixbuf struct {
 }
 
 func NewCellRendererPixbufFromCPointer(p unsafe.Pointer) *CellRendererPixbuf {
-	return &CellRendererPixbuf{
+	ret := &CellRendererPixbuf{
 		NewTraitCellRendererPixbuf(p),
 		NewTraitCellRenderer(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *CellRendererPixbuf) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type CellRendererProgress struct {
@@ -612,13 +771,18 @@ type CellRendererProgress struct {
 }
 
 func NewCellRendererProgressFromCPointer(p unsafe.Pointer) *CellRendererProgress {
-	return &CellRendererProgress{
+	ret := &CellRendererProgress{
 		NewTraitCellRendererProgress(p),
 		NewTraitCellRenderer(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *CellRendererProgress) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type CellRendererSpin struct {
@@ -631,7 +795,7 @@ type CellRendererSpin struct {
 }
 
 func NewCellRendererSpinFromCPointer(p unsafe.Pointer) *CellRendererSpin {
-	return &CellRendererSpin{
+	ret := &CellRendererSpin{
 		NewTraitCellRendererSpin(p),
 		NewTraitCellRendererText(p),
 		NewTraitCellRenderer(p),
@@ -639,6 +803,11 @@ func NewCellRendererSpinFromCPointer(p unsafe.Pointer) *CellRendererSpin {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *CellRendererSpin) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type CellRendererSpinner struct {
@@ -650,13 +819,18 @@ type CellRendererSpinner struct {
 }
 
 func NewCellRendererSpinnerFromCPointer(p unsafe.Pointer) *CellRendererSpinner {
-	return &CellRendererSpinner{
+	ret := &CellRendererSpinner{
 		NewTraitCellRendererSpinner(p),
 		NewTraitCellRenderer(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *CellRendererSpinner) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type CellRendererText struct {
@@ -668,13 +842,18 @@ type CellRendererText struct {
 }
 
 func NewCellRendererTextFromCPointer(p unsafe.Pointer) *CellRendererText {
-	return &CellRendererText{
+	ret := &CellRendererText{
 		NewTraitCellRendererText(p),
 		NewTraitCellRenderer(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *CellRendererText) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type CellRendererToggle struct {
@@ -686,13 +865,18 @@ type CellRendererToggle struct {
 }
 
 func NewCellRendererToggleFromCPointer(p unsafe.Pointer) *CellRendererToggle {
-	return &CellRendererToggle{
+	ret := &CellRendererToggle{
 		NewTraitCellRendererToggle(p),
 		NewTraitCellRenderer(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *CellRendererToggle) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type CellView struct {
@@ -704,13 +888,18 @@ type CellView struct {
 }
 
 func NewCellViewFromCPointer(p unsafe.Pointer) *CellView {
-	return &CellView{
+	ret := &CellView{
 		NewTraitCellView(p),
 		NewTraitWidget(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *CellView) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type CheckButton struct {
@@ -726,7 +915,7 @@ type CheckButton struct {
 }
 
 func NewCheckButtonFromCPointer(p unsafe.Pointer) *CheckButton {
-	return &CheckButton{
+	ret := &CheckButton{
 		NewTraitCheckButton(p),
 		NewTraitToggleButton(p),
 		NewTraitButton(p),
@@ -737,6 +926,11 @@ func NewCheckButtonFromCPointer(p unsafe.Pointer) *CheckButton {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *CheckButton) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type CheckMenuItem struct {
@@ -751,7 +945,7 @@ type CheckMenuItem struct {
 }
 
 func NewCheckMenuItemFromCPointer(p unsafe.Pointer) *CheckMenuItem {
-	return &CheckMenuItem{
+	ret := &CheckMenuItem{
 		NewTraitCheckMenuItem(p),
 		NewTraitMenuItem(p),
 		NewTraitBin(p),
@@ -761,6 +955,11 @@ func NewCheckMenuItemFromCPointer(p unsafe.Pointer) *CheckMenuItem {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *CheckMenuItem) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Clipboard struct {
@@ -770,11 +969,16 @@ type Clipboard struct {
 }
 
 func NewClipboardFromCPointer(p unsafe.Pointer) *Clipboard {
-	return &Clipboard{
+	ret := &Clipboard{
 		NewTraitClipboard(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Clipboard) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ColorButton struct {
@@ -789,7 +993,7 @@ type ColorButton struct {
 }
 
 func NewColorButtonFromCPointer(p unsafe.Pointer) *ColorButton {
-	return &ColorButton{
+	ret := &ColorButton{
 		NewTraitColorButton(p),
 		NewTraitButton(p),
 		NewTraitBin(p),
@@ -799,6 +1003,11 @@ func NewColorButtonFromCPointer(p unsafe.Pointer) *ColorButton {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ColorButton) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ColorChooserDialog struct {
@@ -814,7 +1023,7 @@ type ColorChooserDialog struct {
 }
 
 func NewColorChooserDialogFromCPointer(p unsafe.Pointer) *ColorChooserDialog {
-	return &ColorChooserDialog{
+	ret := &ColorChooserDialog{
 		NewTraitColorChooserDialog(p),
 		NewTraitDialog(p),
 		NewTraitWindow(p),
@@ -825,6 +1034,11 @@ func NewColorChooserDialogFromCPointer(p unsafe.Pointer) *ColorChooserDialog {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ColorChooserDialog) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ColorChooserWidget struct {
@@ -838,7 +1052,7 @@ type ColorChooserWidget struct {
 }
 
 func NewColorChooserWidgetFromCPointer(p unsafe.Pointer) *ColorChooserWidget {
-	return &ColorChooserWidget{
+	ret := &ColorChooserWidget{
 		NewTraitColorChooserWidget(p),
 		NewTraitBox(p),
 		NewTraitContainer(p),
@@ -847,6 +1061,11 @@ func NewColorChooserWidgetFromCPointer(p unsafe.Pointer) *ColorChooserWidget {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ColorChooserWidget) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ColorSelection struct {
@@ -860,7 +1079,7 @@ type ColorSelection struct {
 }
 
 func NewColorSelectionFromCPointer(p unsafe.Pointer) *ColorSelection {
-	return &ColorSelection{
+	ret := &ColorSelection{
 		NewTraitColorSelection(p),
 		NewTraitBox(p),
 		NewTraitContainer(p),
@@ -869,6 +1088,11 @@ func NewColorSelectionFromCPointer(p unsafe.Pointer) *ColorSelection {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ColorSelection) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ColorSelectionDialog struct {
@@ -884,7 +1108,7 @@ type ColorSelectionDialog struct {
 }
 
 func NewColorSelectionDialogFromCPointer(p unsafe.Pointer) *ColorSelectionDialog {
-	return &ColorSelectionDialog{
+	ret := &ColorSelectionDialog{
 		NewTraitColorSelectionDialog(p),
 		NewTraitDialog(p),
 		NewTraitWindow(p),
@@ -895,6 +1119,11 @@ func NewColorSelectionDialogFromCPointer(p unsafe.Pointer) *ColorSelectionDialog
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ColorSelectionDialog) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ComboBox struct {
@@ -908,7 +1137,7 @@ type ComboBox struct {
 }
 
 func NewComboBoxFromCPointer(p unsafe.Pointer) *ComboBox {
-	return &ComboBox{
+	ret := &ComboBox{
 		NewTraitComboBox(p),
 		NewTraitBin(p),
 		NewTraitContainer(p),
@@ -917,6 +1146,11 @@ func NewComboBoxFromCPointer(p unsafe.Pointer) *ComboBox {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ComboBox) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ComboBoxText struct {
@@ -931,7 +1165,7 @@ type ComboBoxText struct {
 }
 
 func NewComboBoxTextFromCPointer(p unsafe.Pointer) *ComboBoxText {
-	return &ComboBoxText{
+	ret := &ComboBoxText{
 		NewTraitComboBoxText(p),
 		NewTraitComboBox(p),
 		NewTraitBin(p),
@@ -941,6 +1175,11 @@ func NewComboBoxTextFromCPointer(p unsafe.Pointer) *ComboBoxText {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ComboBoxText) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Container struct {
@@ -952,13 +1191,18 @@ type Container struct {
 }
 
 func NewContainerFromCPointer(p unsafe.Pointer) *Container {
-	return &Container{
+	ret := &Container{
 		NewTraitContainer(p),
 		NewTraitWidget(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Container) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type CssProvider struct {
@@ -968,11 +1212,16 @@ type CssProvider struct {
 }
 
 func NewCssProviderFromCPointer(p unsafe.Pointer) *CssProvider {
-	return &CssProvider{
+	ret := &CssProvider{
 		NewTraitCssProvider(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *CssProvider) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Dialog struct {
@@ -987,7 +1236,7 @@ type Dialog struct {
 }
 
 func NewDialogFromCPointer(p unsafe.Pointer) *Dialog {
-	return &Dialog{
+	ret := &Dialog{
 		NewTraitDialog(p),
 		NewTraitWindow(p),
 		NewTraitBin(p),
@@ -997,6 +1246,11 @@ func NewDialogFromCPointer(p unsafe.Pointer) *Dialog {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Dialog) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type DrawingArea struct {
@@ -1008,13 +1262,18 @@ type DrawingArea struct {
 }
 
 func NewDrawingAreaFromCPointer(p unsafe.Pointer) *DrawingArea {
-	return &DrawingArea{
+	ret := &DrawingArea{
 		NewTraitDrawingArea(p),
 		NewTraitWidget(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *DrawingArea) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Entry struct {
@@ -1026,13 +1285,18 @@ type Entry struct {
 }
 
 func NewEntryFromCPointer(p unsafe.Pointer) *Entry {
-	return &Entry{
+	ret := &Entry{
 		NewTraitEntry(p),
 		NewTraitWidget(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Entry) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type EntryBuffer struct {
@@ -1042,11 +1306,16 @@ type EntryBuffer struct {
 }
 
 func NewEntryBufferFromCPointer(p unsafe.Pointer) *EntryBuffer {
-	return &EntryBuffer{
+	ret := &EntryBuffer{
 		NewTraitEntryBuffer(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *EntryBuffer) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type EntryCompletion struct {
@@ -1056,11 +1325,16 @@ type EntryCompletion struct {
 }
 
 func NewEntryCompletionFromCPointer(p unsafe.Pointer) *EntryCompletion {
-	return &EntryCompletion{
+	ret := &EntryCompletion{
 		NewTraitEntryCompletion(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *EntryCompletion) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type EventBox struct {
@@ -1074,7 +1348,7 @@ type EventBox struct {
 }
 
 func NewEventBoxFromCPointer(p unsafe.Pointer) *EventBox {
-	return &EventBox{
+	ret := &EventBox{
 		NewTraitEventBox(p),
 		NewTraitBin(p),
 		NewTraitContainer(p),
@@ -1083,6 +1357,11 @@ func NewEventBoxFromCPointer(p unsafe.Pointer) *EventBox {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *EventBox) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Expander struct {
@@ -1096,7 +1375,7 @@ type Expander struct {
 }
 
 func NewExpanderFromCPointer(p unsafe.Pointer) *Expander {
-	return &Expander{
+	ret := &Expander{
 		NewTraitExpander(p),
 		NewTraitBin(p),
 		NewTraitContainer(p),
@@ -1105,6 +1384,11 @@ func NewExpanderFromCPointer(p unsafe.Pointer) *Expander {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Expander) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type FileChooserButton struct {
@@ -1118,7 +1402,7 @@ type FileChooserButton struct {
 }
 
 func NewFileChooserButtonFromCPointer(p unsafe.Pointer) *FileChooserButton {
-	return &FileChooserButton{
+	ret := &FileChooserButton{
 		NewTraitFileChooserButton(p),
 		NewTraitBox(p),
 		NewTraitContainer(p),
@@ -1127,6 +1411,11 @@ func NewFileChooserButtonFromCPointer(p unsafe.Pointer) *FileChooserButton {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *FileChooserButton) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type FileChooserDialog struct {
@@ -1142,7 +1431,7 @@ type FileChooserDialog struct {
 }
 
 func NewFileChooserDialogFromCPointer(p unsafe.Pointer) *FileChooserDialog {
-	return &FileChooserDialog{
+	ret := &FileChooserDialog{
 		NewTraitFileChooserDialog(p),
 		NewTraitDialog(p),
 		NewTraitWindow(p),
@@ -1153,6 +1442,11 @@ func NewFileChooserDialogFromCPointer(p unsafe.Pointer) *FileChooserDialog {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *FileChooserDialog) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type FileChooserWidget struct {
@@ -1166,7 +1460,7 @@ type FileChooserWidget struct {
 }
 
 func NewFileChooserWidgetFromCPointer(p unsafe.Pointer) *FileChooserWidget {
-	return &FileChooserWidget{
+	ret := &FileChooserWidget{
 		NewTraitFileChooserWidget(p),
 		NewTraitBox(p),
 		NewTraitContainer(p),
@@ -1175,6 +1469,11 @@ func NewFileChooserWidgetFromCPointer(p unsafe.Pointer) *FileChooserWidget {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *FileChooserWidget) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type FileFilter struct {
@@ -1185,12 +1484,17 @@ type FileFilter struct {
 }
 
 func NewFileFilterFromCPointer(p unsafe.Pointer) *FileFilter {
-	return &FileFilter{
+	ret := &FileFilter{
 		NewTraitFileFilter(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *FileFilter) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Fixed struct {
@@ -1203,7 +1507,7 @@ type Fixed struct {
 }
 
 func NewFixedFromCPointer(p unsafe.Pointer) *Fixed {
-	return &Fixed{
+	ret := &Fixed{
 		NewTraitFixed(p),
 		NewTraitContainer(p),
 		NewTraitWidget(p),
@@ -1211,6 +1515,11 @@ func NewFixedFromCPointer(p unsafe.Pointer) *Fixed {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Fixed) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type FlowBox struct {
@@ -1223,7 +1532,7 @@ type FlowBox struct {
 }
 
 func NewFlowBoxFromCPointer(p unsafe.Pointer) *FlowBox {
-	return &FlowBox{
+	ret := &FlowBox{
 		NewTraitFlowBox(p),
 		NewTraitContainer(p),
 		NewTraitWidget(p),
@@ -1231,6 +1540,11 @@ func NewFlowBoxFromCPointer(p unsafe.Pointer) *FlowBox {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *FlowBox) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type FlowBoxChild struct {
@@ -1244,7 +1558,7 @@ type FlowBoxChild struct {
 }
 
 func NewFlowBoxChildFromCPointer(p unsafe.Pointer) *FlowBoxChild {
-	return &FlowBoxChild{
+	ret := &FlowBoxChild{
 		NewTraitFlowBoxChild(p),
 		NewTraitBin(p),
 		NewTraitContainer(p),
@@ -1253,6 +1567,11 @@ func NewFlowBoxChildFromCPointer(p unsafe.Pointer) *FlowBoxChild {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *FlowBoxChild) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type FontButton struct {
@@ -1267,7 +1586,7 @@ type FontButton struct {
 }
 
 func NewFontButtonFromCPointer(p unsafe.Pointer) *FontButton {
-	return &FontButton{
+	ret := &FontButton{
 		NewTraitFontButton(p),
 		NewTraitButton(p),
 		NewTraitBin(p),
@@ -1277,6 +1596,11 @@ func NewFontButtonFromCPointer(p unsafe.Pointer) *FontButton {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *FontButton) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type FontChooserDialog struct {
@@ -1292,7 +1616,7 @@ type FontChooserDialog struct {
 }
 
 func NewFontChooserDialogFromCPointer(p unsafe.Pointer) *FontChooserDialog {
-	return &FontChooserDialog{
+	ret := &FontChooserDialog{
 		NewTraitFontChooserDialog(p),
 		NewTraitDialog(p),
 		NewTraitWindow(p),
@@ -1303,6 +1627,11 @@ func NewFontChooserDialogFromCPointer(p unsafe.Pointer) *FontChooserDialog {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *FontChooserDialog) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type FontChooserWidget struct {
@@ -1316,7 +1645,7 @@ type FontChooserWidget struct {
 }
 
 func NewFontChooserWidgetFromCPointer(p unsafe.Pointer) *FontChooserWidget {
-	return &FontChooserWidget{
+	ret := &FontChooserWidget{
 		NewTraitFontChooserWidget(p),
 		NewTraitBox(p),
 		NewTraitContainer(p),
@@ -1325,6 +1654,11 @@ func NewFontChooserWidgetFromCPointer(p unsafe.Pointer) *FontChooserWidget {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *FontChooserWidget) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type FontSelection struct {
@@ -1338,7 +1672,7 @@ type FontSelection struct {
 }
 
 func NewFontSelectionFromCPointer(p unsafe.Pointer) *FontSelection {
-	return &FontSelection{
+	ret := &FontSelection{
 		NewTraitFontSelection(p),
 		NewTraitBox(p),
 		NewTraitContainer(p),
@@ -1347,6 +1681,11 @@ func NewFontSelectionFromCPointer(p unsafe.Pointer) *FontSelection {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *FontSelection) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type FontSelectionDialog struct {
@@ -1362,7 +1701,7 @@ type FontSelectionDialog struct {
 }
 
 func NewFontSelectionDialogFromCPointer(p unsafe.Pointer) *FontSelectionDialog {
-	return &FontSelectionDialog{
+	ret := &FontSelectionDialog{
 		NewTraitFontSelectionDialog(p),
 		NewTraitDialog(p),
 		NewTraitWindow(p),
@@ -1373,6 +1712,11 @@ func NewFontSelectionDialogFromCPointer(p unsafe.Pointer) *FontSelectionDialog {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *FontSelectionDialog) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Frame struct {
@@ -1386,7 +1730,7 @@ type Frame struct {
 }
 
 func NewFrameFromCPointer(p unsafe.Pointer) *Frame {
-	return &Frame{
+	ret := &Frame{
 		NewTraitFrame(p),
 		NewTraitBin(p),
 		NewTraitContainer(p),
@@ -1395,6 +1739,11 @@ func NewFrameFromCPointer(p unsafe.Pointer) *Frame {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Frame) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Grid struct {
@@ -1407,7 +1756,7 @@ type Grid struct {
 }
 
 func NewGridFromCPointer(p unsafe.Pointer) *Grid {
-	return &Grid{
+	ret := &Grid{
 		NewTraitGrid(p),
 		NewTraitContainer(p),
 		NewTraitWidget(p),
@@ -1415,6 +1764,11 @@ func NewGridFromCPointer(p unsafe.Pointer) *Grid {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Grid) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type HBox struct {
@@ -1428,7 +1782,7 @@ type HBox struct {
 }
 
 func NewHBoxFromCPointer(p unsafe.Pointer) *HBox {
-	return &HBox{
+	ret := &HBox{
 		NewTraitHBox(p),
 		NewTraitBox(p),
 		NewTraitContainer(p),
@@ -1437,6 +1791,11 @@ func NewHBoxFromCPointer(p unsafe.Pointer) *HBox {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *HBox) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type HButtonBox struct {
@@ -1451,7 +1810,7 @@ type HButtonBox struct {
 }
 
 func NewHButtonBoxFromCPointer(p unsafe.Pointer) *HButtonBox {
-	return &HButtonBox{
+	ret := &HButtonBox{
 		NewTraitHButtonBox(p),
 		NewTraitButtonBox(p),
 		NewTraitBox(p),
@@ -1461,6 +1820,11 @@ func NewHButtonBoxFromCPointer(p unsafe.Pointer) *HButtonBox {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *HButtonBox) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type HPaned struct {
@@ -1474,7 +1838,7 @@ type HPaned struct {
 }
 
 func NewHPanedFromCPointer(p unsafe.Pointer) *HPaned {
-	return &HPaned{
+	ret := &HPaned{
 		NewTraitHPaned(p),
 		NewTraitPaned(p),
 		NewTraitContainer(p),
@@ -1483,6 +1847,11 @@ func NewHPanedFromCPointer(p unsafe.Pointer) *HPaned {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *HPaned) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type HSV struct {
@@ -1494,13 +1863,18 @@ type HSV struct {
 }
 
 func NewHSVFromCPointer(p unsafe.Pointer) *HSV {
-	return &HSV{
+	ret := &HSV{
 		NewTraitHSV(p),
 		NewTraitWidget(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *HSV) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type HScale struct {
@@ -1514,7 +1888,7 @@ type HScale struct {
 }
 
 func NewHScaleFromCPointer(p unsafe.Pointer) *HScale {
-	return &HScale{
+	ret := &HScale{
 		NewTraitHScale(p),
 		NewTraitScale(p),
 		NewTraitRange(p),
@@ -1523,6 +1897,11 @@ func NewHScaleFromCPointer(p unsafe.Pointer) *HScale {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *HScale) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type HScrollbar struct {
@@ -1536,7 +1915,7 @@ type HScrollbar struct {
 }
 
 func NewHScrollbarFromCPointer(p unsafe.Pointer) *HScrollbar {
-	return &HScrollbar{
+	ret := &HScrollbar{
 		NewTraitHScrollbar(p),
 		NewTraitScrollbar(p),
 		NewTraitRange(p),
@@ -1545,6 +1924,11 @@ func NewHScrollbarFromCPointer(p unsafe.Pointer) *HScrollbar {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *HScrollbar) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type HSeparator struct {
@@ -1557,7 +1941,7 @@ type HSeparator struct {
 }
 
 func NewHSeparatorFromCPointer(p unsafe.Pointer) *HSeparator {
-	return &HSeparator{
+	ret := &HSeparator{
 		NewTraitHSeparator(p),
 		NewTraitSeparator(p),
 		NewTraitWidget(p),
@@ -1565,6 +1949,11 @@ func NewHSeparatorFromCPointer(p unsafe.Pointer) *HSeparator {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *HSeparator) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type HandleBox struct {
@@ -1578,7 +1967,7 @@ type HandleBox struct {
 }
 
 func NewHandleBoxFromCPointer(p unsafe.Pointer) *HandleBox {
-	return &HandleBox{
+	ret := &HandleBox{
 		NewTraitHandleBox(p),
 		NewTraitBin(p),
 		NewTraitContainer(p),
@@ -1587,6 +1976,11 @@ func NewHandleBoxFromCPointer(p unsafe.Pointer) *HandleBox {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *HandleBox) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type HeaderBar struct {
@@ -1599,7 +1993,7 @@ type HeaderBar struct {
 }
 
 func NewHeaderBarFromCPointer(p unsafe.Pointer) *HeaderBar {
-	return &HeaderBar{
+	ret := &HeaderBar{
 		NewTraitHeaderBar(p),
 		NewTraitContainer(p),
 		NewTraitWidget(p),
@@ -1607,6 +2001,11 @@ func NewHeaderBarFromCPointer(p unsafe.Pointer) *HeaderBar {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *HeaderBar) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type IMContext struct {
@@ -1616,11 +2015,16 @@ type IMContext struct {
 }
 
 func NewIMContextFromCPointer(p unsafe.Pointer) *IMContext {
-	return &IMContext{
+	ret := &IMContext{
 		NewTraitIMContext(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *IMContext) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type IMContextSimple struct {
@@ -1631,12 +2035,17 @@ type IMContextSimple struct {
 }
 
 func NewIMContextSimpleFromCPointer(p unsafe.Pointer) *IMContextSimple {
-	return &IMContextSimple{
+	ret := &IMContextSimple{
 		NewTraitIMContextSimple(p),
 		NewTraitIMContext(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *IMContextSimple) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type IMMulticontext struct {
@@ -1647,12 +2056,17 @@ type IMMulticontext struct {
 }
 
 func NewIMMulticontextFromCPointer(p unsafe.Pointer) *IMMulticontext {
-	return &IMMulticontext{
+	ret := &IMMulticontext{
 		NewTraitIMMulticontext(p),
 		NewTraitIMContext(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *IMMulticontext) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type IconFactory struct {
@@ -1662,11 +2076,16 @@ type IconFactory struct {
 }
 
 func NewIconFactoryFromCPointer(p unsafe.Pointer) *IconFactory {
-	return &IconFactory{
+	ret := &IconFactory{
 		NewTraitIconFactory(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *IconFactory) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type IconInfo struct {
@@ -1676,11 +2095,16 @@ type IconInfo struct {
 }
 
 func NewIconInfoFromCPointer(p unsafe.Pointer) *IconInfo {
-	return &IconInfo{
+	ret := &IconInfo{
 		NewTraitIconInfo(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *IconInfo) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type IconTheme struct {
@@ -1690,11 +2114,16 @@ type IconTheme struct {
 }
 
 func NewIconThemeFromCPointer(p unsafe.Pointer) *IconTheme {
-	return &IconTheme{
+	ret := &IconTheme{
 		NewTraitIconTheme(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *IconTheme) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type IconView struct {
@@ -1707,7 +2136,7 @@ type IconView struct {
 }
 
 func NewIconViewFromCPointer(p unsafe.Pointer) *IconView {
-	return &IconView{
+	ret := &IconView{
 		NewTraitIconView(p),
 		NewTraitContainer(p),
 		NewTraitWidget(p),
@@ -1715,6 +2144,11 @@ func NewIconViewFromCPointer(p unsafe.Pointer) *IconView {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *IconView) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Image struct {
@@ -1727,7 +2161,7 @@ type Image struct {
 }
 
 func NewImageFromCPointer(p unsafe.Pointer) *Image {
-	return &Image{
+	ret := &Image{
 		NewTraitImage(p),
 		NewTraitMisc(p),
 		NewTraitWidget(p),
@@ -1735,6 +2169,11 @@ func NewImageFromCPointer(p unsafe.Pointer) *Image {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Image) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ImageMenuItem struct {
@@ -1749,7 +2188,7 @@ type ImageMenuItem struct {
 }
 
 func NewImageMenuItemFromCPointer(p unsafe.Pointer) *ImageMenuItem {
-	return &ImageMenuItem{
+	ret := &ImageMenuItem{
 		NewTraitImageMenuItem(p),
 		NewTraitMenuItem(p),
 		NewTraitBin(p),
@@ -1759,6 +2198,11 @@ func NewImageMenuItemFromCPointer(p unsafe.Pointer) *ImageMenuItem {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ImageMenuItem) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type InfoBar struct {
@@ -1772,7 +2216,7 @@ type InfoBar struct {
 }
 
 func NewInfoBarFromCPointer(p unsafe.Pointer) *InfoBar {
-	return &InfoBar{
+	ret := &InfoBar{
 		NewTraitInfoBar(p),
 		NewTraitBox(p),
 		NewTraitContainer(p),
@@ -1781,6 +2225,11 @@ func NewInfoBarFromCPointer(p unsafe.Pointer) *InfoBar {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *InfoBar) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Invisible struct {
@@ -1792,13 +2241,18 @@ type Invisible struct {
 }
 
 func NewInvisibleFromCPointer(p unsafe.Pointer) *Invisible {
-	return &Invisible{
+	ret := &Invisible{
 		NewTraitInvisible(p),
 		NewTraitWidget(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Invisible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Label struct {
@@ -1811,7 +2265,7 @@ type Label struct {
 }
 
 func NewLabelFromCPointer(p unsafe.Pointer) *Label {
-	return &Label{
+	ret := &Label{
 		NewTraitLabel(p),
 		NewTraitMisc(p),
 		NewTraitWidget(p),
@@ -1819,6 +2273,11 @@ func NewLabelFromCPointer(p unsafe.Pointer) *Label {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Label) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Layout struct {
@@ -1831,7 +2290,7 @@ type Layout struct {
 }
 
 func NewLayoutFromCPointer(p unsafe.Pointer) *Layout {
-	return &Layout{
+	ret := &Layout{
 		NewTraitLayout(p),
 		NewTraitContainer(p),
 		NewTraitWidget(p),
@@ -1839,6 +2298,11 @@ func NewLayoutFromCPointer(p unsafe.Pointer) *Layout {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Layout) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type LevelBar struct {
@@ -1850,13 +2314,18 @@ type LevelBar struct {
 }
 
 func NewLevelBarFromCPointer(p unsafe.Pointer) *LevelBar {
-	return &LevelBar{
+	ret := &LevelBar{
 		NewTraitLevelBar(p),
 		NewTraitWidget(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *LevelBar) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type LinkButton struct {
@@ -1871,7 +2340,7 @@ type LinkButton struct {
 }
 
 func NewLinkButtonFromCPointer(p unsafe.Pointer) *LinkButton {
-	return &LinkButton{
+	ret := &LinkButton{
 		NewTraitLinkButton(p),
 		NewTraitButton(p),
 		NewTraitBin(p),
@@ -1881,6 +2350,11 @@ func NewLinkButtonFromCPointer(p unsafe.Pointer) *LinkButton {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *LinkButton) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ListBox struct {
@@ -1893,7 +2367,7 @@ type ListBox struct {
 }
 
 func NewListBoxFromCPointer(p unsafe.Pointer) *ListBox {
-	return &ListBox{
+	ret := &ListBox{
 		NewTraitListBox(p),
 		NewTraitContainer(p),
 		NewTraitWidget(p),
@@ -1901,6 +2375,11 @@ func NewListBoxFromCPointer(p unsafe.Pointer) *ListBox {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ListBox) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ListBoxRow struct {
@@ -1914,7 +2393,7 @@ type ListBoxRow struct {
 }
 
 func NewListBoxRowFromCPointer(p unsafe.Pointer) *ListBoxRow {
-	return &ListBoxRow{
+	ret := &ListBoxRow{
 		NewTraitListBoxRow(p),
 		NewTraitBin(p),
 		NewTraitContainer(p),
@@ -1923,6 +2402,11 @@ func NewListBoxRowFromCPointer(p unsafe.Pointer) *ListBoxRow {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ListBoxRow) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ListStore struct {
@@ -1932,11 +2416,16 @@ type ListStore struct {
 }
 
 func NewListStoreFromCPointer(p unsafe.Pointer) *ListStore {
-	return &ListStore{
+	ret := &ListStore{
 		NewTraitListStore(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ListStore) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type LockButton struct {
@@ -1951,7 +2440,7 @@ type LockButton struct {
 }
 
 func NewLockButtonFromCPointer(p unsafe.Pointer) *LockButton {
-	return &LockButton{
+	ret := &LockButton{
 		NewTraitLockButton(p),
 		NewTraitButton(p),
 		NewTraitBin(p),
@@ -1961,6 +2450,11 @@ func NewLockButtonFromCPointer(p unsafe.Pointer) *LockButton {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *LockButton) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Menu struct {
@@ -1974,7 +2468,7 @@ type Menu struct {
 }
 
 func NewMenuFromCPointer(p unsafe.Pointer) *Menu {
-	return &Menu{
+	ret := &Menu{
 		NewTraitMenu(p),
 		NewTraitMenuShell(p),
 		NewTraitContainer(p),
@@ -1983,6 +2477,11 @@ func NewMenuFromCPointer(p unsafe.Pointer) *Menu {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Menu) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type MenuBar struct {
@@ -1996,7 +2495,7 @@ type MenuBar struct {
 }
 
 func NewMenuBarFromCPointer(p unsafe.Pointer) *MenuBar {
-	return &MenuBar{
+	ret := &MenuBar{
 		NewTraitMenuBar(p),
 		NewTraitMenuShell(p),
 		NewTraitContainer(p),
@@ -2005,6 +2504,11 @@ func NewMenuBarFromCPointer(p unsafe.Pointer) *MenuBar {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *MenuBar) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type MenuButton struct {
@@ -2020,7 +2524,7 @@ type MenuButton struct {
 }
 
 func NewMenuButtonFromCPointer(p unsafe.Pointer) *MenuButton {
-	return &MenuButton{
+	ret := &MenuButton{
 		NewTraitMenuButton(p),
 		NewTraitToggleButton(p),
 		NewTraitButton(p),
@@ -2031,6 +2535,11 @@ func NewMenuButtonFromCPointer(p unsafe.Pointer) *MenuButton {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *MenuButton) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type MenuItem struct {
@@ -2044,7 +2553,7 @@ type MenuItem struct {
 }
 
 func NewMenuItemFromCPointer(p unsafe.Pointer) *MenuItem {
-	return &MenuItem{
+	ret := &MenuItem{
 		NewTraitMenuItem(p),
 		NewTraitBin(p),
 		NewTraitContainer(p),
@@ -2053,6 +2562,11 @@ func NewMenuItemFromCPointer(p unsafe.Pointer) *MenuItem {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *MenuItem) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type MenuShell struct {
@@ -2065,7 +2579,7 @@ type MenuShell struct {
 }
 
 func NewMenuShellFromCPointer(p unsafe.Pointer) *MenuShell {
-	return &MenuShell{
+	ret := &MenuShell{
 		NewTraitMenuShell(p),
 		NewTraitContainer(p),
 		NewTraitWidget(p),
@@ -2073,6 +2587,11 @@ func NewMenuShellFromCPointer(p unsafe.Pointer) *MenuShell {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *MenuShell) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type MenuToolButton struct {
@@ -2088,7 +2607,7 @@ type MenuToolButton struct {
 }
 
 func NewMenuToolButtonFromCPointer(p unsafe.Pointer) *MenuToolButton {
-	return &MenuToolButton{
+	ret := &MenuToolButton{
 		NewTraitMenuToolButton(p),
 		NewTraitToolButton(p),
 		NewTraitToolItem(p),
@@ -2099,6 +2618,11 @@ func NewMenuToolButtonFromCPointer(p unsafe.Pointer) *MenuToolButton {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *MenuToolButton) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type MessageDialog struct {
@@ -2114,7 +2638,7 @@ type MessageDialog struct {
 }
 
 func NewMessageDialogFromCPointer(p unsafe.Pointer) *MessageDialog {
-	return &MessageDialog{
+	ret := &MessageDialog{
 		NewTraitMessageDialog(p),
 		NewTraitDialog(p),
 		NewTraitWindow(p),
@@ -2125,6 +2649,11 @@ func NewMessageDialogFromCPointer(p unsafe.Pointer) *MessageDialog {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *MessageDialog) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Misc struct {
@@ -2136,13 +2665,18 @@ type Misc struct {
 }
 
 func NewMiscFromCPointer(p unsafe.Pointer) *Misc {
-	return &Misc{
+	ret := &Misc{
 		NewTraitMisc(p),
 		NewTraitWidget(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Misc) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type MountOperation struct {
@@ -2151,10 +2685,15 @@ type MountOperation struct {
 }
 
 func NewMountOperationFromCPointer(p unsafe.Pointer) *MountOperation {
-	return &MountOperation{
+	ret := &MountOperation{
 		NewTraitMountOperation(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *MountOperation) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Notebook struct {
@@ -2167,7 +2706,7 @@ type Notebook struct {
 }
 
 func NewNotebookFromCPointer(p unsafe.Pointer) *Notebook {
-	return &Notebook{
+	ret := &Notebook{
 		NewTraitNotebook(p),
 		NewTraitContainer(p),
 		NewTraitWidget(p),
@@ -2175,6 +2714,11 @@ func NewNotebookFromCPointer(p unsafe.Pointer) *Notebook {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Notebook) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type NumerableIcon struct {
@@ -2183,10 +2727,15 @@ type NumerableIcon struct {
 }
 
 func NewNumerableIconFromCPointer(p unsafe.Pointer) *NumerableIcon {
-	return &NumerableIcon{
+	ret := &NumerableIcon{
 		NewTraitNumerableIcon(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *NumerableIcon) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type OffscreenWindow struct {
@@ -2201,7 +2750,7 @@ type OffscreenWindow struct {
 }
 
 func NewOffscreenWindowFromCPointer(p unsafe.Pointer) *OffscreenWindow {
-	return &OffscreenWindow{
+	ret := &OffscreenWindow{
 		NewTraitOffscreenWindow(p),
 		NewTraitWindow(p),
 		NewTraitBin(p),
@@ -2211,6 +2760,11 @@ func NewOffscreenWindowFromCPointer(p unsafe.Pointer) *OffscreenWindow {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *OffscreenWindow) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Overlay struct {
@@ -2224,7 +2778,7 @@ type Overlay struct {
 }
 
 func NewOverlayFromCPointer(p unsafe.Pointer) *Overlay {
-	return &Overlay{
+	ret := &Overlay{
 		NewTraitOverlay(p),
 		NewTraitBin(p),
 		NewTraitContainer(p),
@@ -2233,6 +2787,11 @@ func NewOverlayFromCPointer(p unsafe.Pointer) *Overlay {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Overlay) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type PageSetup struct {
@@ -2242,11 +2801,16 @@ type PageSetup struct {
 }
 
 func NewPageSetupFromCPointer(p unsafe.Pointer) *PageSetup {
-	return &PageSetup{
+	ret := &PageSetup{
 		NewTraitPageSetup(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *PageSetup) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Paned struct {
@@ -2259,7 +2823,7 @@ type Paned struct {
 }
 
 func NewPanedFromCPointer(p unsafe.Pointer) *Paned {
-	return &Paned{
+	ret := &Paned{
 		NewTraitPaned(p),
 		NewTraitContainer(p),
 		NewTraitWidget(p),
@@ -2267,6 +2831,11 @@ func NewPanedFromCPointer(p unsafe.Pointer) *Paned {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Paned) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type PlacesSidebar struct {
@@ -2281,7 +2850,7 @@ type PlacesSidebar struct {
 }
 
 func NewPlacesSidebarFromCPointer(p unsafe.Pointer) *PlacesSidebar {
-	return &PlacesSidebar{
+	ret := &PlacesSidebar{
 		NewTraitPlacesSidebar(p),
 		NewTraitScrolledWindow(p),
 		NewTraitBin(p),
@@ -2291,6 +2860,11 @@ func NewPlacesSidebarFromCPointer(p unsafe.Pointer) *PlacesSidebar {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *PlacesSidebar) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Plug struct {
@@ -2305,7 +2879,7 @@ type Plug struct {
 }
 
 func NewPlugFromCPointer(p unsafe.Pointer) *Plug {
-	return &Plug{
+	ret := &Plug{
 		NewTraitPlug(p),
 		NewTraitWindow(p),
 		NewTraitBin(p),
@@ -2315,6 +2889,11 @@ func NewPlugFromCPointer(p unsafe.Pointer) *Plug {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Plug) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Popover struct {
@@ -2328,7 +2907,7 @@ type Popover struct {
 }
 
 func NewPopoverFromCPointer(p unsafe.Pointer) *Popover {
-	return &Popover{
+	ret := &Popover{
 		NewTraitPopover(p),
 		NewTraitBin(p),
 		NewTraitContainer(p),
@@ -2337,6 +2916,11 @@ func NewPopoverFromCPointer(p unsafe.Pointer) *Popover {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Popover) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type PrintContext struct {
@@ -2346,11 +2930,16 @@ type PrintContext struct {
 }
 
 func NewPrintContextFromCPointer(p unsafe.Pointer) *PrintContext {
-	return &PrintContext{
+	ret := &PrintContext{
 		NewTraitPrintContext(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *PrintContext) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type PrintOperation struct {
@@ -2360,11 +2949,16 @@ type PrintOperation struct {
 }
 
 func NewPrintOperationFromCPointer(p unsafe.Pointer) *PrintOperation {
-	return &PrintOperation{
+	ret := &PrintOperation{
 		NewTraitPrintOperation(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *PrintOperation) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type PrintSettings struct {
@@ -2374,11 +2968,16 @@ type PrintSettings struct {
 }
 
 func NewPrintSettingsFromCPointer(p unsafe.Pointer) *PrintSettings {
-	return &PrintSettings{
+	ret := &PrintSettings{
 		NewTraitPrintSettings(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *PrintSettings) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ProgressBar struct {
@@ -2390,13 +2989,18 @@ type ProgressBar struct {
 }
 
 func NewProgressBarFromCPointer(p unsafe.Pointer) *ProgressBar {
-	return &ProgressBar{
+	ret := &ProgressBar{
 		NewTraitProgressBar(p),
 		NewTraitWidget(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ProgressBar) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type RadioAction struct {
@@ -2408,13 +3012,18 @@ type RadioAction struct {
 }
 
 func NewRadioActionFromCPointer(p unsafe.Pointer) *RadioAction {
-	return &RadioAction{
+	ret := &RadioAction{
 		NewTraitRadioAction(p),
 		NewTraitToggleAction(p),
 		NewTraitAction(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *RadioAction) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type RadioButton struct {
@@ -2431,7 +3040,7 @@ type RadioButton struct {
 }
 
 func NewRadioButtonFromCPointer(p unsafe.Pointer) *RadioButton {
-	return &RadioButton{
+	ret := &RadioButton{
 		NewTraitRadioButton(p),
 		NewTraitCheckButton(p),
 		NewTraitToggleButton(p),
@@ -2443,6 +3052,11 @@ func NewRadioButtonFromCPointer(p unsafe.Pointer) *RadioButton {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *RadioButton) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type RadioMenuItem struct {
@@ -2458,7 +3072,7 @@ type RadioMenuItem struct {
 }
 
 func NewRadioMenuItemFromCPointer(p unsafe.Pointer) *RadioMenuItem {
-	return &RadioMenuItem{
+	ret := &RadioMenuItem{
 		NewTraitRadioMenuItem(p),
 		NewTraitCheckMenuItem(p),
 		NewTraitMenuItem(p),
@@ -2469,6 +3083,11 @@ func NewRadioMenuItemFromCPointer(p unsafe.Pointer) *RadioMenuItem {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *RadioMenuItem) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type RadioToolButton struct {
@@ -2485,7 +3104,7 @@ type RadioToolButton struct {
 }
 
 func NewRadioToolButtonFromCPointer(p unsafe.Pointer) *RadioToolButton {
-	return &RadioToolButton{
+	ret := &RadioToolButton{
 		NewTraitRadioToolButton(p),
 		NewTraitToggleToolButton(p),
 		NewTraitToolButton(p),
@@ -2497,6 +3116,11 @@ func NewRadioToolButtonFromCPointer(p unsafe.Pointer) *RadioToolButton {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *RadioToolButton) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Range struct {
@@ -2508,13 +3132,18 @@ type Range struct {
 }
 
 func NewRangeFromCPointer(p unsafe.Pointer) *Range {
-	return &Range{
+	ret := &Range{
 		NewTraitRange(p),
 		NewTraitWidget(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Range) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type RcStyle struct {
@@ -2524,11 +3153,16 @@ type RcStyle struct {
 }
 
 func NewRcStyleFromCPointer(p unsafe.Pointer) *RcStyle {
-	return &RcStyle{
+	ret := &RcStyle{
 		NewTraitRcStyle(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *RcStyle) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type RecentAction struct {
@@ -2539,12 +3173,17 @@ type RecentAction struct {
 }
 
 func NewRecentActionFromCPointer(p unsafe.Pointer) *RecentAction {
-	return &RecentAction{
+	ret := &RecentAction{
 		NewTraitRecentAction(p),
 		NewTraitAction(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *RecentAction) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type RecentChooserDialog struct {
@@ -2560,7 +3199,7 @@ type RecentChooserDialog struct {
 }
 
 func NewRecentChooserDialogFromCPointer(p unsafe.Pointer) *RecentChooserDialog {
-	return &RecentChooserDialog{
+	ret := &RecentChooserDialog{
 		NewTraitRecentChooserDialog(p),
 		NewTraitDialog(p),
 		NewTraitWindow(p),
@@ -2571,6 +3210,11 @@ func NewRecentChooserDialogFromCPointer(p unsafe.Pointer) *RecentChooserDialog {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *RecentChooserDialog) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type RecentChooserMenu struct {
@@ -2585,7 +3229,7 @@ type RecentChooserMenu struct {
 }
 
 func NewRecentChooserMenuFromCPointer(p unsafe.Pointer) *RecentChooserMenu {
-	return &RecentChooserMenu{
+	ret := &RecentChooserMenu{
 		NewTraitRecentChooserMenu(p),
 		NewTraitMenu(p),
 		NewTraitMenuShell(p),
@@ -2595,6 +3239,11 @@ func NewRecentChooserMenuFromCPointer(p unsafe.Pointer) *RecentChooserMenu {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *RecentChooserMenu) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type RecentChooserWidget struct {
@@ -2608,7 +3257,7 @@ type RecentChooserWidget struct {
 }
 
 func NewRecentChooserWidgetFromCPointer(p unsafe.Pointer) *RecentChooserWidget {
-	return &RecentChooserWidget{
+	ret := &RecentChooserWidget{
 		NewTraitRecentChooserWidget(p),
 		NewTraitBox(p),
 		NewTraitContainer(p),
@@ -2617,6 +3266,11 @@ func NewRecentChooserWidgetFromCPointer(p unsafe.Pointer) *RecentChooserWidget {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *RecentChooserWidget) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type RecentFilter struct {
@@ -2627,12 +3281,17 @@ type RecentFilter struct {
 }
 
 func NewRecentFilterFromCPointer(p unsafe.Pointer) *RecentFilter {
-	return &RecentFilter{
+	ret := &RecentFilter{
 		NewTraitRecentFilter(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *RecentFilter) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type RecentManager struct {
@@ -2642,11 +3301,16 @@ type RecentManager struct {
 }
 
 func NewRecentManagerFromCPointer(p unsafe.Pointer) *RecentManager {
-	return &RecentManager{
+	ret := &RecentManager{
 		NewTraitRecentManager(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *RecentManager) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Revealer struct {
@@ -2660,7 +3324,7 @@ type Revealer struct {
 }
 
 func NewRevealerFromCPointer(p unsafe.Pointer) *Revealer {
-	return &Revealer{
+	ret := &Revealer{
 		NewTraitRevealer(p),
 		NewTraitBin(p),
 		NewTraitContainer(p),
@@ -2669,6 +3333,11 @@ func NewRevealerFromCPointer(p unsafe.Pointer) *Revealer {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Revealer) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Scale struct {
@@ -2681,7 +3350,7 @@ type Scale struct {
 }
 
 func NewScaleFromCPointer(p unsafe.Pointer) *Scale {
-	return &Scale{
+	ret := &Scale{
 		NewTraitScale(p),
 		NewTraitRange(p),
 		NewTraitWidget(p),
@@ -2689,6 +3358,11 @@ func NewScaleFromCPointer(p unsafe.Pointer) *Scale {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Scale) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ScaleButton struct {
@@ -2703,7 +3377,7 @@ type ScaleButton struct {
 }
 
 func NewScaleButtonFromCPointer(p unsafe.Pointer) *ScaleButton {
-	return &ScaleButton{
+	ret := &ScaleButton{
 		NewTraitScaleButton(p),
 		NewTraitButton(p),
 		NewTraitBin(p),
@@ -2713,6 +3387,11 @@ func NewScaleButtonFromCPointer(p unsafe.Pointer) *ScaleButton {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ScaleButton) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Scrollbar struct {
@@ -2725,7 +3404,7 @@ type Scrollbar struct {
 }
 
 func NewScrollbarFromCPointer(p unsafe.Pointer) *Scrollbar {
-	return &Scrollbar{
+	ret := &Scrollbar{
 		NewTraitScrollbar(p),
 		NewTraitRange(p),
 		NewTraitWidget(p),
@@ -2733,6 +3412,11 @@ func NewScrollbarFromCPointer(p unsafe.Pointer) *Scrollbar {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Scrollbar) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ScrolledWindow struct {
@@ -2746,7 +3430,7 @@ type ScrolledWindow struct {
 }
 
 func NewScrolledWindowFromCPointer(p unsafe.Pointer) *ScrolledWindow {
-	return &ScrolledWindow{
+	ret := &ScrolledWindow{
 		NewTraitScrolledWindow(p),
 		NewTraitBin(p),
 		NewTraitContainer(p),
@@ -2755,6 +3439,11 @@ func NewScrolledWindowFromCPointer(p unsafe.Pointer) *ScrolledWindow {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ScrolledWindow) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type SearchBar struct {
@@ -2768,7 +3457,7 @@ type SearchBar struct {
 }
 
 func NewSearchBarFromCPointer(p unsafe.Pointer) *SearchBar {
-	return &SearchBar{
+	ret := &SearchBar{
 		NewTraitSearchBar(p),
 		NewTraitBin(p),
 		NewTraitContainer(p),
@@ -2777,6 +3466,11 @@ func NewSearchBarFromCPointer(p unsafe.Pointer) *SearchBar {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *SearchBar) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type SearchEntry struct {
@@ -2789,7 +3483,7 @@ type SearchEntry struct {
 }
 
 func NewSearchEntryFromCPointer(p unsafe.Pointer) *SearchEntry {
-	return &SearchEntry{
+	ret := &SearchEntry{
 		NewTraitSearchEntry(p),
 		NewTraitEntry(p),
 		NewTraitWidget(p),
@@ -2797,6 +3491,11 @@ func NewSearchEntryFromCPointer(p unsafe.Pointer) *SearchEntry {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *SearchEntry) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Separator struct {
@@ -2808,13 +3507,18 @@ type Separator struct {
 }
 
 func NewSeparatorFromCPointer(p unsafe.Pointer) *Separator {
-	return &Separator{
+	ret := &Separator{
 		NewTraitSeparator(p),
 		NewTraitWidget(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Separator) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type SeparatorMenuItem struct {
@@ -2829,7 +3533,7 @@ type SeparatorMenuItem struct {
 }
 
 func NewSeparatorMenuItemFromCPointer(p unsafe.Pointer) *SeparatorMenuItem {
-	return &SeparatorMenuItem{
+	ret := &SeparatorMenuItem{
 		NewTraitSeparatorMenuItem(p),
 		NewTraitMenuItem(p),
 		NewTraitBin(p),
@@ -2839,6 +3543,11 @@ func NewSeparatorMenuItemFromCPointer(p unsafe.Pointer) *SeparatorMenuItem {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *SeparatorMenuItem) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type SeparatorToolItem struct {
@@ -2853,7 +3562,7 @@ type SeparatorToolItem struct {
 }
 
 func NewSeparatorToolItemFromCPointer(p unsafe.Pointer) *SeparatorToolItem {
-	return &SeparatorToolItem{
+	ret := &SeparatorToolItem{
 		NewTraitSeparatorToolItem(p),
 		NewTraitToolItem(p),
 		NewTraitBin(p),
@@ -2863,6 +3572,11 @@ func NewSeparatorToolItemFromCPointer(p unsafe.Pointer) *SeparatorToolItem {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *SeparatorToolItem) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Settings struct {
@@ -2872,11 +3586,16 @@ type Settings struct {
 }
 
 func NewSettingsFromCPointer(p unsafe.Pointer) *Settings {
-	return &Settings{
+	ret := &Settings{
 		NewTraitSettings(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Settings) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type SizeGroup struct {
@@ -2886,11 +3605,16 @@ type SizeGroup struct {
 }
 
 func NewSizeGroupFromCPointer(p unsafe.Pointer) *SizeGroup {
-	return &SizeGroup{
+	ret := &SizeGroup{
 		NewTraitSizeGroup(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *SizeGroup) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Socket struct {
@@ -2903,7 +3627,7 @@ type Socket struct {
 }
 
 func NewSocketFromCPointer(p unsafe.Pointer) *Socket {
-	return &Socket{
+	ret := &Socket{
 		NewTraitSocket(p),
 		NewTraitContainer(p),
 		NewTraitWidget(p),
@@ -2911,6 +3635,11 @@ func NewSocketFromCPointer(p unsafe.Pointer) *Socket {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Socket) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type SpinButton struct {
@@ -2923,7 +3652,7 @@ type SpinButton struct {
 }
 
 func NewSpinButtonFromCPointer(p unsafe.Pointer) *SpinButton {
-	return &SpinButton{
+	ret := &SpinButton{
 		NewTraitSpinButton(p),
 		NewTraitEntry(p),
 		NewTraitWidget(p),
@@ -2931,6 +3660,11 @@ func NewSpinButtonFromCPointer(p unsafe.Pointer) *SpinButton {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *SpinButton) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Spinner struct {
@@ -2942,13 +3676,18 @@ type Spinner struct {
 }
 
 func NewSpinnerFromCPointer(p unsafe.Pointer) *Spinner {
-	return &Spinner{
+	ret := &Spinner{
 		NewTraitSpinner(p),
 		NewTraitWidget(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Spinner) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Stack struct {
@@ -2961,7 +3700,7 @@ type Stack struct {
 }
 
 func NewStackFromCPointer(p unsafe.Pointer) *Stack {
-	return &Stack{
+	ret := &Stack{
 		NewTraitStack(p),
 		NewTraitContainer(p),
 		NewTraitWidget(p),
@@ -2969,6 +3708,11 @@ func NewStackFromCPointer(p unsafe.Pointer) *Stack {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Stack) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type StackSwitcher struct {
@@ -2982,7 +3726,7 @@ type StackSwitcher struct {
 }
 
 func NewStackSwitcherFromCPointer(p unsafe.Pointer) *StackSwitcher {
-	return &StackSwitcher{
+	ret := &StackSwitcher{
 		NewTraitStackSwitcher(p),
 		NewTraitBox(p),
 		NewTraitContainer(p),
@@ -2991,6 +3735,11 @@ func NewStackSwitcherFromCPointer(p unsafe.Pointer) *StackSwitcher {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *StackSwitcher) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type StatusIcon struct {
@@ -3000,11 +3749,16 @@ type StatusIcon struct {
 }
 
 func NewStatusIconFromCPointer(p unsafe.Pointer) *StatusIcon {
-	return &StatusIcon{
+	ret := &StatusIcon{
 		NewTraitStatusIcon(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *StatusIcon) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Statusbar struct {
@@ -3018,7 +3772,7 @@ type Statusbar struct {
 }
 
 func NewStatusbarFromCPointer(p unsafe.Pointer) *Statusbar {
-	return &Statusbar{
+	ret := &Statusbar{
 		NewTraitStatusbar(p),
 		NewTraitBox(p),
 		NewTraitContainer(p),
@@ -3027,6 +3781,11 @@ func NewStatusbarFromCPointer(p unsafe.Pointer) *Statusbar {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Statusbar) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Style struct {
@@ -3036,11 +3795,16 @@ type Style struct {
 }
 
 func NewStyleFromCPointer(p unsafe.Pointer) *Style {
-	return &Style{
+	ret := &Style{
 		NewTraitStyle(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Style) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type StyleContext struct {
@@ -3050,11 +3814,16 @@ type StyleContext struct {
 }
 
 func NewStyleContextFromCPointer(p unsafe.Pointer) *StyleContext {
-	return &StyleContext{
+	ret := &StyleContext{
 		NewTraitStyleContext(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *StyleContext) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type StyleProperties struct {
@@ -3064,11 +3833,16 @@ type StyleProperties struct {
 }
 
 func NewStylePropertiesFromCPointer(p unsafe.Pointer) *StyleProperties {
-	return &StyleProperties{
+	ret := &StyleProperties{
 		NewTraitStyleProperties(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *StyleProperties) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Switch struct {
@@ -3080,13 +3854,18 @@ type Switch struct {
 }
 
 func NewSwitchFromCPointer(p unsafe.Pointer) *Switch {
-	return &Switch{
+	ret := &Switch{
 		NewTraitSwitch(p),
 		NewTraitWidget(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Switch) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Table struct {
@@ -3099,7 +3878,7 @@ type Table struct {
 }
 
 func NewTableFromCPointer(p unsafe.Pointer) *Table {
-	return &Table{
+	ret := &Table{
 		NewTraitTable(p),
 		NewTraitContainer(p),
 		NewTraitWidget(p),
@@ -3107,6 +3886,11 @@ func NewTableFromCPointer(p unsafe.Pointer) *Table {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Table) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type TearoffMenuItem struct {
@@ -3121,7 +3905,7 @@ type TearoffMenuItem struct {
 }
 
 func NewTearoffMenuItemFromCPointer(p unsafe.Pointer) *TearoffMenuItem {
-	return &TearoffMenuItem{
+	ret := &TearoffMenuItem{
 		NewTraitTearoffMenuItem(p),
 		NewTraitMenuItem(p),
 		NewTraitBin(p),
@@ -3131,6 +3915,11 @@ func NewTearoffMenuItemFromCPointer(p unsafe.Pointer) *TearoffMenuItem {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *TearoffMenuItem) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type TextBuffer struct {
@@ -3140,11 +3929,16 @@ type TextBuffer struct {
 }
 
 func NewTextBufferFromCPointer(p unsafe.Pointer) *TextBuffer {
-	return &TextBuffer{
+	ret := &TextBuffer{
 		NewTraitTextBuffer(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *TextBuffer) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type TextChildAnchor struct {
@@ -3154,11 +3948,16 @@ type TextChildAnchor struct {
 }
 
 func NewTextChildAnchorFromCPointer(p unsafe.Pointer) *TextChildAnchor {
-	return &TextChildAnchor{
+	ret := &TextChildAnchor{
 		NewTraitTextChildAnchor(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *TextChildAnchor) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type TextMark struct {
@@ -3168,11 +3967,16 @@ type TextMark struct {
 }
 
 func NewTextMarkFromCPointer(p unsafe.Pointer) *TextMark {
-	return &TextMark{
+	ret := &TextMark{
 		NewTraitTextMark(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *TextMark) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type TextTag struct {
@@ -3182,11 +3986,16 @@ type TextTag struct {
 }
 
 func NewTextTagFromCPointer(p unsafe.Pointer) *TextTag {
-	return &TextTag{
+	ret := &TextTag{
 		NewTraitTextTag(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *TextTag) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type TextTagTable struct {
@@ -3196,11 +4005,16 @@ type TextTagTable struct {
 }
 
 func NewTextTagTableFromCPointer(p unsafe.Pointer) *TextTagTable {
-	return &TextTagTable{
+	ret := &TextTagTable{
 		NewTraitTextTagTable(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *TextTagTable) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type TextView struct {
@@ -3213,7 +4027,7 @@ type TextView struct {
 }
 
 func NewTextViewFromCPointer(p unsafe.Pointer) *TextView {
-	return &TextView{
+	ret := &TextView{
 		NewTraitTextView(p),
 		NewTraitContainer(p),
 		NewTraitWidget(p),
@@ -3221,6 +4035,11 @@ func NewTextViewFromCPointer(p unsafe.Pointer) *TextView {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *TextView) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ThemingEngine struct {
@@ -3230,11 +4049,16 @@ type ThemingEngine struct {
 }
 
 func NewThemingEngineFromCPointer(p unsafe.Pointer) *ThemingEngine {
-	return &ThemingEngine{
+	ret := &ThemingEngine{
 		NewTraitThemingEngine(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ThemingEngine) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ToggleAction struct {
@@ -3245,12 +4069,17 @@ type ToggleAction struct {
 }
 
 func NewToggleActionFromCPointer(p unsafe.Pointer) *ToggleAction {
-	return &ToggleAction{
+	ret := &ToggleAction{
 		NewTraitToggleAction(p),
 		NewTraitAction(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ToggleAction) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ToggleButton struct {
@@ -3265,7 +4094,7 @@ type ToggleButton struct {
 }
 
 func NewToggleButtonFromCPointer(p unsafe.Pointer) *ToggleButton {
-	return &ToggleButton{
+	ret := &ToggleButton{
 		NewTraitToggleButton(p),
 		NewTraitButton(p),
 		NewTraitBin(p),
@@ -3275,6 +4104,11 @@ func NewToggleButtonFromCPointer(p unsafe.Pointer) *ToggleButton {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ToggleButton) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ToggleToolButton struct {
@@ -3290,7 +4124,7 @@ type ToggleToolButton struct {
 }
 
 func NewToggleToolButtonFromCPointer(p unsafe.Pointer) *ToggleToolButton {
-	return &ToggleToolButton{
+	ret := &ToggleToolButton{
 		NewTraitToggleToolButton(p),
 		NewTraitToolButton(p),
 		NewTraitToolItem(p),
@@ -3301,6 +4135,11 @@ func NewToggleToolButtonFromCPointer(p unsafe.Pointer) *ToggleToolButton {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ToggleToolButton) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ToolButton struct {
@@ -3315,7 +4154,7 @@ type ToolButton struct {
 }
 
 func NewToolButtonFromCPointer(p unsafe.Pointer) *ToolButton {
-	return &ToolButton{
+	ret := &ToolButton{
 		NewTraitToolButton(p),
 		NewTraitToolItem(p),
 		NewTraitBin(p),
@@ -3325,6 +4164,11 @@ func NewToolButtonFromCPointer(p unsafe.Pointer) *ToolButton {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ToolButton) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ToolItem struct {
@@ -3338,7 +4182,7 @@ type ToolItem struct {
 }
 
 func NewToolItemFromCPointer(p unsafe.Pointer) *ToolItem {
-	return &ToolItem{
+	ret := &ToolItem{
 		NewTraitToolItem(p),
 		NewTraitBin(p),
 		NewTraitContainer(p),
@@ -3347,6 +4191,11 @@ func NewToolItemFromCPointer(p unsafe.Pointer) *ToolItem {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ToolItem) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ToolItemGroup struct {
@@ -3359,7 +4208,7 @@ type ToolItemGroup struct {
 }
 
 func NewToolItemGroupFromCPointer(p unsafe.Pointer) *ToolItemGroup {
-	return &ToolItemGroup{
+	ret := &ToolItemGroup{
 		NewTraitToolItemGroup(p),
 		NewTraitContainer(p),
 		NewTraitWidget(p),
@@ -3367,6 +4216,11 @@ func NewToolItemGroupFromCPointer(p unsafe.Pointer) *ToolItemGroup {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ToolItemGroup) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type ToolPalette struct {
@@ -3379,7 +4233,7 @@ type ToolPalette struct {
 }
 
 func NewToolPaletteFromCPointer(p unsafe.Pointer) *ToolPalette {
-	return &ToolPalette{
+	ret := &ToolPalette{
 		NewTraitToolPalette(p),
 		NewTraitContainer(p),
 		NewTraitWidget(p),
@@ -3387,6 +4241,11 @@ func NewToolPaletteFromCPointer(p unsafe.Pointer) *ToolPalette {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ToolPalette) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Toolbar struct {
@@ -3399,7 +4258,7 @@ type Toolbar struct {
 }
 
 func NewToolbarFromCPointer(p unsafe.Pointer) *Toolbar {
-	return &Toolbar{
+	ret := &Toolbar{
 		NewTraitToolbar(p),
 		NewTraitContainer(p),
 		NewTraitWidget(p),
@@ -3407,6 +4266,11 @@ func NewToolbarFromCPointer(p unsafe.Pointer) *Toolbar {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Toolbar) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Tooltip struct {
@@ -3416,11 +4280,16 @@ type Tooltip struct {
 }
 
 func NewTooltipFromCPointer(p unsafe.Pointer) *Tooltip {
-	return &Tooltip{
+	ret := &Tooltip{
 		NewTraitTooltip(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Tooltip) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type TreeModelFilter struct {
@@ -3430,11 +4299,16 @@ type TreeModelFilter struct {
 }
 
 func NewTreeModelFilterFromCPointer(p unsafe.Pointer) *TreeModelFilter {
-	return &TreeModelFilter{
+	ret := &TreeModelFilter{
 		NewTraitTreeModelFilter(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *TreeModelFilter) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type TreeModelSort struct {
@@ -3444,11 +4318,16 @@ type TreeModelSort struct {
 }
 
 func NewTreeModelSortFromCPointer(p unsafe.Pointer) *TreeModelSort {
-	return &TreeModelSort{
+	ret := &TreeModelSort{
 		NewTraitTreeModelSort(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *TreeModelSort) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type TreeSelection struct {
@@ -3458,11 +4337,16 @@ type TreeSelection struct {
 }
 
 func NewTreeSelectionFromCPointer(p unsafe.Pointer) *TreeSelection {
-	return &TreeSelection{
+	ret := &TreeSelection{
 		NewTraitTreeSelection(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *TreeSelection) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type TreeStore struct {
@@ -3472,11 +4356,16 @@ type TreeStore struct {
 }
 
 func NewTreeStoreFromCPointer(p unsafe.Pointer) *TreeStore {
-	return &TreeStore{
+	ret := &TreeStore{
 		NewTraitTreeStore(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *TreeStore) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type TreeView struct {
@@ -3489,7 +4378,7 @@ type TreeView struct {
 }
 
 func NewTreeViewFromCPointer(p unsafe.Pointer) *TreeView {
-	return &TreeView{
+	ret := &TreeView{
 		NewTraitTreeView(p),
 		NewTraitContainer(p),
 		NewTraitWidget(p),
@@ -3497,6 +4386,11 @@ func NewTreeViewFromCPointer(p unsafe.Pointer) *TreeView {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *TreeView) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type TreeViewColumn struct {
@@ -3507,12 +4401,17 @@ type TreeViewColumn struct {
 }
 
 func NewTreeViewColumnFromCPointer(p unsafe.Pointer) *TreeViewColumn {
-	return &TreeViewColumn{
+	ret := &TreeViewColumn{
 		NewTraitTreeViewColumn(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *TreeViewColumn) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type UIManager struct {
@@ -3522,11 +4421,16 @@ type UIManager struct {
 }
 
 func NewUIManagerFromCPointer(p unsafe.Pointer) *UIManager {
-	return &UIManager{
+	ret := &UIManager{
 		NewTraitUIManager(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *UIManager) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type VBox struct {
@@ -3540,7 +4444,7 @@ type VBox struct {
 }
 
 func NewVBoxFromCPointer(p unsafe.Pointer) *VBox {
-	return &VBox{
+	ret := &VBox{
 		NewTraitVBox(p),
 		NewTraitBox(p),
 		NewTraitContainer(p),
@@ -3549,6 +4453,11 @@ func NewVBoxFromCPointer(p unsafe.Pointer) *VBox {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *VBox) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type VButtonBox struct {
@@ -3563,7 +4472,7 @@ type VButtonBox struct {
 }
 
 func NewVButtonBoxFromCPointer(p unsafe.Pointer) *VButtonBox {
-	return &VButtonBox{
+	ret := &VButtonBox{
 		NewTraitVButtonBox(p),
 		NewTraitButtonBox(p),
 		NewTraitBox(p),
@@ -3573,6 +4482,11 @@ func NewVButtonBoxFromCPointer(p unsafe.Pointer) *VButtonBox {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *VButtonBox) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type VPaned struct {
@@ -3586,7 +4500,7 @@ type VPaned struct {
 }
 
 func NewVPanedFromCPointer(p unsafe.Pointer) *VPaned {
-	return &VPaned{
+	ret := &VPaned{
 		NewTraitVPaned(p),
 		NewTraitPaned(p),
 		NewTraitContainer(p),
@@ -3595,6 +4509,11 @@ func NewVPanedFromCPointer(p unsafe.Pointer) *VPaned {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *VPaned) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type VScale struct {
@@ -3608,7 +4527,7 @@ type VScale struct {
 }
 
 func NewVScaleFromCPointer(p unsafe.Pointer) *VScale {
-	return &VScale{
+	ret := &VScale{
 		NewTraitVScale(p),
 		NewTraitScale(p),
 		NewTraitRange(p),
@@ -3617,6 +4536,11 @@ func NewVScaleFromCPointer(p unsafe.Pointer) *VScale {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *VScale) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type VScrollbar struct {
@@ -3630,7 +4554,7 @@ type VScrollbar struct {
 }
 
 func NewVScrollbarFromCPointer(p unsafe.Pointer) *VScrollbar {
-	return &VScrollbar{
+	ret := &VScrollbar{
 		NewTraitVScrollbar(p),
 		NewTraitScrollbar(p),
 		NewTraitRange(p),
@@ -3639,6 +4563,11 @@ func NewVScrollbarFromCPointer(p unsafe.Pointer) *VScrollbar {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *VScrollbar) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type VSeparator struct {
@@ -3651,7 +4580,7 @@ type VSeparator struct {
 }
 
 func NewVSeparatorFromCPointer(p unsafe.Pointer) *VSeparator {
-	return &VSeparator{
+	ret := &VSeparator{
 		NewTraitVSeparator(p),
 		NewTraitSeparator(p),
 		NewTraitWidget(p),
@@ -3659,6 +4588,11 @@ func NewVSeparatorFromCPointer(p unsafe.Pointer) *VSeparator {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *VSeparator) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Viewport struct {
@@ -3672,7 +4606,7 @@ type Viewport struct {
 }
 
 func NewViewportFromCPointer(p unsafe.Pointer) *Viewport {
-	return &Viewport{
+	ret := &Viewport{
 		NewTraitViewport(p),
 		NewTraitBin(p),
 		NewTraitContainer(p),
@@ -3681,6 +4615,11 @@ func NewViewportFromCPointer(p unsafe.Pointer) *Viewport {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Viewport) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type VolumeButton struct {
@@ -3696,7 +4635,7 @@ type VolumeButton struct {
 }
 
 func NewVolumeButtonFromCPointer(p unsafe.Pointer) *VolumeButton {
-	return &VolumeButton{
+	ret := &VolumeButton{
 		NewTraitVolumeButton(p),
 		NewTraitScaleButton(p),
 		NewTraitButton(p),
@@ -3707,6 +4646,11 @@ func NewVolumeButtonFromCPointer(p unsafe.Pointer) *VolumeButton {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *VolumeButton) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Widget struct {
@@ -3717,12 +4661,17 @@ type Widget struct {
 }
 
 func NewWidgetFromCPointer(p unsafe.Pointer) *Widget {
-	return &Widget{
+	ret := &Widget{
 		NewTraitWidget(p),
 		gobject.NewTraitInitiallyUnowned(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Widget) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type Window struct {
@@ -3736,7 +4685,7 @@ type Window struct {
 }
 
 func NewWindowFromCPointer(p unsafe.Pointer) *Window {
-	return &Window{
+	ret := &Window{
 		NewTraitWindow(p),
 		NewTraitBin(p),
 		NewTraitContainer(p),
@@ -3745,6 +4694,11 @@ func NewWindowFromCPointer(p unsafe.Pointer) *Window {
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Window) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
 
 type WindowGroup struct {
@@ -3754,9 +4708,14 @@ type WindowGroup struct {
 }
 
 func NewWindowGroupFromCPointer(p unsafe.Pointer) *WindowGroup {
-	return &WindowGroup{
+	ret := &WindowGroup{
 		NewTraitWindowGroup(p),
 		gobject.NewTraitObject(p),
 		p,
 	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *WindowGroup) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
 }
