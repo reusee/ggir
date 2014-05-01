@@ -87,6 +87,7 @@ func Gen(outputDir, buildFilePath string) {
 
 	// namespace
 	ns := repo.Namespace
+	p("=> %s\n", ns.Name)
 
 	// struct types
 	generator.GenStructTypes(ns)

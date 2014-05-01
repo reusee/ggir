@@ -29,15 +29,9 @@ func init() {
 	for _, fn := range ns.Functions {
 		self.GenFunction(fn, output, nil)
 	}
-	for typeSpec, funcs := range typeStat {
-		p("===fixme=== %s TYPE NOT MAPPED => %s\n", self.PackageName, typeSpec)
-		p("%s\n\n", strings.Join(funcs, "\n"))
-	}
 
 	self.formatAndOutput("functions", output.Bytes())
 }
-
-var typeStat = make(map[string][]string)
 
 func (self *Generator) GenFunction(fn *Function, output io.Writer, receiver *Class) {
 	// skip deprecated
@@ -102,20 +96,10 @@ func (self *Generator) GenFunction(fn *Function, output io.Writer, receiver *Cla
 			w(output, "// %s is not generated due to long double param\n\n", fn.CIdentifier)
 			return
 		}
-
-		if !param.IsVoid && param.MappedType == "" { // add rules for these specs
-			p("%s %s %s\n", fn.Name, param.Name, param.CType)
-			typeStat[param.TypeSpec] = append(typeStat[param.TypeSpec], param.Name+" @ "+fn.Name)
-		}
 	}
 	fn.Return.Function = fn
 	fn.Return.Generator = self
 	fn.Return.CollectInfo(true, fn)
-	if !fn.Return.IsVoid {
-		if fn.Return.MappedType == "" { // add rules for return type
-			typeStat[fn.Return.TypeSpec] = append(typeStat[fn.Return.TypeSpec], fn.Return.Name+" @ "+fn.Name)
-		}
-	}
 
 	// generate doc
 	if fn.Doc != nil {

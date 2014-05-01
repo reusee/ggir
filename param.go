@@ -136,6 +136,9 @@ func (self *Param) MapType() (ret string) {
 		ret = "bool"
 
 	// numeric
+	case "in GoType C.gchar TypeName gchar",
+		"out GoType C.gchar TypeName gchar":
+		ret = "byte"
 	case "in GoType C.gint TypeName gint",
 		"in GoType C.int TypeName gint",
 		"out GoType C.int TypeName gint",
@@ -149,21 +152,29 @@ func (self *Param) MapType() (ret string) {
 		ret = "rune"
 	case "in GoType C.gint8 TypeName gint8":
 		ret = "int8"
-	case "in GoType C.guint8 TypeName guint8":
+	case "in GoType C.guint8 TypeName guint8",
+		"out GoType C.guint8 TypeName guint8":
 		ret = "uint8"
 	case "out GoType C.guint16 TypeName guint16":
 		ret = "uint16"
+	case "out GoType C.gint32 TypeName gint32",
+		"in GoType C.gint32 TypeName gint32":
+		ret = "int32"
 	case "in GoType C.guint32 TypeName guint32",
 		"out GoType C.guint32 TypeName guint32":
 		ret = "uint32"
 	case "in GoType C.glong TypeName glong",
+		"out GoType C.glong TypeName glong",
 		"in GoType C.gsize TypeName gsize",
 		"in GoType C.gssize TypeName gssize",
 		"in GoType C.gint64 TypeName gint64",
+		"out GoType C.gint64 TypeName gint64",
+		"out GoType C.gssize TypeName gssize",
 		"out GoType C.gsize TypeName gsize":
 		ret = "int64"
 	case "in GoType C.gulong TypeName gulong",
 		"out GoType C.gulong TypeName gulong",
+		"out GoType C.guint64 TypeName guint64",
 		"in GoType C.guint64 TypeName guint64":
 		ret = "uint64"
 	case "in GoType C.gfloat TypeName gfloat",
@@ -172,6 +183,7 @@ func (self *Param) MapType() (ret string) {
 	case "in GoType C.gdouble TypeName gdouble",
 		"in GoType C.double TypeName gdouble",
 		"out GoType C.double TypeName gdouble",
+		"in GoType C.double TypeName long double",
 		"out GoType C.gdouble TypeName gdouble":
 		ret = "float64"
 
@@ -193,7 +205,9 @@ func (self *Param) MapType() (ret string) {
 
 	// string slice
 	case "in GoType **C.gchar IsArray ElemType *C.gchar ElemName utf8",
-		"in GoType **C.gchar IsArray ElemName utf8":
+		"in GoType **C.gchar IsArray ElemName utf8",
+		"out GoType **C.gchar IsArray ElemType **C.gchar ElemName utf8 HasLenParam ZeroTerminated",
+		"in GoType **C.gchar TypeName utf8":
 		ret = "[]string"
 
 	// numeric slice
@@ -206,19 +220,37 @@ func (self *Param) MapType() (ret string) {
 	// bytes
 	case "out GoType *C.guint8 IsArray ElemType C.guint8 ElemName guint8 HasLenParam",
 		"in GoType *C.guint8 IsArray ElemType C.guint8 ElemName guint8 HasLenParam",
+		"in GoType *C.gchar IsArray ElemType C.gchar ElemName utf8 HasLenParam",
+		"out GoType *C.gchar IsArray ElemName guint8 HasLenParam",
+		"in GoType *C.guchar IsArray ElemName guint8 HasLenParam",
+		"out GoType *C.guchar IsArray ElemName guint8 HasLenParam",
+		"in GoType *C.guchar IsArray ElemType C.guchar ElemName guint8 HasLenParam",
 		"in GoType *C.gchar IsArray ElemName guint8 HasLenParam":
 		ret = "[]byte"
 
 	// pointer to fundamental types
 	case "in GoType *C.gint TypeName gint",
 		"in GoType *C.guint16 TypeName guint16",
+		"in GoType *C.gsize TypeName gsize",
 		"in GoType *C.int TypeName gint":
 		ret = self.GoType
 
-	// not enough info FIXME patch it
+	// not enough info FIXME patch it. in param may be easy
 	case "out GoType *C.gint IsArray ElemType C.gint ElemName gint",
 		"out GoType **C.gchar IsArray ElemName utf8",
-		"out GoType *C.guint IsArray ElemType *C.guint ElemName guint":
+		"out GoType *C.guint8 TypeName guint8",
+		"out GoType *C.guint IsArray ElemType *C.guint ElemName guint",
+		"out GoType *C.gunichar2 TypeName guint16",
+		"out GoType *C.gunichar TypeName gunichar",
+		"in GoType *C.gunichar2 TypeName guint16",
+		"in GoType *C.gunichar TypeName gunichar",
+		"in GoType *C.guchar TypeName guint8",
+		"out GoType **C.gchar IsArray ElemType **C.gchar ElemName utf8",
+		"out GoType *C.gchar IsArray ElemName guint8",
+		"in GoType *C.gpointer TypeName gpointer",
+		"in GoType **C.char TypeName utf8",
+		"in GoType ***C.gchar TypeName utf8",
+		"in GoType *C.glong TypeName glong":
 		ret = self.GoType
 
 	// inout to in param
