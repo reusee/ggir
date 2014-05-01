@@ -1,8 +1,8 @@
 package gtk
 
 import (
+	"fmt"
 	"testing"
-	"time"
 )
 
 func TestSimpleWindow(t *testing.T) {
@@ -12,9 +12,9 @@ func TestSimpleWindow(t *testing.T) {
 	label := LabelNew("Hello, world!")
 	win.Add(label)
 	win.ShowAll()
-	go func() {
-		time.Sleep(time.Second * 3)
+	win.Connect("destroy", func() {
+		fmt.Printf("Quit\n")
 		MainQuit()
-	}()
+	})
 	Main()
 }
