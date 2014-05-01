@@ -7,3097 +7,3756 @@ package gtk
 */
 import "C"
 import "unsafe"
+import "../gobject"
 
 func init() {
 	_ = unsafe.Pointer(nil)
 }
 
 type AboutDialog struct {
-	*_TraitAboutDialog
-	*_TraitDialog
-	*_TraitWindow
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitAboutDialog
+	*TraitDialog
+	*TraitWindow
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewAboutDialogFromCPointer(p unsafe.Pointer) *AboutDialog {
 	return &AboutDialog{
-		&_TraitAboutDialog{(*C.GtkAboutDialog)(p)},
-		&_TraitDialog{(*C.GtkDialog)(p)},
-		&_TraitWindow{(*C.GtkWindow)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitAboutDialog(p),
+		NewTraitDialog(p),
+		NewTraitWindow(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type AccelGroup struct {
-	*_TraitAccelGroup
+	*TraitAccelGroup
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewAccelGroupFromCPointer(p unsafe.Pointer) *AccelGroup {
 	return &AccelGroup{
-		&_TraitAccelGroup{(*C.GtkAccelGroup)(p)},
+		NewTraitAccelGroup(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type AccelLabel struct {
-	*_TraitAccelLabel
-	*_TraitLabel
-	*_TraitMisc
-	*_TraitWidget
+	*TraitAccelLabel
+	*TraitLabel
+	*TraitMisc
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewAccelLabelFromCPointer(p unsafe.Pointer) *AccelLabel {
 	return &AccelLabel{
-		&_TraitAccelLabel{(*C.GtkAccelLabel)(p)},
-		&_TraitLabel{(*C.GtkLabel)(p)},
-		&_TraitMisc{(*C.GtkMisc)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitAccelLabel(p),
+		NewTraitLabel(p),
+		NewTraitMisc(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type AccelMap struct {
-	*_TraitAccelMap
+	*TraitAccelMap
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewAccelMapFromCPointer(p unsafe.Pointer) *AccelMap {
 	return &AccelMap{
-		&_TraitAccelMap{(*C.GtkAccelMap)(p)},
+		NewTraitAccelMap(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Accessible struct {
-	*_TraitAccessible
+	*TraitAccessible
 	CPointer unsafe.Pointer
 }
 
 func NewAccessibleFromCPointer(p unsafe.Pointer) *Accessible {
 	return &Accessible{
-		&_TraitAccessible{(*C.GtkAccessible)(p)},
+		NewTraitAccessible(p),
 		p,
 	}
 }
 
 type Action struct {
-	*_TraitAction
+	*TraitAction
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewActionFromCPointer(p unsafe.Pointer) *Action {
 	return &Action{
-		&_TraitAction{(*C.GtkAction)(p)},
+		NewTraitAction(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ActionBar struct {
-	*_TraitActionBar
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitActionBar
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewActionBarFromCPointer(p unsafe.Pointer) *ActionBar {
 	return &ActionBar{
-		&_TraitActionBar{(*C.GtkActionBar)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitActionBar(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ActionGroup struct {
-	*_TraitActionGroup
+	*TraitActionGroup
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewActionGroupFromCPointer(p unsafe.Pointer) *ActionGroup {
 	return &ActionGroup{
-		&_TraitActionGroup{(*C.GtkActionGroup)(p)},
+		NewTraitActionGroup(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Adjustment struct {
-	*_TraitAdjustment
+	*TraitAdjustment
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewAdjustmentFromCPointer(p unsafe.Pointer) *Adjustment {
 	return &Adjustment{
-		&_TraitAdjustment{(*C.GtkAdjustment)(p)},
+		NewTraitAdjustment(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Alignment struct {
-	*_TraitAlignment
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitAlignment
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewAlignmentFromCPointer(p unsafe.Pointer) *Alignment {
 	return &Alignment{
-		&_TraitAlignment{(*C.GtkAlignment)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitAlignment(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type AppChooserButton struct {
-	*_TraitAppChooserButton
-	*_TraitComboBox
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitAppChooserButton
+	*TraitComboBox
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewAppChooserButtonFromCPointer(p unsafe.Pointer) *AppChooserButton {
 	return &AppChooserButton{
-		&_TraitAppChooserButton{(*C.GtkAppChooserButton)(p)},
-		&_TraitComboBox{(*C.GtkComboBox)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitAppChooserButton(p),
+		NewTraitComboBox(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type AppChooserDialog struct {
-	*_TraitAppChooserDialog
-	*_TraitDialog
-	*_TraitWindow
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitAppChooserDialog
+	*TraitDialog
+	*TraitWindow
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewAppChooserDialogFromCPointer(p unsafe.Pointer) *AppChooserDialog {
 	return &AppChooserDialog{
-		&_TraitAppChooserDialog{(*C.GtkAppChooserDialog)(p)},
-		&_TraitDialog{(*C.GtkDialog)(p)},
-		&_TraitWindow{(*C.GtkWindow)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitAppChooserDialog(p),
+		NewTraitDialog(p),
+		NewTraitWindow(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type AppChooserWidget struct {
-	*_TraitAppChooserWidget
-	*_TraitBox
-	*_TraitContainer
-	*_TraitWidget
+	*TraitAppChooserWidget
+	*TraitBox
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewAppChooserWidgetFromCPointer(p unsafe.Pointer) *AppChooserWidget {
 	return &AppChooserWidget{
-		&_TraitAppChooserWidget{(*C.GtkAppChooserWidget)(p)},
-		&_TraitBox{(*C.GtkBox)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitAppChooserWidget(p),
+		NewTraitBox(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Application struct {
-	*_TraitApplication
+	*TraitApplication
 	CPointer unsafe.Pointer
 }
 
 func NewApplicationFromCPointer(p unsafe.Pointer) *Application {
 	return &Application{
-		&_TraitApplication{(*C.GtkApplication)(p)},
+		NewTraitApplication(p),
 		p,
 	}
 }
 
 type ApplicationWindow struct {
-	*_TraitApplicationWindow
-	*_TraitWindow
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitApplicationWindow
+	*TraitWindow
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewApplicationWindowFromCPointer(p unsafe.Pointer) *ApplicationWindow {
 	return &ApplicationWindow{
-		&_TraitApplicationWindow{(*C.GtkApplicationWindow)(p)},
-		&_TraitWindow{(*C.GtkWindow)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitApplicationWindow(p),
+		NewTraitWindow(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Arrow struct {
-	*_TraitArrow
-	*_TraitMisc
-	*_TraitWidget
+	*TraitArrow
+	*TraitMisc
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewArrowFromCPointer(p unsafe.Pointer) *Arrow {
 	return &Arrow{
-		&_TraitArrow{(*C.GtkArrow)(p)},
-		&_TraitMisc{(*C.GtkMisc)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitArrow(p),
+		NewTraitMisc(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type AspectFrame struct {
-	*_TraitAspectFrame
-	*_TraitFrame
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitAspectFrame
+	*TraitFrame
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewAspectFrameFromCPointer(p unsafe.Pointer) *AspectFrame {
 	return &AspectFrame{
-		&_TraitAspectFrame{(*C.GtkAspectFrame)(p)},
-		&_TraitFrame{(*C.GtkFrame)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitAspectFrame(p),
+		NewTraitFrame(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Assistant struct {
-	*_TraitAssistant
-	*_TraitWindow
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitAssistant
+	*TraitWindow
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewAssistantFromCPointer(p unsafe.Pointer) *Assistant {
 	return &Assistant{
-		&_TraitAssistant{(*C.GtkAssistant)(p)},
-		&_TraitWindow{(*C.GtkWindow)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitAssistant(p),
+		NewTraitWindow(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Bin struct {
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewBinFromCPointer(p unsafe.Pointer) *Bin {
 	return &Bin{
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Box struct {
-	*_TraitBox
-	*_TraitContainer
-	*_TraitWidget
+	*TraitBox
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewBoxFromCPointer(p unsafe.Pointer) *Box {
 	return &Box{
-		&_TraitBox{(*C.GtkBox)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitBox(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Builder struct {
-	*_TraitBuilder
+	*TraitBuilder
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewBuilderFromCPointer(p unsafe.Pointer) *Builder {
 	return &Builder{
-		&_TraitBuilder{(*C.GtkBuilder)(p)},
+		NewTraitBuilder(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Button struct {
-	*_TraitButton
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitButton
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewButtonFromCPointer(p unsafe.Pointer) *Button {
 	return &Button{
-		&_TraitButton{(*C.GtkButton)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitButton(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ButtonBox struct {
-	*_TraitButtonBox
-	*_TraitBox
-	*_TraitContainer
-	*_TraitWidget
+	*TraitButtonBox
+	*TraitBox
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewButtonBoxFromCPointer(p unsafe.Pointer) *ButtonBox {
 	return &ButtonBox{
-		&_TraitButtonBox{(*C.GtkButtonBox)(p)},
-		&_TraitBox{(*C.GtkBox)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitButtonBox(p),
+		NewTraitBox(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Calendar struct {
-	*_TraitCalendar
-	*_TraitWidget
+	*TraitCalendar
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewCalendarFromCPointer(p unsafe.Pointer) *Calendar {
 	return &Calendar{
-		&_TraitCalendar{(*C.GtkCalendar)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitCalendar(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type CellArea struct {
-	*_TraitCellArea
+	*TraitCellArea
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewCellAreaFromCPointer(p unsafe.Pointer) *CellArea {
 	return &CellArea{
-		&_TraitCellArea{(*C.GtkCellArea)(p)},
+		NewTraitCellArea(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type CellAreaBox struct {
-	*_TraitCellAreaBox
-	*_TraitCellArea
+	*TraitCellAreaBox
+	*TraitCellArea
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewCellAreaBoxFromCPointer(p unsafe.Pointer) *CellAreaBox {
 	return &CellAreaBox{
-		&_TraitCellAreaBox{(*C.GtkCellAreaBox)(p)},
-		&_TraitCellArea{(*C.GtkCellArea)(p)},
+		NewTraitCellAreaBox(p),
+		NewTraitCellArea(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type CellAreaContext struct {
-	*_TraitCellAreaContext
+	*TraitCellAreaContext
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewCellAreaContextFromCPointer(p unsafe.Pointer) *CellAreaContext {
 	return &CellAreaContext{
-		&_TraitCellAreaContext{(*C.GtkCellAreaContext)(p)},
+		NewTraitCellAreaContext(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type CellRenderer struct {
-	*_TraitCellRenderer
+	*TraitCellRenderer
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewCellRendererFromCPointer(p unsafe.Pointer) *CellRenderer {
 	return &CellRenderer{
-		&_TraitCellRenderer{(*C.GtkCellRenderer)(p)},
+		NewTraitCellRenderer(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type CellRendererAccel struct {
-	*_TraitCellRendererAccel
-	*_TraitCellRendererText
-	*_TraitCellRenderer
+	*TraitCellRendererAccel
+	*TraitCellRendererText
+	*TraitCellRenderer
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewCellRendererAccelFromCPointer(p unsafe.Pointer) *CellRendererAccel {
 	return &CellRendererAccel{
-		&_TraitCellRendererAccel{(*C.GtkCellRendererAccel)(p)},
-		&_TraitCellRendererText{(*C.GtkCellRendererText)(p)},
-		&_TraitCellRenderer{(*C.GtkCellRenderer)(p)},
+		NewTraitCellRendererAccel(p),
+		NewTraitCellRendererText(p),
+		NewTraitCellRenderer(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type CellRendererCombo struct {
-	*_TraitCellRendererCombo
-	*_TraitCellRendererText
-	*_TraitCellRenderer
+	*TraitCellRendererCombo
+	*TraitCellRendererText
+	*TraitCellRenderer
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewCellRendererComboFromCPointer(p unsafe.Pointer) *CellRendererCombo {
 	return &CellRendererCombo{
-		&_TraitCellRendererCombo{(*C.GtkCellRendererCombo)(p)},
-		&_TraitCellRendererText{(*C.GtkCellRendererText)(p)},
-		&_TraitCellRenderer{(*C.GtkCellRenderer)(p)},
+		NewTraitCellRendererCombo(p),
+		NewTraitCellRendererText(p),
+		NewTraitCellRenderer(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type CellRendererPixbuf struct {
-	*_TraitCellRendererPixbuf
-	*_TraitCellRenderer
+	*TraitCellRendererPixbuf
+	*TraitCellRenderer
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewCellRendererPixbufFromCPointer(p unsafe.Pointer) *CellRendererPixbuf {
 	return &CellRendererPixbuf{
-		&_TraitCellRendererPixbuf{(*C.GtkCellRendererPixbuf)(p)},
-		&_TraitCellRenderer{(*C.GtkCellRenderer)(p)},
+		NewTraitCellRendererPixbuf(p),
+		NewTraitCellRenderer(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type CellRendererProgress struct {
-	*_TraitCellRendererProgress
-	*_TraitCellRenderer
+	*TraitCellRendererProgress
+	*TraitCellRenderer
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewCellRendererProgressFromCPointer(p unsafe.Pointer) *CellRendererProgress {
 	return &CellRendererProgress{
-		&_TraitCellRendererProgress{(*C.GtkCellRendererProgress)(p)},
-		&_TraitCellRenderer{(*C.GtkCellRenderer)(p)},
+		NewTraitCellRendererProgress(p),
+		NewTraitCellRenderer(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type CellRendererSpin struct {
-	*_TraitCellRendererSpin
-	*_TraitCellRendererText
-	*_TraitCellRenderer
+	*TraitCellRendererSpin
+	*TraitCellRendererText
+	*TraitCellRenderer
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewCellRendererSpinFromCPointer(p unsafe.Pointer) *CellRendererSpin {
 	return &CellRendererSpin{
-		&_TraitCellRendererSpin{(*C.GtkCellRendererSpin)(p)},
-		&_TraitCellRendererText{(*C.GtkCellRendererText)(p)},
-		&_TraitCellRenderer{(*C.GtkCellRenderer)(p)},
+		NewTraitCellRendererSpin(p),
+		NewTraitCellRendererText(p),
+		NewTraitCellRenderer(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type CellRendererSpinner struct {
-	*_TraitCellRendererSpinner
-	*_TraitCellRenderer
+	*TraitCellRendererSpinner
+	*TraitCellRenderer
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewCellRendererSpinnerFromCPointer(p unsafe.Pointer) *CellRendererSpinner {
 	return &CellRendererSpinner{
-		&_TraitCellRendererSpinner{(*C.GtkCellRendererSpinner)(p)},
-		&_TraitCellRenderer{(*C.GtkCellRenderer)(p)},
+		NewTraitCellRendererSpinner(p),
+		NewTraitCellRenderer(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type CellRendererText struct {
-	*_TraitCellRendererText
-	*_TraitCellRenderer
+	*TraitCellRendererText
+	*TraitCellRenderer
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewCellRendererTextFromCPointer(p unsafe.Pointer) *CellRendererText {
 	return &CellRendererText{
-		&_TraitCellRendererText{(*C.GtkCellRendererText)(p)},
-		&_TraitCellRenderer{(*C.GtkCellRenderer)(p)},
+		NewTraitCellRendererText(p),
+		NewTraitCellRenderer(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type CellRendererToggle struct {
-	*_TraitCellRendererToggle
-	*_TraitCellRenderer
+	*TraitCellRendererToggle
+	*TraitCellRenderer
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewCellRendererToggleFromCPointer(p unsafe.Pointer) *CellRendererToggle {
 	return &CellRendererToggle{
-		&_TraitCellRendererToggle{(*C.GtkCellRendererToggle)(p)},
-		&_TraitCellRenderer{(*C.GtkCellRenderer)(p)},
+		NewTraitCellRendererToggle(p),
+		NewTraitCellRenderer(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type CellView struct {
-	*_TraitCellView
-	*_TraitWidget
+	*TraitCellView
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewCellViewFromCPointer(p unsafe.Pointer) *CellView {
 	return &CellView{
-		&_TraitCellView{(*C.GtkCellView)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitCellView(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type CheckButton struct {
-	*_TraitCheckButton
-	*_TraitToggleButton
-	*_TraitButton
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitCheckButton
+	*TraitToggleButton
+	*TraitButton
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewCheckButtonFromCPointer(p unsafe.Pointer) *CheckButton {
 	return &CheckButton{
-		&_TraitCheckButton{(*C.GtkCheckButton)(p)},
-		&_TraitToggleButton{(*C.GtkToggleButton)(p)},
-		&_TraitButton{(*C.GtkButton)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitCheckButton(p),
+		NewTraitToggleButton(p),
+		NewTraitButton(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type CheckMenuItem struct {
-	*_TraitCheckMenuItem
-	*_TraitMenuItem
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitCheckMenuItem
+	*TraitMenuItem
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewCheckMenuItemFromCPointer(p unsafe.Pointer) *CheckMenuItem {
 	return &CheckMenuItem{
-		&_TraitCheckMenuItem{(*C.GtkCheckMenuItem)(p)},
-		&_TraitMenuItem{(*C.GtkMenuItem)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitCheckMenuItem(p),
+		NewTraitMenuItem(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Clipboard struct {
-	*_TraitClipboard
+	*TraitClipboard
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewClipboardFromCPointer(p unsafe.Pointer) *Clipboard {
 	return &Clipboard{
-		&_TraitClipboard{(*C.GtkClipboard)(p)},
+		NewTraitClipboard(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ColorButton struct {
-	*_TraitColorButton
-	*_TraitButton
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitColorButton
+	*TraitButton
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewColorButtonFromCPointer(p unsafe.Pointer) *ColorButton {
 	return &ColorButton{
-		&_TraitColorButton{(*C.GtkColorButton)(p)},
-		&_TraitButton{(*C.GtkButton)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitColorButton(p),
+		NewTraitButton(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ColorChooserDialog struct {
-	*_TraitColorChooserDialog
-	*_TraitDialog
-	*_TraitWindow
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitColorChooserDialog
+	*TraitDialog
+	*TraitWindow
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewColorChooserDialogFromCPointer(p unsafe.Pointer) *ColorChooserDialog {
 	return &ColorChooserDialog{
-		&_TraitColorChooserDialog{(*C.GtkColorChooserDialog)(p)},
-		&_TraitDialog{(*C.GtkDialog)(p)},
-		&_TraitWindow{(*C.GtkWindow)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitColorChooserDialog(p),
+		NewTraitDialog(p),
+		NewTraitWindow(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ColorChooserWidget struct {
-	*_TraitColorChooserWidget
-	*_TraitBox
-	*_TraitContainer
-	*_TraitWidget
+	*TraitColorChooserWidget
+	*TraitBox
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewColorChooserWidgetFromCPointer(p unsafe.Pointer) *ColorChooserWidget {
 	return &ColorChooserWidget{
-		&_TraitColorChooserWidget{(*C.GtkColorChooserWidget)(p)},
-		&_TraitBox{(*C.GtkBox)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitColorChooserWidget(p),
+		NewTraitBox(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ColorSelection struct {
-	*_TraitColorSelection
-	*_TraitBox
-	*_TraitContainer
-	*_TraitWidget
+	*TraitColorSelection
+	*TraitBox
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewColorSelectionFromCPointer(p unsafe.Pointer) *ColorSelection {
 	return &ColorSelection{
-		&_TraitColorSelection{(*C.GtkColorSelection)(p)},
-		&_TraitBox{(*C.GtkBox)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitColorSelection(p),
+		NewTraitBox(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ColorSelectionDialog struct {
-	*_TraitColorSelectionDialog
-	*_TraitDialog
-	*_TraitWindow
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitColorSelectionDialog
+	*TraitDialog
+	*TraitWindow
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewColorSelectionDialogFromCPointer(p unsafe.Pointer) *ColorSelectionDialog {
 	return &ColorSelectionDialog{
-		&_TraitColorSelectionDialog{(*C.GtkColorSelectionDialog)(p)},
-		&_TraitDialog{(*C.GtkDialog)(p)},
-		&_TraitWindow{(*C.GtkWindow)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitColorSelectionDialog(p),
+		NewTraitDialog(p),
+		NewTraitWindow(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ComboBox struct {
-	*_TraitComboBox
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitComboBox
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewComboBoxFromCPointer(p unsafe.Pointer) *ComboBox {
 	return &ComboBox{
-		&_TraitComboBox{(*C.GtkComboBox)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitComboBox(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ComboBoxText struct {
-	*_TraitComboBoxText
-	*_TraitComboBox
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitComboBoxText
+	*TraitComboBox
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewComboBoxTextFromCPointer(p unsafe.Pointer) *ComboBoxText {
 	return &ComboBoxText{
-		&_TraitComboBoxText{(*C.GtkComboBoxText)(p)},
-		&_TraitComboBox{(*C.GtkComboBox)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitComboBoxText(p),
+		NewTraitComboBox(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Container struct {
-	*_TraitContainer
-	*_TraitWidget
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewContainerFromCPointer(p unsafe.Pointer) *Container {
 	return &Container{
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type CssProvider struct {
-	*_TraitCssProvider
+	*TraitCssProvider
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewCssProviderFromCPointer(p unsafe.Pointer) *CssProvider {
 	return &CssProvider{
-		&_TraitCssProvider{(*C.GtkCssProvider)(p)},
+		NewTraitCssProvider(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Dialog struct {
-	*_TraitDialog
-	*_TraitWindow
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitDialog
+	*TraitWindow
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewDialogFromCPointer(p unsafe.Pointer) *Dialog {
 	return &Dialog{
-		&_TraitDialog{(*C.GtkDialog)(p)},
-		&_TraitWindow{(*C.GtkWindow)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitDialog(p),
+		NewTraitWindow(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type DrawingArea struct {
-	*_TraitDrawingArea
-	*_TraitWidget
+	*TraitDrawingArea
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewDrawingAreaFromCPointer(p unsafe.Pointer) *DrawingArea {
 	return &DrawingArea{
-		&_TraitDrawingArea{(*C.GtkDrawingArea)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitDrawingArea(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Entry struct {
-	*_TraitEntry
-	*_TraitWidget
+	*TraitEntry
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewEntryFromCPointer(p unsafe.Pointer) *Entry {
 	return &Entry{
-		&_TraitEntry{(*C.GtkEntry)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitEntry(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type EntryBuffer struct {
-	*_TraitEntryBuffer
+	*TraitEntryBuffer
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewEntryBufferFromCPointer(p unsafe.Pointer) *EntryBuffer {
 	return &EntryBuffer{
-		&_TraitEntryBuffer{(*C.GtkEntryBuffer)(p)},
+		NewTraitEntryBuffer(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type EntryCompletion struct {
-	*_TraitEntryCompletion
+	*TraitEntryCompletion
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewEntryCompletionFromCPointer(p unsafe.Pointer) *EntryCompletion {
 	return &EntryCompletion{
-		&_TraitEntryCompletion{(*C.GtkEntryCompletion)(p)},
+		NewTraitEntryCompletion(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type EventBox struct {
-	*_TraitEventBox
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitEventBox
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewEventBoxFromCPointer(p unsafe.Pointer) *EventBox {
 	return &EventBox{
-		&_TraitEventBox{(*C.GtkEventBox)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitEventBox(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Expander struct {
-	*_TraitExpander
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitExpander
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewExpanderFromCPointer(p unsafe.Pointer) *Expander {
 	return &Expander{
-		&_TraitExpander{(*C.GtkExpander)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitExpander(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type FileChooserButton struct {
-	*_TraitFileChooserButton
-	*_TraitBox
-	*_TraitContainer
-	*_TraitWidget
+	*TraitFileChooserButton
+	*TraitBox
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewFileChooserButtonFromCPointer(p unsafe.Pointer) *FileChooserButton {
 	return &FileChooserButton{
-		&_TraitFileChooserButton{(*C.GtkFileChooserButton)(p)},
-		&_TraitBox{(*C.GtkBox)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitFileChooserButton(p),
+		NewTraitBox(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type FileChooserDialog struct {
-	*_TraitFileChooserDialog
-	*_TraitDialog
-	*_TraitWindow
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitFileChooserDialog
+	*TraitDialog
+	*TraitWindow
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewFileChooserDialogFromCPointer(p unsafe.Pointer) *FileChooserDialog {
 	return &FileChooserDialog{
-		&_TraitFileChooserDialog{(*C.GtkFileChooserDialog)(p)},
-		&_TraitDialog{(*C.GtkDialog)(p)},
-		&_TraitWindow{(*C.GtkWindow)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitFileChooserDialog(p),
+		NewTraitDialog(p),
+		NewTraitWindow(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type FileChooserWidget struct {
-	*_TraitFileChooserWidget
-	*_TraitBox
-	*_TraitContainer
-	*_TraitWidget
+	*TraitFileChooserWidget
+	*TraitBox
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewFileChooserWidgetFromCPointer(p unsafe.Pointer) *FileChooserWidget {
 	return &FileChooserWidget{
-		&_TraitFileChooserWidget{(*C.GtkFileChooserWidget)(p)},
-		&_TraitBox{(*C.GtkBox)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitFileChooserWidget(p),
+		NewTraitBox(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type FileFilter struct {
-	*_TraitFileFilter
+	*TraitFileFilter
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewFileFilterFromCPointer(p unsafe.Pointer) *FileFilter {
 	return &FileFilter{
-		&_TraitFileFilter{(*C.GtkFileFilter)(p)},
+		NewTraitFileFilter(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Fixed struct {
-	*_TraitFixed
-	*_TraitContainer
-	*_TraitWidget
+	*TraitFixed
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewFixedFromCPointer(p unsafe.Pointer) *Fixed {
 	return &Fixed{
-		&_TraitFixed{(*C.GtkFixed)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitFixed(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type FlowBox struct {
-	*_TraitFlowBox
-	*_TraitContainer
-	*_TraitWidget
+	*TraitFlowBox
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewFlowBoxFromCPointer(p unsafe.Pointer) *FlowBox {
 	return &FlowBox{
-		&_TraitFlowBox{(*C.GtkFlowBox)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitFlowBox(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type FlowBoxChild struct {
-	*_TraitFlowBoxChild
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitFlowBoxChild
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewFlowBoxChildFromCPointer(p unsafe.Pointer) *FlowBoxChild {
 	return &FlowBoxChild{
-		&_TraitFlowBoxChild{(*C.GtkFlowBoxChild)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitFlowBoxChild(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type FontButton struct {
-	*_TraitFontButton
-	*_TraitButton
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitFontButton
+	*TraitButton
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewFontButtonFromCPointer(p unsafe.Pointer) *FontButton {
 	return &FontButton{
-		&_TraitFontButton{(*C.GtkFontButton)(p)},
-		&_TraitButton{(*C.GtkButton)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitFontButton(p),
+		NewTraitButton(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type FontChooserDialog struct {
-	*_TraitFontChooserDialog
-	*_TraitDialog
-	*_TraitWindow
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitFontChooserDialog
+	*TraitDialog
+	*TraitWindow
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewFontChooserDialogFromCPointer(p unsafe.Pointer) *FontChooserDialog {
 	return &FontChooserDialog{
-		&_TraitFontChooserDialog{(*C.GtkFontChooserDialog)(p)},
-		&_TraitDialog{(*C.GtkDialog)(p)},
-		&_TraitWindow{(*C.GtkWindow)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitFontChooserDialog(p),
+		NewTraitDialog(p),
+		NewTraitWindow(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type FontChooserWidget struct {
-	*_TraitFontChooserWidget
-	*_TraitBox
-	*_TraitContainer
-	*_TraitWidget
+	*TraitFontChooserWidget
+	*TraitBox
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewFontChooserWidgetFromCPointer(p unsafe.Pointer) *FontChooserWidget {
 	return &FontChooserWidget{
-		&_TraitFontChooserWidget{(*C.GtkFontChooserWidget)(p)},
-		&_TraitBox{(*C.GtkBox)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitFontChooserWidget(p),
+		NewTraitBox(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type FontSelection struct {
-	*_TraitFontSelection
-	*_TraitBox
-	*_TraitContainer
-	*_TraitWidget
+	*TraitFontSelection
+	*TraitBox
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewFontSelectionFromCPointer(p unsafe.Pointer) *FontSelection {
 	return &FontSelection{
-		&_TraitFontSelection{(*C.GtkFontSelection)(p)},
-		&_TraitBox{(*C.GtkBox)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitFontSelection(p),
+		NewTraitBox(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type FontSelectionDialog struct {
-	*_TraitFontSelectionDialog
-	*_TraitDialog
-	*_TraitWindow
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitFontSelectionDialog
+	*TraitDialog
+	*TraitWindow
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewFontSelectionDialogFromCPointer(p unsafe.Pointer) *FontSelectionDialog {
 	return &FontSelectionDialog{
-		&_TraitFontSelectionDialog{(*C.GtkFontSelectionDialog)(p)},
-		&_TraitDialog{(*C.GtkDialog)(p)},
-		&_TraitWindow{(*C.GtkWindow)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitFontSelectionDialog(p),
+		NewTraitDialog(p),
+		NewTraitWindow(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Frame struct {
-	*_TraitFrame
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitFrame
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewFrameFromCPointer(p unsafe.Pointer) *Frame {
 	return &Frame{
-		&_TraitFrame{(*C.GtkFrame)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitFrame(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Grid struct {
-	*_TraitGrid
-	*_TraitContainer
-	*_TraitWidget
+	*TraitGrid
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewGridFromCPointer(p unsafe.Pointer) *Grid {
 	return &Grid{
-		&_TraitGrid{(*C.GtkGrid)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitGrid(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type HBox struct {
-	*_TraitHBox
-	*_TraitBox
-	*_TraitContainer
-	*_TraitWidget
+	*TraitHBox
+	*TraitBox
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewHBoxFromCPointer(p unsafe.Pointer) *HBox {
 	return &HBox{
-		&_TraitHBox{(*C.GtkHBox)(p)},
-		&_TraitBox{(*C.GtkBox)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitHBox(p),
+		NewTraitBox(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type HButtonBox struct {
-	*_TraitHButtonBox
-	*_TraitButtonBox
-	*_TraitBox
-	*_TraitContainer
-	*_TraitWidget
+	*TraitHButtonBox
+	*TraitButtonBox
+	*TraitBox
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewHButtonBoxFromCPointer(p unsafe.Pointer) *HButtonBox {
 	return &HButtonBox{
-		&_TraitHButtonBox{(*C.GtkHButtonBox)(p)},
-		&_TraitButtonBox{(*C.GtkButtonBox)(p)},
-		&_TraitBox{(*C.GtkBox)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitHButtonBox(p),
+		NewTraitButtonBox(p),
+		NewTraitBox(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type HPaned struct {
-	*_TraitHPaned
-	*_TraitPaned
-	*_TraitContainer
-	*_TraitWidget
+	*TraitHPaned
+	*TraitPaned
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewHPanedFromCPointer(p unsafe.Pointer) *HPaned {
 	return &HPaned{
-		&_TraitHPaned{(*C.GtkHPaned)(p)},
-		&_TraitPaned{(*C.GtkPaned)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitHPaned(p),
+		NewTraitPaned(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type HSV struct {
-	*_TraitHSV
-	*_TraitWidget
+	*TraitHSV
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewHSVFromCPointer(p unsafe.Pointer) *HSV {
 	return &HSV{
-		&_TraitHSV{(*C.GtkHSV)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitHSV(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type HScale struct {
-	*_TraitHScale
-	*_TraitScale
-	*_TraitRange
-	*_TraitWidget
+	*TraitHScale
+	*TraitScale
+	*TraitRange
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewHScaleFromCPointer(p unsafe.Pointer) *HScale {
 	return &HScale{
-		&_TraitHScale{(*C.GtkHScale)(p)},
-		&_TraitScale{(*C.GtkScale)(p)},
-		&_TraitRange{(*C.GtkRange)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitHScale(p),
+		NewTraitScale(p),
+		NewTraitRange(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type HScrollbar struct {
-	*_TraitHScrollbar
-	*_TraitScrollbar
-	*_TraitRange
-	*_TraitWidget
+	*TraitHScrollbar
+	*TraitScrollbar
+	*TraitRange
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewHScrollbarFromCPointer(p unsafe.Pointer) *HScrollbar {
 	return &HScrollbar{
-		&_TraitHScrollbar{(*C.GtkHScrollbar)(p)},
-		&_TraitScrollbar{(*C.GtkScrollbar)(p)},
-		&_TraitRange{(*C.GtkRange)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitHScrollbar(p),
+		NewTraitScrollbar(p),
+		NewTraitRange(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type HSeparator struct {
-	*_TraitHSeparator
-	*_TraitSeparator
-	*_TraitWidget
+	*TraitHSeparator
+	*TraitSeparator
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewHSeparatorFromCPointer(p unsafe.Pointer) *HSeparator {
 	return &HSeparator{
-		&_TraitHSeparator{(*C.GtkHSeparator)(p)},
-		&_TraitSeparator{(*C.GtkSeparator)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitHSeparator(p),
+		NewTraitSeparator(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type HandleBox struct {
-	*_TraitHandleBox
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitHandleBox
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewHandleBoxFromCPointer(p unsafe.Pointer) *HandleBox {
 	return &HandleBox{
-		&_TraitHandleBox{(*C.GtkHandleBox)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitHandleBox(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type HeaderBar struct {
-	*_TraitHeaderBar
-	*_TraitContainer
-	*_TraitWidget
+	*TraitHeaderBar
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewHeaderBarFromCPointer(p unsafe.Pointer) *HeaderBar {
 	return &HeaderBar{
-		&_TraitHeaderBar{(*C.GtkHeaderBar)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitHeaderBar(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type IMContext struct {
-	*_TraitIMContext
+	*TraitIMContext
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewIMContextFromCPointer(p unsafe.Pointer) *IMContext {
 	return &IMContext{
-		&_TraitIMContext{(*C.GtkIMContext)(p)},
+		NewTraitIMContext(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type IMContextSimple struct {
-	*_TraitIMContextSimple
-	*_TraitIMContext
+	*TraitIMContextSimple
+	*TraitIMContext
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewIMContextSimpleFromCPointer(p unsafe.Pointer) *IMContextSimple {
 	return &IMContextSimple{
-		&_TraitIMContextSimple{(*C.GtkIMContextSimple)(p)},
-		&_TraitIMContext{(*C.GtkIMContext)(p)},
+		NewTraitIMContextSimple(p),
+		NewTraitIMContext(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type IMMulticontext struct {
-	*_TraitIMMulticontext
-	*_TraitIMContext
+	*TraitIMMulticontext
+	*TraitIMContext
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewIMMulticontextFromCPointer(p unsafe.Pointer) *IMMulticontext {
 	return &IMMulticontext{
-		&_TraitIMMulticontext{(*C.GtkIMMulticontext)(p)},
-		&_TraitIMContext{(*C.GtkIMContext)(p)},
+		NewTraitIMMulticontext(p),
+		NewTraitIMContext(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type IconFactory struct {
-	*_TraitIconFactory
+	*TraitIconFactory
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewIconFactoryFromCPointer(p unsafe.Pointer) *IconFactory {
 	return &IconFactory{
-		&_TraitIconFactory{(*C.GtkIconFactory)(p)},
+		NewTraitIconFactory(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type IconInfo struct {
-	*_TraitIconInfo
+	*TraitIconInfo
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewIconInfoFromCPointer(p unsafe.Pointer) *IconInfo {
 	return &IconInfo{
-		&_TraitIconInfo{(*C.GtkIconInfo)(p)},
+		NewTraitIconInfo(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type IconTheme struct {
-	*_TraitIconTheme
+	*TraitIconTheme
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewIconThemeFromCPointer(p unsafe.Pointer) *IconTheme {
 	return &IconTheme{
-		&_TraitIconTheme{(*C.GtkIconTheme)(p)},
+		NewTraitIconTheme(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type IconView struct {
-	*_TraitIconView
-	*_TraitContainer
-	*_TraitWidget
+	*TraitIconView
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewIconViewFromCPointer(p unsafe.Pointer) *IconView {
 	return &IconView{
-		&_TraitIconView{(*C.GtkIconView)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitIconView(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Image struct {
-	*_TraitImage
-	*_TraitMisc
-	*_TraitWidget
+	*TraitImage
+	*TraitMisc
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewImageFromCPointer(p unsafe.Pointer) *Image {
 	return &Image{
-		&_TraitImage{(*C.GtkImage)(p)},
-		&_TraitMisc{(*C.GtkMisc)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitImage(p),
+		NewTraitMisc(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ImageMenuItem struct {
-	*_TraitImageMenuItem
-	*_TraitMenuItem
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitImageMenuItem
+	*TraitMenuItem
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewImageMenuItemFromCPointer(p unsafe.Pointer) *ImageMenuItem {
 	return &ImageMenuItem{
-		&_TraitImageMenuItem{(*C.GtkImageMenuItem)(p)},
-		&_TraitMenuItem{(*C.GtkMenuItem)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitImageMenuItem(p),
+		NewTraitMenuItem(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type InfoBar struct {
-	*_TraitInfoBar
-	*_TraitBox
-	*_TraitContainer
-	*_TraitWidget
+	*TraitInfoBar
+	*TraitBox
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewInfoBarFromCPointer(p unsafe.Pointer) *InfoBar {
 	return &InfoBar{
-		&_TraitInfoBar{(*C.GtkInfoBar)(p)},
-		&_TraitBox{(*C.GtkBox)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitInfoBar(p),
+		NewTraitBox(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Invisible struct {
-	*_TraitInvisible
-	*_TraitWidget
+	*TraitInvisible
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewInvisibleFromCPointer(p unsafe.Pointer) *Invisible {
 	return &Invisible{
-		&_TraitInvisible{(*C.GtkInvisible)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitInvisible(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Label struct {
-	*_TraitLabel
-	*_TraitMisc
-	*_TraitWidget
+	*TraitLabel
+	*TraitMisc
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewLabelFromCPointer(p unsafe.Pointer) *Label {
 	return &Label{
-		&_TraitLabel{(*C.GtkLabel)(p)},
-		&_TraitMisc{(*C.GtkMisc)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitLabel(p),
+		NewTraitMisc(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Layout struct {
-	*_TraitLayout
-	*_TraitContainer
-	*_TraitWidget
+	*TraitLayout
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewLayoutFromCPointer(p unsafe.Pointer) *Layout {
 	return &Layout{
-		&_TraitLayout{(*C.GtkLayout)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitLayout(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type LevelBar struct {
-	*_TraitLevelBar
-	*_TraitWidget
+	*TraitLevelBar
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewLevelBarFromCPointer(p unsafe.Pointer) *LevelBar {
 	return &LevelBar{
-		&_TraitLevelBar{(*C.GtkLevelBar)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitLevelBar(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type LinkButton struct {
-	*_TraitLinkButton
-	*_TraitButton
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitLinkButton
+	*TraitButton
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewLinkButtonFromCPointer(p unsafe.Pointer) *LinkButton {
 	return &LinkButton{
-		&_TraitLinkButton{(*C.GtkLinkButton)(p)},
-		&_TraitButton{(*C.GtkButton)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitLinkButton(p),
+		NewTraitButton(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ListBox struct {
-	*_TraitListBox
-	*_TraitContainer
-	*_TraitWidget
+	*TraitListBox
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewListBoxFromCPointer(p unsafe.Pointer) *ListBox {
 	return &ListBox{
-		&_TraitListBox{(*C.GtkListBox)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitListBox(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ListBoxRow struct {
-	*_TraitListBoxRow
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitListBoxRow
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewListBoxRowFromCPointer(p unsafe.Pointer) *ListBoxRow {
 	return &ListBoxRow{
-		&_TraitListBoxRow{(*C.GtkListBoxRow)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitListBoxRow(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ListStore struct {
-	*_TraitListStore
+	*TraitListStore
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewListStoreFromCPointer(p unsafe.Pointer) *ListStore {
 	return &ListStore{
-		&_TraitListStore{(*C.GtkListStore)(p)},
+		NewTraitListStore(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type LockButton struct {
-	*_TraitLockButton
-	*_TraitButton
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitLockButton
+	*TraitButton
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewLockButtonFromCPointer(p unsafe.Pointer) *LockButton {
 	return &LockButton{
-		&_TraitLockButton{(*C.GtkLockButton)(p)},
-		&_TraitButton{(*C.GtkButton)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitLockButton(p),
+		NewTraitButton(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Menu struct {
-	*_TraitMenu
-	*_TraitMenuShell
-	*_TraitContainer
-	*_TraitWidget
+	*TraitMenu
+	*TraitMenuShell
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewMenuFromCPointer(p unsafe.Pointer) *Menu {
 	return &Menu{
-		&_TraitMenu{(*C.GtkMenu)(p)},
-		&_TraitMenuShell{(*C.GtkMenuShell)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitMenu(p),
+		NewTraitMenuShell(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type MenuBar struct {
-	*_TraitMenuBar
-	*_TraitMenuShell
-	*_TraitContainer
-	*_TraitWidget
+	*TraitMenuBar
+	*TraitMenuShell
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewMenuBarFromCPointer(p unsafe.Pointer) *MenuBar {
 	return &MenuBar{
-		&_TraitMenuBar{(*C.GtkMenuBar)(p)},
-		&_TraitMenuShell{(*C.GtkMenuShell)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitMenuBar(p),
+		NewTraitMenuShell(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type MenuButton struct {
-	*_TraitMenuButton
-	*_TraitToggleButton
-	*_TraitButton
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitMenuButton
+	*TraitToggleButton
+	*TraitButton
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewMenuButtonFromCPointer(p unsafe.Pointer) *MenuButton {
 	return &MenuButton{
-		&_TraitMenuButton{(*C.GtkMenuButton)(p)},
-		&_TraitToggleButton{(*C.GtkToggleButton)(p)},
-		&_TraitButton{(*C.GtkButton)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitMenuButton(p),
+		NewTraitToggleButton(p),
+		NewTraitButton(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type MenuItem struct {
-	*_TraitMenuItem
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitMenuItem
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewMenuItemFromCPointer(p unsafe.Pointer) *MenuItem {
 	return &MenuItem{
-		&_TraitMenuItem{(*C.GtkMenuItem)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitMenuItem(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type MenuShell struct {
-	*_TraitMenuShell
-	*_TraitContainer
-	*_TraitWidget
+	*TraitMenuShell
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewMenuShellFromCPointer(p unsafe.Pointer) *MenuShell {
 	return &MenuShell{
-		&_TraitMenuShell{(*C.GtkMenuShell)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitMenuShell(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type MenuToolButton struct {
-	*_TraitMenuToolButton
-	*_TraitToolButton
-	*_TraitToolItem
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitMenuToolButton
+	*TraitToolButton
+	*TraitToolItem
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewMenuToolButtonFromCPointer(p unsafe.Pointer) *MenuToolButton {
 	return &MenuToolButton{
-		&_TraitMenuToolButton{(*C.GtkMenuToolButton)(p)},
-		&_TraitToolButton{(*C.GtkToolButton)(p)},
-		&_TraitToolItem{(*C.GtkToolItem)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitMenuToolButton(p),
+		NewTraitToolButton(p),
+		NewTraitToolItem(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type MessageDialog struct {
-	*_TraitMessageDialog
-	*_TraitDialog
-	*_TraitWindow
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitMessageDialog
+	*TraitDialog
+	*TraitWindow
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewMessageDialogFromCPointer(p unsafe.Pointer) *MessageDialog {
 	return &MessageDialog{
-		&_TraitMessageDialog{(*C.GtkMessageDialog)(p)},
-		&_TraitDialog{(*C.GtkDialog)(p)},
-		&_TraitWindow{(*C.GtkWindow)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitMessageDialog(p),
+		NewTraitDialog(p),
+		NewTraitWindow(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Misc struct {
-	*_TraitMisc
-	*_TraitWidget
+	*TraitMisc
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewMiscFromCPointer(p unsafe.Pointer) *Misc {
 	return &Misc{
-		&_TraitMisc{(*C.GtkMisc)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitMisc(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type MountOperation struct {
-	*_TraitMountOperation
+	*TraitMountOperation
 	CPointer unsafe.Pointer
 }
 
 func NewMountOperationFromCPointer(p unsafe.Pointer) *MountOperation {
 	return &MountOperation{
-		&_TraitMountOperation{(*C.GtkMountOperation)(p)},
+		NewTraitMountOperation(p),
 		p,
 	}
 }
 
 type Notebook struct {
-	*_TraitNotebook
-	*_TraitContainer
-	*_TraitWidget
+	*TraitNotebook
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewNotebookFromCPointer(p unsafe.Pointer) *Notebook {
 	return &Notebook{
-		&_TraitNotebook{(*C.GtkNotebook)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitNotebook(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type NumerableIcon struct {
-	*_TraitNumerableIcon
+	*TraitNumerableIcon
 	CPointer unsafe.Pointer
 }
 
 func NewNumerableIconFromCPointer(p unsafe.Pointer) *NumerableIcon {
 	return &NumerableIcon{
-		&_TraitNumerableIcon{(*C.GtkNumerableIcon)(p)},
+		NewTraitNumerableIcon(p),
 		p,
 	}
 }
 
 type OffscreenWindow struct {
-	*_TraitOffscreenWindow
-	*_TraitWindow
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitOffscreenWindow
+	*TraitWindow
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewOffscreenWindowFromCPointer(p unsafe.Pointer) *OffscreenWindow {
 	return &OffscreenWindow{
-		&_TraitOffscreenWindow{(*C.GtkOffscreenWindow)(p)},
-		&_TraitWindow{(*C.GtkWindow)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitOffscreenWindow(p),
+		NewTraitWindow(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Overlay struct {
-	*_TraitOverlay
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitOverlay
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewOverlayFromCPointer(p unsafe.Pointer) *Overlay {
 	return &Overlay{
-		&_TraitOverlay{(*C.GtkOverlay)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitOverlay(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type PageSetup struct {
-	*_TraitPageSetup
+	*TraitPageSetup
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewPageSetupFromCPointer(p unsafe.Pointer) *PageSetup {
 	return &PageSetup{
-		&_TraitPageSetup{(*C.GtkPageSetup)(p)},
+		NewTraitPageSetup(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Paned struct {
-	*_TraitPaned
-	*_TraitContainer
-	*_TraitWidget
+	*TraitPaned
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewPanedFromCPointer(p unsafe.Pointer) *Paned {
 	return &Paned{
-		&_TraitPaned{(*C.GtkPaned)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitPaned(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type PlacesSidebar struct {
-	*_TraitPlacesSidebar
-	*_TraitScrolledWindow
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitPlacesSidebar
+	*TraitScrolledWindow
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewPlacesSidebarFromCPointer(p unsafe.Pointer) *PlacesSidebar {
 	return &PlacesSidebar{
-		&_TraitPlacesSidebar{(*C.GtkPlacesSidebar)(p)},
-		&_TraitScrolledWindow{(*C.GtkScrolledWindow)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitPlacesSidebar(p),
+		NewTraitScrolledWindow(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Plug struct {
-	*_TraitPlug
-	*_TraitWindow
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitPlug
+	*TraitWindow
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewPlugFromCPointer(p unsafe.Pointer) *Plug {
 	return &Plug{
-		&_TraitPlug{(*C.GtkPlug)(p)},
-		&_TraitWindow{(*C.GtkWindow)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitPlug(p),
+		NewTraitWindow(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Popover struct {
-	*_TraitPopover
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitPopover
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewPopoverFromCPointer(p unsafe.Pointer) *Popover {
 	return &Popover{
-		&_TraitPopover{(*C.GtkPopover)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitPopover(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type PrintContext struct {
-	*_TraitPrintContext
+	*TraitPrintContext
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewPrintContextFromCPointer(p unsafe.Pointer) *PrintContext {
 	return &PrintContext{
-		&_TraitPrintContext{(*C.GtkPrintContext)(p)},
+		NewTraitPrintContext(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type PrintOperation struct {
-	*_TraitPrintOperation
+	*TraitPrintOperation
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewPrintOperationFromCPointer(p unsafe.Pointer) *PrintOperation {
 	return &PrintOperation{
-		&_TraitPrintOperation{(*C.GtkPrintOperation)(p)},
+		NewTraitPrintOperation(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type PrintSettings struct {
-	*_TraitPrintSettings
+	*TraitPrintSettings
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewPrintSettingsFromCPointer(p unsafe.Pointer) *PrintSettings {
 	return &PrintSettings{
-		&_TraitPrintSettings{(*C.GtkPrintSettings)(p)},
+		NewTraitPrintSettings(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ProgressBar struct {
-	*_TraitProgressBar
-	*_TraitWidget
+	*TraitProgressBar
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewProgressBarFromCPointer(p unsafe.Pointer) *ProgressBar {
 	return &ProgressBar{
-		&_TraitProgressBar{(*C.GtkProgressBar)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitProgressBar(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type RadioAction struct {
-	*_TraitRadioAction
-	*_TraitToggleAction
-	*_TraitAction
+	*TraitRadioAction
+	*TraitToggleAction
+	*TraitAction
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewRadioActionFromCPointer(p unsafe.Pointer) *RadioAction {
 	return &RadioAction{
-		&_TraitRadioAction{(*C.GtkRadioAction)(p)},
-		&_TraitToggleAction{(*C.GtkToggleAction)(p)},
-		&_TraitAction{(*C.GtkAction)(p)},
+		NewTraitRadioAction(p),
+		NewTraitToggleAction(p),
+		NewTraitAction(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type RadioButton struct {
-	*_TraitRadioButton
-	*_TraitCheckButton
-	*_TraitToggleButton
-	*_TraitButton
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitRadioButton
+	*TraitCheckButton
+	*TraitToggleButton
+	*TraitButton
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewRadioButtonFromCPointer(p unsafe.Pointer) *RadioButton {
 	return &RadioButton{
-		&_TraitRadioButton{(*C.GtkRadioButton)(p)},
-		&_TraitCheckButton{(*C.GtkCheckButton)(p)},
-		&_TraitToggleButton{(*C.GtkToggleButton)(p)},
-		&_TraitButton{(*C.GtkButton)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitRadioButton(p),
+		NewTraitCheckButton(p),
+		NewTraitToggleButton(p),
+		NewTraitButton(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type RadioMenuItem struct {
-	*_TraitRadioMenuItem
-	*_TraitCheckMenuItem
-	*_TraitMenuItem
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitRadioMenuItem
+	*TraitCheckMenuItem
+	*TraitMenuItem
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewRadioMenuItemFromCPointer(p unsafe.Pointer) *RadioMenuItem {
 	return &RadioMenuItem{
-		&_TraitRadioMenuItem{(*C.GtkRadioMenuItem)(p)},
-		&_TraitCheckMenuItem{(*C.GtkCheckMenuItem)(p)},
-		&_TraitMenuItem{(*C.GtkMenuItem)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitRadioMenuItem(p),
+		NewTraitCheckMenuItem(p),
+		NewTraitMenuItem(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type RadioToolButton struct {
-	*_TraitRadioToolButton
-	*_TraitToggleToolButton
-	*_TraitToolButton
-	*_TraitToolItem
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitRadioToolButton
+	*TraitToggleToolButton
+	*TraitToolButton
+	*TraitToolItem
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewRadioToolButtonFromCPointer(p unsafe.Pointer) *RadioToolButton {
 	return &RadioToolButton{
-		&_TraitRadioToolButton{(*C.GtkRadioToolButton)(p)},
-		&_TraitToggleToolButton{(*C.GtkToggleToolButton)(p)},
-		&_TraitToolButton{(*C.GtkToolButton)(p)},
-		&_TraitToolItem{(*C.GtkToolItem)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitRadioToolButton(p),
+		NewTraitToggleToolButton(p),
+		NewTraitToolButton(p),
+		NewTraitToolItem(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Range struct {
-	*_TraitRange
-	*_TraitWidget
+	*TraitRange
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewRangeFromCPointer(p unsafe.Pointer) *Range {
 	return &Range{
-		&_TraitRange{(*C.GtkRange)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitRange(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type RcStyle struct {
-	*_TraitRcStyle
+	*TraitRcStyle
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewRcStyleFromCPointer(p unsafe.Pointer) *RcStyle {
 	return &RcStyle{
-		&_TraitRcStyle{(*C.GtkRcStyle)(p)},
+		NewTraitRcStyle(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type RecentAction struct {
-	*_TraitRecentAction
-	*_TraitAction
+	*TraitRecentAction
+	*TraitAction
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewRecentActionFromCPointer(p unsafe.Pointer) *RecentAction {
 	return &RecentAction{
-		&_TraitRecentAction{(*C.GtkRecentAction)(p)},
-		&_TraitAction{(*C.GtkAction)(p)},
+		NewTraitRecentAction(p),
+		NewTraitAction(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type RecentChooserDialog struct {
-	*_TraitRecentChooserDialog
-	*_TraitDialog
-	*_TraitWindow
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitRecentChooserDialog
+	*TraitDialog
+	*TraitWindow
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewRecentChooserDialogFromCPointer(p unsafe.Pointer) *RecentChooserDialog {
 	return &RecentChooserDialog{
-		&_TraitRecentChooserDialog{(*C.GtkRecentChooserDialog)(p)},
-		&_TraitDialog{(*C.GtkDialog)(p)},
-		&_TraitWindow{(*C.GtkWindow)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitRecentChooserDialog(p),
+		NewTraitDialog(p),
+		NewTraitWindow(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type RecentChooserMenu struct {
-	*_TraitRecentChooserMenu
-	*_TraitMenu
-	*_TraitMenuShell
-	*_TraitContainer
-	*_TraitWidget
+	*TraitRecentChooserMenu
+	*TraitMenu
+	*TraitMenuShell
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewRecentChooserMenuFromCPointer(p unsafe.Pointer) *RecentChooserMenu {
 	return &RecentChooserMenu{
-		&_TraitRecentChooserMenu{(*C.GtkRecentChooserMenu)(p)},
-		&_TraitMenu{(*C.GtkMenu)(p)},
-		&_TraitMenuShell{(*C.GtkMenuShell)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitRecentChooserMenu(p),
+		NewTraitMenu(p),
+		NewTraitMenuShell(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type RecentChooserWidget struct {
-	*_TraitRecentChooserWidget
-	*_TraitBox
-	*_TraitContainer
-	*_TraitWidget
+	*TraitRecentChooserWidget
+	*TraitBox
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewRecentChooserWidgetFromCPointer(p unsafe.Pointer) *RecentChooserWidget {
 	return &RecentChooserWidget{
-		&_TraitRecentChooserWidget{(*C.GtkRecentChooserWidget)(p)},
-		&_TraitBox{(*C.GtkBox)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitRecentChooserWidget(p),
+		NewTraitBox(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type RecentFilter struct {
-	*_TraitRecentFilter
+	*TraitRecentFilter
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewRecentFilterFromCPointer(p unsafe.Pointer) *RecentFilter {
 	return &RecentFilter{
-		&_TraitRecentFilter{(*C.GtkRecentFilter)(p)},
+		NewTraitRecentFilter(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type RecentManager struct {
-	*_TraitRecentManager
+	*TraitRecentManager
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewRecentManagerFromCPointer(p unsafe.Pointer) *RecentManager {
 	return &RecentManager{
-		&_TraitRecentManager{(*C.GtkRecentManager)(p)},
+		NewTraitRecentManager(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Revealer struct {
-	*_TraitRevealer
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitRevealer
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewRevealerFromCPointer(p unsafe.Pointer) *Revealer {
 	return &Revealer{
-		&_TraitRevealer{(*C.GtkRevealer)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitRevealer(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Scale struct {
-	*_TraitScale
-	*_TraitRange
-	*_TraitWidget
+	*TraitScale
+	*TraitRange
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewScaleFromCPointer(p unsafe.Pointer) *Scale {
 	return &Scale{
-		&_TraitScale{(*C.GtkScale)(p)},
-		&_TraitRange{(*C.GtkRange)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitScale(p),
+		NewTraitRange(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ScaleButton struct {
-	*_TraitScaleButton
-	*_TraitButton
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitScaleButton
+	*TraitButton
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewScaleButtonFromCPointer(p unsafe.Pointer) *ScaleButton {
 	return &ScaleButton{
-		&_TraitScaleButton{(*C.GtkScaleButton)(p)},
-		&_TraitButton{(*C.GtkButton)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitScaleButton(p),
+		NewTraitButton(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Scrollbar struct {
-	*_TraitScrollbar
-	*_TraitRange
-	*_TraitWidget
+	*TraitScrollbar
+	*TraitRange
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewScrollbarFromCPointer(p unsafe.Pointer) *Scrollbar {
 	return &Scrollbar{
-		&_TraitScrollbar{(*C.GtkScrollbar)(p)},
-		&_TraitRange{(*C.GtkRange)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitScrollbar(p),
+		NewTraitRange(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ScrolledWindow struct {
-	*_TraitScrolledWindow
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitScrolledWindow
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewScrolledWindowFromCPointer(p unsafe.Pointer) *ScrolledWindow {
 	return &ScrolledWindow{
-		&_TraitScrolledWindow{(*C.GtkScrolledWindow)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitScrolledWindow(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type SearchBar struct {
-	*_TraitSearchBar
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitSearchBar
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewSearchBarFromCPointer(p unsafe.Pointer) *SearchBar {
 	return &SearchBar{
-		&_TraitSearchBar{(*C.GtkSearchBar)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitSearchBar(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type SearchEntry struct {
-	*_TraitSearchEntry
-	*_TraitEntry
-	*_TraitWidget
+	*TraitSearchEntry
+	*TraitEntry
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewSearchEntryFromCPointer(p unsafe.Pointer) *SearchEntry {
 	return &SearchEntry{
-		&_TraitSearchEntry{(*C.GtkSearchEntry)(p)},
-		&_TraitEntry{(*C.GtkEntry)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitSearchEntry(p),
+		NewTraitEntry(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Separator struct {
-	*_TraitSeparator
-	*_TraitWidget
+	*TraitSeparator
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewSeparatorFromCPointer(p unsafe.Pointer) *Separator {
 	return &Separator{
-		&_TraitSeparator{(*C.GtkSeparator)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitSeparator(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type SeparatorMenuItem struct {
-	*_TraitSeparatorMenuItem
-	*_TraitMenuItem
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitSeparatorMenuItem
+	*TraitMenuItem
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewSeparatorMenuItemFromCPointer(p unsafe.Pointer) *SeparatorMenuItem {
 	return &SeparatorMenuItem{
-		&_TraitSeparatorMenuItem{(*C.GtkSeparatorMenuItem)(p)},
-		&_TraitMenuItem{(*C.GtkMenuItem)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitSeparatorMenuItem(p),
+		NewTraitMenuItem(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type SeparatorToolItem struct {
-	*_TraitSeparatorToolItem
-	*_TraitToolItem
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitSeparatorToolItem
+	*TraitToolItem
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewSeparatorToolItemFromCPointer(p unsafe.Pointer) *SeparatorToolItem {
 	return &SeparatorToolItem{
-		&_TraitSeparatorToolItem{(*C.GtkSeparatorToolItem)(p)},
-		&_TraitToolItem{(*C.GtkToolItem)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitSeparatorToolItem(p),
+		NewTraitToolItem(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Settings struct {
-	*_TraitSettings
+	*TraitSettings
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewSettingsFromCPointer(p unsafe.Pointer) *Settings {
 	return &Settings{
-		&_TraitSettings{(*C.GtkSettings)(p)},
+		NewTraitSettings(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type SizeGroup struct {
-	*_TraitSizeGroup
+	*TraitSizeGroup
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewSizeGroupFromCPointer(p unsafe.Pointer) *SizeGroup {
 	return &SizeGroup{
-		&_TraitSizeGroup{(*C.GtkSizeGroup)(p)},
+		NewTraitSizeGroup(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Socket struct {
-	*_TraitSocket
-	*_TraitContainer
-	*_TraitWidget
+	*TraitSocket
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewSocketFromCPointer(p unsafe.Pointer) *Socket {
 	return &Socket{
-		&_TraitSocket{(*C.GtkSocket)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitSocket(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type SpinButton struct {
-	*_TraitSpinButton
-	*_TraitEntry
-	*_TraitWidget
+	*TraitSpinButton
+	*TraitEntry
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewSpinButtonFromCPointer(p unsafe.Pointer) *SpinButton {
 	return &SpinButton{
-		&_TraitSpinButton{(*C.GtkSpinButton)(p)},
-		&_TraitEntry{(*C.GtkEntry)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitSpinButton(p),
+		NewTraitEntry(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Spinner struct {
-	*_TraitSpinner
-	*_TraitWidget
+	*TraitSpinner
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewSpinnerFromCPointer(p unsafe.Pointer) *Spinner {
 	return &Spinner{
-		&_TraitSpinner{(*C.GtkSpinner)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitSpinner(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Stack struct {
-	*_TraitStack
-	*_TraitContainer
-	*_TraitWidget
+	*TraitStack
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewStackFromCPointer(p unsafe.Pointer) *Stack {
 	return &Stack{
-		&_TraitStack{(*C.GtkStack)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitStack(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type StackSwitcher struct {
-	*_TraitStackSwitcher
-	*_TraitBox
-	*_TraitContainer
-	*_TraitWidget
+	*TraitStackSwitcher
+	*TraitBox
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewStackSwitcherFromCPointer(p unsafe.Pointer) *StackSwitcher {
 	return &StackSwitcher{
-		&_TraitStackSwitcher{(*C.GtkStackSwitcher)(p)},
-		&_TraitBox{(*C.GtkBox)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitStackSwitcher(p),
+		NewTraitBox(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type StatusIcon struct {
-	*_TraitStatusIcon
+	*TraitStatusIcon
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewStatusIconFromCPointer(p unsafe.Pointer) *StatusIcon {
 	return &StatusIcon{
-		&_TraitStatusIcon{(*C.GtkStatusIcon)(p)},
+		NewTraitStatusIcon(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Statusbar struct {
-	*_TraitStatusbar
-	*_TraitBox
-	*_TraitContainer
-	*_TraitWidget
+	*TraitStatusbar
+	*TraitBox
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewStatusbarFromCPointer(p unsafe.Pointer) *Statusbar {
 	return &Statusbar{
-		&_TraitStatusbar{(*C.GtkStatusbar)(p)},
-		&_TraitBox{(*C.GtkBox)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitStatusbar(p),
+		NewTraitBox(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Style struct {
-	*_TraitStyle
+	*TraitStyle
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewStyleFromCPointer(p unsafe.Pointer) *Style {
 	return &Style{
-		&_TraitStyle{(*C.GtkStyle)(p)},
+		NewTraitStyle(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type StyleContext struct {
-	*_TraitStyleContext
+	*TraitStyleContext
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewStyleContextFromCPointer(p unsafe.Pointer) *StyleContext {
 	return &StyleContext{
-		&_TraitStyleContext{(*C.GtkStyleContext)(p)},
+		NewTraitStyleContext(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type StyleProperties struct {
-	*_TraitStyleProperties
+	*TraitStyleProperties
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewStylePropertiesFromCPointer(p unsafe.Pointer) *StyleProperties {
 	return &StyleProperties{
-		&_TraitStyleProperties{(*C.GtkStyleProperties)(p)},
+		NewTraitStyleProperties(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Switch struct {
-	*_TraitSwitch
-	*_TraitWidget
+	*TraitSwitch
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewSwitchFromCPointer(p unsafe.Pointer) *Switch {
 	return &Switch{
-		&_TraitSwitch{(*C.GtkSwitch)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitSwitch(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Table struct {
-	*_TraitTable
-	*_TraitContainer
-	*_TraitWidget
+	*TraitTable
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewTableFromCPointer(p unsafe.Pointer) *Table {
 	return &Table{
-		&_TraitTable{(*C.GtkTable)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitTable(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type TearoffMenuItem struct {
-	*_TraitTearoffMenuItem
-	*_TraitMenuItem
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitTearoffMenuItem
+	*TraitMenuItem
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewTearoffMenuItemFromCPointer(p unsafe.Pointer) *TearoffMenuItem {
 	return &TearoffMenuItem{
-		&_TraitTearoffMenuItem{(*C.GtkTearoffMenuItem)(p)},
-		&_TraitMenuItem{(*C.GtkMenuItem)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitTearoffMenuItem(p),
+		NewTraitMenuItem(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type TextBuffer struct {
-	*_TraitTextBuffer
+	*TraitTextBuffer
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewTextBufferFromCPointer(p unsafe.Pointer) *TextBuffer {
 	return &TextBuffer{
-		&_TraitTextBuffer{(*C.GtkTextBuffer)(p)},
+		NewTraitTextBuffer(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type TextChildAnchor struct {
-	*_TraitTextChildAnchor
+	*TraitTextChildAnchor
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewTextChildAnchorFromCPointer(p unsafe.Pointer) *TextChildAnchor {
 	return &TextChildAnchor{
-		&_TraitTextChildAnchor{(*C.GtkTextChildAnchor)(p)},
+		NewTraitTextChildAnchor(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type TextMark struct {
-	*_TraitTextMark
+	*TraitTextMark
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewTextMarkFromCPointer(p unsafe.Pointer) *TextMark {
 	return &TextMark{
-		&_TraitTextMark{(*C.GtkTextMark)(p)},
+		NewTraitTextMark(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type TextTag struct {
-	*_TraitTextTag
+	*TraitTextTag
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewTextTagFromCPointer(p unsafe.Pointer) *TextTag {
 	return &TextTag{
-		&_TraitTextTag{(*C.GtkTextTag)(p)},
+		NewTraitTextTag(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type TextTagTable struct {
-	*_TraitTextTagTable
+	*TraitTextTagTable
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewTextTagTableFromCPointer(p unsafe.Pointer) *TextTagTable {
 	return &TextTagTable{
-		&_TraitTextTagTable{(*C.GtkTextTagTable)(p)},
+		NewTraitTextTagTable(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type TextView struct {
-	*_TraitTextView
-	*_TraitContainer
-	*_TraitWidget
+	*TraitTextView
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewTextViewFromCPointer(p unsafe.Pointer) *TextView {
 	return &TextView{
-		&_TraitTextView{(*C.GtkTextView)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitTextView(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ThemingEngine struct {
-	*_TraitThemingEngine
+	*TraitThemingEngine
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewThemingEngineFromCPointer(p unsafe.Pointer) *ThemingEngine {
 	return &ThemingEngine{
-		&_TraitThemingEngine{(*C.GtkThemingEngine)(p)},
+		NewTraitThemingEngine(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ToggleAction struct {
-	*_TraitToggleAction
-	*_TraitAction
+	*TraitToggleAction
+	*TraitAction
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewToggleActionFromCPointer(p unsafe.Pointer) *ToggleAction {
 	return &ToggleAction{
-		&_TraitToggleAction{(*C.GtkToggleAction)(p)},
-		&_TraitAction{(*C.GtkAction)(p)},
+		NewTraitToggleAction(p),
+		NewTraitAction(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ToggleButton struct {
-	*_TraitToggleButton
-	*_TraitButton
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitToggleButton
+	*TraitButton
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewToggleButtonFromCPointer(p unsafe.Pointer) *ToggleButton {
 	return &ToggleButton{
-		&_TraitToggleButton{(*C.GtkToggleButton)(p)},
-		&_TraitButton{(*C.GtkButton)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitToggleButton(p),
+		NewTraitButton(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ToggleToolButton struct {
-	*_TraitToggleToolButton
-	*_TraitToolButton
-	*_TraitToolItem
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitToggleToolButton
+	*TraitToolButton
+	*TraitToolItem
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewToggleToolButtonFromCPointer(p unsafe.Pointer) *ToggleToolButton {
 	return &ToggleToolButton{
-		&_TraitToggleToolButton{(*C.GtkToggleToolButton)(p)},
-		&_TraitToolButton{(*C.GtkToolButton)(p)},
-		&_TraitToolItem{(*C.GtkToolItem)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitToggleToolButton(p),
+		NewTraitToolButton(p),
+		NewTraitToolItem(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ToolButton struct {
-	*_TraitToolButton
-	*_TraitToolItem
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitToolButton
+	*TraitToolItem
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewToolButtonFromCPointer(p unsafe.Pointer) *ToolButton {
 	return &ToolButton{
-		&_TraitToolButton{(*C.GtkToolButton)(p)},
-		&_TraitToolItem{(*C.GtkToolItem)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitToolButton(p),
+		NewTraitToolItem(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ToolItem struct {
-	*_TraitToolItem
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitToolItem
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewToolItemFromCPointer(p unsafe.Pointer) *ToolItem {
 	return &ToolItem{
-		&_TraitToolItem{(*C.GtkToolItem)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitToolItem(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ToolItemGroup struct {
-	*_TraitToolItemGroup
-	*_TraitContainer
-	*_TraitWidget
+	*TraitToolItemGroup
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewToolItemGroupFromCPointer(p unsafe.Pointer) *ToolItemGroup {
 	return &ToolItemGroup{
-		&_TraitToolItemGroup{(*C.GtkToolItemGroup)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitToolItemGroup(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type ToolPalette struct {
-	*_TraitToolPalette
-	*_TraitContainer
-	*_TraitWidget
+	*TraitToolPalette
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewToolPaletteFromCPointer(p unsafe.Pointer) *ToolPalette {
 	return &ToolPalette{
-		&_TraitToolPalette{(*C.GtkToolPalette)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitToolPalette(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Toolbar struct {
-	*_TraitToolbar
-	*_TraitContainer
-	*_TraitWidget
+	*TraitToolbar
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewToolbarFromCPointer(p unsafe.Pointer) *Toolbar {
 	return &Toolbar{
-		&_TraitToolbar{(*C.GtkToolbar)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitToolbar(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Tooltip struct {
-	*_TraitTooltip
+	*TraitTooltip
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewTooltipFromCPointer(p unsafe.Pointer) *Tooltip {
 	return &Tooltip{
-		&_TraitTooltip{(*C.GtkTooltip)(p)},
+		NewTraitTooltip(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type TreeModelFilter struct {
-	*_TraitTreeModelFilter
+	*TraitTreeModelFilter
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewTreeModelFilterFromCPointer(p unsafe.Pointer) *TreeModelFilter {
 	return &TreeModelFilter{
-		&_TraitTreeModelFilter{(*C.GtkTreeModelFilter)(p)},
+		NewTraitTreeModelFilter(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type TreeModelSort struct {
-	*_TraitTreeModelSort
+	*TraitTreeModelSort
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewTreeModelSortFromCPointer(p unsafe.Pointer) *TreeModelSort {
 	return &TreeModelSort{
-		&_TraitTreeModelSort{(*C.GtkTreeModelSort)(p)},
+		NewTraitTreeModelSort(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type TreeSelection struct {
-	*_TraitTreeSelection
+	*TraitTreeSelection
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewTreeSelectionFromCPointer(p unsafe.Pointer) *TreeSelection {
 	return &TreeSelection{
-		&_TraitTreeSelection{(*C.GtkTreeSelection)(p)},
+		NewTraitTreeSelection(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type TreeStore struct {
-	*_TraitTreeStore
+	*TraitTreeStore
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewTreeStoreFromCPointer(p unsafe.Pointer) *TreeStore {
 	return &TreeStore{
-		&_TraitTreeStore{(*C.GtkTreeStore)(p)},
+		NewTraitTreeStore(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type TreeView struct {
-	*_TraitTreeView
-	*_TraitContainer
-	*_TraitWidget
+	*TraitTreeView
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewTreeViewFromCPointer(p unsafe.Pointer) *TreeView {
 	return &TreeView{
-		&_TraitTreeView{(*C.GtkTreeView)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitTreeView(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type TreeViewColumn struct {
-	*_TraitTreeViewColumn
+	*TraitTreeViewColumn
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewTreeViewColumnFromCPointer(p unsafe.Pointer) *TreeViewColumn {
 	return &TreeViewColumn{
-		&_TraitTreeViewColumn{(*C.GtkTreeViewColumn)(p)},
+		NewTraitTreeViewColumn(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type UIManager struct {
-	*_TraitUIManager
+	*TraitUIManager
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewUIManagerFromCPointer(p unsafe.Pointer) *UIManager {
 	return &UIManager{
-		&_TraitUIManager{(*C.GtkUIManager)(p)},
+		NewTraitUIManager(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type VBox struct {
-	*_TraitVBox
-	*_TraitBox
-	*_TraitContainer
-	*_TraitWidget
+	*TraitVBox
+	*TraitBox
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewVBoxFromCPointer(p unsafe.Pointer) *VBox {
 	return &VBox{
-		&_TraitVBox{(*C.GtkVBox)(p)},
-		&_TraitBox{(*C.GtkBox)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitVBox(p),
+		NewTraitBox(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type VButtonBox struct {
-	*_TraitVButtonBox
-	*_TraitButtonBox
-	*_TraitBox
-	*_TraitContainer
-	*_TraitWidget
+	*TraitVButtonBox
+	*TraitButtonBox
+	*TraitBox
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewVButtonBoxFromCPointer(p unsafe.Pointer) *VButtonBox {
 	return &VButtonBox{
-		&_TraitVButtonBox{(*C.GtkVButtonBox)(p)},
-		&_TraitButtonBox{(*C.GtkButtonBox)(p)},
-		&_TraitBox{(*C.GtkBox)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitVButtonBox(p),
+		NewTraitButtonBox(p),
+		NewTraitBox(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type VPaned struct {
-	*_TraitVPaned
-	*_TraitPaned
-	*_TraitContainer
-	*_TraitWidget
+	*TraitVPaned
+	*TraitPaned
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewVPanedFromCPointer(p unsafe.Pointer) *VPaned {
 	return &VPaned{
-		&_TraitVPaned{(*C.GtkVPaned)(p)},
-		&_TraitPaned{(*C.GtkPaned)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitVPaned(p),
+		NewTraitPaned(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type VScale struct {
-	*_TraitVScale
-	*_TraitScale
-	*_TraitRange
-	*_TraitWidget
+	*TraitVScale
+	*TraitScale
+	*TraitRange
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewVScaleFromCPointer(p unsafe.Pointer) *VScale {
 	return &VScale{
-		&_TraitVScale{(*C.GtkVScale)(p)},
-		&_TraitScale{(*C.GtkScale)(p)},
-		&_TraitRange{(*C.GtkRange)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitVScale(p),
+		NewTraitScale(p),
+		NewTraitRange(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type VScrollbar struct {
-	*_TraitVScrollbar
-	*_TraitScrollbar
-	*_TraitRange
-	*_TraitWidget
+	*TraitVScrollbar
+	*TraitScrollbar
+	*TraitRange
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewVScrollbarFromCPointer(p unsafe.Pointer) *VScrollbar {
 	return &VScrollbar{
-		&_TraitVScrollbar{(*C.GtkVScrollbar)(p)},
-		&_TraitScrollbar{(*C.GtkScrollbar)(p)},
-		&_TraitRange{(*C.GtkRange)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitVScrollbar(p),
+		NewTraitScrollbar(p),
+		NewTraitRange(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type VSeparator struct {
-	*_TraitVSeparator
-	*_TraitSeparator
-	*_TraitWidget
+	*TraitVSeparator
+	*TraitSeparator
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewVSeparatorFromCPointer(p unsafe.Pointer) *VSeparator {
 	return &VSeparator{
-		&_TraitVSeparator{(*C.GtkVSeparator)(p)},
-		&_TraitSeparator{(*C.GtkSeparator)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitVSeparator(p),
+		NewTraitSeparator(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Viewport struct {
-	*_TraitViewport
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitViewport
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewViewportFromCPointer(p unsafe.Pointer) *Viewport {
 	return &Viewport{
-		&_TraitViewport{(*C.GtkViewport)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitViewport(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type VolumeButton struct {
-	*_TraitVolumeButton
-	*_TraitScaleButton
-	*_TraitButton
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitVolumeButton
+	*TraitScaleButton
+	*TraitButton
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewVolumeButtonFromCPointer(p unsafe.Pointer) *VolumeButton {
 	return &VolumeButton{
-		&_TraitVolumeButton{(*C.GtkVolumeButton)(p)},
-		&_TraitScaleButton{(*C.GtkScaleButton)(p)},
-		&_TraitButton{(*C.GtkButton)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitVolumeButton(p),
+		NewTraitScaleButton(p),
+		NewTraitButton(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Widget struct {
-	*_TraitWidget
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewWidgetFromCPointer(p unsafe.Pointer) *Widget {
 	return &Widget{
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type Window struct {
-	*_TraitWindow
-	*_TraitBin
-	*_TraitContainer
-	*_TraitWidget
+	*TraitWindow
+	*TraitBin
+	*TraitContainer
+	*TraitWidget
+	*gobject.TraitInitiallyUnowned
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewWindowFromCPointer(p unsafe.Pointer) *Window {
 	return &Window{
-		&_TraitWindow{(*C.GtkWindow)(p)},
-		&_TraitBin{(*C.GtkBin)(p)},
-		&_TraitContainer{(*C.GtkContainer)(p)},
-		&_TraitWidget{(*C.GtkWidget)(p)},
+		NewTraitWindow(p),
+		NewTraitBin(p),
+		NewTraitContainer(p),
+		NewTraitWidget(p),
+		gobject.NewTraitInitiallyUnowned(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }
 
 type WindowGroup struct {
-	*_TraitWindowGroup
+	*TraitWindowGroup
+	*gobject.TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewWindowGroupFromCPointer(p unsafe.Pointer) *WindowGroup {
 	return &WindowGroup{
-		&_TraitWindowGroup{(*C.GtkWindowGroup)(p)},
+		NewTraitWindowGroup(p),
+		gobject.NewTraitObject(p),
 		p,
 	}
 }

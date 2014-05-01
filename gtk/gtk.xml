@@ -2,6 +2,11 @@
 <generator>
   <package-name>gtk</package-name>
   <gir-path>/usr/share/gir-1.0/Gtk-3.0.gir</gir-path>
+  <external-package name="gobject">
+    <gir-path>/usr/share/gir-1.0/GObject-2.0.gir</gir-path>
+    <!-- <import>github.com/reusee/ggir/gobject</import> -->
+    <import>../gobject</import>
+  </external-package>
 
   <include>gtk/gtk.h</include>
   <include>gtk/gtkx.h</include>
