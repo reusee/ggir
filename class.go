@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"regexp"
+	"strings"
 )
 
 func (self *Generator) GenClassTypes(ns *Namespace) {
@@ -15,6 +16,9 @@ func (self *Generator) GenClassTypes(ns *Namespace) {
 	w(output, "*/\n")
 	w(output, "import \"C\"\n")
 	w(output, "import \"unsafe\"\n")
+	for _, ext := range self.ExternalPackages { // external import
+		w(output, "import \"%s\"\n", ext.Import)
+	}
 	w(output, `func init() {
 		_ = unsafe.Pointer(nil)
 	}
@@ -24,6 +28,12 @@ func (self *Generator) GenClassTypes(ns *Namespace) {
 	classes := make(map[string]*Class)
 	for _, c := range ns.Classes {
 		classes[c.Name] = c
+	}
+	for _, ext := range self.ExternalPackages {
+		for _, c := range ext.Repo.Namespace.Classes {
+			classes[ext.Repo.Namespace.Name+"."+c.Name] = c
+			c.Namespace = ext.Repo.Namespace.Name
+		}
 	}
 
 	for _, c := range ns.Classes {
@@ -52,14 +62,22 @@ func (self *Generator) GenClassTypes(ns *Namespace) {
 		w(output, "type %s struct {\n", typeName)
 		currentClass := c
 		constructExpr := ""
+		var pkg string
 		for currentClass != nil {
-			w(output, "*_Trait%s\n", currentClass.Name)
-			constructExpr += fs("&_Trait%s{(*%s)(p)},\n",
-				currentClass.Name, cTypeToGoType(currentClass.CType))
+			if currentClass.Namespace != "" { // external class
+				pkg = strings.ToLower(currentClass.Namespace) + "."
+			} else {
+				pkg = ""
+			}
+			w(output, "*%sTrait%s\n", pkg, currentClass.Name)
+			constructExpr += fs("%sNewTrait%s(p),\n", pkg, currentClass.Name)
 			parent := currentClass.Parent
+			if currentClass.Namespace != "" && currentClass.Parent != "" { // external class
+				parent = currentClass.Namespace + "." + currentClass.Parent
+			}
 			currentClass = classes[parent]
 			if parent != "" && currentClass == nil {
-				//p("==fixme== external class %s\n", parent) FIXME
+				p("FIXME external class -> %s\n", parent)
 			}
 		}
 		w(output, "CPointer unsafe.Pointer\n")

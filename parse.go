@@ -149,6 +149,7 @@ type Class struct {
 	Union            *Union        `xml:"union"` // for record
 	Fields           []*Field      `xml:"field"`
 	Signals          []*Function   `xml:"signal"`
+	Namespace        string
 }
 
 type Implement struct {

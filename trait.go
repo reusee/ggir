@@ -24,10 +24,15 @@ func (self *Generator) GenTraits(ns *Namespace) {
 	// classes
 	for _, c := range ns.Classes {
 		goType := cTypeToGoType(c.CType)
-		w(output, "type _Trait%s struct { CPointer *%s }\n", c.Name, goType)
+		w(output, "type Trait%s struct { CPointer *%s }\n", c.Name, goType)
 		w(output, "type Is%s interface { Get%sPointer() *%s }\n", c.Name, c.Name, goType)
-		w(output, "func (self *_Trait%s) Get%sPointer() *%s {\n return self.CPointer\n }\n",
+		w(output, "func (self *Trait%s) Get%sPointer() *%s {\n return self.CPointer\n }\n",
 			c.Name, c.Name, goType)
+		w(output, `func NewTrait%s(p unsafe.Pointer) *Trait%s {
+			return &Trait%s{(*%s)(p)}
+		}
+		`, c.Name, c.Name,
+			c.Name, goType)
 		for _, m := range c.Methods {
 			self.GenFunction(m, output, c)
 		}

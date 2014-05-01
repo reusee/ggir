@@ -127,7 +127,7 @@ func (self *Generator) GenFunction(fn *Function, output io.Writer, receiver *Cla
 
 	// generate receiver
 	if receiver != nil {
-		w(output, "(self *_Trait%s)", receiver.Name)
+		w(output, "(self *Trait%s)", receiver.Name)
 	}
 
 	// generate function name

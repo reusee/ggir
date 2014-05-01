@@ -8,21 +8,29 @@ import (
 type Generator struct {
 	outputDir string
 
-	PackageName            string    `xml:"package-name"`
-	GirPath                string    `xml:"gir-path"`
-	Includes               []string  `xml:"include"`
-	PkgConfigs             []string  `xml:"pkg-config"`
-	FunctionIgnorePatterns []string  `xml:"function-ignore-patterns>entry"`
-	FunctionRenames        []*Rename `xml:"function-rename>rename"`
-	ConstantIgnorePatterns []string  `xml:"constant-ignore-patterns>entry"`
-	TypesIgnorePatterns    []string  `xml:"type-ignore-patterns>entry"`
-	ParamDirectionEntries  []*Entry  `xml:"param-direction>entry"`
+	PackageName            string             `xml:"package-name"`
+	GirPath                string             `xml:"gir-path"`
+	ExternalPackages       []*ExternalPackage `xml:"external-package"`
+	Includes               []string           `xml:"include"`
+	PkgConfigs             []string           `xml:"pkg-config"`
+	FunctionIgnorePatterns []string           `xml:"function-ignore-patterns>entry"`
+	FunctionRenames        []*Rename          `xml:"function-rename>rename"`
+	ConstantIgnorePatterns []string           `xml:"constant-ignore-patterns>entry"`
+	TypesIgnorePatterns    []string           `xml:"type-ignore-patterns>entry"`
+	ParamDirectionEntries  []*Entry           `xml:"param-direction>entry"`
 	ParamDirections        map[string]string
 	TypeMappingEntries     []*Entry `xml:"type-mapping>entry"`
 	InParamMarshalEntries  []*Entry `xml:"in-param-marshal>entry"`
 	OutParamMarshalEntries []*Entry `xml:"out-param-marshal>entry"`
 	InParamMarshals        map[string]*Entry
 	OutParamMarshals       map[string]*Entry
+}
+
+type ExternalPackage struct {
+	Name    string `xml:"name,attr"`
+	GirPath string `xml:"gir-path"`
+	Import  string `xml:"import"`
+	Repo    *Repository
 }
 
 type Rename struct {
@@ -65,12 +73,17 @@ func Gen(outputDir, buildFilePath string) {
 		generator.OutParamMarshals[entry.Spec] = entry
 	}
 
-	// read gir file contents
+	// parse gir
 	contents, err := ioutil.ReadFile(generator.GirPath)
 	checkError(err)
-
-	// parse
 	repo := generator.Parse(contents)
+
+	// parse external gir
+	for _, ext := range generator.ExternalPackages {
+		contents, err := ioutil.ReadFile(ext.GirPath)
+		checkError(err)
+		ext.Repo = generator.Parse(contents)
+	}
 
 	// namespace
 	ns := repo.Namespace
