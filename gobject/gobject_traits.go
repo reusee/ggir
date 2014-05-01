@@ -16,19 +16,22 @@ func init() {
 	_ = errors.New("")
 }
 
-type _TraitBinding struct{ CPointer *C.GBinding }
+type TraitBinding struct{ CPointer *C.GBinding }
 type IsBinding interface {
 	GetBindingPointer() *C.GBinding
 }
 
-func (self *_TraitBinding) GetBindingPointer() *C.GBinding {
+func (self *TraitBinding) GetBindingPointer() *C.GBinding {
 	return self.CPointer
+}
+func NewTraitBinding(p unsafe.Pointer) *TraitBinding {
+	return &TraitBinding{(*C.GBinding)(p)}
 }
 
 /*
 Retrieves the flags passed when constructing the #GBinding.
 */
-func (self *_TraitBinding) GetFlags() (return__ C.GBindingFlags) {
+func (self *TraitBinding) GetFlags() (return__ C.GBindingFlags) {
 	return__ = C.g_binding_get_flags(self.CPointer)
 	return
 }
@@ -36,7 +39,7 @@ func (self *_TraitBinding) GetFlags() (return__ C.GBindingFlags) {
 /*
 Retrieves the #GObject instance used as the source of the binding.
 */
-func (self *_TraitBinding) GetSource() (return__ *Object) {
+func (self *TraitBinding) GetSource() (return__ *Object) {
 	var __cgo__return__ *C.GObject
 	__cgo__return__ = C.g_binding_get_source(self.CPointer)
 	if __cgo__return__ != nil {
@@ -49,7 +52,7 @@ func (self *_TraitBinding) GetSource() (return__ *Object) {
 Retrieves the name of the property of #GBinding:source used as the source
 of the binding.
 */
-func (self *_TraitBinding) GetSourceProperty() (return__ string) {
+func (self *TraitBinding) GetSourceProperty() (return__ string) {
 	var __cgo__return__ *C.gchar
 	__cgo__return__ = C.g_binding_get_source_property(self.CPointer)
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
@@ -59,7 +62,7 @@ func (self *_TraitBinding) GetSourceProperty() (return__ string) {
 /*
 Retrieves the #GObject instance used as the target of the binding.
 */
-func (self *_TraitBinding) GetTarget() (return__ *Object) {
+func (self *TraitBinding) GetTarget() (return__ *Object) {
 	var __cgo__return__ *C.GObject
 	__cgo__return__ = C.g_binding_get_target(self.CPointer)
 	if __cgo__return__ != nil {
@@ -72,7 +75,7 @@ func (self *_TraitBinding) GetTarget() (return__ *Object) {
 Retrieves the name of the property of #GBinding:target used as the target
 of the binding.
 */
-func (self *_TraitBinding) GetTargetProperty() (return__ string) {
+func (self *TraitBinding) GetTargetProperty() (return__ string) {
 	var __cgo__return__ *C.gchar
 	__cgo__return__ = C.g_binding_get_target_property(self.CPointer)
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
@@ -88,27 +91,33 @@ the @binding instance; if you want to hold on to the #GBinding instance
 after calling g_binding_unbind(), you will need to hold a reference
 to it.
 */
-func (self *_TraitBinding) Unbind() {
+func (self *TraitBinding) Unbind() {
 	C.g_binding_unbind(self.CPointer)
 	return
 }
 
-type _TraitInitiallyUnowned struct{ CPointer *C.GInitiallyUnowned }
+type TraitInitiallyUnowned struct{ CPointer *C.GInitiallyUnowned }
 type IsInitiallyUnowned interface {
 	GetInitiallyUnownedPointer() *C.GInitiallyUnowned
 }
 
-func (self *_TraitInitiallyUnowned) GetInitiallyUnownedPointer() *C.GInitiallyUnowned {
+func (self *TraitInitiallyUnowned) GetInitiallyUnownedPointer() *C.GInitiallyUnowned {
 	return self.CPointer
 }
+func NewTraitInitiallyUnowned(p unsafe.Pointer) *TraitInitiallyUnowned {
+	return &TraitInitiallyUnowned{(*C.GInitiallyUnowned)(p)}
+}
 
-type _TraitObject struct{ CPointer *C.GObject }
+type TraitObject struct{ CPointer *C.GObject }
 type IsObject interface {
 	GetObjectPointer() *C.GObject
 }
 
-func (self *_TraitObject) GetObjectPointer() *C.GObject {
+func (self *TraitObject) GetObjectPointer() *C.GObject {
 	return self.CPointer
+}
+func NewTraitObject(p unsafe.Pointer) *TraitObject {
+	return &TraitObject{(*C.GObject)(p)}
 }
 
 /*
@@ -141,7 +150,7 @@ of them will ever be notified until all but one are removed.  For
 this reason, you should only ever use a toggle reference if there
 is important state in the proxy object.
 */
-func (self *_TraitObject) AddToggleRef(notify C.GToggleNotify, data unsafe.Pointer) {
+func (self *TraitObject) AddToggleRef(notify C.GToggleNotify, data unsafe.Pointer) {
 	C.g_object_add_toggle_ref(self.CPointer, notify, (C.gpointer)(data))
 	return
 }
@@ -172,7 +181,7 @@ The binding will automatically be removed when either the @source or the
 
 A #GObject can have multiple bindings.
 */
-func (self *_TraitObject) BindProperty(source_property string, target IsObject, target_property string, flags C.GBindingFlags) (return__ *Binding) {
+func (self *TraitObject) BindProperty(source_property string, target IsObject, target_property string, flags C.GBindingFlags) (return__ *Binding) {
 	__cgo__source_property := (*C.gchar)(unsafe.Pointer(C.CString(source_property)))
 	__cgo__target_property := (*C.gchar)(unsafe.Pointer(C.CString(target_property)))
 	var __cgo__return__ *C.GBinding
@@ -210,7 +219,7 @@ be called once, when the binding is removed. If you need different data
 for each transformation function, please use
 g_object_bind_property_with_closures() instead.
 */
-func (self *_TraitObject) BindPropertyFull(source_property string, target IsObject, target_property string, flags C.GBindingFlags, transform_to C.GBindingTransformFunc, transform_from C.GBindingTransformFunc, user_data unsafe.Pointer, notify C.GDestroyNotify) (return__ *Binding) {
+func (self *TraitObject) BindPropertyFull(source_property string, target IsObject, target_property string, flags C.GBindingFlags, transform_to C.GBindingTransformFunc, transform_from C.GBindingTransformFunc, user_data unsafe.Pointer, notify C.GDestroyNotify) (return__ *Binding) {
 	__cgo__source_property := (*C.gchar)(unsafe.Pointer(C.CString(source_property)))
 	__cgo__target_property := (*C.gchar)(unsafe.Pointer(C.CString(target_property)))
 	var __cgo__return__ *C.GBinding
@@ -232,7 +241,7 @@ This function is the language bindings friendly version of
 g_object_bind_property_full(), using #GClosures instead of
 function pointers.
 */
-func (self *_TraitObject) BindPropertyWithClosures(source_property string, target IsObject, target_property string, flags C.GBindingFlags, transform_to *C.GClosure, transform_from *C.GClosure) (return__ *Binding) {
+func (self *TraitObject) BindPropertyWithClosures(source_property string, target IsObject, target_property string, flags C.GBindingFlags, transform_to *C.GClosure, transform_from *C.GClosure) (return__ *Binding) {
 	__cgo__source_property := (*C.gchar)(unsafe.Pointer(C.CString(source_property)))
 	__cgo__target_property := (*C.gchar)(unsafe.Pointer(C.CString(target_property)))
 	var __cgo__return__ *C.GBinding
@@ -261,7 +270,7 @@ This function can be useful to avoid races when multiple
 threads are using object data on the same key on the same
 object.
 */
-func (self *_TraitObject) DupData(key string, dup_func C.GDuplicateFunc, user_data unsafe.Pointer) (return__ unsafe.Pointer) {
+func (self *TraitObject) DupData(key string, dup_func C.GDuplicateFunc, user_data unsafe.Pointer) (return__ unsafe.Pointer) {
 	__cgo__key := (*C.gchar)(unsafe.Pointer(C.CString(key)))
 	var __cgo__return__ C.gpointer
 	__cgo__return__ = C.g_object_dup_data(self.CPointer, __cgo__key, dup_func, (C.gpointer)(user_data))
@@ -286,7 +295,7 @@ This function can be useful to avoid races when multiple
 threads are using object data on the same key on the same
 object.
 */
-func (self *_TraitObject) DupQdata(quark C.GQuark, dup_func C.GDuplicateFunc, user_data unsafe.Pointer) (return__ unsafe.Pointer) {
+func (self *TraitObject) DupQdata(quark C.GQuark, dup_func C.GDuplicateFunc, user_data unsafe.Pointer) (return__ unsafe.Pointer) {
 	var __cgo__return__ C.gpointer
 	__cgo__return__ = C.g_object_dup_qdata(self.CPointer, quark, dup_func, (C.gpointer)(user_data))
 	return__ = unsafe.Pointer(__cgo__return__)
@@ -299,7 +308,7 @@ a [floating][floating-ref] object reference. Doing this is seldom
 required: all #GInitiallyUnowneds are created with a floating reference
 which usually just needs to be sunken by calling g_object_ref_sink().
 */
-func (self *_TraitObject) ForceFloating() {
+func (self *TraitObject) ForceFloating() {
 	C.g_object_force_floating(self.CPointer)
 	return
 }
@@ -315,7 +324,7 @@ object is frozen.
 This is necessary for accessors that modify multiple properties to prevent
 premature notification while the object is still being modified.
 */
-func (self *_TraitObject) FreezeNotify() {
+func (self *TraitObject) FreezeNotify() {
 	C.g_object_freeze_notify(self.CPointer)
 	return
 }
@@ -323,7 +332,7 @@ func (self *_TraitObject) FreezeNotify() {
 /*
 Gets a named field from the objects table of associations (see g_object_set_data()).
 */
-func (self *_TraitObject) GetData(key string) (return__ unsafe.Pointer) {
+func (self *TraitObject) GetData(key string) (return__ unsafe.Pointer) {
 	__cgo__key := (*C.gchar)(unsafe.Pointer(C.CString(key)))
 	var __cgo__return__ C.gpointer
 	__cgo__return__ = C.g_object_get_data(self.CPointer, __cgo__key)
@@ -343,7 +352,7 @@ responsible for freeing the memory by calling g_value_unset().
 Note that g_object_get_property() is really intended for language
 bindings, g_object_get() is much more convenient for C programming.
 */
-func (self *_TraitObject) GetProperty(property_name string, value *C.GValue) {
+func (self *TraitObject) GetProperty(property_name string, value *C.GValue) {
 	__cgo__property_name := (*C.gchar)(unsafe.Pointer(C.CString(property_name)))
 	C.g_object_get_property(self.CPointer, __cgo__property_name, value)
 	C.free(unsafe.Pointer(__cgo__property_name))
@@ -354,7 +363,7 @@ func (self *_TraitObject) GetProperty(property_name string, value *C.GValue) {
 This function gets back user data pointers stored via
 g_object_set_qdata().
 */
-func (self *_TraitObject) GetQdata(quark C.GQuark) (return__ unsafe.Pointer) {
+func (self *TraitObject) GetQdata(quark C.GQuark) (return__ unsafe.Pointer) {
 	var __cgo__return__ C.gpointer
 	__cgo__return__ = C.g_object_get_qdata(self.CPointer, quark)
 	return__ = unsafe.Pointer(__cgo__return__)
@@ -366,7 +375,7 @@ func (self *_TraitObject) GetQdata(quark C.GQuark) (return__ unsafe.Pointer) {
 /*
 Checks whether @object has a [floating][floating-ref] reference.
 */
-func (self *_TraitObject) IsFloating() (return__ bool) {
+func (self *TraitObject) IsFloating() (return__ bool) {
 	var __cgo__return__ C.gboolean
 	__cgo__return__ = C.g_object_is_floating((C.gpointer)(unsafe.Pointer(self.CPointer)))
 	return__ = __cgo__return__ == C.gboolean(1)
@@ -385,7 +394,7 @@ g_object_freeze_notify(). In this case, the signal emissions are queued
 and will be emitted (in reverse order) when g_object_thaw_notify() is
 called.
 */
-func (self *_TraitObject) Notify(property_name string) {
+func (self *TraitObject) Notify(property_name string) {
 	__cgo__property_name := (*C.gchar)(unsafe.Pointer(C.CString(property_name)))
 	C.g_object_notify(self.CPointer, __cgo__property_name)
 	C.free(unsafe.Pointer(__cgo__property_name))
@@ -432,7 +441,7 @@ and then notify a change on the "foo" property with:
   g_object_notify_by_pspec (self, properties[PROP_FOO]);
 ]|
 */
-func (self *_TraitObject) NotifyByPspec(pspec IsParamSpec) {
+func (self *TraitObject) NotifyByPspec(pspec IsParamSpec) {
 	C.g_object_notify_by_pspec(self.CPointer, pspec.GetParamSpecPointer())
 	return
 }
@@ -440,7 +449,7 @@ func (self *_TraitObject) NotifyByPspec(pspec IsParamSpec) {
 /*
 Increases the reference count of @object.
 */
-func (self *_TraitObject) Ref() (return__ *Object) {
+func (self *TraitObject) Ref() (return__ *Object) {
 	var __cgo__return__ C.gpointer
 	__cgo__return__ = C.g_object_ref((C.gpointer)(unsafe.Pointer(self.CPointer)))
 	return__ = NewObjectFromCPointer(unsafe.Pointer(__cgo__return__))
@@ -457,7 +466,7 @@ reference by clearing the floating flag while leaving the reference
 count unchanged.  If the object is not floating, then this call
 adds a new normal reference increasing the reference count by one.
 */
-func (self *_TraitObject) RefSink() (return__ *Object) {
+func (self *TraitObject) RefSink() (return__ *Object) {
 	var __cgo__return__ C.gpointer
 	__cgo__return__ = C.g_object_ref_sink((C.gpointer)(unsafe.Pointer(self.CPointer)))
 	return__ = NewObjectFromCPointer(unsafe.Pointer(__cgo__return__))
@@ -468,7 +477,7 @@ func (self *_TraitObject) RefSink() (return__ *Object) {
 Removes a reference added with g_object_add_toggle_ref(). The
 reference count of the object is decreased by one.
 */
-func (self *_TraitObject) RemoveToggleRef(notify C.GToggleNotify, data unsafe.Pointer) {
+func (self *TraitObject) RemoveToggleRef(notify C.GToggleNotify, data unsafe.Pointer) {
 	C.g_object_remove_toggle_ref(self.CPointer, notify, (C.gpointer)(data))
 	return
 }
@@ -490,7 +499,7 @@ Its up to the caller to free this as he wishes, which may
 or may not include using @old_destroy as sometimes replacement
 should not destroy the object in the normal way.
 */
-func (self *_TraitObject) ReplaceData(key string, oldval unsafe.Pointer, newval unsafe.Pointer, destroy C.GDestroyNotify, old_destroy *C.GDestroyNotify) (return__ bool) {
+func (self *TraitObject) ReplaceData(key string, oldval unsafe.Pointer, newval unsafe.Pointer, destroy C.GDestroyNotify, old_destroy *C.GDestroyNotify) (return__ bool) {
 	__cgo__key := (*C.gchar)(unsafe.Pointer(C.CString(key)))
 	var __cgo__return__ C.gboolean
 	__cgo__return__ = C.g_object_replace_data(self.CPointer, __cgo__key, (C.gpointer)(oldval), (C.gpointer)(newval), destroy, old_destroy)
@@ -514,7 +523,7 @@ Its up to the caller to free this as he wishes, which may
 or may not include using @old_destroy as sometimes replacement
 should not destroy the object in the normal way.
 */
-func (self *_TraitObject) ReplaceQdata(quark C.GQuark, oldval unsafe.Pointer, newval unsafe.Pointer, destroy C.GDestroyNotify, old_destroy *C.GDestroyNotify) (return__ bool) {
+func (self *TraitObject) ReplaceQdata(quark C.GQuark, oldval unsafe.Pointer, newval unsafe.Pointer, destroy C.GDestroyNotify, old_destroy *C.GDestroyNotify) (return__ bool) {
 	var __cgo__return__ C.gboolean
 	__cgo__return__ = C.g_object_replace_qdata(self.CPointer, quark, (C.gpointer)(oldval), (C.gpointer)(newval), destroy, old_destroy)
 	return__ = __cgo__return__ == C.gboolean(1)
@@ -527,7 +536,7 @@ reference cycles.
 
 This functions should only be called from object system implementations.
 */
-func (self *_TraitObject) RunDispose() {
+func (self *TraitObject) RunDispose() {
 	C.g_object_run_dispose(self.CPointer)
 	return
 }
@@ -539,7 +548,7 @@ strings to pointers.  This function lets you set an association.
 If the object already had an association with that name,
 the old association will be destroyed.
 */
-func (self *_TraitObject) SetData(key string, data unsafe.Pointer) {
+func (self *TraitObject) SetData(key string, data unsafe.Pointer) {
 	__cgo__key := (*C.gchar)(unsafe.Pointer(C.CString(key)))
 	C.g_object_set_data(self.CPointer, __cgo__key, (C.gpointer)(data))
 	C.free(unsafe.Pointer(__cgo__key))
@@ -553,7 +562,7 @@ to a different value or when the object is destroyed.
 
 Note that the @destroy callback is not called if @data is %NULL.
 */
-func (self *_TraitObject) SetDataFull(key string, data unsafe.Pointer, destroy C.GDestroyNotify) {
+func (self *TraitObject) SetDataFull(key string, data unsafe.Pointer, destroy C.GDestroyNotify) {
 	__cgo__key := (*C.gchar)(unsafe.Pointer(C.CString(key)))
 	C.g_object_set_data_full(self.CPointer, __cgo__key, (C.gpointer)(data), destroy)
 	C.free(unsafe.Pointer(__cgo__key))
@@ -563,7 +572,7 @@ func (self *_TraitObject) SetDataFull(key string, data unsafe.Pointer, destroy C
 /*
 Sets a property on an object.
 */
-func (self *_TraitObject) SetProperty(property_name string, value *C.GValue) {
+func (self *TraitObject) SetProperty(property_name string, value *C.GValue) {
 	__cgo__property_name := (*C.gchar)(unsafe.Pointer(C.CString(property_name)))
 	C.g_object_set_property(self.CPointer, __cgo__property_name, value)
 	C.free(unsafe.Pointer(__cgo__property_name))
@@ -580,7 +589,7 @@ Setting a previously set user data pointer, overrides (frees)
 the old pointer set, using #NULL as pointer essentially
 removes the data stored.
 */
-func (self *_TraitObject) SetQdata(quark C.GQuark, data unsafe.Pointer) {
+func (self *TraitObject) SetQdata(quark C.GQuark, data unsafe.Pointer) {
 	C.g_object_set_qdata(self.CPointer, quark, (C.gpointer)(data))
 	return
 }
@@ -592,7 +601,7 @@ called with @data as argument when the @object is finalized, or
 the data is being overwritten by a call to g_object_set_qdata()
 with the same @quark.
 */
-func (self *_TraitObject) SetQdataFull(quark C.GQuark, data unsafe.Pointer, destroy C.GDestroyNotify) {
+func (self *TraitObject) SetQdataFull(quark C.GQuark, data unsafe.Pointer, destroy C.GDestroyNotify) {
 	C.g_object_set_qdata_full(self.CPointer, quark, (C.gpointer)(data), destroy)
 	return
 }
@@ -603,7 +612,7 @@ func (self *_TraitObject) SetQdataFull(quark C.GQuark, data unsafe.Pointer, dest
 Remove a specified datum from the object's data associations,
 without invoking the association's destroy handler.
 */
-func (self *_TraitObject) StealData(key string) (return__ unsafe.Pointer) {
+func (self *TraitObject) StealData(key string) (return__ unsafe.Pointer) {
 	__cgo__key := (*C.gchar)(unsafe.Pointer(C.CString(key)))
 	var __cgo__return__ C.gpointer
 	__cgo__return__ = C.g_object_steal_data(self.CPointer, __cgo__key)
@@ -649,7 +658,7 @@ g_object_steal_qdata() would have left the destroy function set,
 and thus the partial string list would have been freed upon
 g_object_set_qdata_full().
 */
-func (self *_TraitObject) StealQdata(quark C.GQuark) (return__ unsafe.Pointer) {
+func (self *TraitObject) StealQdata(quark C.GQuark) (return__ unsafe.Pointer) {
 	var __cgo__return__ C.gpointer
 	__cgo__return__ = C.g_object_steal_qdata(self.CPointer, quark)
 	return__ = unsafe.Pointer(__cgo__return__)
@@ -667,7 +676,7 @@ in which they have been queued.
 
 It is an error to call this function when the freeze count is zero.
 */
-func (self *_TraitObject) ThawNotify() {
+func (self *TraitObject) ThawNotify() {
 	C.g_object_thaw_notify(self.CPointer)
 	return
 }
@@ -676,7 +685,7 @@ func (self *_TraitObject) ThawNotify() {
 Decreases the reference count of @object. When its reference count
 drops to 0, the object is finalized (i.e. its memory is freed).
 */
-func (self *_TraitObject) Unref() {
+func (self *TraitObject) Unref() {
 	C.g_object_unref((C.gpointer)(unsafe.Pointer(self.CPointer)))
 	return
 }
@@ -692,7 +701,7 @@ reference count is held on @object during invocation of the
 @closure.  Usually, this function will be called on closures that
 use this @object as closure data.
 */
-func (self *_TraitObject) WatchClosure(closure *C.GClosure) {
+func (self *TraitObject) WatchClosure(closure *C.GClosure) {
 	C.g_object_watch_closure(self.CPointer, closure)
 	return
 }
@@ -709,7 +718,7 @@ thread-safe: they cannot safely be used in one thread if the
 object's last g_object_unref() might happen in another thread.
 Use #GWeakRef if thread-safety is required.
 */
-func (self *_TraitObject) WeakRef(notify C.GWeakNotify, data unsafe.Pointer) {
+func (self *TraitObject) WeakRef(notify C.GWeakNotify, data unsafe.Pointer) {
 	C.g_object_weak_ref(self.CPointer, notify, (C.gpointer)(data))
 	return
 }
@@ -717,31 +726,34 @@ func (self *_TraitObject) WeakRef(notify C.GWeakNotify, data unsafe.Pointer) {
 /*
 Removes a weak reference callback to an object.
 */
-func (self *_TraitObject) WeakUnref(notify C.GWeakNotify, data unsafe.Pointer) {
+func (self *TraitObject) WeakUnref(notify C.GWeakNotify, data unsafe.Pointer) {
 	C.g_object_weak_unref(self.CPointer, notify, (C.gpointer)(data))
 	return
 }
 
-type _TraitParamSpec struct{ CPointer *C.GParamSpec }
+type TraitParamSpec struct{ CPointer *C.GParamSpec }
 type IsParamSpec interface {
 	GetParamSpecPointer() *C.GParamSpec
 }
 
-func (self *_TraitParamSpec) GetParamSpecPointer() *C.GParamSpec {
+func (self *TraitParamSpec) GetParamSpecPointer() *C.GParamSpec {
 	return self.CPointer
+}
+func NewTraitParamSpec(p unsafe.Pointer) *TraitParamSpec {
+	return &TraitParamSpec{(*C.GParamSpec)(p)}
 }
 
 /*
 Get the short description of a #GParamSpec.
 */
-func (self *_TraitParamSpec) GetBlurb() (return__ string) {
+func (self *TraitParamSpec) GetBlurb() (return__ string) {
 	var __cgo__return__ *C.gchar
 	__cgo__return__ = C.g_param_spec_get_blurb(self.CPointer)
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
 
-func (self *_TraitParamSpec) GetDefaultValue() (return__ *C.GValue) {
+func (self *TraitParamSpec) GetDefaultValue() (return__ *C.GValue) {
 	return__ = C.g_param_spec_get_default_value(self.CPointer)
 	return
 }
@@ -752,7 +764,7 @@ Get the name of a #GParamSpec.
 The name is always an "interned" string (as per g_intern_string()).
 This allows for pointer-value comparisons.
 */
-func (self *_TraitParamSpec) GetName() (return__ string) {
+func (self *TraitParamSpec) GetName() (return__ string) {
 	var __cgo__return__ *C.gchar
 	__cgo__return__ = C.g_param_spec_get_name(self.CPointer)
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
@@ -762,7 +774,7 @@ func (self *_TraitParamSpec) GetName() (return__ string) {
 /*
 Get the nickname of a #GParamSpec.
 */
-func (self *_TraitParamSpec) GetNick() (return__ string) {
+func (self *TraitParamSpec) GetNick() (return__ string) {
 	var __cgo__return__ *C.gchar
 	__cgo__return__ = C.g_param_spec_get_nick(self.CPointer)
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
@@ -772,7 +784,7 @@ func (self *_TraitParamSpec) GetNick() (return__ string) {
 /*
 Gets back user data pointers stored via g_param_spec_set_qdata().
 */
-func (self *_TraitParamSpec) GetQdata(quark C.GQuark) (return__ unsafe.Pointer) {
+func (self *TraitParamSpec) GetQdata(quark C.GQuark) (return__ unsafe.Pointer) {
 	var __cgo__return__ C.gpointer
 	__cgo__return__ = C.g_param_spec_get_qdata(self.CPointer, quark)
 	return__ = unsafe.Pointer(__cgo__return__)
@@ -788,7 +800,7 @@ type. Redirection is established by creating a property
 of type #GParamSpecOverride. See g_object_class_override_property()
 for an example of the use of this capability.
 */
-func (self *_TraitParamSpec) GetRedirectTarget() (return__ *ParamSpec) {
+func (self *TraitParamSpec) GetRedirectTarget() (return__ *ParamSpec) {
 	var __cgo__return__ *C.GParamSpec
 	__cgo__return__ = C.g_param_spec_get_redirect_target(self.CPointer)
 	if __cgo__return__ != nil {
@@ -800,7 +812,7 @@ func (self *_TraitParamSpec) GetRedirectTarget() (return__ *ParamSpec) {
 /*
 Increments the reference count of @pspec.
 */
-func (self *_TraitParamSpec) Ref() (return__ *ParamSpec) {
+func (self *TraitParamSpec) Ref() (return__ *ParamSpec) {
 	var __cgo__return__ *C.GParamSpec
 	__cgo__return__ = C.g_param_spec_ref(self.CPointer)
 	if __cgo__return__ != nil {
@@ -812,7 +824,7 @@ func (self *_TraitParamSpec) Ref() (return__ *ParamSpec) {
 /*
 Convenience function to ref and sink a #GParamSpec.
 */
-func (self *_TraitParamSpec) RefSink() (return__ *ParamSpec) {
+func (self *TraitParamSpec) RefSink() (return__ *ParamSpec) {
 	var __cgo__return__ *C.GParamSpec
 	__cgo__return__ = C.g_param_spec_ref_sink(self.CPointer)
 	if __cgo__return__ != nil {
@@ -829,7 +841,7 @@ from the @pspec with g_param_spec_get_qdata().  Setting a
 previously set user data pointer, overrides (frees) the old pointer
 set, using %NULL as pointer essentially removes the data stored.
 */
-func (self *_TraitParamSpec) SetQdata(quark C.GQuark, data unsafe.Pointer) {
+func (self *TraitParamSpec) SetQdata(quark C.GQuark, data unsafe.Pointer) {
 	C.g_param_spec_set_qdata(self.CPointer, quark, (C.gpointer)(data))
 	return
 }
@@ -841,7 +853,7 @@ specified which is called with @data as argument when the @pspec is
 finalized, or the data is being overwritten by a call to
 g_param_spec_set_qdata() with the same @quark.
 */
-func (self *_TraitParamSpec) SetQdataFull(quark C.GQuark, data unsafe.Pointer, destroy C.GDestroyNotify) {
+func (self *TraitParamSpec) SetQdataFull(quark C.GQuark, data unsafe.Pointer, destroy C.GDestroyNotify) {
 	C.g_param_spec_set_qdata_full(self.CPointer, quark, (C.gpointer)(data), destroy)
 	return
 }
@@ -855,7 +867,7 @@ someone calls `g_param_spec_ref (pspec); g_param_spec_sink
 reference count (thus ending up with a @pspec that has a reference
 count of 1 still, but is not flagged "floating" anymore).
 */
-func (self *_TraitParamSpec) Sink() {
+func (self *TraitParamSpec) Sink() {
 	C.g_param_spec_sink(self.CPointer)
 	return
 }
@@ -866,7 +878,7 @@ and removes the @data from @pspec without invoking its destroy()
 function (if any was set).  Usually, calling this function is only
 required to update user data pointers with a destroy notifier.
 */
-func (self *_TraitParamSpec) StealQdata(quark C.GQuark) (return__ unsafe.Pointer) {
+func (self *TraitParamSpec) StealQdata(quark C.GQuark) (return__ unsafe.Pointer) {
 	var __cgo__return__ C.gpointer
 	__cgo__return__ = C.g_param_spec_steal_qdata(self.CPointer, quark)
 	return__ = unsafe.Pointer(__cgo__return__)
@@ -876,225 +888,297 @@ func (self *_TraitParamSpec) StealQdata(quark C.GQuark) (return__ unsafe.Pointer
 /*
 Decrements the reference count of a @pspec.
 */
-func (self *_TraitParamSpec) Unref() {
+func (self *TraitParamSpec) Unref() {
 	C.g_param_spec_unref(self.CPointer)
 	return
 }
 
-type _TraitParamSpecBoolean struct{ CPointer *C.GParamSpecBoolean }
+type TraitParamSpecBoolean struct{ CPointer *C.GParamSpecBoolean }
 type IsParamSpecBoolean interface {
 	GetParamSpecBooleanPointer() *C.GParamSpecBoolean
 }
 
-func (self *_TraitParamSpecBoolean) GetParamSpecBooleanPointer() *C.GParamSpecBoolean {
+func (self *TraitParamSpecBoolean) GetParamSpecBooleanPointer() *C.GParamSpecBoolean {
 	return self.CPointer
 }
+func NewTraitParamSpecBoolean(p unsafe.Pointer) *TraitParamSpecBoolean {
+	return &TraitParamSpecBoolean{(*C.GParamSpecBoolean)(p)}
+}
 
-type _TraitParamSpecBoxed struct{ CPointer *C.GParamSpecBoxed }
+type TraitParamSpecBoxed struct{ CPointer *C.GParamSpecBoxed }
 type IsParamSpecBoxed interface {
 	GetParamSpecBoxedPointer() *C.GParamSpecBoxed
 }
 
-func (self *_TraitParamSpecBoxed) GetParamSpecBoxedPointer() *C.GParamSpecBoxed {
+func (self *TraitParamSpecBoxed) GetParamSpecBoxedPointer() *C.GParamSpecBoxed {
 	return self.CPointer
 }
+func NewTraitParamSpecBoxed(p unsafe.Pointer) *TraitParamSpecBoxed {
+	return &TraitParamSpecBoxed{(*C.GParamSpecBoxed)(p)}
+}
 
-type _TraitParamSpecChar struct{ CPointer *C.GParamSpecChar }
+type TraitParamSpecChar struct{ CPointer *C.GParamSpecChar }
 type IsParamSpecChar interface {
 	GetParamSpecCharPointer() *C.GParamSpecChar
 }
 
-func (self *_TraitParamSpecChar) GetParamSpecCharPointer() *C.GParamSpecChar {
+func (self *TraitParamSpecChar) GetParamSpecCharPointer() *C.GParamSpecChar {
 	return self.CPointer
 }
+func NewTraitParamSpecChar(p unsafe.Pointer) *TraitParamSpecChar {
+	return &TraitParamSpecChar{(*C.GParamSpecChar)(p)}
+}
 
-type _TraitParamSpecDouble struct{ CPointer *C.GParamSpecDouble }
+type TraitParamSpecDouble struct{ CPointer *C.GParamSpecDouble }
 type IsParamSpecDouble interface {
 	GetParamSpecDoublePointer() *C.GParamSpecDouble
 }
 
-func (self *_TraitParamSpecDouble) GetParamSpecDoublePointer() *C.GParamSpecDouble {
+func (self *TraitParamSpecDouble) GetParamSpecDoublePointer() *C.GParamSpecDouble {
 	return self.CPointer
 }
+func NewTraitParamSpecDouble(p unsafe.Pointer) *TraitParamSpecDouble {
+	return &TraitParamSpecDouble{(*C.GParamSpecDouble)(p)}
+}
 
-type _TraitParamSpecEnum struct{ CPointer *C.GParamSpecEnum }
+type TraitParamSpecEnum struct{ CPointer *C.GParamSpecEnum }
 type IsParamSpecEnum interface {
 	GetParamSpecEnumPointer() *C.GParamSpecEnum
 }
 
-func (self *_TraitParamSpecEnum) GetParamSpecEnumPointer() *C.GParamSpecEnum {
+func (self *TraitParamSpecEnum) GetParamSpecEnumPointer() *C.GParamSpecEnum {
 	return self.CPointer
 }
+func NewTraitParamSpecEnum(p unsafe.Pointer) *TraitParamSpecEnum {
+	return &TraitParamSpecEnum{(*C.GParamSpecEnum)(p)}
+}
 
-type _TraitParamSpecFlags struct{ CPointer *C.GParamSpecFlags }
+type TraitParamSpecFlags struct{ CPointer *C.GParamSpecFlags }
 type IsParamSpecFlags interface {
 	GetParamSpecFlagsPointer() *C.GParamSpecFlags
 }
 
-func (self *_TraitParamSpecFlags) GetParamSpecFlagsPointer() *C.GParamSpecFlags {
+func (self *TraitParamSpecFlags) GetParamSpecFlagsPointer() *C.GParamSpecFlags {
 	return self.CPointer
 }
+func NewTraitParamSpecFlags(p unsafe.Pointer) *TraitParamSpecFlags {
+	return &TraitParamSpecFlags{(*C.GParamSpecFlags)(p)}
+}
 
-type _TraitParamSpecFloat struct{ CPointer *C.GParamSpecFloat }
+type TraitParamSpecFloat struct{ CPointer *C.GParamSpecFloat }
 type IsParamSpecFloat interface {
 	GetParamSpecFloatPointer() *C.GParamSpecFloat
 }
 
-func (self *_TraitParamSpecFloat) GetParamSpecFloatPointer() *C.GParamSpecFloat {
+func (self *TraitParamSpecFloat) GetParamSpecFloatPointer() *C.GParamSpecFloat {
 	return self.CPointer
 }
+func NewTraitParamSpecFloat(p unsafe.Pointer) *TraitParamSpecFloat {
+	return &TraitParamSpecFloat{(*C.GParamSpecFloat)(p)}
+}
 
-type _TraitParamSpecGType struct{ CPointer *C.GParamSpecGType }
+type TraitParamSpecGType struct{ CPointer *C.GParamSpecGType }
 type IsParamSpecGType interface {
 	GetParamSpecGTypePointer() *C.GParamSpecGType
 }
 
-func (self *_TraitParamSpecGType) GetParamSpecGTypePointer() *C.GParamSpecGType {
+func (self *TraitParamSpecGType) GetParamSpecGTypePointer() *C.GParamSpecGType {
 	return self.CPointer
 }
+func NewTraitParamSpecGType(p unsafe.Pointer) *TraitParamSpecGType {
+	return &TraitParamSpecGType{(*C.GParamSpecGType)(p)}
+}
 
-type _TraitParamSpecInt struct{ CPointer *C.GParamSpecInt }
+type TraitParamSpecInt struct{ CPointer *C.GParamSpecInt }
 type IsParamSpecInt interface {
 	GetParamSpecIntPointer() *C.GParamSpecInt
 }
 
-func (self *_TraitParamSpecInt) GetParamSpecIntPointer() *C.GParamSpecInt {
+func (self *TraitParamSpecInt) GetParamSpecIntPointer() *C.GParamSpecInt {
 	return self.CPointer
 }
+func NewTraitParamSpecInt(p unsafe.Pointer) *TraitParamSpecInt {
+	return &TraitParamSpecInt{(*C.GParamSpecInt)(p)}
+}
 
-type _TraitParamSpecInt64 struct{ CPointer *C.GParamSpecInt64 }
+type TraitParamSpecInt64 struct{ CPointer *C.GParamSpecInt64 }
 type IsParamSpecInt64 interface {
 	GetParamSpecInt64Pointer() *C.GParamSpecInt64
 }
 
-func (self *_TraitParamSpecInt64) GetParamSpecInt64Pointer() *C.GParamSpecInt64 {
+func (self *TraitParamSpecInt64) GetParamSpecInt64Pointer() *C.GParamSpecInt64 {
 	return self.CPointer
 }
+func NewTraitParamSpecInt64(p unsafe.Pointer) *TraitParamSpecInt64 {
+	return &TraitParamSpecInt64{(*C.GParamSpecInt64)(p)}
+}
 
-type _TraitParamSpecLong struct{ CPointer *C.GParamSpecLong }
+type TraitParamSpecLong struct{ CPointer *C.GParamSpecLong }
 type IsParamSpecLong interface {
 	GetParamSpecLongPointer() *C.GParamSpecLong
 }
 
-func (self *_TraitParamSpecLong) GetParamSpecLongPointer() *C.GParamSpecLong {
+func (self *TraitParamSpecLong) GetParamSpecLongPointer() *C.GParamSpecLong {
 	return self.CPointer
 }
+func NewTraitParamSpecLong(p unsafe.Pointer) *TraitParamSpecLong {
+	return &TraitParamSpecLong{(*C.GParamSpecLong)(p)}
+}
 
-type _TraitParamSpecObject struct{ CPointer *C.GParamSpecObject }
+type TraitParamSpecObject struct{ CPointer *C.GParamSpecObject }
 type IsParamSpecObject interface {
 	GetParamSpecObjectPointer() *C.GParamSpecObject
 }
 
-func (self *_TraitParamSpecObject) GetParamSpecObjectPointer() *C.GParamSpecObject {
+func (self *TraitParamSpecObject) GetParamSpecObjectPointer() *C.GParamSpecObject {
 	return self.CPointer
 }
+func NewTraitParamSpecObject(p unsafe.Pointer) *TraitParamSpecObject {
+	return &TraitParamSpecObject{(*C.GParamSpecObject)(p)}
+}
 
-type _TraitParamSpecOverride struct{ CPointer *C.GParamSpecOverride }
+type TraitParamSpecOverride struct{ CPointer *C.GParamSpecOverride }
 type IsParamSpecOverride interface {
 	GetParamSpecOverridePointer() *C.GParamSpecOverride
 }
 
-func (self *_TraitParamSpecOverride) GetParamSpecOverridePointer() *C.GParamSpecOverride {
+func (self *TraitParamSpecOverride) GetParamSpecOverridePointer() *C.GParamSpecOverride {
 	return self.CPointer
 }
+func NewTraitParamSpecOverride(p unsafe.Pointer) *TraitParamSpecOverride {
+	return &TraitParamSpecOverride{(*C.GParamSpecOverride)(p)}
+}
 
-type _TraitParamSpecParam struct{ CPointer *C.GParamSpecParam }
+type TraitParamSpecParam struct{ CPointer *C.GParamSpecParam }
 type IsParamSpecParam interface {
 	GetParamSpecParamPointer() *C.GParamSpecParam
 }
 
-func (self *_TraitParamSpecParam) GetParamSpecParamPointer() *C.GParamSpecParam {
+func (self *TraitParamSpecParam) GetParamSpecParamPointer() *C.GParamSpecParam {
 	return self.CPointer
 }
+func NewTraitParamSpecParam(p unsafe.Pointer) *TraitParamSpecParam {
+	return &TraitParamSpecParam{(*C.GParamSpecParam)(p)}
+}
 
-type _TraitParamSpecPointer struct{ CPointer *C.GParamSpecPointer }
+type TraitParamSpecPointer struct{ CPointer *C.GParamSpecPointer }
 type IsParamSpecPointer interface {
 	GetParamSpecPointerPointer() *C.GParamSpecPointer
 }
 
-func (self *_TraitParamSpecPointer) GetParamSpecPointerPointer() *C.GParamSpecPointer {
+func (self *TraitParamSpecPointer) GetParamSpecPointerPointer() *C.GParamSpecPointer {
 	return self.CPointer
 }
+func NewTraitParamSpecPointer(p unsafe.Pointer) *TraitParamSpecPointer {
+	return &TraitParamSpecPointer{(*C.GParamSpecPointer)(p)}
+}
 
-type _TraitParamSpecString struct{ CPointer *C.GParamSpecString }
+type TraitParamSpecString struct{ CPointer *C.GParamSpecString }
 type IsParamSpecString interface {
 	GetParamSpecStringPointer() *C.GParamSpecString
 }
 
-func (self *_TraitParamSpecString) GetParamSpecStringPointer() *C.GParamSpecString {
+func (self *TraitParamSpecString) GetParamSpecStringPointer() *C.GParamSpecString {
 	return self.CPointer
 }
+func NewTraitParamSpecString(p unsafe.Pointer) *TraitParamSpecString {
+	return &TraitParamSpecString{(*C.GParamSpecString)(p)}
+}
 
-type _TraitParamSpecUChar struct{ CPointer *C.GParamSpecUChar }
+type TraitParamSpecUChar struct{ CPointer *C.GParamSpecUChar }
 type IsParamSpecUChar interface {
 	GetParamSpecUCharPointer() *C.GParamSpecUChar
 }
 
-func (self *_TraitParamSpecUChar) GetParamSpecUCharPointer() *C.GParamSpecUChar {
+func (self *TraitParamSpecUChar) GetParamSpecUCharPointer() *C.GParamSpecUChar {
 	return self.CPointer
 }
+func NewTraitParamSpecUChar(p unsafe.Pointer) *TraitParamSpecUChar {
+	return &TraitParamSpecUChar{(*C.GParamSpecUChar)(p)}
+}
 
-type _TraitParamSpecUInt struct{ CPointer *C.GParamSpecUInt }
+type TraitParamSpecUInt struct{ CPointer *C.GParamSpecUInt }
 type IsParamSpecUInt interface {
 	GetParamSpecUIntPointer() *C.GParamSpecUInt
 }
 
-func (self *_TraitParamSpecUInt) GetParamSpecUIntPointer() *C.GParamSpecUInt {
+func (self *TraitParamSpecUInt) GetParamSpecUIntPointer() *C.GParamSpecUInt {
 	return self.CPointer
 }
+func NewTraitParamSpecUInt(p unsafe.Pointer) *TraitParamSpecUInt {
+	return &TraitParamSpecUInt{(*C.GParamSpecUInt)(p)}
+}
 
-type _TraitParamSpecUInt64 struct{ CPointer *C.GParamSpecUInt64 }
+type TraitParamSpecUInt64 struct{ CPointer *C.GParamSpecUInt64 }
 type IsParamSpecUInt64 interface {
 	GetParamSpecUInt64Pointer() *C.GParamSpecUInt64
 }
 
-func (self *_TraitParamSpecUInt64) GetParamSpecUInt64Pointer() *C.GParamSpecUInt64 {
+func (self *TraitParamSpecUInt64) GetParamSpecUInt64Pointer() *C.GParamSpecUInt64 {
 	return self.CPointer
 }
+func NewTraitParamSpecUInt64(p unsafe.Pointer) *TraitParamSpecUInt64 {
+	return &TraitParamSpecUInt64{(*C.GParamSpecUInt64)(p)}
+}
 
-type _TraitParamSpecULong struct{ CPointer *C.GParamSpecULong }
+type TraitParamSpecULong struct{ CPointer *C.GParamSpecULong }
 type IsParamSpecULong interface {
 	GetParamSpecULongPointer() *C.GParamSpecULong
 }
 
-func (self *_TraitParamSpecULong) GetParamSpecULongPointer() *C.GParamSpecULong {
+func (self *TraitParamSpecULong) GetParamSpecULongPointer() *C.GParamSpecULong {
 	return self.CPointer
 }
+func NewTraitParamSpecULong(p unsafe.Pointer) *TraitParamSpecULong {
+	return &TraitParamSpecULong{(*C.GParamSpecULong)(p)}
+}
 
-type _TraitParamSpecUnichar struct{ CPointer *C.GParamSpecUnichar }
+type TraitParamSpecUnichar struct{ CPointer *C.GParamSpecUnichar }
 type IsParamSpecUnichar interface {
 	GetParamSpecUnicharPointer() *C.GParamSpecUnichar
 }
 
-func (self *_TraitParamSpecUnichar) GetParamSpecUnicharPointer() *C.GParamSpecUnichar {
+func (self *TraitParamSpecUnichar) GetParamSpecUnicharPointer() *C.GParamSpecUnichar {
 	return self.CPointer
 }
+func NewTraitParamSpecUnichar(p unsafe.Pointer) *TraitParamSpecUnichar {
+	return &TraitParamSpecUnichar{(*C.GParamSpecUnichar)(p)}
+}
 
-type _TraitParamSpecValueArray struct{ CPointer *C.GParamSpecValueArray }
+type TraitParamSpecValueArray struct{ CPointer *C.GParamSpecValueArray }
 type IsParamSpecValueArray interface {
 	GetParamSpecValueArrayPointer() *C.GParamSpecValueArray
 }
 
-func (self *_TraitParamSpecValueArray) GetParamSpecValueArrayPointer() *C.GParamSpecValueArray {
+func (self *TraitParamSpecValueArray) GetParamSpecValueArrayPointer() *C.GParamSpecValueArray {
 	return self.CPointer
 }
+func NewTraitParamSpecValueArray(p unsafe.Pointer) *TraitParamSpecValueArray {
+	return &TraitParamSpecValueArray{(*C.GParamSpecValueArray)(p)}
+}
 
-type _TraitParamSpecVariant struct{ CPointer *C.GParamSpecVariant }
+type TraitParamSpecVariant struct{ CPointer *C.GParamSpecVariant }
 type IsParamSpecVariant interface {
 	GetParamSpecVariantPointer() *C.GParamSpecVariant
 }
 
-func (self *_TraitParamSpecVariant) GetParamSpecVariantPointer() *C.GParamSpecVariant {
+func (self *TraitParamSpecVariant) GetParamSpecVariantPointer() *C.GParamSpecVariant {
 	return self.CPointer
 }
+func NewTraitParamSpecVariant(p unsafe.Pointer) *TraitParamSpecVariant {
+	return &TraitParamSpecVariant{(*C.GParamSpecVariant)(p)}
+}
 
-type _TraitTypeModule struct{ CPointer *C.GTypeModule }
+type TraitTypeModule struct{ CPointer *C.GTypeModule }
 type IsTypeModule interface {
 	GetTypeModulePointer() *C.GTypeModule
 }
 
-func (self *_TraitTypeModule) GetTypeModulePointer() *C.GTypeModule {
+func (self *TraitTypeModule) GetTypeModulePointer() *C.GTypeModule {
 	return self.CPointer
+}
+func NewTraitTypeModule(p unsafe.Pointer) *TraitTypeModule {
+	return &TraitTypeModule{(*C.GTypeModule)(p)}
 }
 
 /*
@@ -1105,7 +1189,7 @@ for the type in this plugin, nothing will be done.
 As long as any instances of the type exist, the type plugin will
 not be unloaded.
 */
-func (self *_TraitTypeModule) AddInterface(instance_type C.GType, interface_type C.GType, interface_info *C.GInterfaceInfo) {
+func (self *TraitTypeModule) AddInterface(instance_type C.GType, interface_type C.GType, interface_info *C.GInterfaceInfo) {
 	C.g_type_module_add_interface(self.CPointer, instance_type, interface_type, interface_info)
 	return
 }
@@ -1119,7 +1203,7 @@ is newly registered, and the resulting #GType identifier returned.
 As long as any instances of the type exist, the type plugin will
 not be unloaded.
 */
-func (self *_TraitTypeModule) RegisterEnum(name string, const_static_values *C.GEnumValue) (return__ C.GType) {
+func (self *TraitTypeModule) RegisterEnum(name string, const_static_values *C.GEnumValue) (return__ C.GType) {
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
 	return__ = C.g_type_module_register_enum(self.CPointer, __cgo__name, const_static_values)
 	C.free(unsafe.Pointer(__cgo__name))
@@ -1135,7 +1219,7 @@ is newly registered, and the resulting #GType identifier returned.
 As long as any instances of the type exist, the type plugin will
 not be unloaded.
 */
-func (self *_TraitTypeModule) RegisterFlags(name string, const_static_values *C.GFlagsValue) (return__ C.GType) {
+func (self *TraitTypeModule) RegisterFlags(name string, const_static_values *C.GFlagsValue) (return__ C.GType) {
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
 	return__ = C.g_type_module_register_flags(self.CPointer, __cgo__name, const_static_values)
 	C.free(unsafe.Pointer(__cgo__name))
@@ -1155,7 +1239,7 @@ be the same as they were previously.
 As long as any instances of the type exist, the type plugin will
 not be unloaded.
 */
-func (self *_TraitTypeModule) RegisterType(parent_type C.GType, type_name string, type_info *C.GTypeInfo, flags C.GTypeFlags) (return__ C.GType) {
+func (self *TraitTypeModule) RegisterType(parent_type C.GType, type_name string, type_info *C.GTypeInfo, flags C.GTypeFlags) (return__ C.GType) {
 	__cgo__type_name := (*C.gchar)(unsafe.Pointer(C.CString(type_name)))
 	return__ = C.g_type_module_register_type(self.CPointer, parent_type, __cgo__type_name, type_info, flags)
 	C.free(unsafe.Pointer(__cgo__type_name))
@@ -1165,7 +1249,7 @@ func (self *_TraitTypeModule) RegisterType(parent_type C.GType, type_name string
 /*
 Sets the name for a #GTypeModule
 */
-func (self *_TraitTypeModule) SetName(name string) {
+func (self *TraitTypeModule) SetName(name string) {
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
 	C.g_type_module_set_name(self.CPointer, __cgo__name)
 	C.free(unsafe.Pointer(__cgo__name))
@@ -1179,7 +1263,7 @@ result is zero, the module will be unloaded. (However, the
 #GTypeModule are not unregistered. Once a #GTypeModule is
 initialized, it must exist forever.)
 */
-func (self *_TraitTypeModule) Unuse() {
+func (self *TraitTypeModule) Unuse() {
 	C.g_type_module_unuse(self.CPointer)
 	return
 }
@@ -1190,7 +1274,7 @@ use count was zero before, the plugin will be loaded.
 If loading the plugin fails, the use count is reset to
 its prior value.
 */
-func (self *_TraitTypeModule) Use() (return__ bool) {
+func (self *TraitTypeModule) Use() (return__ bool) {
 	var __cgo__return__ C.gboolean
 	__cgo__return__ = C.g_type_module_use(self.CPointer)
 	return__ = __cgo__return__ == C.gboolean(1)

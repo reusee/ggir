@@ -13,389 +13,389 @@ func init() {
 }
 
 type Binding struct {
-	*_TraitBinding
-	*_TraitObject
+	*TraitBinding
+	*TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewBindingFromCPointer(p unsafe.Pointer) *Binding {
 	return &Binding{
-		&_TraitBinding{(*C.GBinding)(p)},
-		&_TraitObject{(*C.GObject)(p)},
+		NewTraitBinding(p),
+		NewTraitObject(p),
 		p,
 	}
 }
 
 type InitiallyUnowned struct {
-	*_TraitInitiallyUnowned
-	*_TraitObject
+	*TraitInitiallyUnowned
+	*TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewInitiallyUnownedFromCPointer(p unsafe.Pointer) *InitiallyUnowned {
 	return &InitiallyUnowned{
-		&_TraitInitiallyUnowned{(*C.GInitiallyUnowned)(p)},
-		&_TraitObject{(*C.GObject)(p)},
+		NewTraitInitiallyUnowned(p),
+		NewTraitObject(p),
 		p,
 	}
 }
 
 type Object struct {
-	*_TraitObject
+	*TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewObjectFromCPointer(p unsafe.Pointer) *Object {
 	return &Object{
-		&_TraitObject{(*C.GObject)(p)},
+		NewTraitObject(p),
 		p,
 	}
 }
 
 type ParamSpec struct {
-	*_TraitParamSpec
+	*TraitParamSpec
 	CPointer unsafe.Pointer
 }
 
 func NewParamSpecFromCPointer(p unsafe.Pointer) *ParamSpec {
 	return &ParamSpec{
-		&_TraitParamSpec{(*C.GParamSpec)(p)},
+		NewTraitParamSpec(p),
 		p,
 	}
 }
 
 type ParamSpecBoolean struct {
-	*_TraitParamSpecBoolean
-	*_TraitParamSpec
+	*TraitParamSpecBoolean
+	*TraitParamSpec
 	CPointer unsafe.Pointer
 }
 
 func NewParamSpecBooleanFromCPointer(p unsafe.Pointer) *ParamSpecBoolean {
 	return &ParamSpecBoolean{
-		&_TraitParamSpecBoolean{(*C.GParamSpecBoolean)(p)},
-		&_TraitParamSpec{(*C.GParamSpec)(p)},
+		NewTraitParamSpecBoolean(p),
+		NewTraitParamSpec(p),
 		p,
 	}
 }
 
 type ParamSpecBoxed struct {
-	*_TraitParamSpecBoxed
-	*_TraitParamSpec
+	*TraitParamSpecBoxed
+	*TraitParamSpec
 	CPointer unsafe.Pointer
 }
 
 func NewParamSpecBoxedFromCPointer(p unsafe.Pointer) *ParamSpecBoxed {
 	return &ParamSpecBoxed{
-		&_TraitParamSpecBoxed{(*C.GParamSpecBoxed)(p)},
-		&_TraitParamSpec{(*C.GParamSpec)(p)},
+		NewTraitParamSpecBoxed(p),
+		NewTraitParamSpec(p),
 		p,
 	}
 }
 
 type ParamSpecChar struct {
-	*_TraitParamSpecChar
-	*_TraitParamSpec
+	*TraitParamSpecChar
+	*TraitParamSpec
 	CPointer unsafe.Pointer
 }
 
 func NewParamSpecCharFromCPointer(p unsafe.Pointer) *ParamSpecChar {
 	return &ParamSpecChar{
-		&_TraitParamSpecChar{(*C.GParamSpecChar)(p)},
-		&_TraitParamSpec{(*C.GParamSpec)(p)},
+		NewTraitParamSpecChar(p),
+		NewTraitParamSpec(p),
 		p,
 	}
 }
 
 type ParamSpecDouble struct {
-	*_TraitParamSpecDouble
-	*_TraitParamSpec
+	*TraitParamSpecDouble
+	*TraitParamSpec
 	CPointer unsafe.Pointer
 }
 
 func NewParamSpecDoubleFromCPointer(p unsafe.Pointer) *ParamSpecDouble {
 	return &ParamSpecDouble{
-		&_TraitParamSpecDouble{(*C.GParamSpecDouble)(p)},
-		&_TraitParamSpec{(*C.GParamSpec)(p)},
+		NewTraitParamSpecDouble(p),
+		NewTraitParamSpec(p),
 		p,
 	}
 }
 
 type ParamSpecEnum struct {
-	*_TraitParamSpecEnum
-	*_TraitParamSpec
+	*TraitParamSpecEnum
+	*TraitParamSpec
 	CPointer unsafe.Pointer
 }
 
 func NewParamSpecEnumFromCPointer(p unsafe.Pointer) *ParamSpecEnum {
 	return &ParamSpecEnum{
-		&_TraitParamSpecEnum{(*C.GParamSpecEnum)(p)},
-		&_TraitParamSpec{(*C.GParamSpec)(p)},
+		NewTraitParamSpecEnum(p),
+		NewTraitParamSpec(p),
 		p,
 	}
 }
 
 type ParamSpecFlags struct {
-	*_TraitParamSpecFlags
-	*_TraitParamSpec
+	*TraitParamSpecFlags
+	*TraitParamSpec
 	CPointer unsafe.Pointer
 }
 
 func NewParamSpecFlagsFromCPointer(p unsafe.Pointer) *ParamSpecFlags {
 	return &ParamSpecFlags{
-		&_TraitParamSpecFlags{(*C.GParamSpecFlags)(p)},
-		&_TraitParamSpec{(*C.GParamSpec)(p)},
+		NewTraitParamSpecFlags(p),
+		NewTraitParamSpec(p),
 		p,
 	}
 }
 
 type ParamSpecFloat struct {
-	*_TraitParamSpecFloat
-	*_TraitParamSpec
+	*TraitParamSpecFloat
+	*TraitParamSpec
 	CPointer unsafe.Pointer
 }
 
 func NewParamSpecFloatFromCPointer(p unsafe.Pointer) *ParamSpecFloat {
 	return &ParamSpecFloat{
-		&_TraitParamSpecFloat{(*C.GParamSpecFloat)(p)},
-		&_TraitParamSpec{(*C.GParamSpec)(p)},
+		NewTraitParamSpecFloat(p),
+		NewTraitParamSpec(p),
 		p,
 	}
 }
 
 type ParamSpecGType struct {
-	*_TraitParamSpecGType
-	*_TraitParamSpec
+	*TraitParamSpecGType
+	*TraitParamSpec
 	CPointer unsafe.Pointer
 }
 
 func NewParamSpecGTypeFromCPointer(p unsafe.Pointer) *ParamSpecGType {
 	return &ParamSpecGType{
-		&_TraitParamSpecGType{(*C.GParamSpecGType)(p)},
-		&_TraitParamSpec{(*C.GParamSpec)(p)},
+		NewTraitParamSpecGType(p),
+		NewTraitParamSpec(p),
 		p,
 	}
 }
 
 type ParamSpecInt struct {
-	*_TraitParamSpecInt
-	*_TraitParamSpec
+	*TraitParamSpecInt
+	*TraitParamSpec
 	CPointer unsafe.Pointer
 }
 
 func NewParamSpecIntFromCPointer(p unsafe.Pointer) *ParamSpecInt {
 	return &ParamSpecInt{
-		&_TraitParamSpecInt{(*C.GParamSpecInt)(p)},
-		&_TraitParamSpec{(*C.GParamSpec)(p)},
+		NewTraitParamSpecInt(p),
+		NewTraitParamSpec(p),
 		p,
 	}
 }
 
 type ParamSpecInt64 struct {
-	*_TraitParamSpecInt64
-	*_TraitParamSpec
+	*TraitParamSpecInt64
+	*TraitParamSpec
 	CPointer unsafe.Pointer
 }
 
 func NewParamSpecInt64FromCPointer(p unsafe.Pointer) *ParamSpecInt64 {
 	return &ParamSpecInt64{
-		&_TraitParamSpecInt64{(*C.GParamSpecInt64)(p)},
-		&_TraitParamSpec{(*C.GParamSpec)(p)},
+		NewTraitParamSpecInt64(p),
+		NewTraitParamSpec(p),
 		p,
 	}
 }
 
 type ParamSpecLong struct {
-	*_TraitParamSpecLong
-	*_TraitParamSpec
+	*TraitParamSpecLong
+	*TraitParamSpec
 	CPointer unsafe.Pointer
 }
 
 func NewParamSpecLongFromCPointer(p unsafe.Pointer) *ParamSpecLong {
 	return &ParamSpecLong{
-		&_TraitParamSpecLong{(*C.GParamSpecLong)(p)},
-		&_TraitParamSpec{(*C.GParamSpec)(p)},
+		NewTraitParamSpecLong(p),
+		NewTraitParamSpec(p),
 		p,
 	}
 }
 
 type ParamSpecObject struct {
-	*_TraitParamSpecObject
-	*_TraitParamSpec
+	*TraitParamSpecObject
+	*TraitParamSpec
 	CPointer unsafe.Pointer
 }
 
 func NewParamSpecObjectFromCPointer(p unsafe.Pointer) *ParamSpecObject {
 	return &ParamSpecObject{
-		&_TraitParamSpecObject{(*C.GParamSpecObject)(p)},
-		&_TraitParamSpec{(*C.GParamSpec)(p)},
+		NewTraitParamSpecObject(p),
+		NewTraitParamSpec(p),
 		p,
 	}
 }
 
 type ParamSpecOverride struct {
-	*_TraitParamSpecOverride
-	*_TraitParamSpec
+	*TraitParamSpecOverride
+	*TraitParamSpec
 	CPointer unsafe.Pointer
 }
 
 func NewParamSpecOverrideFromCPointer(p unsafe.Pointer) *ParamSpecOverride {
 	return &ParamSpecOverride{
-		&_TraitParamSpecOverride{(*C.GParamSpecOverride)(p)},
-		&_TraitParamSpec{(*C.GParamSpec)(p)},
+		NewTraitParamSpecOverride(p),
+		NewTraitParamSpec(p),
 		p,
 	}
 }
 
 type ParamSpecParam struct {
-	*_TraitParamSpecParam
-	*_TraitParamSpec
+	*TraitParamSpecParam
+	*TraitParamSpec
 	CPointer unsafe.Pointer
 }
 
 func NewParamSpecParamFromCPointer(p unsafe.Pointer) *ParamSpecParam {
 	return &ParamSpecParam{
-		&_TraitParamSpecParam{(*C.GParamSpecParam)(p)},
-		&_TraitParamSpec{(*C.GParamSpec)(p)},
+		NewTraitParamSpecParam(p),
+		NewTraitParamSpec(p),
 		p,
 	}
 }
 
 type ParamSpecPointer struct {
-	*_TraitParamSpecPointer
-	*_TraitParamSpec
+	*TraitParamSpecPointer
+	*TraitParamSpec
 	CPointer unsafe.Pointer
 }
 
 func NewParamSpecPointerFromCPointer(p unsafe.Pointer) *ParamSpecPointer {
 	return &ParamSpecPointer{
-		&_TraitParamSpecPointer{(*C.GParamSpecPointer)(p)},
-		&_TraitParamSpec{(*C.GParamSpec)(p)},
+		NewTraitParamSpecPointer(p),
+		NewTraitParamSpec(p),
 		p,
 	}
 }
 
 type ParamSpecString struct {
-	*_TraitParamSpecString
-	*_TraitParamSpec
+	*TraitParamSpecString
+	*TraitParamSpec
 	CPointer unsafe.Pointer
 }
 
 func NewParamSpecStringFromCPointer(p unsafe.Pointer) *ParamSpecString {
 	return &ParamSpecString{
-		&_TraitParamSpecString{(*C.GParamSpecString)(p)},
-		&_TraitParamSpec{(*C.GParamSpec)(p)},
+		NewTraitParamSpecString(p),
+		NewTraitParamSpec(p),
 		p,
 	}
 }
 
 type ParamSpecUChar struct {
-	*_TraitParamSpecUChar
-	*_TraitParamSpec
+	*TraitParamSpecUChar
+	*TraitParamSpec
 	CPointer unsafe.Pointer
 }
 
 func NewParamSpecUCharFromCPointer(p unsafe.Pointer) *ParamSpecUChar {
 	return &ParamSpecUChar{
-		&_TraitParamSpecUChar{(*C.GParamSpecUChar)(p)},
-		&_TraitParamSpec{(*C.GParamSpec)(p)},
+		NewTraitParamSpecUChar(p),
+		NewTraitParamSpec(p),
 		p,
 	}
 }
 
 type ParamSpecUInt struct {
-	*_TraitParamSpecUInt
-	*_TraitParamSpec
+	*TraitParamSpecUInt
+	*TraitParamSpec
 	CPointer unsafe.Pointer
 }
 
 func NewParamSpecUIntFromCPointer(p unsafe.Pointer) *ParamSpecUInt {
 	return &ParamSpecUInt{
-		&_TraitParamSpecUInt{(*C.GParamSpecUInt)(p)},
-		&_TraitParamSpec{(*C.GParamSpec)(p)},
+		NewTraitParamSpecUInt(p),
+		NewTraitParamSpec(p),
 		p,
 	}
 }
 
 type ParamSpecUInt64 struct {
-	*_TraitParamSpecUInt64
-	*_TraitParamSpec
+	*TraitParamSpecUInt64
+	*TraitParamSpec
 	CPointer unsafe.Pointer
 }
 
 func NewParamSpecUInt64FromCPointer(p unsafe.Pointer) *ParamSpecUInt64 {
 	return &ParamSpecUInt64{
-		&_TraitParamSpecUInt64{(*C.GParamSpecUInt64)(p)},
-		&_TraitParamSpec{(*C.GParamSpec)(p)},
+		NewTraitParamSpecUInt64(p),
+		NewTraitParamSpec(p),
 		p,
 	}
 }
 
 type ParamSpecULong struct {
-	*_TraitParamSpecULong
-	*_TraitParamSpec
+	*TraitParamSpecULong
+	*TraitParamSpec
 	CPointer unsafe.Pointer
 }
 
 func NewParamSpecULongFromCPointer(p unsafe.Pointer) *ParamSpecULong {
 	return &ParamSpecULong{
-		&_TraitParamSpecULong{(*C.GParamSpecULong)(p)},
-		&_TraitParamSpec{(*C.GParamSpec)(p)},
+		NewTraitParamSpecULong(p),
+		NewTraitParamSpec(p),
 		p,
 	}
 }
 
 type ParamSpecUnichar struct {
-	*_TraitParamSpecUnichar
-	*_TraitParamSpec
+	*TraitParamSpecUnichar
+	*TraitParamSpec
 	CPointer unsafe.Pointer
 }
 
 func NewParamSpecUnicharFromCPointer(p unsafe.Pointer) *ParamSpecUnichar {
 	return &ParamSpecUnichar{
-		&_TraitParamSpecUnichar{(*C.GParamSpecUnichar)(p)},
-		&_TraitParamSpec{(*C.GParamSpec)(p)},
+		NewTraitParamSpecUnichar(p),
+		NewTraitParamSpec(p),
 		p,
 	}
 }
 
 type ParamSpecValueArray struct {
-	*_TraitParamSpecValueArray
-	*_TraitParamSpec
+	*TraitParamSpecValueArray
+	*TraitParamSpec
 	CPointer unsafe.Pointer
 }
 
 func NewParamSpecValueArrayFromCPointer(p unsafe.Pointer) *ParamSpecValueArray {
 	return &ParamSpecValueArray{
-		&_TraitParamSpecValueArray{(*C.GParamSpecValueArray)(p)},
-		&_TraitParamSpec{(*C.GParamSpec)(p)},
+		NewTraitParamSpecValueArray(p),
+		NewTraitParamSpec(p),
 		p,
 	}
 }
 
 type ParamSpecVariant struct {
-	*_TraitParamSpecVariant
-	*_TraitParamSpec
+	*TraitParamSpecVariant
+	*TraitParamSpec
 	CPointer unsafe.Pointer
 }
 
 func NewParamSpecVariantFromCPointer(p unsafe.Pointer) *ParamSpecVariant {
 	return &ParamSpecVariant{
-		&_TraitParamSpecVariant{(*C.GParamSpecVariant)(p)},
-		&_TraitParamSpec{(*C.GParamSpec)(p)},
+		NewTraitParamSpecVariant(p),
+		NewTraitParamSpec(p),
 		p,
 	}
 }
 
 type TypeModule struct {
-	*_TraitTypeModule
-	*_TraitObject
+	*TraitTypeModule
+	*TraitObject
 	CPointer unsafe.Pointer
 }
 
 func NewTypeModuleFromCPointer(p unsafe.Pointer) *TypeModule {
 	return &TypeModule{
-		&_TraitTypeModule{(*C.GTypeModule)(p)},
-		&_TraitObject{(*C.GObject)(p)},
+		NewTraitTypeModule(p),
+		NewTraitObject(p),
 		p,
 	}
 }
