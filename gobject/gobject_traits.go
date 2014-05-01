@@ -29,7 +29,7 @@ func (self *_TraitBinding) GetBindingPointer() *C.GBinding {
 Retrieves the flags passed when constructing the #GBinding.
 */
 func (self *_TraitBinding) GetFlags() (return__ C.GBindingFlags) {
-	return__ = C.g_binding_get_flags((*C.GBinding)(unsafe.Pointer(self.CPointer)))
+	return__ = C.g_binding_get_flags(self.CPointer)
 	return
 }
 
@@ -38,7 +38,7 @@ Retrieves the #GObject instance used as the source of the binding.
 */
 func (self *_TraitBinding) GetSource() (return__ *Object) {
 	var __cgo__return__ *C.GObject
-	__cgo__return__ = C.g_binding_get_source((*C.GBinding)(unsafe.Pointer(self.CPointer)))
+	__cgo__return__ = C.g_binding_get_source(self.CPointer)
 	if __cgo__return__ != nil {
 		return__ = NewObjectFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -51,7 +51,7 @@ of the binding.
 */
 func (self *_TraitBinding) GetSourceProperty() (return__ string) {
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_binding_get_source_property((*C.GBinding)(unsafe.Pointer(self.CPointer)))
+	__cgo__return__ = C.g_binding_get_source_property(self.CPointer)
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -61,7 +61,7 @@ Retrieves the #GObject instance used as the target of the binding.
 */
 func (self *_TraitBinding) GetTarget() (return__ *Object) {
 	var __cgo__return__ *C.GObject
-	__cgo__return__ = C.g_binding_get_target((*C.GBinding)(unsafe.Pointer(self.CPointer)))
+	__cgo__return__ = C.g_binding_get_target(self.CPointer)
 	if __cgo__return__ != nil {
 		return__ = NewObjectFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -74,7 +74,7 @@ of the binding.
 */
 func (self *_TraitBinding) GetTargetProperty() (return__ string) {
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_binding_get_target_property((*C.GBinding)(unsafe.Pointer(self.CPointer)))
+	__cgo__return__ = C.g_binding_get_target_property(self.CPointer)
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -89,7 +89,7 @@ after calling g_binding_unbind(), you will need to hold a reference
 to it.
 */
 func (self *_TraitBinding) Unbind() {
-	C.g_binding_unbind((*C.GBinding)(unsafe.Pointer(self.CPointer)))
+	C.g_binding_unbind(self.CPointer)
 	return
 }
 
@@ -142,7 +142,7 @@ this reason, you should only ever use a toggle reference if there
 is important state in the proxy object.
 */
 func (self *_TraitObject) AddToggleRef(notify C.GToggleNotify, data unsafe.Pointer) {
-	C.g_object_add_toggle_ref((*C.GObject)(unsafe.Pointer(self.CPointer)), notify, (C.gpointer)(data))
+	C.g_object_add_toggle_ref(self.CPointer, notify, (C.gpointer)(data))
 	return
 }
 
@@ -264,7 +264,7 @@ object.
 func (self *_TraitObject) DupData(key string, dup_func C.GDuplicateFunc, user_data unsafe.Pointer) (return__ unsafe.Pointer) {
 	__cgo__key := (*C.gchar)(unsafe.Pointer(C.CString(key)))
 	var __cgo__return__ C.gpointer
-	__cgo__return__ = C.g_object_dup_data((*C.GObject)(unsafe.Pointer(self.CPointer)), __cgo__key, dup_func, (C.gpointer)(user_data))
+	__cgo__return__ = C.g_object_dup_data(self.CPointer, __cgo__key, dup_func, (C.gpointer)(user_data))
 	C.free(unsafe.Pointer(__cgo__key))
 	return__ = unsafe.Pointer(__cgo__return__)
 	return
@@ -288,7 +288,7 @@ object.
 */
 func (self *_TraitObject) DupQdata(quark C.GQuark, dup_func C.GDuplicateFunc, user_data unsafe.Pointer) (return__ unsafe.Pointer) {
 	var __cgo__return__ C.gpointer
-	__cgo__return__ = C.g_object_dup_qdata((*C.GObject)(unsafe.Pointer(self.CPointer)), quark, dup_func, (C.gpointer)(user_data))
+	__cgo__return__ = C.g_object_dup_qdata(self.CPointer, quark, dup_func, (C.gpointer)(user_data))
 	return__ = unsafe.Pointer(__cgo__return__)
 	return
 }
@@ -300,7 +300,7 @@ required: all #GInitiallyUnowneds are created with a floating reference
 which usually just needs to be sunken by calling g_object_ref_sink().
 */
 func (self *_TraitObject) ForceFloating() {
-	C.g_object_force_floating((*C.GObject)(unsafe.Pointer(self.CPointer)))
+	C.g_object_force_floating(self.CPointer)
 	return
 }
 
@@ -316,7 +316,7 @@ This is necessary for accessors that modify multiple properties to prevent
 premature notification while the object is still being modified.
 */
 func (self *_TraitObject) FreezeNotify() {
-	C.g_object_freeze_notify((*C.GObject)(unsafe.Pointer(self.CPointer)))
+	C.g_object_freeze_notify(self.CPointer)
 	return
 }
 
@@ -326,7 +326,7 @@ Gets a named field from the objects table of associations (see g_object_set_data
 func (self *_TraitObject) GetData(key string) (return__ unsafe.Pointer) {
 	__cgo__key := (*C.gchar)(unsafe.Pointer(C.CString(key)))
 	var __cgo__return__ C.gpointer
-	__cgo__return__ = C.g_object_get_data((*C.GObject)(unsafe.Pointer(self.CPointer)), __cgo__key)
+	__cgo__return__ = C.g_object_get_data(self.CPointer, __cgo__key)
 	C.free(unsafe.Pointer(__cgo__key))
 	return__ = unsafe.Pointer(__cgo__return__)
 	return
@@ -345,7 +345,7 @@ bindings, g_object_get() is much more convenient for C programming.
 */
 func (self *_TraitObject) GetProperty(property_name string, value *C.GValue) {
 	__cgo__property_name := (*C.gchar)(unsafe.Pointer(C.CString(property_name)))
-	C.g_object_get_property((*C.GObject)(unsafe.Pointer(self.CPointer)), __cgo__property_name, value)
+	C.g_object_get_property(self.CPointer, __cgo__property_name, value)
 	C.free(unsafe.Pointer(__cgo__property_name))
 	return
 }
@@ -356,7 +356,7 @@ g_object_set_qdata().
 */
 func (self *_TraitObject) GetQdata(quark C.GQuark) (return__ unsafe.Pointer) {
 	var __cgo__return__ C.gpointer
-	__cgo__return__ = C.g_object_get_qdata((*C.GObject)(unsafe.Pointer(self.CPointer)), quark)
+	__cgo__return__ = C.g_object_get_qdata(self.CPointer, quark)
 	return__ = unsafe.Pointer(__cgo__return__)
 	return
 }
@@ -387,7 +387,7 @@ called.
 */
 func (self *_TraitObject) Notify(property_name string) {
 	__cgo__property_name := (*C.gchar)(unsafe.Pointer(C.CString(property_name)))
-	C.g_object_notify((*C.GObject)(unsafe.Pointer(self.CPointer)), __cgo__property_name)
+	C.g_object_notify(self.CPointer, __cgo__property_name)
 	C.free(unsafe.Pointer(__cgo__property_name))
 	return
 }
@@ -433,7 +433,7 @@ and then notify a change on the "foo" property with:
 ]|
 */
 func (self *_TraitObject) NotifyByPspec(pspec IsParamSpec) {
-	C.g_object_notify_by_pspec((*C.GObject)(unsafe.Pointer(self.CPointer)), pspec.GetParamSpecPointer())
+	C.g_object_notify_by_pspec(self.CPointer, pspec.GetParamSpecPointer())
 	return
 }
 
@@ -469,7 +469,7 @@ Removes a reference added with g_object_add_toggle_ref(). The
 reference count of the object is decreased by one.
 */
 func (self *_TraitObject) RemoveToggleRef(notify C.GToggleNotify, data unsafe.Pointer) {
-	C.g_object_remove_toggle_ref((*C.GObject)(unsafe.Pointer(self.CPointer)), notify, (C.gpointer)(data))
+	C.g_object_remove_toggle_ref(self.CPointer, notify, (C.gpointer)(data))
 	return
 }
 
@@ -493,7 +493,7 @@ should not destroy the object in the normal way.
 func (self *_TraitObject) ReplaceData(key string, oldval unsafe.Pointer, newval unsafe.Pointer, destroy C.GDestroyNotify, old_destroy *C.GDestroyNotify) (return__ bool) {
 	__cgo__key := (*C.gchar)(unsafe.Pointer(C.CString(key)))
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_object_replace_data((*C.GObject)(unsafe.Pointer(self.CPointer)), __cgo__key, (C.gpointer)(oldval), (C.gpointer)(newval), destroy, old_destroy)
+	__cgo__return__ = C.g_object_replace_data(self.CPointer, __cgo__key, (C.gpointer)(oldval), (C.gpointer)(newval), destroy, old_destroy)
 	C.free(unsafe.Pointer(__cgo__key))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
@@ -516,7 +516,7 @@ should not destroy the object in the normal way.
 */
 func (self *_TraitObject) ReplaceQdata(quark C.GQuark, oldval unsafe.Pointer, newval unsafe.Pointer, destroy C.GDestroyNotify, old_destroy *C.GDestroyNotify) (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_object_replace_qdata((*C.GObject)(unsafe.Pointer(self.CPointer)), quark, (C.gpointer)(oldval), (C.gpointer)(newval), destroy, old_destroy)
+	__cgo__return__ = C.g_object_replace_qdata(self.CPointer, quark, (C.gpointer)(oldval), (C.gpointer)(newval), destroy, old_destroy)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -528,7 +528,7 @@ reference cycles.
 This functions should only be called from object system implementations.
 */
 func (self *_TraitObject) RunDispose() {
-	C.g_object_run_dispose((*C.GObject)(unsafe.Pointer(self.CPointer)))
+	C.g_object_run_dispose(self.CPointer)
 	return
 }
 
@@ -541,7 +541,7 @@ the old association will be destroyed.
 */
 func (self *_TraitObject) SetData(key string, data unsafe.Pointer) {
 	__cgo__key := (*C.gchar)(unsafe.Pointer(C.CString(key)))
-	C.g_object_set_data((*C.GObject)(unsafe.Pointer(self.CPointer)), __cgo__key, (C.gpointer)(data))
+	C.g_object_set_data(self.CPointer, __cgo__key, (C.gpointer)(data))
 	C.free(unsafe.Pointer(__cgo__key))
 	return
 }
@@ -555,7 +555,7 @@ Note that the @destroy callback is not called if @data is %NULL.
 */
 func (self *_TraitObject) SetDataFull(key string, data unsafe.Pointer, destroy C.GDestroyNotify) {
 	__cgo__key := (*C.gchar)(unsafe.Pointer(C.CString(key)))
-	C.g_object_set_data_full((*C.GObject)(unsafe.Pointer(self.CPointer)), __cgo__key, (C.gpointer)(data), destroy)
+	C.g_object_set_data_full(self.CPointer, __cgo__key, (C.gpointer)(data), destroy)
 	C.free(unsafe.Pointer(__cgo__key))
 	return
 }
@@ -565,7 +565,7 @@ Sets a property on an object.
 */
 func (self *_TraitObject) SetProperty(property_name string, value *C.GValue) {
 	__cgo__property_name := (*C.gchar)(unsafe.Pointer(C.CString(property_name)))
-	C.g_object_set_property((*C.GObject)(unsafe.Pointer(self.CPointer)), __cgo__property_name, value)
+	C.g_object_set_property(self.CPointer, __cgo__property_name, value)
 	C.free(unsafe.Pointer(__cgo__property_name))
 	return
 }
@@ -581,7 +581,7 @@ the old pointer set, using #NULL as pointer essentially
 removes the data stored.
 */
 func (self *_TraitObject) SetQdata(quark C.GQuark, data unsafe.Pointer) {
-	C.g_object_set_qdata((*C.GObject)(unsafe.Pointer(self.CPointer)), quark, (C.gpointer)(data))
+	C.g_object_set_qdata(self.CPointer, quark, (C.gpointer)(data))
 	return
 }
 
@@ -593,7 +593,7 @@ the data is being overwritten by a call to g_object_set_qdata()
 with the same @quark.
 */
 func (self *_TraitObject) SetQdataFull(quark C.GQuark, data unsafe.Pointer, destroy C.GDestroyNotify) {
-	C.g_object_set_qdata_full((*C.GObject)(unsafe.Pointer(self.CPointer)), quark, (C.gpointer)(data), destroy)
+	C.g_object_set_qdata_full(self.CPointer, quark, (C.gpointer)(data), destroy)
 	return
 }
 
@@ -606,7 +606,7 @@ without invoking the association's destroy handler.
 func (self *_TraitObject) StealData(key string) (return__ unsafe.Pointer) {
 	__cgo__key := (*C.gchar)(unsafe.Pointer(C.CString(key)))
 	var __cgo__return__ C.gpointer
-	__cgo__return__ = C.g_object_steal_data((*C.GObject)(unsafe.Pointer(self.CPointer)), __cgo__key)
+	__cgo__return__ = C.g_object_steal_data(self.CPointer, __cgo__key)
 	C.free(unsafe.Pointer(__cgo__key))
 	return__ = unsafe.Pointer(__cgo__return__)
 	return
@@ -651,7 +651,7 @@ g_object_set_qdata_full().
 */
 func (self *_TraitObject) StealQdata(quark C.GQuark) (return__ unsafe.Pointer) {
 	var __cgo__return__ C.gpointer
-	__cgo__return__ = C.g_object_steal_qdata((*C.GObject)(unsafe.Pointer(self.CPointer)), quark)
+	__cgo__return__ = C.g_object_steal_qdata(self.CPointer, quark)
 	return__ = unsafe.Pointer(__cgo__return__)
 	return
 }
@@ -668,7 +668,7 @@ in which they have been queued.
 It is an error to call this function when the freeze count is zero.
 */
 func (self *_TraitObject) ThawNotify() {
-	C.g_object_thaw_notify((*C.GObject)(unsafe.Pointer(self.CPointer)))
+	C.g_object_thaw_notify(self.CPointer)
 	return
 }
 
@@ -693,7 +693,7 @@ reference count is held on @object during invocation of the
 use this @object as closure data.
 */
 func (self *_TraitObject) WatchClosure(closure *C.GClosure) {
-	C.g_object_watch_closure((*C.GObject)(unsafe.Pointer(self.CPointer)), closure)
+	C.g_object_watch_closure(self.CPointer, closure)
 	return
 }
 
@@ -710,7 +710,7 @@ object's last g_object_unref() might happen in another thread.
 Use #GWeakRef if thread-safety is required.
 */
 func (self *_TraitObject) WeakRef(notify C.GWeakNotify, data unsafe.Pointer) {
-	C.g_object_weak_ref((*C.GObject)(unsafe.Pointer(self.CPointer)), notify, (C.gpointer)(data))
+	C.g_object_weak_ref(self.CPointer, notify, (C.gpointer)(data))
 	return
 }
 
@@ -718,7 +718,7 @@ func (self *_TraitObject) WeakRef(notify C.GWeakNotify, data unsafe.Pointer) {
 Removes a weak reference callback to an object.
 */
 func (self *_TraitObject) WeakUnref(notify C.GWeakNotify, data unsafe.Pointer) {
-	C.g_object_weak_unref((*C.GObject)(unsafe.Pointer(self.CPointer)), notify, (C.gpointer)(data))
+	C.g_object_weak_unref(self.CPointer, notify, (C.gpointer)(data))
 	return
 }
 
@@ -736,13 +736,13 @@ Get the short description of a #GParamSpec.
 */
 func (self *_TraitParamSpec) GetBlurb() (return__ string) {
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_param_spec_get_blurb((*C.GParamSpec)(unsafe.Pointer(self.CPointer)))
+	__cgo__return__ = C.g_param_spec_get_blurb(self.CPointer)
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
 
 func (self *_TraitParamSpec) GetDefaultValue() (return__ *C.GValue) {
-	return__ = C.g_param_spec_get_default_value((*C.GParamSpec)(unsafe.Pointer(self.CPointer)))
+	return__ = C.g_param_spec_get_default_value(self.CPointer)
 	return
 }
 
@@ -754,7 +754,7 @@ This allows for pointer-value comparisons.
 */
 func (self *_TraitParamSpec) GetName() (return__ string) {
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_param_spec_get_name((*C.GParamSpec)(unsafe.Pointer(self.CPointer)))
+	__cgo__return__ = C.g_param_spec_get_name(self.CPointer)
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -764,7 +764,7 @@ Get the nickname of a #GParamSpec.
 */
 func (self *_TraitParamSpec) GetNick() (return__ string) {
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_param_spec_get_nick((*C.GParamSpec)(unsafe.Pointer(self.CPointer)))
+	__cgo__return__ = C.g_param_spec_get_nick(self.CPointer)
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -774,7 +774,7 @@ Gets back user data pointers stored via g_param_spec_set_qdata().
 */
 func (self *_TraitParamSpec) GetQdata(quark C.GQuark) (return__ unsafe.Pointer) {
 	var __cgo__return__ C.gpointer
-	__cgo__return__ = C.g_param_spec_get_qdata((*C.GParamSpec)(unsafe.Pointer(self.CPointer)), quark)
+	__cgo__return__ = C.g_param_spec_get_qdata(self.CPointer, quark)
 	return__ = unsafe.Pointer(__cgo__return__)
 	return
 }
@@ -790,7 +790,7 @@ for an example of the use of this capability.
 */
 func (self *_TraitParamSpec) GetRedirectTarget() (return__ *ParamSpec) {
 	var __cgo__return__ *C.GParamSpec
-	__cgo__return__ = C.g_param_spec_get_redirect_target((*C.GParamSpec)(unsafe.Pointer(self.CPointer)))
+	__cgo__return__ = C.g_param_spec_get_redirect_target(self.CPointer)
 	if __cgo__return__ != nil {
 		return__ = NewParamSpecFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -802,7 +802,7 @@ Increments the reference count of @pspec.
 */
 func (self *_TraitParamSpec) Ref() (return__ *ParamSpec) {
 	var __cgo__return__ *C.GParamSpec
-	__cgo__return__ = C.g_param_spec_ref((*C.GParamSpec)(unsafe.Pointer(self.CPointer)))
+	__cgo__return__ = C.g_param_spec_ref(self.CPointer)
 	if __cgo__return__ != nil {
 		return__ = NewParamSpecFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -814,7 +814,7 @@ Convenience function to ref and sink a #GParamSpec.
 */
 func (self *_TraitParamSpec) RefSink() (return__ *ParamSpec) {
 	var __cgo__return__ *C.GParamSpec
-	__cgo__return__ = C.g_param_spec_ref_sink((*C.GParamSpec)(unsafe.Pointer(self.CPointer)))
+	__cgo__return__ = C.g_param_spec_ref_sink(self.CPointer)
 	if __cgo__return__ != nil {
 		return__ = NewParamSpecFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -830,7 +830,7 @@ previously set user data pointer, overrides (frees) the old pointer
 set, using %NULL as pointer essentially removes the data stored.
 */
 func (self *_TraitParamSpec) SetQdata(quark C.GQuark, data unsafe.Pointer) {
-	C.g_param_spec_set_qdata((*C.GParamSpec)(unsafe.Pointer(self.CPointer)), quark, (C.gpointer)(data))
+	C.g_param_spec_set_qdata(self.CPointer, quark, (C.gpointer)(data))
 	return
 }
 
@@ -842,7 +842,7 @@ finalized, or the data is being overwritten by a call to
 g_param_spec_set_qdata() with the same @quark.
 */
 func (self *_TraitParamSpec) SetQdataFull(quark C.GQuark, data unsafe.Pointer, destroy C.GDestroyNotify) {
-	C.g_param_spec_set_qdata_full((*C.GParamSpec)(unsafe.Pointer(self.CPointer)), quark, (C.gpointer)(data), destroy)
+	C.g_param_spec_set_qdata_full(self.CPointer, quark, (C.gpointer)(data), destroy)
 	return
 }
 
@@ -856,7 +856,7 @@ reference count (thus ending up with a @pspec that has a reference
 count of 1 still, but is not flagged "floating" anymore).
 */
 func (self *_TraitParamSpec) Sink() {
-	C.g_param_spec_sink((*C.GParamSpec)(unsafe.Pointer(self.CPointer)))
+	C.g_param_spec_sink(self.CPointer)
 	return
 }
 
@@ -868,7 +868,7 @@ required to update user data pointers with a destroy notifier.
 */
 func (self *_TraitParamSpec) StealQdata(quark C.GQuark) (return__ unsafe.Pointer) {
 	var __cgo__return__ C.gpointer
-	__cgo__return__ = C.g_param_spec_steal_qdata((*C.GParamSpec)(unsafe.Pointer(self.CPointer)), quark)
+	__cgo__return__ = C.g_param_spec_steal_qdata(self.CPointer, quark)
 	return__ = unsafe.Pointer(__cgo__return__)
 	return
 }
@@ -877,7 +877,7 @@ func (self *_TraitParamSpec) StealQdata(quark C.GQuark) (return__ unsafe.Pointer
 Decrements the reference count of a @pspec.
 */
 func (self *_TraitParamSpec) Unref() {
-	C.g_param_spec_unref((*C.GParamSpec)(unsafe.Pointer(self.CPointer)))
+	C.g_param_spec_unref(self.CPointer)
 	return
 }
 
@@ -1106,7 +1106,7 @@ As long as any instances of the type exist, the type plugin will
 not be unloaded.
 */
 func (self *_TraitTypeModule) AddInterface(instance_type C.GType, interface_type C.GType, interface_info *C.GInterfaceInfo) {
-	C.g_type_module_add_interface((*C.GTypeModule)(unsafe.Pointer(self.CPointer)), instance_type, interface_type, interface_info)
+	C.g_type_module_add_interface(self.CPointer, instance_type, interface_type, interface_info)
 	return
 }
 
@@ -1121,7 +1121,7 @@ not be unloaded.
 */
 func (self *_TraitTypeModule) RegisterEnum(name string, const_static_values *C.GEnumValue) (return__ C.GType) {
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
-	return__ = C.g_type_module_register_enum((*C.GTypeModule)(unsafe.Pointer(self.CPointer)), __cgo__name, const_static_values)
+	return__ = C.g_type_module_register_enum(self.CPointer, __cgo__name, const_static_values)
 	C.free(unsafe.Pointer(__cgo__name))
 	return
 }
@@ -1137,7 +1137,7 @@ not be unloaded.
 */
 func (self *_TraitTypeModule) RegisterFlags(name string, const_static_values *C.GFlagsValue) (return__ C.GType) {
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
-	return__ = C.g_type_module_register_flags((*C.GTypeModule)(unsafe.Pointer(self.CPointer)), __cgo__name, const_static_values)
+	return__ = C.g_type_module_register_flags(self.CPointer, __cgo__name, const_static_values)
 	C.free(unsafe.Pointer(__cgo__name))
 	return
 }
@@ -1157,7 +1157,7 @@ not be unloaded.
 */
 func (self *_TraitTypeModule) RegisterType(parent_type C.GType, type_name string, type_info *C.GTypeInfo, flags C.GTypeFlags) (return__ C.GType) {
 	__cgo__type_name := (*C.gchar)(unsafe.Pointer(C.CString(type_name)))
-	return__ = C.g_type_module_register_type((*C.GTypeModule)(unsafe.Pointer(self.CPointer)), parent_type, __cgo__type_name, type_info, flags)
+	return__ = C.g_type_module_register_type(self.CPointer, parent_type, __cgo__type_name, type_info, flags)
 	C.free(unsafe.Pointer(__cgo__type_name))
 	return
 }
@@ -1167,7 +1167,7 @@ Sets the name for a #GTypeModule
 */
 func (self *_TraitTypeModule) SetName(name string) {
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
-	C.g_type_module_set_name((*C.GTypeModule)(unsafe.Pointer(self.CPointer)), __cgo__name)
+	C.g_type_module_set_name(self.CPointer, __cgo__name)
 	C.free(unsafe.Pointer(__cgo__name))
 	return
 }
@@ -1180,7 +1180,7 @@ result is zero, the module will be unloaded. (However, the
 initialized, it must exist forever.)
 */
 func (self *_TraitTypeModule) Unuse() {
-	C.g_type_module_unuse((*C.GTypeModule)(unsafe.Pointer(self.CPointer)))
+	C.g_type_module_unuse(self.CPointer)
 	return
 }
 
@@ -1192,7 +1192,7 @@ its prior value.
 */
 func (self *_TraitTypeModule) Use() (return__ bool) {
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_type_module_use((*C.GTypeModule)(unsafe.Pointer(self.CPointer)))
+	__cgo__return__ = C.g_type_module_use(self.CPointer)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
