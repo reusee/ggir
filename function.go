@@ -190,8 +190,12 @@ func (self *Generator) GenFunction(fn *Function, output io.Writer, receiver *Cla
 	// cgo call
 	w(output, "C.%s(", fn.CIdentifier)
 	if receiver != nil {
-		w(output, fs("(%s)(unsafe.Pointer(self.CPointer)),",
-			cTypeToGoType(fn.InstanceParam.Type.CType)))
+		cReceiverType := cTypeToGoType(fn.InstanceParam.Type.CType)
+		if cReceiverType != "*"+cTypeToGoType(receiver.CType) { // GObject's receiver type is C.gpointer
+			w(output, fs("(%s)(unsafe.Pointer(self.CPointer)),", cReceiverType))
+		} else {
+			w(output, "self.CPointer,")
+		}
 	}
 	for _, param := range fn.Params {
 		if !param.IsVoid {
