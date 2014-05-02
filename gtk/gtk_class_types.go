@@ -9,7 +9,7 @@ package gtk
 */
 import "C"
 import "unsafe"
-import "../gobject"
+import "github.com/reusee/ggir/gobject"
 import "runtime"
 
 func init() {
