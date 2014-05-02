@@ -6,6 +6,7 @@ package gobject
 import "C"
 
 import (
+	"fmt"
 	"reflect"
 	"unsafe"
 )
@@ -34,8 +35,11 @@ func closureMarshal(closure *C.GClosure, ret *C.GValue, nParams C.guint, params 
 		case reflect.Ptr:
 			p := goValue.(unsafe.Pointer)
 			arg = reflect.NewAt(fType.In(i), unsafe.Pointer(&p)).Elem()
+		case reflect.Interface:
+			arg = reflect.ValueOf(goValue)
 		default:
 			panic("FIXME") //TODO
+			panic(fmt.Sprintf("FIXME closure marshal: value %v to %v", goValue, fType.In(i)))
 		}
 		arguments = append(arguments, arg)
 	}
