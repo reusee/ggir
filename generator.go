@@ -9,24 +9,23 @@ import (
 type Generator struct {
 	outputDir string
 
-	PackageName               string             `xml:"package-name"`
-	GirPath                   string             `xml:"gir-path"`
-	ExternalPackages          []*ExternalPackage `xml:"external-package"`
-	Includes                  []string           `xml:"include"`
-	PkgConfigs                []string           `xml:"pkg-config"`
-	FunctionIgnorePatterns    []string           `xml:"function-ignore-patterns>entry"`
-	FunctionRenames           []*Rename          `xml:"function-rename>rename"`
-	ConstantIgnorePatterns    []string           `xml:"constant-ignore-patterns>entry"`
-	TypesIgnorePatterns       []string           `xml:"type-ignore-patterns>entry"`
-	ParamDirectionEntries     []*Entry           `xml:"param-direction>entry"`
-	ParamDirections           map[string]string
-	TypeMappingEntries        []*Entry `xml:"type-mapping>entry"`
-	InParamMarshalEntries     []*Entry `xml:"in-param-marshal>entry"`
-	OutParamMarshalEntries    []*Entry `xml:"out-param-marshal>entry"`
-	InParamMarshals           map[string]*Entry
-	OutParamMarshals          map[string]*Entry
-	SignalParamMappingEntries []*Entry `xml:"signal-param-mapping>entry"`
-	SignalParamMapping        map[string]string
+	PackageName             string             `xml:"package-name"`
+	GirPath                 string             `xml:"gir-path"`
+	ExternalPackages        []*ExternalPackage `xml:"external-package"`
+	Includes                []string           `xml:"include"`
+	PkgConfigs              []string           `xml:"pkg-config"`
+	FunctionIgnorePatterns  []string           `xml:"function-ignore-patterns>entry"`
+	FunctionRenames         []*Rename          `xml:"function-rename>rename"`
+	ConstantIgnorePatterns  []string           `xml:"constant-ignore-patterns>entry"`
+	TypesIgnorePatterns     []string           `xml:"type-ignore-patterns>entry"`
+	ParamDirectionEntries   []*Entry           `xml:"param-direction>entry"`
+	ParamDirections         map[string]string
+	TypeMappingEntries      []*Entry `xml:"type-mapping>entry"`
+	InParamMarshalEntries   []*Entry `xml:"in-param-marshal>entry"`
+	OutParamMarshalEntries  []*Entry `xml:"out-param-marshal>entry"`
+	InParamMarshals         map[string]*Entry
+	OutParamMarshals        map[string]*Entry
+	SignalParamTypeMappings map[string]string
 }
 
 type ExternalPackage struct {
@@ -54,10 +53,10 @@ func Gen(outputDir string) {
 	buildFileContent, err := ioutil.ReadFile(filepath.Join(outputDir, "build.xml"))
 	checkError(err)
 	generator := &Generator{
-		ParamDirections:    make(map[string]string),
-		InParamMarshals:    make(map[string]*Entry),
-		OutParamMarshals:   make(map[string]*Entry),
-		SignalParamMapping: make(map[string]string),
+		ParamDirections:         make(map[string]string),
+		InParamMarshals:         make(map[string]*Entry),
+		OutParamMarshals:        make(map[string]*Entry),
+		SignalParamTypeMappings: make(map[string]string),
 	}
 	err = xml.Unmarshal(buildFileContent, generator)
 	checkError(err)
@@ -75,9 +74,6 @@ func Gen(outputDir string) {
 	}
 	for _, entry := range generator.OutParamMarshalEntries {
 		generator.OutParamMarshals[entry.Spec] = entry
-	}
-	for _, entry := range generator.SignalParamMappingEntries {
-		generator.SignalParamMapping[entry.Spec] = entry.Text
 	}
 
 	// parse gir
