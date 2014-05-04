@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<generator>
+  <package-name>gdk</package-name>
+  <gir-path>/usr/share/gir-1.0/Gdk-3.0.gir</gir-path>
+
+  <external-package name="gobject">
+    <gir-path>/usr/share/gir-1.0/GObject-2.0.gir</gir-path>
+    <import>github.com/reusee/ggir/gobject</import>
+    <!-- k<import>../gobject</import> -->
+  </external-package>
+
+</generator>

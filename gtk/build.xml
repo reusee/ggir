@@ -2,6 +2,7 @@
 <generator>
   <package-name>gtk</package-name>
   <gir-path>/usr/share/gir-1.0/Gtk-3.0.gir</gir-path>
+
   <external-package name="gobject">
     <gir-path>/usr/share/gir-1.0/GObject-2.0.gir</gir-path>
     <import>github.com/reusee/ggir/gobject</import>
@@ -41,5 +42,11 @@
     <entry spec="gtk_parse_args argc">in</entry>
     <entry spec="gtk_parse_args argv">in</entry>
   </param-direction>
+
+  <signal-param-mapping>
+    <entry spec="Widget">*Widget</entry>
+    <entry spec="Gdk.EventWindowState">gdk.EventWindowState</entry>
+    <entry spec="Gdk.EventVisibility">*gdk.EventVisibility</entry>
+  </signal-param-mapping>
 
 </generator>

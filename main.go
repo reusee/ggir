@@ -6,8 +6,8 @@ import (
 )
 
 func main() {
-	if len(os.Args) < 3 {
-		p("usage: %s [output dir] [gir file path]\n", os.Args[0])
+	if len(os.Args) < 2 {
+		p("usage: %s [output dir]\n", os.Args[0])
 		return
 	}
 	outputDir, err := filepath.Abs(os.Args[1])
@@ -17,8 +17,5 @@ func main() {
 		err = os.Mkdir(outputDir, 0755)
 		checkError(err)
 	}
-	buildFilePath, err := filepath.Abs(os.Args[2])
-	checkError(err)
-
-	Gen(outputDir, buildFilePath)
+	Gen(outputDir)
 }
