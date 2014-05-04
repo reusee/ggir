@@ -7151,7 +7151,7 @@ for details.
 
 If a character passes the g_unichar_iswide() test then it will also pass
 this test, but not the other way around.  Note that some characters may
-pas both this test and g_unichar_iszerowidth().
+pass both this test and g_unichar_iszerowidth().
 */
 func UnicharIswideCjk(c rune) (return__ bool) {
 	var __cgo__return__ C.gboolean
