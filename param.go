@@ -153,6 +153,7 @@ func (self *Param) MapType() (ret string) {
 	case "in GoType C.gint8 TypeName gint8":
 		ret = "int8"
 	case "in GoType C.guint8 TypeName guint8",
+		"in GoType C.guchar TypeName guint8",
 		"out GoType C.guint8 TypeName guint8":
 		ret = "uint8"
 	case "out GoType C.guint16 TypeName guint16":
@@ -209,6 +210,8 @@ func (self *Param) MapType() (ret string) {
 		"in GoType **C.gchar IsArray ElemName utf8",
 		"out GoType **C.gchar IsArray ElemType **C.gchar ElemName utf8 HasLenParam ZeroTerminated",
 		"in GoType **C.guchar TypeName guint8",
+		"in GoType **C.char IsArray ElemType *C.char ElemName utf8",
+		"in GoType **C.char IsArray ElemName utf8",
 		"in GoType **C.gchar TypeName utf8":
 		ret = "[]string"
 
@@ -223,11 +226,13 @@ func (self *Param) MapType() (ret string) {
 	// bytes
 	case "out GoType *C.guint8 IsArray ElemType C.guint8 ElemName guint8 HasLenParam",
 		"in GoType *C.guint8 IsArray ElemType C.guint8 ElemName guint8 HasLenParam",
+		"out GoType *C.guchar IsArray ElemType C.guchar ElemName guint8 HasLenParam",
 		"in GoType *C.gchar IsArray ElemType C.gchar ElemName utf8 HasLenParam",
 		"out GoType *C.gchar IsArray ElemName guint8 HasLenParam",
 		"in GoType *C.guchar IsArray ElemName guint8 HasLenParam",
 		"out GoType *C.guchar IsArray ElemName guint8 HasLenParam",
 		"in GoType *C.guchar IsArray ElemType C.guchar ElemName guint8 HasLenParam",
+		"in GoType *C.guchar IsArray ElemType C.guchar ElemName guint8",
 		"in GoType *C.gchar IsArray ElemName guint8 HasLenParam":
 		ret = "[]byte"
 
@@ -252,6 +257,7 @@ func (self *Param) MapType() (ret string) {
 		"out GoType *C.gchar IsArray ElemName guint8",
 		"in GoType *C.gpointer TypeName gpointer",
 		"in GoType **C.char TypeName utf8",
+		"out GoType *C.guchar IsArray ElemType C.guchar ElemName guint8",
 		"in GoType ***C.gchar TypeName utf8",
 		"in GoType *C.glong TypeName glong":
 		ret = self.GoType
@@ -353,6 +359,8 @@ func (self *Param) InParamMarshal() {
 			self.CgoParam = ff("C.gint8($$name)")
 		case "uint8 -> C.guint8":
 			self.CgoParam = ff("C.guint8($$name)")
+		case "uint8 -> C.guchar":
+			self.CgoParam = ff("C.guchar($$name)")
 		case "uint16 -> C.guint16":
 			self.CgoParam = ff("C.guint16($$name)")
 		case "int32 -> C.gint32":
@@ -393,6 +401,8 @@ func (self *Param) InParamMarshal() {
 			sliceToPointer("**C.gchar")
 		case "[]string -> **C.guchar":
 			sliceToPointer("**C.guchar")
+		case "[]string -> **C.char":
+			sliceToPointer("**C.char")
 		case "[]int -> *C.gint":
 			sliceToPointer("*C.gint")
 
