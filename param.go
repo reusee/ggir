@@ -194,6 +194,7 @@ func (self *Param) MapType() (ret string) {
 		"out GoType *C.char TypeName utf8",
 		"out GoType *C.gchar TypeName filename",
 		"in GoType *C.char TypeName filename",
+		"out GoType *C.guchar IsArray ElemType *C.guchar ElemName guint8 HasLenParam",
 		"out GoType *C.gchar TypeName utf8":
 		ret = "string"
 
@@ -207,11 +208,13 @@ func (self *Param) MapType() (ret string) {
 	case "in GoType **C.gchar IsArray ElemType *C.gchar ElemName utf8",
 		"in GoType **C.gchar IsArray ElemName utf8",
 		"out GoType **C.gchar IsArray ElemType **C.gchar ElemName utf8 HasLenParam ZeroTerminated",
+		"in GoType **C.guchar TypeName guint8",
 		"in GoType **C.gchar TypeName utf8":
 		ret = "[]string"
 
 	// numeric slice
 	case "in GoType *C.gint IsArray ElemType C.gint ElemName gint",
+		"out GoType *C.gint IsArray ElemType *C.gint ElemName gint HasLenParam",
 		"in GoType *C.gint IsArray ElemType C.gint ElemName gint HasLenParam":
 		ret = "[]int"
 	case "out GoType *C.guint IsArray ElemType C.guint ElemName guint HasLenParam":
@@ -379,7 +382,7 @@ func (self *Param) InParamMarshal() {
 		case "float64 -> C.gdouble":
 			self.CgoParam = ff("C.gdouble($$name)")
 
-		// slice
+		// slice FIXME convert go string to c string first
 		case "[]byte -> *C.gchar":
 			sliceToPointer("*C.gchar")
 		case "[]byte -> *C.guchar":
@@ -388,6 +391,8 @@ func (self *Param) InParamMarshal() {
 			sliceToPointer("*C.guint8")
 		case "[]string -> **C.gchar":
 			sliceToPointer("**C.gchar")
+		case "[]string -> **C.guchar":
+			sliceToPointer("**C.guchar")
 		case "[]int -> *C.gint":
 			sliceToPointer("*C.gint")
 
@@ -442,6 +447,14 @@ func (self *Param) OutParamMarshal() {
 			return
 		}
 
+		// helpers
+		pointerAndLenToSlice := `defer func() {
+				__header__$$name := (*reflect.SliceHeader)(unsafe.Pointer(&$$name))
+				__header__$$name.Len = int($$len)
+				__header__$$name.Cap = int($$len)
+				__header__$$name.Data = uintptr(unsafe.Pointer(__cgo__$$name))
+			}();`
+
 		switch spec {
 
 		// bool
@@ -455,7 +468,8 @@ func (self *Param) OutParamMarshal() {
 			self.CgoAfterStmt += ff("$$name = rune(__cgo__$$name);")
 
 		// string
-		case "*C.gchar -> string":
+		case "*C.gchar -> string",
+			"*C.guchar -> string":
 			self.CgoAfterStmt += ff("$$name = C.GoString((*C.char)(unsafe.Pointer(__cgo__$$name)));")
 		case "*C.char -> string":
 			self.CgoAfterStmt += ff("$$name = C.GoString(__cgo__$$name);")
@@ -512,13 +526,9 @@ func (self *Param) OutParamMarshal() {
 				};`)
 
 		// uint slice
-		case "*C.guint -> []uint":
-			self.CgoAfterStmt += ff(`defer func() {
-				__header__$$name := (*reflect.SliceHeader)(unsafe.Pointer(&$$name))
-				__header__$$name.Len = int($$len)
-				__header__$$name.Cap = int($$len)
-				__header__$$name.Data = uintptr(unsafe.Pointer(__cgo__$$name))
-			}();`)
+		case "*C.guint -> []uint",
+			"*C.gint -> []int":
+			self.CgoAfterStmt += ff(pointerAndLenToSlice)
 
 		// untyped pointer
 		case "C.gpointer -> unsafe.Pointer":
