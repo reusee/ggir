@@ -6,7 +6,16 @@
   <external-package name="gobject">
     <gir-path>/usr/share/gir-1.0/GObject-2.0.gir</gir-path>
     <import>github.com/reusee/ggir/gobject</import>
-    <!-- k<import>../gobject</import> -->
+  </external-package>
+
+  <external-package name="gdk">
+    <gir-path>/usr/share/gir-1.0/Gdk-3.0.gir</gir-path>
+    <import>github.com/reusee/ggir/gdk</import>
+  </external-package>
+
+  <external-package name="cairo">
+    <gir-path>/usr/share/gir-1.0/cairo-1.0.gir</gir-path>
+    <import>github.com/reusee/ggir/cairo</import>
   </external-package>
 
   <include>gtk/gtk.h</include>
@@ -42,11 +51,5 @@
     <entry spec="gtk_parse_args argc">in</entry>
     <entry spec="gtk_parse_args argv">in</entry>
   </param-direction>
-
-  <signal-param-mapping>
-    <entry spec="Widget">*Widget</entry>
-    <entry spec="Gdk.EventWindowState">gdk.EventWindowState</entry>
-    <entry spec="Gdk.EventVisibility">*gdk.EventVisibility</entry>
-  </signal-param-mapping>
 
 </generator>

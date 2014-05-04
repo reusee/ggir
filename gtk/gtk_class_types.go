@@ -10,6 +10,8 @@ package gtk
 import "C"
 import "unsafe"
 import "github.com/reusee/ggir/gobject"
+import "github.com/reusee/ggir/gdk"
+import "github.com/reusee/ggir/cairo"
 import "runtime"
 
 func init() {
