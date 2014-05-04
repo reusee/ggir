@@ -248,6 +248,9 @@ func CclosureMarshalVOIDVOID(closure *C.GClosure, return_value *C.GValue, n_para
 /*
 A generic marshaller function implemented via
 [libffi](http://sourceware.org/libffi/).
+
+Normally this function is not passed explicitly to g_signal_new(),
+but used automatically by GLib when specifying a %NULL marshaller.
 */
 func CclosureMarshalGeneric(closure *C.GClosure, return_gvalue *C.GValue, n_param_values uint, param_values *C.GValue, invocation_hint unsafe.Pointer, marshal_data unsafe.Pointer) {
 	C.g_cclosure_marshal_generic(closure, return_gvalue, C.guint(n_param_values), param_values, (C.gpointer)(invocation_hint), (C.gpointer)(marshal_data))
