@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<generator>
+  <package-name>cairo</package-name>
+  <gir-path>/usr/share/gir-1.0/cairo-1.0.gir</gir-path>
+
+  <include>cairo.h</include>
+
+  <pkg-config>cairo</pkg-config>
+
+  <function-ignore-patterns>
+    <entry>cairo_image_surface_create</entry>
+  </function-ignore-patterns>
+
+</generator>
