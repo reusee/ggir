@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<generator>
+  <package-name>gdkpixbuf</package-name>
+  <gir-path>/usr/share/gir-1.0/GdkPixbuf-2.0.gir</gir-path>
+
+  <external-package name="gobject">
+    <gir-path>/usr/share/gir-1.0/GObject-2.0.gir</gir-path>
+    <import>github.com/reusee/ggir/gobject</import>
+  </external-package>
+
+  <include>gdk-pixbuf/gdk-pixbuf.h</include>
+  <include>gdk-pixbuf/gdk-pixdata.h</include>
+
+  <pkg-config>gdk-pixbuf-2.0</pkg-config>
+
+</generator>
