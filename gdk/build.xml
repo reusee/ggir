@@ -9,4 +9,9 @@
     <!-- k<import>../gobject</import> -->
   </external-package>
 
+  <include>gdk/gdk.h</include>
+  <include>gdk/gdkprivate.h</include>
+
+  <pkg-config>gdk-3.0</pkg-config>
+
 </generator>
