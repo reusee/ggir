@@ -41,6 +41,9 @@ func (self *Generator) GenClassTypes(ns *Namespace) {
 	}
 
 	for _, c := range ns.Classes {
+		if c.CType == "" {
+			continue
+		}
 		goType := cTypeToGoType(c.CType)
 		typeName := c.Name
 
