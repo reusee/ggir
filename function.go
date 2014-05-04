@@ -79,7 +79,7 @@ func (self *Generator) GenFunction(fn *Function, output io.Writer, receiver *Cla
 	//FIXME skip function with inout param due to broken rule
 	for _, param := range fn.Params {
 		if param.Direction == "inout" {
-			p("===fixme=== function with inout param %s\n", fn.CIdentifier)
+			p("FIXME function with inout param %s\n", fn.CIdentifier)
 			w(output, "// %s is not generated due to inout param\n\n", fn.CIdentifier)
 			return
 		}

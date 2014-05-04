@@ -1,11 +1,11 @@
 package glib
 
 /*
-#include <stdio.h>
 #include <glib.h>
 #include <glib-object.h>
 #include <glib-unix.h>
 #include <glib/gstdio.h>
+#include <stdlib.h>
 #include <glib-object.h>
 #cgo pkg-config: gobject-2.0
 */

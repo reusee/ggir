@@ -1,11 +1,11 @@
 package glib
 
 /*
-#include <stdio.h>
 #include <glib.h>
 #include <glib-object.h>
 #include <glib-unix.h>
 #include <glib/gstdio.h>
+#include <stdlib.h>
 
 gint __G_ANALYZER_ANALYZING = G_ANALYZER_ANALYZING;
 gint __G_ASCII_DTOSTR_BUF_SIZE = G_ASCII_DTOSTR_BUF_SIZE;
