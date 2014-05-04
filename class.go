@@ -127,6 +127,29 @@ func (self *Generator) GenClassTypes(ns *Namespace) {
 		}
 	}
 
+	// register external types mapping
+	for _, ext := range self.ExternalPackages {
+		ns := ext.Repo.Namespace
+		for _, c := range ns.Classes {
+			typeName := c.Name
+			namespace := ns.Name
+			packageName := strings.ToLower(namespace)
+			// untyped pointer
+			TypeMapping[fs("in GoType C.gpointer TypeName %s.%s", namespace, typeName)] = fs("%s.Is%s",
+				namespace, typeName)
+			TypeMapping[fs("out GoType C.gpointer TypeName %s.%s", namespace, typeName)] = fs("*%s.%s",
+				namespace, typeName)
+			InParamMapping[fs("%s.Is%s -> C.gpointer", namespace, typeName)] = func(param *Param) {
+				param.CgoParam = fs("C.gpointer(unsafe.Pointer(reflect.ValueOf(%s.Get%sPointer()).Pointer()))",
+					param.GoName, typeName)
+			}
+			OutParamMapping[fs("C.gpointer -> *%s.%s", namespace, typeName)] = func(param *Param) {
+				param.CgoAfterStmt += fs("%s = %s.New%sFromCPointer(unsafe.Pointer(__cgo__%s))",
+					param.GoName, packageName, typeName, param.GoName)
+			}
+		}
+	}
+
 	self.formatAndOutput("class_types", output.Bytes())
 }
 
