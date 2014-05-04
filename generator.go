@@ -88,6 +88,9 @@ func Gen(outputDir string) {
 		ext.Repo = generator.Parse(contents)
 	}
 
+	// add includes
+	generator.Includes = append(generator.Includes, "stdlib.h")
+
 	// namespace
 	ns := repo.Namespace
 	p("=> %s\n", ns.Name)

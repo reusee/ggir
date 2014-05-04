@@ -5,7 +5,6 @@
 
   <include>glib-object.h</include>
   <include>gobject/gvaluecollector.h</include>
-  <include>stdlib.h</include>
 
   <function-ignore-patterns>
     <entry>g_clear_pointer</entry>

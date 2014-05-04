@@ -3,7 +3,6 @@
   <package-name>glib</package-name>
   <gir-path>/usr/share/gir-1.0/GLib-2.0.gir</gir-path>
 
-  <include>stdio.h</include>
   <include>glib.h</include>
   <include>glib-object.h</include>
   <include>glib-unix.h</include>
