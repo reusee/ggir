@@ -27,6 +27,9 @@ func (self *Generator) GenClassTypes(ns *Namespace) {
 		_ = runtime.Compiler
 	}
 	`)
+	for _, ext := range self.ExternalPackages {
+		w(output, "var _ = %s.UnusedFix_\n", ext.Name)
+	}
 
 	// generate class map
 	classes := make(map[string]*Class)
@@ -136,14 +139,14 @@ func (self *Generator) GenClassTypes(ns *Namespace) {
 			packageName := strings.ToLower(namespace)
 			// untyped pointer
 			TypeMapping[fs("in GoType C.gpointer TypeName %s.%s", namespace, typeName)] = fs("%s.Is%s",
-				namespace, typeName)
+				packageName, typeName)
 			TypeMapping[fs("out GoType C.gpointer TypeName %s.%s", namespace, typeName)] = fs("*%s.%s",
-				namespace, typeName)
-			InParamMapping[fs("%s.Is%s -> C.gpointer", namespace, typeName)] = func(param *Param) {
+				packageName, typeName)
+			InParamMapping[fs("%s.Is%s -> C.gpointer", packageName, typeName)] = func(param *Param) {
 				param.CgoParam = fs("C.gpointer(unsafe.Pointer(reflect.ValueOf(%s.Get%sPointer()).Pointer()))",
 					param.GoName, typeName)
 			}
-			OutParamMapping[fs("C.gpointer -> *%s.%s", namespace, typeName)] = func(param *Param) {
+			OutParamMapping[fs("C.gpointer -> *%s.%s", packageName, typeName)] = func(param *Param) {
 				param.CgoAfterStmt += fs("%s = %s.New%sFromCPointer(unsafe.Pointer(__cgo__%s))",
 					param.GoName, packageName, typeName, param.GoName)
 			}
@@ -165,12 +168,19 @@ func (self *Generator) GenClassConstructors(ns *Namespace) {
 	w(output, "import \"unsafe\"\n")
 	w(output, "import \"reflect\"\n")
 	w(output, "import \"errors\"\n")
+	for _, ext := range self.ExternalPackages { // external import
+		w(output, "import \"%s\"\n", ext.Import)
+	}
 	w(output, `func init() {
 		_ = unsafe.Pointer(nil)
 		_ = reflect.ValueOf(nil)
 		_ = errors.New("")
 	}
+	var UnusedFix_ bool
 	`)
+	for _, ext := range self.ExternalPackages {
+		w(output, "var _ = %s.UnusedFix_\n", ext.Name)
+	}
 
 	for _, c := range ns.Classes {
 		for _, ctor := range c.Constructors {

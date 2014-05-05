@@ -14,12 +14,18 @@ func (self *Generator) GenTraits(ns *Namespace) {
 	w(output, "import \"unsafe\"\n")
 	w(output, "import \"reflect\"\n")
 	w(output, "import \"errors\"\n")
+	for _, ext := range self.ExternalPackages { // external import
+		w(output, "import \"%s\"\n", ext.Import)
+	}
 	w(output, `func init() {
 		_ = unsafe.Pointer(nil)
 		_ = reflect.ValueOf(nil)
 		_ = errors.New("")
 	}
 	`)
+	for _, ext := range self.ExternalPackages {
+		w(output, "var _ = %s.UnusedFix_\n", ext.Name)
+	}
 
 	// classes
 	for _, c := range ns.Classes {

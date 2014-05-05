@@ -19,6 +19,9 @@ func (self *Generator) GenFunctions(ns *Namespace) {
 	}
 	w(output, "*/\n")
 	w(output, "import \"C\"\n\n")
+	for _, ext := range self.ExternalPackages { // external import
+		w(output, "import \"%s\"\n", ext.Import)
+	}
 	w(output, `import ("unsafe";	"reflect"; "errors")
 func init() {
 	var _ unsafe.Pointer
@@ -26,6 +29,9 @@ func init() {
 	_ = errors.New("")
 }
 `)
+	for _, ext := range self.ExternalPackages {
+		w(output, "var _ = %s.UnusedFix_\n", ext.Name)
+	}
 	for _, fn := range ns.Functions {
 		self.GenFunction(fn, output, nil)
 	}
