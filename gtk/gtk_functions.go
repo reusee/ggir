@@ -8,6 +8,9 @@ package gtk
 */
 import "C"
 
+import "github.com/reusee/ggir/gobject"
+import "github.com/reusee/ggir/gdk"
+import "github.com/reusee/ggir/cairo"
 import (
 	"errors"
 	"reflect"
@@ -19,6 +22,10 @@ func init() {
 	var _ reflect.SliceHeader
 	_ = errors.New("")
 }
+
+var _ = gobject.UnusedFix_
+var _ = gdk.UnusedFix_
+var _ = cairo.UnusedFix_
 
 /*
 Finds the first accelerator in any #GtkAccelGroup attached

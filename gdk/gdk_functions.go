@@ -8,6 +8,7 @@ package gdk
 */
 import "C"
 
+import "github.com/reusee/ggir/gobject"
 import (
 	"errors"
 	"reflect"
@@ -19,6 +20,8 @@ func init() {
 	var _ reflect.SliceHeader
 	_ = errors.New("")
 }
+
+var _ = gobject.UnusedFix_
 
 /*
 Appends gdk option entries to the passed in option group. This is

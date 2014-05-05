@@ -16,6 +16,8 @@ func init() {
 	_ = errors.New("")
 }
 
+var UnusedFix_ bool
+
 // g_object_new_valist is not generated due to varargs
 
 /*

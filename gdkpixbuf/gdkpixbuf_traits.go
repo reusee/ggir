@@ -9,6 +9,7 @@ import "C"
 import "unsafe"
 import "reflect"
 import "errors"
+import "github.com/reusee/ggir/gobject"
 
 func init() {
 	_ = unsafe.Pointer(nil)

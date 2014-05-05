@@ -14,3 +14,5 @@ func init() {
 	_ = reflect.ValueOf(nil)
 	_ = errors.New("")
 }
+
+var UnusedFix_ bool

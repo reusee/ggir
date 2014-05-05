@@ -9,12 +9,20 @@ import "C"
 import "unsafe"
 import "reflect"
 import "errors"
+import "github.com/reusee/ggir/gobject"
+import "github.com/reusee/ggir/gdk"
+import "github.com/reusee/ggir/cairo"
 
 func init() {
 	_ = unsafe.Pointer(nil)
 	_ = reflect.ValueOf(nil)
 	_ = errors.New("")
 }
+
+var UnusedFix_ bool
+var _ = gobject.UnusedFix_
+var _ = gdk.UnusedFix_
+var _ = cairo.UnusedFix_
 
 /*
 Creates a new #GtkAboutDialog.

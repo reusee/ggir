@@ -19,6 +19,10 @@ func init() {
 	_ = runtime.Compiler
 }
 
+var _ = gobject.UnusedFix_
+var _ = gdk.UnusedFix_
+var _ = cairo.UnusedFix_
+
 type AboutDialog struct {
 	*TraitAboutDialog
 	*TraitDialog

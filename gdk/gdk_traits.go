@@ -9,6 +9,7 @@ import "C"
 import "unsafe"
 import "reflect"
 import "errors"
+import "github.com/reusee/ggir/gobject"
 
 func init() {
 	_ = unsafe.Pointer(nil)
@@ -4008,8 +4009,8 @@ this function for that. If GTK+ receives an event for a #GdkWindow,
 and the user data for the window is non-%NULL, GTK+ will assume the
 user data is a #GtkWidget, and forward the event to that widget.
 */
-func (self *TraitWindow) SetUserData(user_data C.gpointer) {
-	C.gdk_window_set_user_data(self.CPointer, user_data)
+func (self *TraitWindow) SetUserData(user_data gobject.IsObject) {
+	C.gdk_window_set_user_data(self.CPointer, C.gpointer(unsafe.Pointer(reflect.ValueOf(user_data.GetObjectPointer()).Pointer())))
 	return
 }
 

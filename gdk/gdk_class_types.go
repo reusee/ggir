@@ -17,6 +17,8 @@ func init() {
 	_ = runtime.Compiler
 }
 
+var _ = gobject.UnusedFix_
+
 type AppLaunchContext struct {
 	*TraitAppLaunchContext
 	CPointer unsafe.Pointer

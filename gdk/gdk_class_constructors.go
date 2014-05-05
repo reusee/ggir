@@ -9,12 +9,16 @@ import "C"
 import "unsafe"
 import "reflect"
 import "errors"
+import "github.com/reusee/ggir/gobject"
 
 func init() {
 	_ = unsafe.Pointer(nil)
 	_ = reflect.ValueOf(nil)
 	_ = errors.New("")
 }
+
+var UnusedFix_ bool
+var _ = gobject.UnusedFix_
 
 // gdk_app_launch_context_new is not generated due to deprecation attr
 
