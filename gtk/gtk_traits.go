@@ -19,6 +19,10 @@ func init() {
 	_ = errors.New("")
 }
 
+var _ = gobject.UnusedFix_
+var _ = gdk.UnusedFix_
+var _ = cairo.UnusedFix_
+
 type TraitAboutDialog struct{ CPointer *C.GtkAboutDialog }
 type IsAboutDialog interface {
 	GetAboutDialogPointer() *C.GtkAboutDialog

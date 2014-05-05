@@ -17,6 +17,8 @@ func init() {
 	_ = errors.New("")
 }
 
+var _ = gobject.UnusedFix_
+
 type TraitAppLaunchContext struct{ CPointer *C.GdkAppLaunchContext }
 type IsAppLaunchContext interface {
 	GetAppLaunchContextPointer() *C.GdkAppLaunchContext

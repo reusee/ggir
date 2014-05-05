@@ -17,6 +17,8 @@ func init() {
 	_ = errors.New("")
 }
 
+var _ = gobject.UnusedFix_
+
 type TraitPixbuf struct{ CPointer *C.GdkPixbuf }
 type IsPixbuf interface {
 	GetPixbufPointer() *C.GdkPixbuf
