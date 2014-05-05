@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<generator>
+  <package-name>gio</package-name>
+  <gir-path>/usr/share/gir-1.0/Gio-2.0.gir</gir-path>
+
+  <include>gio/gio.h</include>
+  <include>gio/gunixoutputstream.h</include>
+  <include>gio/gunixinputstream.h</include>
+  <include>gio/gunixcredentialsmessage.h</include>
+  <include>gio/gunixmounts.h</include>
+  <include>gio/gdesktopappinfo.h</include>
+  <include>gio/gunixfdlist.h</include>
+  <include>gio/gunixsocketaddress.h</include>
+  <include>gio/gunixfdmessage.h</include>
+  <include>gio/gnetworking.h</include>
+  <include>gio/gunixconnection.h</include>
+
+  <pkg-config>gio-2.0 gio-unix-2.0</pkg-config>
+
+  <external-package name="gobject">
+    <gir-path>/usr/share/gir-1.0/GObject-2.0.gir</gir-path>
+    <import>github.com/reusee/ggir/gobject</import>
+  </external-package>
+
+  <external-package name="glib">
+    <gir-path>/usr/share/gir-1.0/GLib-2.0.gir</gir-path>
+    <import>github.com/reusee/ggir/glib</import>
+  </external-package>
+
+  <function-ignore-patterns>
+    <entry>g_io_module_load</entry>
+    <entry>g_io_module_unload</entry>
+  </function-ignore-patterns>
+
+</generator>
