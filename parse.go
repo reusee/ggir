@@ -1,10 +1,9 @@
 package main
 
 import (
+	"encoding/xml"
 	"reflect"
 	"strings"
-
-	"./xml"
 )
 
 type BaseInfo struct {
