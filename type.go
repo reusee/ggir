@@ -29,5 +29,9 @@ func cTypeToGoType(t string) string {
 	}
 	t = "C." + t                              // cgo type
 	t = strings.Repeat("*", pointerDepth) + t // pointer
-	return strings.TrimSpace(t)
+	t = strings.TrimSpace(t)
+	if t == "*C.void" {
+		return "unsafe.Pointer"
+	}
+	return t
 }

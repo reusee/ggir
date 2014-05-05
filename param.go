@@ -209,6 +209,7 @@ func (self *Param) MapType() (ret string) {
 	// untyped pointer
 	case "in GoType C.gpointer TypeName gpointer",
 		"in GoType C.gconstpointer TypeName gpointer",
+		"in GoType unsafe.Pointer TypeName gpointer",
 		"out GoType C.gpointer TypeName gpointer":
 		ret = "unsafe.Pointer"
 
@@ -244,10 +245,9 @@ func (self *Param) MapType() (ret string) {
 		"in GoType *C.guchar IsArray ElemName guint8 HasLenParam",
 		"out GoType *C.guchar IsArray ElemName guint8 HasLenParam",
 		"in GoType *C.guchar IsArray ElemType C.guchar ElemName guint8 HasLenParam",
-		"in GoType *C.void IsArray ElemName guint8 HasLenParam",
+		"out GoType unsafe.Pointer IsArray ElemName guint8 HasLenParam",
 		"in GoType *C.guchar IsArray ElemType C.guchar ElemName guint8",
-		"out GoType *C.void IsArray ElemName guint8 HasLenParam",
-		"in GoType *C.void TypeName gpointer",
+		"in GoType unsafe.Pointer IsArray ElemName guint8 HasLenParam",
 		"in GoType *C.gchar IsArray ElemName guint8 HasLenParam":
 		ret = "[]byte"
 
@@ -431,16 +431,14 @@ func (self *Param) InParamMarshal() {
 			sliceToPointer("**C.char")
 		case "[]int -> *C.gint":
 			sliceToPointer("*C.gint")
-		case "[]byte -> *C.void":
-			sliceToPointer("unsafe.Pointer")
 		case "[]uint8 -> *C.guint8":
 			sliceToPointer("*C.guint8")
+		case "[]byte -> unsafe.Pointer":
+			sliceToPointer("unsafe.Pointer")
 
 		// untyped pointer
 		case "unsafe.Pointer -> C.gpointer":
 			self.CgoParam = ff("(C.gpointer)($$name)")
-		case "unsafe.Pointer -> *C.void":
-			self.CgoParam = ff("(unsafe.Pointer)($$name)")
 		case "unsafe.Pointer -> C.gconstpointer":
 			self.CgoParam = ff("(C.gconstpointer)($$name)")
 
@@ -550,9 +548,9 @@ func (self *Param) OutParamMarshal() {
 
 		// bytes
 		case "*C.gchar -> []byte",
-			"*C.void -> []byte",
 			"*C.guchar -> []byte",
-			"*C.guint8 -> []byte":
+			"*C.guint8 -> []byte",
+			"unsafe.Pointer -> []byte":
 			if self.LenParamName != "" { // len param
 				// defer is needed because length param may be later.
 				self.CgoAfterStmt += ff(`defer func() { $$name = C.GoBytes(unsafe.Pointer(__cgo__$$name), C.int($$len)) }();`)
