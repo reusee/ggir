@@ -32,6 +32,10 @@ var refHolder []interface{}
 var refHolderLock sync.Mutex
 
 func (self *TraitObject) Connect(signal string, cb interface{}) uint64 {
+	return Connect(unsafe.Pointer(self.CPointer), signal, cb)
+}
+
+func Connect(obj unsafe.Pointer, signal string, cb interface{}) uint64 {
 	cbp := &cb
 	refHolderLock.Lock()
 	refHolder = append(refHolder, cbp) //FIXME deref
@@ -39,7 +43,7 @@ func (self *TraitObject) Connect(signal string, cb interface{}) uint64 {
 	closure := C.new_closure(unsafe.Pointer(cbp))
 	cSignal := (*C.gchar)(unsafe.Pointer(C.CString(signal)))
 	defer C.free(unsafe.Pointer(cSignal))
-	id := C.g_signal_connect_closure(C.gpointer(self.CPointer), cSignal, closure, C.gboolean(0))
+	id := C.g_signal_connect_closure(C.gpointer(obj), cSignal, closure, C.gboolean(0))
 	return uint64(id)
 }
 
