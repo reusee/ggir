@@ -1648,9 +1648,12 @@ func (self *TraitApplication) RemoveWindow(window IsWindow) {
 }
 
 /*
-Sets one or more keyboard accelerator that will trigger the
+Sets zero or more keyboard accelerators that will trigger the
 given action. The first item in @accels will be the primary
 accelerator, which may be displayed in the UI.
+
+To remove all accelerators for an action, use an empty, zero-terminated
+array for @accels.
 */
 func (self *TraitApplication) SetAccelsForAction(detailed_action_name string, accels []string) {
 	__cgo__detailed_action_name := (*C.gchar)(unsafe.Pointer(C.CString(detailed_action_name)))
@@ -9222,8 +9225,8 @@ func (self *TraitHeaderBar) GetTitle() (return__ string) {
 }
 
 /*
-Adds @child to @box, packed with reference to the
-end of the @box.
+Adds @child to @bar, packed with reference to the
+end of the @bar.
 */
 func (self *TraitHeaderBar) PackEnd(child IsWidget) {
 	C.gtk_header_bar_pack_end(self.CPointer, child.GetWidgetPointer())
@@ -9231,8 +9234,8 @@ func (self *TraitHeaderBar) PackEnd(child IsWidget) {
 }
 
 /*
-Adds @child to @box, packed with reference to the
-start of the @box.
+Adds @child to @bar, packed with reference to the
+start of the @bar.
 */
 func (self *TraitHeaderBar) PackStart(child IsWidget) {
 	C.gtk_header_bar_pack_start(self.CPointer, child.GetWidgetPointer())
@@ -12131,6 +12134,8 @@ func (self *TraitListBox) GetAdjustment() (return__ *Adjustment) {
 
 /*
 Gets the n:th child in the list (not counting headers).
+If @_index is negative or larger than the number of items in the
+list, %NULL is returned.
 */
 func (self *TraitListBox) GetRowAtIndex(index_ int) (return__ *ListBoxRow) {
 	var __cgo__return__ *C.GtkListBoxRow
@@ -14259,138 +14264,25 @@ func NewTraitNumerableIcon(p unsafe.Pointer) *TraitNumerableIcon {
 	return &TraitNumerableIcon{(*C.GtkNumerableIcon)(p)}
 }
 
-/*
-Returns the #GIcon that was set as the base background image, or
-%NULL if there’s none. The caller of this function does not own
-a reference to the returned #GIcon.
-*/
-func (self *TraitNumerableIcon) GetBackgroundGicon() (return__ *C.GIcon) {
-	return__ = C.gtk_numerable_icon_get_background_gicon(self.CPointer)
-	return
-}
+// gtk_numerable_icon_get_background_gicon is not generated due to deprecation attr
 
-/*
-Returns the icon name used as the base background image,
-or %NULL if there’s none.
-*/
-func (self *TraitNumerableIcon) GetBackgroundIconName() (return__ string) {
-	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.gtk_numerable_icon_get_background_icon_name(self.CPointer)
-	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
-	return
-}
+// gtk_numerable_icon_get_background_icon_name is not generated due to deprecation attr
 
-/*
-Returns the value currently displayed by @self.
-*/
-func (self *TraitNumerableIcon) GetCount() (return__ int) {
-	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_numerable_icon_get_count(self.CPointer)
-	return__ = int(__cgo__return__)
-	return
-}
+// gtk_numerable_icon_get_count is not generated due to deprecation attr
 
-/*
-Returns the currently displayed label of the icon, or %NULL.
-*/
-func (self *TraitNumerableIcon) GetLabel() (return__ string) {
-	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.gtk_numerable_icon_get_label(self.CPointer)
-	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
-	return
-}
+// gtk_numerable_icon_get_label is not generated due to deprecation attr
 
-/*
-Returns the #GtkStyleContext used by the icon for theming,
-or %NULL if there’s none.
-*/
-func (self *TraitNumerableIcon) GetStyleContext() (return__ *StyleContext) {
-	var __cgo__return__ *C.GtkStyleContext
-	__cgo__return__ = C.gtk_numerable_icon_get_style_context(self.CPointer)
-	if __cgo__return__ != nil {
-		return__ = NewStyleContextFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
-	}
-	return
-}
+// gtk_numerable_icon_get_style_context is not generated due to deprecation attr
 
-/*
-Updates the icon to use @icon as the base background image.
-If @icon is %NULL, @self will go back using style information
-or default theming for its background image.
+// gtk_numerable_icon_set_background_gicon is not generated due to deprecation attr
 
-If this method is called and an icon name was already set as
-background for the icon, @icon will be used, i.e. the last method
-called between gtk_numerable_icon_set_background_gicon() and
-gtk_numerable_icon_set_background_icon_name() has always priority.
-*/
-func (self *TraitNumerableIcon) SetBackgroundGicon(icon *C.GIcon) {
-	C.gtk_numerable_icon_set_background_gicon(self.CPointer, icon)
-	return
-}
+// gtk_numerable_icon_set_background_icon_name is not generated due to deprecation attr
 
-/*
-Updates the icon to use the icon named @icon_name from the
-current icon theme as the base background image. If @icon_name
-is %NULL, @self will go back using style information or default
-theming for its background image.
+// gtk_numerable_icon_set_count is not generated due to deprecation attr
 
-If this method is called and a #GIcon was already set as
-background for the icon, @icon_name will be used, i.e. the
-last method called between gtk_numerable_icon_set_background_icon_name()
-and gtk_numerable_icon_set_background_gicon() has always priority.
-*/
-func (self *TraitNumerableIcon) SetBackgroundIconName(icon_name string) {
-	__cgo__icon_name := (*C.gchar)(unsafe.Pointer(C.CString(icon_name)))
-	C.gtk_numerable_icon_set_background_icon_name(self.CPointer, __cgo__icon_name)
-	C.free(unsafe.Pointer(__cgo__icon_name))
-	return
-}
+// gtk_numerable_icon_set_label is not generated due to deprecation attr
 
-/*
-Sets the currently displayed value of @self to @count.
-
-The numeric value is always clamped to make it two digits, i.e.
-between -99 and 99. Setting a count of zero removes the emblem.
-If this method is called, and a label was already set on the icon,
-it will automatically be reset to %NULL before rendering the number,
-i.e. the last method called between gtk_numerable_icon_set_count()
-and gtk_numerable_icon_set_label() has always priority.
-*/
-func (self *TraitNumerableIcon) SetCount(count int) {
-	C.gtk_numerable_icon_set_count(self.CPointer, C.gint(count))
-	return
-}
-
-/*
-Sets the currently displayed value of @self to the string
-in @label. Setting an empty label removes the emblem.
-
-Note that this is meant for displaying short labels, such as
-roman numbers, or single letters. For roman numbers, consider
-using the Unicode characters U+2160 - U+217F. Strings longer
-than two characters will likely not be rendered very well.
-
-If this method is called, and a number was already set on the
-icon, it will automatically be reset to zero before rendering
-the label, i.e. the last method called between
-gtk_numerable_icon_set_label() and gtk_numerable_icon_set_count()
-has always priority.
-*/
-func (self *TraitNumerableIcon) SetLabel(label string) {
-	__cgo__label := (*C.gchar)(unsafe.Pointer(C.CString(label)))
-	C.gtk_numerable_icon_set_label(self.CPointer, __cgo__label)
-	C.free(unsafe.Pointer(__cgo__label))
-	return
-}
-
-/*
-Updates the icon to fetch theme information from the
-given #GtkStyleContext.
-*/
-func (self *TraitNumerableIcon) SetStyleContext(style IsStyleContext) {
-	C.gtk_numerable_icon_set_style_context(self.CPointer, style.GetStyleContextPointer())
-	return
-}
+// gtk_numerable_icon_set_style_context is not generated due to deprecation attr
 
 type TraitOffscreenWindow struct{ CPointer *C.GtkOffscreenWindow }
 type IsOffscreenWindow interface {
