@@ -123,5 +123,5 @@ func Gen(outputDir string) {
 	generator.GenClassConstructors(ns)
 
 	// signals
-	generator.GenSignals(ns)
+	// generator.GenSignals(ns)
 }
