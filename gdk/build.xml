@@ -11,6 +11,7 @@
 
   <include>gdk/gdk.h</include>
   <include>gdk/gdkprivate.h</include>
+  <include>glib.h</include>
 
   <pkg-config>gdk-3.0</pkg-config>
 

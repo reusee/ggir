@@ -3,6 +3,7 @@ package gdk
 /*
 #include <gdk/gdk.h>
 #include <gdk/gdkprivate.h>
+#include <glib.h>
 #include <stdlib.h>
 */
 import "C"

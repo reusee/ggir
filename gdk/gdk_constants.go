@@ -3,6 +3,7 @@ package gdk
 /*
 #include <gdk/gdk.h>
 #include <gdk/gdkprivate.h>
+#include <glib.h>
 #include <stdlib.h>
 
 gint __GDK_BUTTON_MIDDLE = GDK_BUTTON_MIDDLE;

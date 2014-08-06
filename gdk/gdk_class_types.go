@@ -3,6 +3,7 @@ package gdk
 /*
 #include <gdk/gdk.h>
 #include <gdk/gdkprivate.h>
+#include <glib.h>
 #include <stdlib.h>
 #include <glib-object.h>
 #cgo pkg-config: gobject-2.0
