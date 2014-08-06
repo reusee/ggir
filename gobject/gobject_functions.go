@@ -1488,17 +1488,7 @@ func SignalTypeCclosureNew(itype C.GType, struct_offset uint) (return__ *C.GClos
 	return
 }
 
-/*
-Set the callback for a source as a #GClosure.
-
-If the source is not one of the standard GLib types, the @closure_callback
-and @closure_marshal fields of the #GSourceFuncs structure must have been
-filled in with pointers to appropriate functions.
-*/
-func SourceSetClosure(source *C.GSource, closure *C.GClosure) {
-	C.g_source_set_closure(source, closure)
-	return
-}
+// g_source_set_closure is not generated due to explicit ignore
 
 /*
 Sets a dummy callback for @source. The callback will do nothing, and

@@ -9,6 +9,7 @@
   <function-ignore-patterns>
     <entry>g_clear_pointer</entry>
     <entry>g_clear_object</entry>
+    <entry>g_source_set_closure</entry>
   </function-ignore-patterns>
 
   <function-rename>
