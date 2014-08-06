@@ -6,6 +6,7 @@ package gobject
 #include <stdlib.h>
 
 gint __G_PARAM_MASK = G_PARAM_MASK;
+gint __G_PARAM_READWRITE = G_PARAM_READWRITE;
 gint __G_PARAM_STATIC_STRINGS = G_PARAM_STATIC_STRINGS;
 gint __G_PARAM_USER_SHIFT = G_PARAM_USER_SHIFT;
 gint __G_SIGNAL_FLAGS_MASK = G_SIGNAL_FLAGS_MASK;
@@ -25,6 +26,7 @@ import "C"
 
 var (
 	PARAM_MASK                      = C.__G_PARAM_MASK
+	PARAM_READWRITE                 = C.__G_PARAM_READWRITE
 	PARAM_STATIC_STRINGS            = C.__G_PARAM_STATIC_STRINGS
 	PARAM_USER_SHIFT                = C.__G_PARAM_USER_SHIFT
 	SIGNAL_FLAGS_MASK               = C.__G_SIGNAL_FLAGS_MASK

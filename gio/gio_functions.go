@@ -1276,10 +1276,7 @@ func InitableNewv(object_type C.GType, n_parameters uint, parameters *C.GParamet
 }
 
 /*
-Converts errno.h error codes into GIO error codes. The fallback
-value %G_IO_ERROR_FAILED is returned for error codes not currently
-handled (but note that future GLib releases may return a more
-specific value instead).
+Converts errno.h error codes into GIO error codes.
 */
 func IoErrorFromErrno(err_no int) (return__ C.GIOErrorEnum) {
 	return__ = C.g_io_error_from_errno(C.gint(err_no))

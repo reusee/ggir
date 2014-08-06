@@ -8270,6 +8270,10 @@ Sets the default action of @notification to @action. This action is
 activated when the notification is clicked on. It must be an
 application-wide action (start with "app.").
 
+If @target_format is given, it is used to collect remaining
+positional parameters into a GVariant instance, similar to
+g_variant_new().
+
 If @target is non-%NULL, @action will be activated with @target as
 its parameter.
 
