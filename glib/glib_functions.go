@@ -4419,7 +4419,7 @@ UTF-8.
 Note that on some systems, when variables are overwritten, the memory
 used for the previous variables and its value isn't reclaimed.
 
-You should be mindful fo the fact that environment variable handling
+You should be mindful of the fact that environment variable handling
 in UNIX is not thread-safe, and your program may crash if one thread
 calls g_setenv() while another thread is calling getenv(). (And note
 that many functions, such as gettext(), call getenv() internally.)
@@ -4636,6 +4636,15 @@ See also g_source_destroy(). You must use g_source_destroy() for sources
 added to a non-default main context.
 
 It is a programmer error to attempt to remove a non-existent source.
+
+More specifically: source IDs can be reissued after a source has been
+destroyed and therefore it is never valid to use this function with a
+source ID which may have already been removed.  An example is when
+scheduling an idle to run in another thread with g_idle_add(): the
+idle may already have run and been removed by the time this function
+is called on its (now invalid) source ID.  This source ID may have
+been reissued, leading to the operation being performed against the
+wrong source.
 */
 func SourceRemove(tag uint) (return__ bool) {
 	var __cgo__return__ C.gboolean
@@ -4673,6 +4682,18 @@ Sets the name of a source using its ID.
 
 This is a convenience utility to set source names from the return
 value of g_idle_add(), g_timeout_add(), etc.
+
+It is a programmer error to attempt to set the name of a non-existent
+source.
+
+More specifically: source IDs can be reissued after a source has been
+destroyed and therefore it is never valid to use this function with a
+source ID which may have already been removed.  An example is when
+scheduling an idle to run in another thread with g_idle_add(): the
+idle may already have run and been removed by the time this function
+is called on its (now invalid) source ID.  This source ID may have
+been reissued, leading to the operation being performed against the
+wrong source.
 */
 func SourceSetNameById(tag uint, name string) {
 	__cgo__name := C.CString(name)
@@ -5677,6 +5698,10 @@ Splits a string into a maximum of @max_tokens pieces, using the given
 @delimiter. If @max_tokens is reached, the remainder of @string is
 appended to the last token.
 
+As an example, the result of g_strsplit (":a:bc::d:", ":", -1) is a
+%NULL-terminated vector containing the six strings "", "a", "bc", "", "d"
+and "".
+
 As a special case, the result of splitting the empty string "" is an empty
 vector, not a vector containing a single string. The reason for this
 special case is that being able to represent a empty vector is typically
@@ -5703,7 +5728,7 @@ For example the result of g_strsplit_set ("abc:def/ghi", ":/", -1) is a
 %NULL-terminated vector containing the three strings "abc", "def",
 and "ghi".
 
-The result if g_strsplit_set (":def/ghi:", ":/", -1) is a %NULL-terminated
+The result of g_strsplit_set (":def/ghi:", ":/", -1) is a %NULL-terminated
 vector containing the four strings "", "def", "ghi", and "".
 
 As a special case, the result of splitting the empty string "" is an empty
@@ -7151,7 +7176,7 @@ for details.
 
 If a character passes the g_unichar_iswide() test then it will also pass
 this test, but not the other way around.  Note that some characters may
-pas both this test and g_unichar_iszerowidth().
+pass both this test and g_unichar_iszerowidth().
 */
 func UnicharIswideCjk(c rune) (return__ bool) {
 	var __cgo__return__ C.gboolean

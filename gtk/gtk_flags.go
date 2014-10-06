@@ -3,6 +3,7 @@ package gtk
 /*
 #include <gtk/gtk.h>
 #include <gtk/gtkx.h>
+#include <glib.h>
 #include <stdlib.h>
 */
 import "C"
@@ -58,6 +59,9 @@ var (
 	DEBUG_BASELINES      = C.GtkDebugFlag(C.GTK_DEBUG_BASELINES)
 	DEBUG_PIXEL_CACHE    = C.GtkDebugFlag(C.GTK_DEBUG_PIXEL_CACHE)
 	DEBUG_NO_PIXEL_CACHE = C.GtkDebugFlag(C.GTK_DEBUG_NO_PIXEL_CACHE)
+	DEBUG_INTERACTIVE    = C.GtkDebugFlag(C.GTK_DEBUG_INTERACTIVE)
+	DEBUG_TOUCHSCREEN    = C.GtkDebugFlag(C.GTK_DEBUG_TOUCHSCREEN)
+	DEBUG_ACTIONS        = C.GtkDebugFlag(C.GTK_DEBUG_ACTIONS)
 
 	// DestDefaults
 	DEST_DEFAULT_MOTION    = C.GtkDestDefaults(C.GTK_DEST_DEFAULT_MOTION)
@@ -82,6 +86,10 @@ var (
 	ICON_LOOKUP_USE_BUILTIN      = C.GtkIconLookupFlags(C.GTK_ICON_LOOKUP_USE_BUILTIN)
 	ICON_LOOKUP_GENERIC_FALLBACK = C.GtkIconLookupFlags(C.GTK_ICON_LOOKUP_GENERIC_FALLBACK)
 	ICON_LOOKUP_FORCE_SIZE       = C.GtkIconLookupFlags(C.GTK_ICON_LOOKUP_FORCE_SIZE)
+	ICON_LOOKUP_FORCE_REGULAR    = C.GtkIconLookupFlags(C.GTK_ICON_LOOKUP_FORCE_REGULAR)
+	ICON_LOOKUP_FORCE_SYMBOLIC   = C.GtkIconLookupFlags(C.GTK_ICON_LOOKUP_FORCE_SYMBOLIC)
+	ICON_LOOKUP_DIR_LTR          = C.GtkIconLookupFlags(C.GTK_ICON_LOOKUP_DIR_LTR)
+	ICON_LOOKUP_DIR_RTL          = C.GtkIconLookupFlags(C.GTK_ICON_LOOKUP_DIR_RTL)
 
 	// InputHints
 	INPUT_HINT_NONE                = C.GtkInputHints(C.GTK_INPUT_HINT_NONE)
@@ -145,6 +153,7 @@ var (
 	STATE_FLAG_DIR_RTL      = C.GtkStateFlags(C.GTK_STATE_FLAG_DIR_RTL)
 	STATE_FLAG_LINK         = C.GtkStateFlags(C.GTK_STATE_FLAG_LINK)
 	STATE_FLAG_VISITED      = C.GtkStateFlags(C.GTK_STATE_FLAG_VISITED)
+	STATE_FLAG_CHECKED      = C.GtkStateFlags(C.GTK_STATE_FLAG_CHECKED)
 
 	// TargetFlags
 	TARGET_SAME_APP     = C.GtkTargetFlags(C.GTK_TARGET_SAME_APP)

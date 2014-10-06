@@ -152,6 +152,32 @@ func (self *TraitApplication) Activate() {
 }
 
 /*
+Add an option to be handled by @application.
+
+Calling this function is the equivalent of calling
+g_application_add_main_option_entries() with a single #GOptionEntry
+that has its arg_data member set to %NULL.
+
+The parsed arguments will be packed into a #GVariantDict which
+is passed to #GApplication::handle-local-options. If
+%G_APPLICATION_HANDLES_COMMAND_LINE is set, then it will also
+be sent to the primary instance. See
+g_application_add_main_option_entries() for more details.
+
+See #GOptionEntry for more documentation of the arguments.
+*/
+func (self *TraitApplication) AddMainOption(long_name string, short_name C.char, flags C.GOptionFlags, arg C.GOptionArg, description string, arg_description string) {
+	__cgo__long_name := C.CString(long_name)
+	__cgo__description := C.CString(description)
+	__cgo__arg_description := C.CString(arg_description)
+	C.g_application_add_main_option(self.CPointer, __cgo__long_name, short_name, flags, arg, __cgo__description, __cgo__arg_description)
+	C.free(unsafe.Pointer(__cgo__long_name))
+	C.free(unsafe.Pointer(__cgo__description))
+	C.free(unsafe.Pointer(__cgo__arg_description))
+	return
+}
+
+/*
 Adds main option entries to be handled by @application.
 
 This function is comparable to g_option_context_add_main_entries().
@@ -346,6 +372,18 @@ func (self *TraitApplication) GetIsRemote() (return__ bool) {
 }
 
 /*
+Gets the resource base path of @application.
+
+See g_application_set_resource_base_path() for more information.
+*/
+func (self *TraitApplication) GetResourceBasePath() (return__ string) {
+	var __cgo__return__ *C.gchar
+	__cgo__return__ = C.g_application_get_resource_base_path(self.CPointer)
+	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
+	return
+}
+
+/*
 Increases the use count of @application.
 
 Use this function to indicate that the application has a reason to
@@ -448,9 +486,13 @@ instance is or is not the primary instance of the application.  See
 g_application_get_is_remote() for that.
 */
 func (self *TraitApplication) Register(cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_application_register(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_application_register(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -587,7 +629,11 @@ g_application_withdraw_notification().
 */
 func (self *TraitApplication) SendNotification(id string, notification IsNotification) {
 	__cgo__id := (*C.gchar)(unsafe.Pointer(C.CString(id)))
-	C.g_application_send_notification(self.CPointer, __cgo__id, notification.GetNotificationPointer())
+	var __cgo__notification *C.GNotification
+	if notification != nil {
+		__cgo__notification = notification.GetNotificationPointer()
+	}
+	C.g_application_send_notification(self.CPointer, __cgo__id, __cgo__notification)
 	C.free(unsafe.Pointer(__cgo__id))
 	return
 }
@@ -648,6 +694,43 @@ zero.  Any timeouts currently in progress are not impacted.
 */
 func (self *TraitApplication) SetInactivityTimeout(inactivity_timeout uint) {
 	C.g_application_set_inactivity_timeout(self.CPointer, C.guint(inactivity_timeout))
+	return
+}
+
+/*
+Sets (or unsets) the base resource path of @application.
+
+The path is used to automatically load various [application
+resources][gresource] such as menu layouts and action descriptions.
+The various types of resources will be found at fixed names relative
+to the given base path.
+
+By default, the resource base path is determined from the application
+ID by prefixing '/' and replacing each '.' with '/'.  This is done at
+the time that the #GApplication object is constructed.  Changes to
+the application ID after that point will not have an impact on the
+resource base path.
+
+As an example, if the application has an ID of "org.example.app" then
+the default resource base path will be "/org/example/app".  If this
+is a #GtkApplication (and you have not manually changed the path)
+then Gtk will then search for the menus of the application at
+"/org/example/app/gtk/menus.ui".
+
+See #GResource for more information about adding resources to your
+application.
+
+You can disable automatic resource loading functionality by setting
+the path to %NULL.
+
+Changing the resource base path once the application is running is
+not recommended.  The point at which the resource path is consulted
+for forming paths for various purposes is unspecified.
+*/
+func (self *TraitApplication) SetResourceBasePath(resource_path string) {
+	__cgo__resource_path := (*C.gchar)(unsafe.Pointer(C.CString(resource_path)))
+	C.g_application_set_resource_base_path(self.CPointer, __cgo__resource_path)
+	C.free(unsafe.Pointer(__cgo__resource_path))
 	return
 }
 
@@ -951,9 +1034,13 @@ For the asynchronous, non-blocking, version of this function, see
 g_buffered_input_stream_fill_async().
 */
 func (self *TraitBufferedInputStream) Fill(count int64, cancellable IsCancellable) (return__ int64, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gssize
-	__cgo__return__ = C.g_buffered_input_stream_fill(self.CPointer, C.gssize(count), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_buffered_input_stream_fill(self.CPointer, C.gssize(count), __cgo__cancellable, &__cgo_error__)
 	return__ = int64(__cgo__return__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -970,7 +1057,11 @@ If @count is -1 then the attempted read size is equal to the number
 of bytes that are required to fill the buffer.
 */
 func (self *TraitBufferedInputStream) FillAsync(count int64, io_priority int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_buffered_input_stream_fill_async(self.CPointer, C.gssize(count), C.int(io_priority), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_buffered_input_stream_fill_async(self.CPointer, C.gssize(count), C.int(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -1050,9 +1141,13 @@ partial result will be returned, without an error.
 On error -1 is returned and @error is set accordingly.
 */
 func (self *TraitBufferedInputStream) ReadByte(cancellable IsCancellable) (return__ int, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.int
-	__cgo__return__ = C.g_buffered_input_stream_read_byte(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_buffered_input_stream_read_byte(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	return__ = int(__cgo__return__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -1521,9 +1616,13 @@ This operation can fail if #GCredentials is not supported on the
 the OS.
 */
 func (self *TraitCredentials) IsSameUser(other_credentials IsCredentials) (return__ bool, __err__ error) {
+	var __cgo__other_credentials *C.GCredentials
+	if other_credentials != nil {
+		__cgo__other_credentials = other_credentials.GetCredentialsPointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_credentials_is_same_user(self.CPointer, other_credentials.GetCredentialsPointer(), &__cgo_error__)
+	__cgo__return__ = C.g_credentials_is_same_user(self.CPointer, __cgo__other_credentials, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -1616,8 +1715,16 @@ func (self *TraitDBusAuthObserver) AllowMechanism(mechanism string) (return__ bo
 Emits the #GDBusAuthObserver::authorize-authenticated-peer signal on @observer.
 */
 func (self *TraitDBusAuthObserver) AuthorizeAuthenticatedPeer(stream IsIOStream, credentials IsCredentials) (return__ bool) {
+	var __cgo__stream *C.GIOStream
+	if stream != nil {
+		__cgo__stream = stream.GetIOStreamPointer()
+	}
+	var __cgo__credentials *C.GCredentials
+	if credentials != nil {
+		__cgo__credentials = credentials.GetCredentialsPointer()
+	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_dbus_auth_observer_authorize_authenticated_peer(self.CPointer, stream.GetIOStreamPointer(), credentials.GetCredentialsPointer())
+	__cgo__return__ = C.g_dbus_auth_observer_authorize_authenticated_peer(self.CPointer, __cgo__stream, __cgo__credentials)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -1713,7 +1820,11 @@ func (self *TraitDBusConnection) Call(bus_name string, object_path string, inter
 	__cgo__object_path := (*C.gchar)(unsafe.Pointer(C.CString(object_path)))
 	__cgo__interface_name := (*C.gchar)(unsafe.Pointer(C.CString(interface_name)))
 	__cgo__method_name := (*C.gchar)(unsafe.Pointer(C.CString(method_name)))
-	C.g_dbus_connection_call(self.CPointer, __cgo__bus_name, __cgo__object_path, __cgo__interface_name, __cgo__method_name, parameters, reply_type, flags, C.gint(timeout_msec), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_dbus_connection_call(self.CPointer, __cgo__bus_name, __cgo__object_path, __cgo__interface_name, __cgo__method_name, parameters, reply_type, flags, C.gint(timeout_msec), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	C.free(unsafe.Pointer(__cgo__bus_name))
 	C.free(unsafe.Pointer(__cgo__object_path))
 	C.free(unsafe.Pointer(__cgo__interface_name))
@@ -1776,8 +1887,12 @@ func (self *TraitDBusConnection) CallSync(bus_name string, object_path string, i
 	__cgo__object_path := (*C.gchar)(unsafe.Pointer(C.CString(object_path)))
 	__cgo__interface_name := (*C.gchar)(unsafe.Pointer(C.CString(interface_name)))
 	__cgo__method_name := (*C.gchar)(unsafe.Pointer(C.CString(method_name)))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
-	return__ = C.g_dbus_connection_call_sync(self.CPointer, __cgo__bus_name, __cgo__object_path, __cgo__interface_name, __cgo__method_name, parameters, reply_type, flags, C.gint(timeout_msec), cancellable.GetCancellablePointer(), &__cgo_error__)
+	return__ = C.g_dbus_connection_call_sync(self.CPointer, __cgo__bus_name, __cgo__object_path, __cgo__interface_name, __cgo__method_name, parameters, reply_type, flags, C.gint(timeout_msec), __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__bus_name))
 	C.free(unsafe.Pointer(__cgo__object_path))
 	C.free(unsafe.Pointer(__cgo__interface_name))
@@ -1798,7 +1913,15 @@ func (self *TraitDBusConnection) CallWithUnixFdList(bus_name string, object_path
 	__cgo__object_path := (*C.gchar)(unsafe.Pointer(C.CString(object_path)))
 	__cgo__interface_name := (*C.gchar)(unsafe.Pointer(C.CString(interface_name)))
 	__cgo__method_name := (*C.gchar)(unsafe.Pointer(C.CString(method_name)))
-	C.g_dbus_connection_call_with_unix_fd_list(self.CPointer, __cgo__bus_name, __cgo__object_path, __cgo__interface_name, __cgo__method_name, parameters, reply_type, flags, C.gint(timeout_msec), fd_list.GetUnixFDListPointer(), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__fd_list *C.GUnixFDList
+	if fd_list != nil {
+		__cgo__fd_list = fd_list.GetUnixFDListPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_dbus_connection_call_with_unix_fd_list(self.CPointer, __cgo__bus_name, __cgo__object_path, __cgo__interface_name, __cgo__method_name, parameters, reply_type, flags, C.gint(timeout_msec), __cgo__fd_list, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	C.free(unsafe.Pointer(__cgo__bus_name))
 	C.free(unsafe.Pointer(__cgo__object_path))
 	C.free(unsafe.Pointer(__cgo__interface_name))
@@ -1832,9 +1955,17 @@ func (self *TraitDBusConnection) CallWithUnixFdListSync(bus_name string, object_
 	__cgo__object_path := (*C.gchar)(unsafe.Pointer(C.CString(object_path)))
 	__cgo__interface_name := (*C.gchar)(unsafe.Pointer(C.CString(interface_name)))
 	__cgo__method_name := (*C.gchar)(unsafe.Pointer(C.CString(method_name)))
+	var __cgo__fd_list *C.GUnixFDList
+	if fd_list != nil {
+		__cgo__fd_list = fd_list.GetUnixFDListPointer()
+	}
 	var __cgo__out_fd_list *C.GUnixFDList
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
-	return__ = C.g_dbus_connection_call_with_unix_fd_list_sync(self.CPointer, __cgo__bus_name, __cgo__object_path, __cgo__interface_name, __cgo__method_name, parameters, reply_type, flags, C.gint(timeout_msec), fd_list.GetUnixFDListPointer(), &__cgo__out_fd_list, cancellable.GetCancellablePointer(), &__cgo_error__)
+	return__ = C.g_dbus_connection_call_with_unix_fd_list_sync(self.CPointer, __cgo__bus_name, __cgo__object_path, __cgo__interface_name, __cgo__method_name, parameters, reply_type, flags, C.gint(timeout_msec), __cgo__fd_list, &__cgo__out_fd_list, __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__bus_name))
 	C.free(unsafe.Pointer(__cgo__object_path))
 	C.free(unsafe.Pointer(__cgo__interface_name))
@@ -1875,7 +2006,11 @@ operation. See g_dbus_connection_close_sync() for the synchronous
 version.
 */
 func (self *TraitDBusConnection) Close(cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_dbus_connection_close(self.CPointer, cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_dbus_connection_close(self.CPointer, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -1900,9 +2035,13 @@ asynchronous version of this method and more details about what it
 does.
 */
 func (self *TraitDBusConnection) CloseSync(cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_dbus_connection_close_sync(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_dbus_connection_close_sync(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -1988,9 +2127,13 @@ this function.
 */
 func (self *TraitDBusConnection) ExportMenuModel(object_path string, menu IsMenuModel) (return__ uint, __err__ error) {
 	__cgo__object_path := (*C.gchar)(unsafe.Pointer(C.CString(object_path)))
+	var __cgo__menu *C.GMenuModel
+	if menu != nil {
+		__cgo__menu = menu.GetMenuModelPointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.guint
-	__cgo__return__ = C.g_dbus_connection_export_menu_model(self.CPointer, __cgo__object_path, menu.GetMenuModelPointer(), &__cgo_error__)
+	__cgo__return__ = C.g_dbus_connection_export_menu_model(self.CPointer, __cgo__object_path, __cgo__menu, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__object_path))
 	return__ = uint(__cgo__return__)
 	if __cgo_error__ != nil {
@@ -2016,7 +2159,11 @@ operation. See g_dbus_connection_flush_sync() for the synchronous
 version.
 */
 func (self *TraitDBusConnection) Flush(cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_dbus_connection_flush(self.CPointer, cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_dbus_connection_flush(self.CPointer, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -2041,9 +2188,13 @@ asynchronous version of this method and more details about what it
 does.
 */
 func (self *TraitDBusConnection) FlushSync(cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_dbus_connection_flush_sync(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_dbus_connection_flush_sync(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -2286,10 +2437,14 @@ Note that @message must be unlocked, unless @flags contain the
 %G_DBUS_SEND_MESSAGE_FLAGS_PRESERVE_SERIAL flag.
 */
 func (self *TraitDBusConnection) SendMessage(message IsDBusMessage, flags C.GDBusSendMessageFlags) (out_serial uint32, return__ bool, __err__ error) {
+	var __cgo__message *C.GDBusMessage
+	if message != nil {
+		__cgo__message = message.GetDBusMessagePointer()
+	}
 	var __cgo__out_serial C.guint32
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_dbus_connection_send_message(self.CPointer, message.GetDBusMessagePointer(), flags, &__cgo__out_serial, &__cgo_error__)
+	__cgo__return__ = C.g_dbus_connection_send_message(self.CPointer, __cgo__message, flags, &__cgo__out_serial, &__cgo_error__)
 	out_serial = uint32(__cgo__out_serial)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
@@ -2328,8 +2483,16 @@ for an example of how to use this low-level API to send and receive
 UNIX file descriptors.
 */
 func (self *TraitDBusConnection) SendMessageWithReply(message IsDBusMessage, flags C.GDBusSendMessageFlags, timeout_msec int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) (out_serial uint32) {
+	var __cgo__message *C.GDBusMessage
+	if message != nil {
+		__cgo__message = message.GetDBusMessagePointer()
+	}
 	var __cgo__out_serial C.guint32
-	C.g_dbus_connection_send_message_with_reply(self.CPointer, message.GetDBusMessagePointer(), flags, C.gint(timeout_msec), &__cgo__out_serial, cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_dbus_connection_send_message_with_reply(self.CPointer, __cgo__message, flags, C.gint(timeout_msec), &__cgo__out_serial, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	out_serial = uint32(__cgo__out_serial)
 	return
 }
@@ -2390,10 +2553,18 @@ Note that @message must be unlocked, unless @flags contain the
 %G_DBUS_SEND_MESSAGE_FLAGS_PRESERVE_SERIAL flag.
 */
 func (self *TraitDBusConnection) SendMessageWithReplySync(message IsDBusMessage, flags C.GDBusSendMessageFlags, timeout_msec int, cancellable IsCancellable) (out_serial uint32, return__ *DBusMessage, __err__ error) {
+	var __cgo__message *C.GDBusMessage
+	if message != nil {
+		__cgo__message = message.GetDBusMessagePointer()
+	}
 	var __cgo__out_serial C.guint32
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ *C.GDBusMessage
-	__cgo__return__ = C.g_dbus_connection_send_message_with_reply_sync(self.CPointer, message.GetDBusMessagePointer(), flags, C.gint(timeout_msec), &__cgo__out_serial, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_dbus_connection_send_message_with_reply_sync(self.CPointer, __cgo__message, flags, C.gint(timeout_msec), &__cgo__out_serial, __cgo__cancellable, &__cgo_error__)
 	out_serial = uint32(__cgo__out_serial)
 	if __cgo__return__ != nil {
 		return__ = NewDBusMessageFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
@@ -2550,10 +2721,14 @@ the same for all connections.
 Use g_dbus_interface_skeleton_unexport() to unexport the object.
 */
 func (self *TraitDBusInterfaceSkeleton) Export(connection IsDBusConnection, object_path string) (return__ bool, __err__ error) {
+	var __cgo__connection *C.GDBusConnection
+	if connection != nil {
+		__cgo__connection = connection.GetDBusConnectionPointer()
+	}
 	__cgo__object_path := (*C.gchar)(unsafe.Pointer(C.CString(object_path)))
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_dbus_interface_skeleton_export(self.CPointer, connection.GetDBusConnectionPointer(), __cgo__object_path, &__cgo_error__)
+	__cgo__return__ = C.g_dbus_interface_skeleton_export(self.CPointer, __cgo__connection, __cgo__object_path, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__object_path))
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
@@ -2647,8 +2822,12 @@ func (self *TraitDBusInterfaceSkeleton) GetVtable() (return__ *C.GDBusInterfaceV
 Checks if @interface_ is exported on @connection.
 */
 func (self *TraitDBusInterfaceSkeleton) HasConnection(connection IsDBusConnection) (return__ bool) {
+	var __cgo__connection *C.GDBusConnection
+	if connection != nil {
+		__cgo__connection = connection.GetDBusConnectionPointer()
+	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_dbus_interface_skeleton_has_connection(self.CPointer, connection.GetDBusConnectionPointer())
+	__cgo__return__ = C.g_dbus_interface_skeleton_has_connection(self.CPointer, __cgo__connection)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -2679,7 +2858,11 @@ To stop exporting on all connections the interface is exported on,
 use g_dbus_interface_skeleton_unexport().
 */
 func (self *TraitDBusInterfaceSkeleton) UnexportFromConnection(connection IsDBusConnection) {
-	C.g_dbus_interface_skeleton_unexport_from_connection(self.CPointer, connection.GetDBusConnectionPointer())
+	var __cgo__connection *C.GDBusConnection
+	if connection != nil {
+		__cgo__connection = connection.GetDBusConnectionPointer()
+	}
+	C.g_dbus_interface_skeleton_unexport_from_connection(self.CPointer, __cgo__connection)
 	return
 }
 
@@ -3142,7 +3325,11 @@ field is set to the number of fds in @fd_list (or cleared if
 This method is only available on UNIX.
 */
 func (self *TraitDBusMessage) SetUnixFdList(fd_list IsUnixFDList) {
-	C.g_dbus_message_set_unix_fd_list(self.CPointer, fd_list.GetUnixFDListPointer())
+	var __cgo__fd_list *C.GUnixFDList
+	if fd_list != nil {
+		__cgo__fd_list = fd_list.GetUnixFDListPointer()
+	}
+	C.g_dbus_message_set_unix_fd_list(self.CPointer, __cgo__fd_list)
 	return
 }
 
@@ -3383,7 +3570,11 @@ This method is only available on UNIX.
 This method will free @invocation, you cannot use it afterwards.
 */
 func (self *TraitDBusMethodInvocation) ReturnValueWithUnixFdList(parameters *C.GVariant, fd_list IsUnixFDList) {
-	C.g_dbus_method_invocation_return_value_with_unix_fd_list(self.CPointer, parameters, fd_list.GetUnixFDListPointer())
+	var __cgo__fd_list *C.GUnixFDList
+	if fd_list != nil {
+		__cgo__fd_list = fd_list.GetUnixFDListPointer()
+	}
+	C.g_dbus_method_invocation_return_value_with_unix_fd_list(self.CPointer, parameters, __cgo__fd_list)
 	return
 }
 
@@ -3479,7 +3670,11 @@ Note that @manager will take a reference on @object for as long as
 it is exported.
 */
 func (self *TraitDBusObjectManagerServer) Export(object IsDBusObjectSkeleton) {
-	C.g_dbus_object_manager_server_export(self.CPointer, object.GetDBusObjectSkeletonPointer())
+	var __cgo__object *C.GDBusObjectSkeleton
+	if object != nil {
+		__cgo__object = object.GetDBusObjectSkeletonPointer()
+	}
+	C.g_dbus_object_manager_server_export(self.CPointer, __cgo__object)
 	return
 }
 
@@ -3490,7 +3685,11 @@ if an object with the given path already exists. As such, the
 #GDBusObjectProxy:g-object-path property of @object may be modified.
 */
 func (self *TraitDBusObjectManagerServer) ExportUniquely(object IsDBusObjectSkeleton) {
-	C.g_dbus_object_manager_server_export_uniquely(self.CPointer, object.GetDBusObjectSkeletonPointer())
+	var __cgo__object *C.GDBusObjectSkeleton
+	if object != nil {
+		__cgo__object = object.GetDBusObjectSkeletonPointer()
+	}
+	C.g_dbus_object_manager_server_export_uniquely(self.CPointer, __cgo__object)
 	return
 }
 
@@ -3510,8 +3709,12 @@ func (self *TraitDBusObjectManagerServer) GetConnection() (return__ *DBusConnect
 Returns whether @object is currently exported on @manager.
 */
 func (self *TraitDBusObjectManagerServer) IsExported(object IsDBusObjectSkeleton) (return__ bool) {
+	var __cgo__object *C.GDBusObjectSkeleton
+	if object != nil {
+		__cgo__object = object.GetDBusObjectSkeletonPointer()
+	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_dbus_object_manager_server_is_exported(self.CPointer, object.GetDBusObjectSkeletonPointer())
+	__cgo__return__ = C.g_dbus_object_manager_server_is_exported(self.CPointer, __cgo__object)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -3521,7 +3724,11 @@ Exports all objects managed by @manager on @connection. If
 @connection is %NULL, stops exporting objects.
 */
 func (self *TraitDBusObjectManagerServer) SetConnection(connection IsDBusConnection) {
-	C.g_dbus_object_manager_server_set_connection(self.CPointer, connection.GetDBusConnectionPointer())
+	var __cgo__connection *C.GDBusConnection
+	if connection != nil {
+		__cgo__connection = connection.GetDBusConnectionPointer()
+	}
+	C.g_dbus_object_manager_server_set_connection(self.CPointer, __cgo__connection)
 	return
 }
 
@@ -3587,7 +3794,11 @@ Note that @object takes its own reference on @interface_ and holds
 it until removed.
 */
 func (self *TraitDBusObjectSkeleton) AddInterface(interface_ IsDBusInterfaceSkeleton) {
-	C.g_dbus_object_skeleton_add_interface(self.CPointer, interface_.GetDBusInterfaceSkeletonPointer())
+	var __cgo__interface_ *C.GDBusInterfaceSkeleton
+	if interface_ != nil {
+		__cgo__interface_ = interface_.GetDBusInterfaceSkeletonPointer()
+	}
+	C.g_dbus_object_skeleton_add_interface(self.CPointer, __cgo__interface_)
 	return
 }
 
@@ -3605,7 +3816,11 @@ func (self *TraitDBusObjectSkeleton) Flush() {
 Removes @interface_ from @object.
 */
 func (self *TraitDBusObjectSkeleton) RemoveInterface(interface_ IsDBusInterfaceSkeleton) {
-	C.g_dbus_object_skeleton_remove_interface(self.CPointer, interface_.GetDBusInterfaceSkeletonPointer())
+	var __cgo__interface_ *C.GDBusInterfaceSkeleton
+	if interface_ != nil {
+		__cgo__interface_ = interface_.GetDBusInterfaceSkeletonPointer()
+	}
+	C.g_dbus_object_skeleton_remove_interface(self.CPointer, __cgo__interface_)
 	return
 }
 
@@ -3690,7 +3905,11 @@ the %G_DBUS_MESSAGE_FLAGS_NO_REPLY_EXPECTED flag set.
 */
 func (self *TraitDBusProxy) Call(method_name string, parameters *C.GVariant, flags C.GDBusCallFlags, timeout_msec int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
 	__cgo__method_name := (*C.gchar)(unsafe.Pointer(C.CString(method_name)))
-	C.g_dbus_proxy_call(self.CPointer, __cgo__method_name, parameters, flags, C.gint(timeout_msec), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_dbus_proxy_call(self.CPointer, __cgo__method_name, parameters, flags, C.gint(timeout_msec), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	C.free(unsafe.Pointer(__cgo__method_name))
 	return
 }
@@ -3745,8 +3964,12 @@ then the return value is checked against the return type.
 */
 func (self *TraitDBusProxy) CallSync(method_name string, parameters *C.GVariant, flags C.GDBusCallFlags, timeout_msec int, cancellable IsCancellable) (return__ *C.GVariant, __err__ error) {
 	__cgo__method_name := (*C.gchar)(unsafe.Pointer(C.CString(method_name)))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
-	return__ = C.g_dbus_proxy_call_sync(self.CPointer, __cgo__method_name, parameters, flags, C.gint(timeout_msec), cancellable.GetCancellablePointer(), &__cgo_error__)
+	return__ = C.g_dbus_proxy_call_sync(self.CPointer, __cgo__method_name, parameters, flags, C.gint(timeout_msec), __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__method_name))
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -3761,7 +3984,15 @@ This method is only available on UNIX.
 */
 func (self *TraitDBusProxy) CallWithUnixFdList(method_name string, parameters *C.GVariant, flags C.GDBusCallFlags, timeout_msec int, fd_list IsUnixFDList, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
 	__cgo__method_name := (*C.gchar)(unsafe.Pointer(C.CString(method_name)))
-	C.g_dbus_proxy_call_with_unix_fd_list(self.CPointer, __cgo__method_name, parameters, flags, C.gint(timeout_msec), fd_list.GetUnixFDListPointer(), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__fd_list *C.GUnixFDList
+	if fd_list != nil {
+		__cgo__fd_list = fd_list.GetUnixFDListPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_dbus_proxy_call_with_unix_fd_list(self.CPointer, __cgo__method_name, parameters, flags, C.gint(timeout_msec), __cgo__fd_list, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	C.free(unsafe.Pointer(__cgo__method_name))
 	return
 }
@@ -3789,9 +4020,17 @@ This method is only available on UNIX.
 */
 func (self *TraitDBusProxy) CallWithUnixFdListSync(method_name string, parameters *C.GVariant, flags C.GDBusCallFlags, timeout_msec int, fd_list IsUnixFDList, cancellable IsCancellable) (out_fd_list *UnixFDList, return__ *C.GVariant, __err__ error) {
 	__cgo__method_name := (*C.gchar)(unsafe.Pointer(C.CString(method_name)))
+	var __cgo__fd_list *C.GUnixFDList
+	if fd_list != nil {
+		__cgo__fd_list = fd_list.GetUnixFDListPointer()
+	}
 	var __cgo__out_fd_list *C.GUnixFDList
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
-	return__ = C.g_dbus_proxy_call_with_unix_fd_list_sync(self.CPointer, __cgo__method_name, parameters, flags, C.gint(timeout_msec), fd_list.GetUnixFDListPointer(), &__cgo__out_fd_list, cancellable.GetCancellablePointer(), &__cgo_error__)
+	return__ = C.g_dbus_proxy_call_with_unix_fd_list_sync(self.CPointer, __cgo__method_name, parameters, flags, C.gint(timeout_msec), __cgo__fd_list, &__cgo__out_fd_list, __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__method_name))
 	if __cgo__out_fd_list != nil {
 		out_fd_list = NewUnixFDListFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__out_fd_list).Pointer()))
@@ -4075,9 +4314,13 @@ func (self *TraitDataInputStream) GetNewlineType() (return__ C.GDataStreamNewlin
 Reads an unsigned 8-bit/1-byte value from @stream.
 */
 func (self *TraitDataInputStream) ReadByte(cancellable IsCancellable) (return__ uint8, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.guchar
-	__cgo__return__ = C.g_data_input_stream_read_byte(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_data_input_stream_read_byte(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	return__ = uint8(__cgo__return__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -4092,9 +4335,13 @@ In order to get the correct byte order for this read operation,
 see g_data_input_stream_get_byte_order() and g_data_input_stream_set_byte_order().
 */
 func (self *TraitDataInputStream) ReadInt16(cancellable IsCancellable) (return__ int16, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gint16
-	__cgo__return__ = C.g_data_input_stream_read_int16(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_data_input_stream_read_int16(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	return__ = int16(__cgo__return__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -4113,9 +4360,13 @@ triggering the cancellable object from another thread. If the operation
 was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
 */
 func (self *TraitDataInputStream) ReadInt32(cancellable IsCancellable) (return__ int32, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gint32
-	__cgo__return__ = C.g_data_input_stream_read_int32(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_data_input_stream_read_int32(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	return__ = int32(__cgo__return__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -4134,9 +4385,13 @@ triggering the cancellable object from another thread. If the operation
 was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
 */
 func (self *TraitDataInputStream) ReadInt64(cancellable IsCancellable) (return__ int64, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gint64
-	__cgo__return__ = C.g_data_input_stream_read_int64(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_data_input_stream_read_int64(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	return__ = int64(__cgo__return__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -4155,8 +4410,12 @@ was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
 */
 func (self *TraitDataInputStream) ReadLine(cancellable IsCancellable) (length int64, return__ *C.char, __err__ error) {
 	var __cgo__length C.gsize
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
-	return__ = C.g_data_input_stream_read_line(self.CPointer, &__cgo__length, cancellable.GetCancellablePointer(), &__cgo_error__)
+	return__ = C.g_data_input_stream_read_line(self.CPointer, &__cgo__length, __cgo__cancellable, &__cgo_error__)
 	length = int64(__cgo__length)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -4173,7 +4432,11 @@ can then call g_data_input_stream_read_line_finish() to get
 the result of the operation.
 */
 func (self *TraitDataInputStream) ReadLineAsync(io_priority int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_data_input_stream_read_line_async(self.CPointer, C.gint(io_priority), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_data_input_stream_read_line_async(self.CPointer, C.gint(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -4220,9 +4483,13 @@ was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
 */
 func (self *TraitDataInputStream) ReadLineUtf8(cancellable IsCancellable) (length int64, return__ string, __err__ error) {
 	var __cgo__length C.gsize
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ *C.char
-	__cgo__return__ = C.g_data_input_stream_read_line_utf8(self.CPointer, &__cgo__length, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_data_input_stream_read_line_utf8(self.CPointer, &__cgo__length, __cgo__cancellable, &__cgo_error__)
 	length = int64(__cgo__length)
 	return__ = C.GoString(__cgo__return__)
 	if __cgo_error__ != nil {
@@ -4238,9 +4505,13 @@ In order to get the correct byte order for this read operation,
 see g_data_input_stream_get_byte_order() and g_data_input_stream_set_byte_order().
 */
 func (self *TraitDataInputStream) ReadUint16(cancellable IsCancellable) (return__ uint16, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.guint16
-	__cgo__return__ = C.g_data_input_stream_read_uint16(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_data_input_stream_read_uint16(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	return__ = uint16(__cgo__return__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -4259,9 +4530,13 @@ triggering the cancellable object from another thread. If the operation
 was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
 */
 func (self *TraitDataInputStream) ReadUint32(cancellable IsCancellable) (return__ uint32, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.guint32
-	__cgo__return__ = C.g_data_input_stream_read_uint32(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_data_input_stream_read_uint32(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	return__ = uint32(__cgo__return__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -4280,9 +4555,13 @@ triggering the cancellable object from another thread. If the operation
 was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
 */
 func (self *TraitDataInputStream) ReadUint64(cancellable IsCancellable) (return__ uint64, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.guint64
-	__cgo__return__ = C.g_data_input_stream_read_uint64(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_data_input_stream_read_uint64(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	return__ = uint64(__cgo__return__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -4306,9 +4585,13 @@ does not consume the stop character.
 func (self *TraitDataInputStream) ReadUntil(stop_chars string, cancellable IsCancellable) (length int64, return__ string, __err__ error) {
 	__cgo__stop_chars := (*C.gchar)(unsafe.Pointer(C.CString(stop_chars)))
 	var __cgo__length C.gsize
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ *C.char
-	__cgo__return__ = C.g_data_input_stream_read_until(self.CPointer, __cgo__stop_chars, &__cgo__length, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_data_input_stream_read_until(self.CPointer, __cgo__stop_chars, &__cgo__length, __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__stop_chars))
 	length = int64(__cgo__length)
 	return__ = C.GoString(__cgo__return__)
@@ -4337,7 +4620,11 @@ g_data_input_stream_read_upto_async() instead.
 */
 func (self *TraitDataInputStream) ReadUntilAsync(stop_chars string, io_priority int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
 	__cgo__stop_chars := (*C.gchar)(unsafe.Pointer(C.CString(stop_chars)))
-	C.g_data_input_stream_read_until_async(self.CPointer, __cgo__stop_chars, C.gint(io_priority), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_data_input_stream_read_until_async(self.CPointer, __cgo__stop_chars, C.gint(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	C.free(unsafe.Pointer(__cgo__stop_chars))
 	return
 }
@@ -4374,9 +4661,13 @@ specified.
 func (self *TraitDataInputStream) ReadUpto(stop_chars string, stop_chars_len int64, cancellable IsCancellable) (length int64, return__ string, __err__ error) {
 	__cgo__stop_chars := (*C.gchar)(unsafe.Pointer(C.CString(stop_chars)))
 	var __cgo__length C.gsize
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ *C.char
-	__cgo__return__ = C.g_data_input_stream_read_upto(self.CPointer, __cgo__stop_chars, C.gssize(stop_chars_len), &__cgo__length, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_data_input_stream_read_upto(self.CPointer, __cgo__stop_chars, C.gssize(stop_chars_len), &__cgo__length, __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__stop_chars))
 	length = int64(__cgo__length)
 	return__ = C.GoString(__cgo__return__)
@@ -4404,7 +4695,11 @@ the result of the operation.
 */
 func (self *TraitDataInputStream) ReadUptoAsync(stop_chars string, stop_chars_len int64, io_priority int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
 	__cgo__stop_chars := (*C.gchar)(unsafe.Pointer(C.CString(stop_chars)))
-	C.g_data_input_stream_read_upto_async(self.CPointer, __cgo__stop_chars, C.gssize(stop_chars_len), C.gint(io_priority), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_data_input_stream_read_upto_async(self.CPointer, __cgo__stop_chars, C.gssize(stop_chars_len), C.gint(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	C.free(unsafe.Pointer(__cgo__stop_chars))
 	return
 }
@@ -4475,9 +4770,13 @@ func (self *TraitDataOutputStream) GetByteOrder() (return__ C.GDataStreamByteOrd
 Puts a byte into the output stream.
 */
 func (self *TraitDataOutputStream) PutByte(data uint8, cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_data_output_stream_put_byte(self.CPointer, C.guchar(data), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_data_output_stream_put_byte(self.CPointer, C.guchar(data), __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -4489,9 +4788,13 @@ func (self *TraitDataOutputStream) PutByte(data uint8, cancellable IsCancellable
 Puts a signed 16-bit integer into the output stream.
 */
 func (self *TraitDataOutputStream) PutInt16(data int16, cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_data_output_stream_put_int16(self.CPointer, C.gint16(data), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_data_output_stream_put_int16(self.CPointer, C.gint16(data), __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -4503,9 +4806,13 @@ func (self *TraitDataOutputStream) PutInt16(data int16, cancellable IsCancellabl
 Puts a signed 32-bit integer into the output stream.
 */
 func (self *TraitDataOutputStream) PutInt32(data int32, cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_data_output_stream_put_int32(self.CPointer, C.gint32(data), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_data_output_stream_put_int32(self.CPointer, C.gint32(data), __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -4517,9 +4824,13 @@ func (self *TraitDataOutputStream) PutInt32(data int32, cancellable IsCancellabl
 Puts a signed 64-bit integer into the stream.
 */
 func (self *TraitDataOutputStream) PutInt64(data int64, cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_data_output_stream_put_int64(self.CPointer, C.gint64(data), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_data_output_stream_put_int64(self.CPointer, C.gint64(data), __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -4532,9 +4843,13 @@ Puts a string into the output stream.
 */
 func (self *TraitDataOutputStream) PutString(str string, cancellable IsCancellable) (return__ bool, __err__ error) {
 	__cgo__str := C.CString(str)
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_data_output_stream_put_string(self.CPointer, __cgo__str, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_data_output_stream_put_string(self.CPointer, __cgo__str, __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__str))
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
@@ -4547,9 +4862,13 @@ func (self *TraitDataOutputStream) PutString(str string, cancellable IsCancellab
 Puts an unsigned 16-bit integer into the output stream.
 */
 func (self *TraitDataOutputStream) PutUint16(data uint16, cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_data_output_stream_put_uint16(self.CPointer, C.guint16(data), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_data_output_stream_put_uint16(self.CPointer, C.guint16(data), __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -4561,9 +4880,13 @@ func (self *TraitDataOutputStream) PutUint16(data uint16, cancellable IsCancella
 Puts an unsigned 32-bit integer into the stream.
 */
 func (self *TraitDataOutputStream) PutUint32(data uint32, cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_data_output_stream_put_uint32(self.CPointer, C.guint32(data), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_data_output_stream_put_uint32(self.CPointer, C.guint32(data), __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -4575,9 +4898,13 @@ func (self *TraitDataOutputStream) PutUint32(data uint32, cancellable IsCancella
 Puts an unsigned 64-bit integer into the stream.
 */
 func (self *TraitDataOutputStream) PutUint64(data uint64, cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_data_output_stream_put_uint64(self.CPointer, C.guint64(data), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_data_output_stream_put_uint64(self.CPointer, C.guint64(data), __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -4703,8 +5030,10 @@ Checks if the application info should be shown in menus that list available
 applications for a specific name of the desktop, based on the
 `OnlyShowIn` and `NotShowIn` keys.
 
-If @desktop_env is %NULL, then the name of the desktop set with
-g_desktop_app_info_set_desktop_env() is used.
+@desktop_env should typically be given as %NULL, in which case the
+`XDG_CURRENT_DESKTOP` environment variable is consulted.  If you want
+to override the default mechanism then you may specify @desktop_env,
+but this is not recommended.
 
 Note that g_app_info_should_show() for @info will include this check (with
 %NULL for @desktop_env) as well as additional checks.
@@ -4776,7 +5105,11 @@ occur while using this function.
 */
 func (self *TraitDesktopAppInfo) LaunchAction(action_name string, launch_context IsAppLaunchContext) {
 	__cgo__action_name := (*C.gchar)(unsafe.Pointer(C.CString(action_name)))
-	C.g_desktop_app_info_launch_action(self.CPointer, __cgo__action_name, launch_context.GetAppLaunchContextPointer())
+	var __cgo__launch_context *C.GAppLaunchContext
+	if launch_context != nil {
+		__cgo__launch_context = launch_context.GetAppLaunchContextPointer()
+	}
+	C.g_desktop_app_info_launch_action(self.CPointer, __cgo__action_name, __cgo__launch_context)
 	C.free(unsafe.Pointer(__cgo__action_name))
 	return
 }
@@ -4798,9 +5131,13 @@ activation) then @spawn_flags, @user_setup, @user_setup_data,
 @pid_callback and @pid_callback_data are ignored.
 */
 func (self *TraitDesktopAppInfo) LaunchUrisAsManager(uris *C.GList, launch_context IsAppLaunchContext, spawn_flags C.GSpawnFlags, user_setup C.GSpawnChildSetupFunc, user_setup_data unsafe.Pointer, pid_callback C.GDesktopAppLaunchCallback, pid_callback_data unsafe.Pointer) (return__ bool, __err__ error) {
+	var __cgo__launch_context *C.GAppLaunchContext
+	if launch_context != nil {
+		__cgo__launch_context = launch_context.GetAppLaunchContextPointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_desktop_app_info_launch_uris_as_manager(self.CPointer, uris, launch_context.GetAppLaunchContextPointer(), spawn_flags, user_setup, (C.gpointer)(user_setup_data), pid_callback, (C.gpointer)(pid_callback_data), &__cgo_error__)
+	__cgo__return__ = C.g_desktop_app_info_launch_uris_as_manager(self.CPointer, uris, __cgo__launch_context, spawn_flags, user_setup, (C.gpointer)(user_setup_data), pid_callback, (C.gpointer)(pid_callback_data), &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -4864,7 +5201,11 @@ func NewTraitEmblemedIcon(p unsafe.Pointer) *TraitEmblemedIcon {
 Adds @emblem to the #GList of #GEmblems.
 */
 func (self *TraitEmblemedIcon) AddEmblem(emblem IsEmblem) {
-	C.g_emblemed_icon_add_emblem(self.CPointer, emblem.GetEmblemPointer())
+	var __cgo__emblem *C.GEmblem
+	if emblem != nil {
+		__cgo__emblem = emblem.GetEmblemPointer()
+	}
+	C.g_emblemed_icon_add_emblem(self.CPointer, __cgo__emblem)
 	return
 }
 
@@ -4913,9 +5254,13 @@ is dropped, but you might want to call this function to make
 sure resources are released as early as possible.
 */
 func (self *TraitFileEnumerator) Close(cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_file_enumerator_close(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_file_enumerator_close(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -4932,7 +5277,11 @@ was cancelled, the error %G_IO_ERROR_CANCELLED will be returned in
 g_file_enumerator_close_finish().
 */
 func (self *TraitFileEnumerator) CloseAsync(io_priority int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_file_enumerator_close_async(self.CPointer, C.int(io_priority), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_file_enumerator_close_async(self.CPointer, C.int(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -4972,7 +5321,11 @@ This is a convenience method that's equivalent to:
 ]|
 */
 func (self *TraitFileEnumerator) GetChild(info IsFileInfo) (return__ *C.GFile) {
-	return__ = C.g_file_enumerator_get_child(self.CPointer, info.GetFileInfoPointer())
+	var __cgo__info *C.GFileInfo
+	if info != nil {
+		__cgo__info = info.GetFileInfoPointer()
+	}
+	return__ = C.g_file_enumerator_get_child(self.CPointer, __cgo__info)
 	return
 }
 
@@ -5018,9 +5371,13 @@ enumerator is at the end, %NULL will be returned and @error will
 be unset.
 */
 func (self *TraitFileEnumerator) NextFile(cancellable IsCancellable) (return__ *FileInfo, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ *C.GFileInfo
-	__cgo__return__ = C.g_file_enumerator_next_file(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_file_enumerator_next_file(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	if __cgo__return__ != nil {
 		return__ = NewFileInfoFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -5052,7 +5409,11 @@ be executed before an outstanding request with lower priority. Default
 priority is %G_PRIORITY_DEFAULT.
 */
 func (self *TraitFileEnumerator) NextFilesAsync(num_files int, io_priority int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_file_enumerator_next_files_async(self.CPointer, C.int(num_files), C.int(io_priority), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_file_enumerator_next_files_async(self.CPointer, C.int(num_files), C.int(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -5125,9 +5486,13 @@ be returned.
 */
 func (self *TraitFileIOStream) QueryInfo(attributes string, cancellable IsCancellable) (return__ *FileInfo, __err__ error) {
 	__cgo__attributes := C.CString(attributes)
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ *C.GFileInfo
-	__cgo__return__ = C.g_file_io_stream_query_info(self.CPointer, __cgo__attributes, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_file_io_stream_query_info(self.CPointer, __cgo__attributes, __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__attributes))
 	if __cgo__return__ != nil {
 		return__ = NewFileInfoFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
@@ -5148,7 +5513,11 @@ g_file_io_stream_query_info().
 */
 func (self *TraitFileIOStream) QueryInfoAsync(attributes string, io_priority int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
 	__cgo__attributes := C.CString(attributes)
-	C.g_file_io_stream_query_info_async(self.CPointer, __cgo__attributes, C.int(io_priority), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_file_io_stream_query_info_async(self.CPointer, __cgo__attributes, C.int(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	C.free(unsafe.Pointer(__cgo__attributes))
 	return
 }
@@ -5215,7 +5584,11 @@ Copies all of the [GFileAttribute][gio-GFileAttribute]
 from @src_info to @dest_info.
 */
 func (self *TraitFileInfo) CopyInto(dest_info IsFileInfo) {
-	C.g_file_info_copy_into(self.CPointer, dest_info.GetFileInfoPointer())
+	var __cgo__dest_info *C.GFileInfo
+	if dest_info != nil {
+		__cgo__dest_info = dest_info.GetFileInfoPointer()
+	}
+	C.g_file_info_copy_into(self.CPointer, __cgo__dest_info)
 	return
 }
 
@@ -5908,9 +6281,13 @@ any other operations on the stream will fail with %G_IO_ERROR_PENDING.
 */
 func (self *TraitFileInputStream) QueryInfo(attributes string, cancellable IsCancellable) (return__ *FileInfo, __err__ error) {
 	__cgo__attributes := C.CString(attributes)
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ *C.GFileInfo
-	__cgo__return__ = C.g_file_input_stream_query_info(self.CPointer, __cgo__attributes, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_file_input_stream_query_info(self.CPointer, __cgo__attributes, __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__attributes))
 	if __cgo__return__ != nil {
 		return__ = NewFileInfoFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
@@ -5936,7 +6313,11 @@ was cancelled, the error %G_IO_ERROR_CANCELLED will be set
 */
 func (self *TraitFileInputStream) QueryInfoAsync(attributes string, io_priority int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
 	__cgo__attributes := C.CString(attributes)
-	C.g_file_input_stream_query_info_async(self.CPointer, __cgo__attributes, C.int(io_priority), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_file_input_stream_query_info_async(self.CPointer, __cgo__attributes, C.int(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	C.free(unsafe.Pointer(__cgo__attributes))
 	return
 }
@@ -6056,9 +6437,13 @@ be returned.
 */
 func (self *TraitFileOutputStream) QueryInfo(attributes string, cancellable IsCancellable) (return__ *FileInfo, __err__ error) {
 	__cgo__attributes := C.CString(attributes)
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ *C.GFileInfo
-	__cgo__return__ = C.g_file_output_stream_query_info(self.CPointer, __cgo__attributes, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_file_output_stream_query_info(self.CPointer, __cgo__attributes, __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__attributes))
 	if __cgo__return__ != nil {
 		return__ = NewFileInfoFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
@@ -6079,7 +6464,11 @@ g_file_output_stream_query_info().
 */
 func (self *TraitFileOutputStream) QueryInfoAsync(attributes string, io_priority int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
 	__cgo__attributes := C.CString(attributes)
-	C.g_file_output_stream_query_info_async(self.CPointer, __cgo__attributes, C.int(io_priority), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_file_output_stream_query_info_async(self.CPointer, __cgo__attributes, C.int(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	C.free(unsafe.Pointer(__cgo__attributes))
 	return
 }
@@ -6314,9 +6703,13 @@ The default implementation of this method just calls close on the
 individual input/output streams.
 */
 func (self *TraitIOStream) Close(cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_io_stream_close(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_io_stream_close(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -6337,7 +6730,11 @@ to implement asynchronicity, so they are optional for inheriting
 classes. However, if you override one you must override all.
 */
 func (self *TraitIOStream) CloseAsync(io_priority int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_io_stream_close_async(self.CPointer, C.int(io_priority), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_io_stream_close_async(self.CPointer, C.int(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -6427,7 +6824,15 @@ You can then call g_io_stream_splice_finish() to get the
 result of the operation.
 */
 func (self *TraitIOStream) SpliceAsync(stream2 IsIOStream, flags C.GIOStreamSpliceFlags, io_priority int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_io_stream_splice_async(self.CPointer, stream2.GetIOStreamPointer(), flags, C.int(io_priority), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__stream2 *C.GIOStream
+	if stream2 != nil {
+		__cgo__stream2 = stream2.GetIOStreamPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_io_stream_splice_async(self.CPointer, __cgo__stream2, flags, C.int(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -6447,8 +6852,12 @@ func NewTraitInetAddress(p unsafe.Pointer) *TraitInetAddress {
 Checks if two #GInetAddress instances are equal, e.g. the same address.
 */
 func (self *TraitInetAddress) Equal(other_address IsInetAddress) (return__ bool) {
+	var __cgo__other_address *C.GInetAddress
+	if other_address != nil {
+		__cgo__other_address = other_address.GetInetAddressPointer()
+	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_inet_address_equal(self.CPointer, other_address.GetInetAddressPointer())
+	__cgo__return__ = C.g_inet_address_equal(self.CPointer, __cgo__other_address)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -6611,8 +7020,12 @@ func NewTraitInetAddressMask(p unsafe.Pointer) *TraitInetAddressMask {
 Tests if @mask and @mask2 are the same mask.
 */
 func (self *TraitInetAddressMask) Equal(mask2 IsInetAddressMask) (return__ bool) {
+	var __cgo__mask2 *C.GInetAddressMask
+	if mask2 != nil {
+		__cgo__mask2 = mask2.GetInetAddressMaskPointer()
+	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_inet_address_mask_equal(self.CPointer, mask2.GetInetAddressMaskPointer())
+	__cgo__return__ = C.g_inet_address_mask_equal(self.CPointer, __cgo__mask2)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -6651,8 +7064,12 @@ func (self *TraitInetAddressMask) GetLength() (return__ uint) {
 Tests if @address falls within the range described by @mask.
 */
 func (self *TraitInetAddressMask) Matches(address IsInetAddress) (return__ bool) {
+	var __cgo__address *C.GInetAddress
+	if address != nil {
+		__cgo__address = address.GetInetAddressPointer()
+	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_inet_address_mask_matches(self.CPointer, address.GetInetAddressPointer())
+	__cgo__return__ = C.g_inet_address_mask_matches(self.CPointer, __cgo__address)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -6769,9 +7186,13 @@ Cancelling a close will still leave the stream closed, but some streams
 can use a faster close that doesn't block to e.g. check errors.
 */
 func (self *TraitInputStream) Close(cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_input_stream_close(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_input_stream_close(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -6792,7 +7213,11 @@ asynchronicity, so they are optional for inheriting classes. However, if you
 override one you must override all.
 */
 func (self *TraitInputStream) CloseAsync(io_priority int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_input_stream_close_async(self.CPointer, C.int(io_priority), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_input_stream_close_async(self.CPointer, C.int(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -6842,6 +7267,9 @@ It is not an error if this is not the same as the requested size, as it
 can happen e.g. near the end of a file. Zero is returned on end of file
 (or if @count is zero),  but never otherwise.
 
+The returned @buffer is not a nul-terminated string, it can contain nul bytes
+at any position, and this function doesn't nul-terminate the @buffer.
+
 If @cancellable is not %NULL, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error %G_IO_ERROR_CANCELLED will be returned. If an
@@ -6852,9 +7280,13 @@ On error -1 is returned and @error is set accordingly.
 */
 func (self *TraitInputStream) Read(buffer []byte, count int64, cancellable IsCancellable) (return__ int64, __err__ error) {
 	__header__buffer := (*reflect.SliceHeader)(unsafe.Pointer(&buffer))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gssize
-	__cgo__return__ = C.g_input_stream_read(self.CPointer, (unsafe.Pointer)(unsafe.Pointer(__header__buffer.Data)), C.gsize(count), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_input_stream_read(self.CPointer, (unsafe.Pointer)(unsafe.Pointer(__header__buffer.Data)), C.gsize(count), __cgo__cancellable, &__cgo_error__)
 	return__ = int64(__cgo__return__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -6880,9 +7312,13 @@ the number of bytes read into @buffer before the error occurred.
 func (self *TraitInputStream) ReadAll(buffer []byte, count int64, cancellable IsCancellable) (bytes_read int64, return__ bool, __err__ error) {
 	__header__buffer := (*reflect.SliceHeader)(unsafe.Pointer(&buffer))
 	var __cgo__bytes_read C.gsize
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_input_stream_read_all(self.CPointer, (unsafe.Pointer)(unsafe.Pointer(__header__buffer.Data)), C.gsize(count), &__cgo__bytes_read, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_input_stream_read_all(self.CPointer, (unsafe.Pointer)(unsafe.Pointer(__header__buffer.Data)), C.gsize(count), &__cgo__bytes_read, __cgo__cancellable, &__cgo_error__)
 	bytes_read = int64(__cgo__bytes_read)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
@@ -6918,7 +7354,11 @@ override one you must override all.
 */
 func (self *TraitInputStream) ReadAsync(buffer []byte, count int64, io_priority int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
 	__header__buffer := (*reflect.SliceHeader)(unsafe.Pointer(&buffer))
-	C.g_input_stream_read_async(self.CPointer, (unsafe.Pointer)(unsafe.Pointer(__header__buffer.Data)), C.gsize(count), C.int(io_priority), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_input_stream_read_async(self.CPointer, (unsafe.Pointer)(unsafe.Pointer(__header__buffer.Data)), C.gsize(count), C.int(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -6948,8 +7388,12 @@ partial result will be returned, without an error.
 On error %NULL is returned and @error is set accordingly.
 */
 func (self *TraitInputStream) ReadBytes(count int64, cancellable IsCancellable) (return__ *C.GBytes, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
-	return__ = C.g_input_stream_read_bytes(self.CPointer, C.gsize(count), cancellable.GetCancellablePointer(), &__cgo_error__)
+	return__ = C.g_input_stream_read_bytes(self.CPointer, C.gsize(count), __cgo__cancellable, &__cgo_error__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
 	}
@@ -6979,7 +7423,11 @@ value) will be executed before an outstanding request with lower
 priority. Default priority is %G_PRIORITY_DEFAULT.
 */
 func (self *TraitInputStream) ReadBytesAsync(count int64, io_priority int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_input_stream_read_bytes_async(self.CPointer, C.gsize(count), C.int(io_priority), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_input_stream_read_bytes_async(self.CPointer, C.gsize(count), C.int(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -7042,9 +7490,13 @@ operation was partially finished when the operation was cancelled the
 partial result will be returned, without an error.
 */
 func (self *TraitInputStream) Skip(count int64, cancellable IsCancellable) (return__ int64, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gssize
-	__cgo__return__ = C.g_input_stream_skip(self.CPointer, C.gsize(count), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_input_stream_skip(self.CPointer, C.gsize(count), __cgo__cancellable, &__cgo_error__)
 	return__ = int64(__cgo__return__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -7078,7 +7530,11 @@ implement asynchronicity, so they are optional for inheriting classes.
 However, if you override one, you must override all.
 */
 func (self *TraitInputStream) SkipAsync(count int64, io_priority int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_input_stream_skip_async(self.CPointer, C.gsize(count), C.int(io_priority), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_input_stream_skip_async(self.CPointer, C.gsize(count), C.int(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -7241,7 +7697,11 @@ Appends @item to the end of @menu.
 See g_menu_insert_item() for more information.
 */
 func (self *TraitMenu) AppendItem(item IsMenuItem) {
-	C.g_menu_append_item(self.CPointer, item.GetMenuItemPointer())
+	var __cgo__item *C.GMenuItem
+	if item != nil {
+		__cgo__item = item.GetMenuItemPointer()
+	}
+	C.g_menu_append_item(self.CPointer, __cgo__item)
 	return
 }
 
@@ -7252,7 +7712,11 @@ more flexible alternative.
 */
 func (self *TraitMenu) AppendSection(label string, section IsMenuModel) {
 	__cgo__label := (*C.gchar)(unsafe.Pointer(C.CString(label)))
-	C.g_menu_append_section(self.CPointer, __cgo__label, section.GetMenuModelPointer())
+	var __cgo__section *C.GMenuModel
+	if section != nil {
+		__cgo__section = section.GetMenuModelPointer()
+	}
+	C.g_menu_append_section(self.CPointer, __cgo__label, __cgo__section)
 	C.free(unsafe.Pointer(__cgo__label))
 	return
 }
@@ -7264,7 +7728,11 @@ more flexible alternative.
 */
 func (self *TraitMenu) AppendSubmenu(label string, submenu IsMenuModel) {
 	__cgo__label := (*C.gchar)(unsafe.Pointer(C.CString(label)))
-	C.g_menu_append_submenu(self.CPointer, __cgo__label, submenu.GetMenuModelPointer())
+	var __cgo__submenu *C.GMenuModel
+	if submenu != nil {
+		__cgo__submenu = submenu.GetMenuModelPointer()
+	}
+	C.g_menu_append_submenu(self.CPointer, __cgo__label, __cgo__submenu)
 	C.free(unsafe.Pointer(__cgo__label))
 	return
 }
@@ -7318,7 +7786,11 @@ g_menu_insert_submenu() as well as "prepend" and "append" variants of
 each of these functions.
 */
 func (self *TraitMenu) InsertItem(position int, item IsMenuItem) {
-	C.g_menu_insert_item(self.CPointer, C.gint(position), item.GetMenuItemPointer())
+	var __cgo__item *C.GMenuItem
+	if item != nil {
+		__cgo__item = item.GetMenuItemPointer()
+	}
+	C.g_menu_insert_item(self.CPointer, C.gint(position), __cgo__item)
 	return
 }
 
@@ -7329,7 +7801,11 @@ flexible alternative.
 */
 func (self *TraitMenu) InsertSection(position int, label string, section IsMenuModel) {
 	__cgo__label := (*C.gchar)(unsafe.Pointer(C.CString(label)))
-	C.g_menu_insert_section(self.CPointer, C.gint(position), __cgo__label, section.GetMenuModelPointer())
+	var __cgo__section *C.GMenuModel
+	if section != nil {
+		__cgo__section = section.GetMenuModelPointer()
+	}
+	C.g_menu_insert_section(self.CPointer, C.gint(position), __cgo__label, __cgo__section)
 	C.free(unsafe.Pointer(__cgo__label))
 	return
 }
@@ -7341,7 +7817,11 @@ flexible alternative.
 */
 func (self *TraitMenu) InsertSubmenu(position int, label string, submenu IsMenuModel) {
 	__cgo__label := (*C.gchar)(unsafe.Pointer(C.CString(label)))
-	C.g_menu_insert_submenu(self.CPointer, C.gint(position), __cgo__label, submenu.GetMenuModelPointer())
+	var __cgo__submenu *C.GMenuModel
+	if submenu != nil {
+		__cgo__submenu = submenu.GetMenuModelPointer()
+	}
+	C.g_menu_insert_submenu(self.CPointer, C.gint(position), __cgo__label, __cgo__submenu)
 	C.free(unsafe.Pointer(__cgo__label))
 	return
 }
@@ -7366,7 +7846,11 @@ Prepends @item to the start of @menu.
 See g_menu_insert_item() for more information.
 */
 func (self *TraitMenu) PrependItem(item IsMenuItem) {
-	C.g_menu_prepend_item(self.CPointer, item.GetMenuItemPointer())
+	var __cgo__item *C.GMenuItem
+	if item != nil {
+		__cgo__item = item.GetMenuItemPointer()
+	}
+	C.g_menu_prepend_item(self.CPointer, __cgo__item)
 	return
 }
 
@@ -7377,7 +7861,11 @@ a more flexible alternative.
 */
 func (self *TraitMenu) PrependSection(label string, section IsMenuModel) {
 	__cgo__label := (*C.gchar)(unsafe.Pointer(C.CString(label)))
-	C.g_menu_prepend_section(self.CPointer, __cgo__label, section.GetMenuModelPointer())
+	var __cgo__section *C.GMenuModel
+	if section != nil {
+		__cgo__section = section.GetMenuModelPointer()
+	}
+	C.g_menu_prepend_section(self.CPointer, __cgo__label, __cgo__section)
 	C.free(unsafe.Pointer(__cgo__label))
 	return
 }
@@ -7389,7 +7877,11 @@ a more flexible alternative.
 */
 func (self *TraitMenu) PrependSubmenu(label string, submenu IsMenuModel) {
 	__cgo__label := (*C.gchar)(unsafe.Pointer(C.CString(label)))
-	C.g_menu_prepend_submenu(self.CPointer, __cgo__label, submenu.GetMenuModelPointer())
+	var __cgo__submenu *C.GMenuModel
+	if submenu != nil {
+		__cgo__submenu = submenu.GetMenuModelPointer()
+	}
+	C.g_menu_prepend_submenu(self.CPointer, __cgo__label, __cgo__submenu)
 	C.free(unsafe.Pointer(__cgo__label))
 	return
 }
@@ -7683,7 +8175,11 @@ must not end with a '-', and must not contain consecutive dashes.
 */
 func (self *TraitMenuItem) SetLink(link string, model IsMenuModel) {
 	__cgo__link := (*C.gchar)(unsafe.Pointer(C.CString(link)))
-	C.g_menu_item_set_link(self.CPointer, __cgo__link, model.GetMenuModelPointer())
+	var __cgo__model *C.GMenuModel
+	if model != nil {
+		__cgo__model = model.GetMenuModelPointer()
+	}
+	C.g_menu_item_set_link(self.CPointer, __cgo__link, __cgo__model)
 	C.free(unsafe.Pointer(__cgo__link))
 	return
 }
@@ -7698,7 +8194,11 @@ for more information about what it means for a menu item to be a
 section.
 */
 func (self *TraitMenuItem) SetSection(section IsMenuModel) {
-	C.g_menu_item_set_section(self.CPointer, section.GetMenuModelPointer())
+	var __cgo__section *C.GMenuModel
+	if section != nil {
+		__cgo__section = section.GetMenuModelPointer()
+	}
+	C.g_menu_item_set_section(self.CPointer, __cgo__section)
 	return
 }
 
@@ -7712,7 +8212,11 @@ The effect of having one menu appear as a submenu of another is
 exactly as it sounds.
 */
 func (self *TraitMenuItem) SetSubmenu(submenu IsMenuModel) {
-	C.g_menu_item_set_submenu(self.CPointer, submenu.GetMenuModelPointer())
+	var __cgo__submenu *C.GMenuModel
+	if submenu != nil {
+		__cgo__submenu = submenu.GetMenuModelPointer()
+	}
+	C.g_menu_item_set_submenu(self.CPointer, __cgo__submenu)
 	return
 }
 
@@ -8270,10 +8774,6 @@ Sets the default action of @notification to @action. This action is
 activated when the notification is clicked on. It must be an
 application-wide action (start with "app.").
 
-If @target_format is given, it is used to collect remaining
-positional parameters into a GVariant instance, similar to
-g_variant_new().
-
 If @target is non-%NULL, @action will be activated with @target as
 its parameter.
 
@@ -8296,6 +8796,15 @@ func (self *TraitNotification) SetIcon(icon *C.GIcon) {
 }
 
 /*
+Sets the priority of @notification to @priority. See
+#GNotificationPriority for possible values.
+*/
+func (self *TraitNotification) SetPriority(priority C.GNotificationPriority) {
+	C.g_notification_set_priority(self.CPointer, priority)
+	return
+}
+
+/*
 Sets the title of @notification to @title.
 */
 func (self *TraitNotification) SetTitle(title string) {
@@ -8306,7 +8815,7 @@ func (self *TraitNotification) SetTitle(title string) {
 }
 
 /*
-Sets or unsets whether @notification is marked as urgent.
+Deprecated in favor of g_notification_set_priority().
 */
 func (self *TraitNotification) SetUrgent(urgent bool) {
 	__cgo__urgent := C.gboolean(0)
@@ -8369,9 +8878,13 @@ cancellation (as with any error) there is no guarantee that all written
 data will reach the target.
 */
 func (self *TraitOutputStream) Close(cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_output_stream_close(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_output_stream_close(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -8392,7 +8905,11 @@ to implement asynchronicity, so they are optional for inheriting
 classes. However, if you override one you must override all.
 */
 func (self *TraitOutputStream) CloseAsync(io_priority int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_output_stream_close_async(self.CPointer, C.int(io_priority), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_output_stream_close_async(self.CPointer, C.int(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -8422,9 +8939,13 @@ triggering the cancellable object from another thread. If the operation
 was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
 */
 func (self *TraitOutputStream) Flush(cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_output_stream_flush(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_output_stream_flush(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -8442,7 +8963,11 @@ called. You can then call g_output_stream_flush_finish() to get the
 result of the operation.
 */
 func (self *TraitOutputStream) FlushAsync(io_priority int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_output_stream_flush_async(self.CPointer, C.int(io_priority), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_output_stream_flush_async(self.CPointer, C.int(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -8515,9 +9040,17 @@ func (self *TraitOutputStream) SetPending() (return__ bool, __err__ error) {
 Splices an input stream into an output stream.
 */
 func (self *TraitOutputStream) Splice(source IsInputStream, flags C.GOutputStreamSpliceFlags, cancellable IsCancellable) (return__ int64, __err__ error) {
+	var __cgo__source *C.GInputStream
+	if source != nil {
+		__cgo__source = source.GetInputStreamPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gssize
-	__cgo__return__ = C.g_output_stream_splice(self.CPointer, source.GetInputStreamPointer(), flags, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_output_stream_splice(self.CPointer, __cgo__source, flags, __cgo__cancellable, &__cgo_error__)
 	return__ = int64(__cgo__return__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -8535,7 +9068,15 @@ For the synchronous, blocking version of this function, see
 g_output_stream_splice().
 */
 func (self *TraitOutputStream) SpliceAsync(source IsInputStream, flags C.GOutputStreamSpliceFlags, io_priority int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_output_stream_splice_async(self.CPointer, source.GetInputStreamPointer(), flags, C.int(io_priority), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__source *C.GInputStream
+	if source != nil {
+		__cgo__source = source.GetInputStreamPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_output_stream_splice_async(self.CPointer, __cgo__source, flags, C.int(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -8579,9 +9120,13 @@ On error -1 is returned and @error is set accordingly.
 */
 func (self *TraitOutputStream) Write(buffer []byte, count int64, cancellable IsCancellable) (return__ int64, __err__ error) {
 	__header__buffer := (*reflect.SliceHeader)(unsafe.Pointer(&buffer))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gssize
-	__cgo__return__ = C.g_output_stream_write(self.CPointer, (unsafe.Pointer)(unsafe.Pointer(__header__buffer.Data)), C.gsize(count), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_output_stream_write(self.CPointer, (unsafe.Pointer)(unsafe.Pointer(__header__buffer.Data)), C.gsize(count), __cgo__cancellable, &__cgo_error__)
 	return__ = int64(__cgo__return__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -8606,9 +9151,13 @@ the number of bytes written into the stream before the error occurred.
 func (self *TraitOutputStream) WriteAll(buffer []byte, count int64, cancellable IsCancellable) (bytes_written int64, return__ bool, __err__ error) {
 	__header__buffer := (*reflect.SliceHeader)(unsafe.Pointer(&buffer))
 	var __cgo__bytes_written C.gsize
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_output_stream_write_all(self.CPointer, (unsafe.Pointer)(unsafe.Pointer(__header__buffer.Data)), C.gsize(count), &__cgo__bytes_written, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_output_stream_write_all(self.CPointer, (unsafe.Pointer)(unsafe.Pointer(__header__buffer.Data)), C.gsize(count), &__cgo__bytes_written, __cgo__cancellable, &__cgo_error__)
 	bytes_written = int64(__cgo__bytes_written)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
@@ -8656,7 +9205,11 @@ the contents (without copying) for the duration of the call.
 */
 func (self *TraitOutputStream) WriteAsync(buffer []byte, count int64, io_priority int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
 	__header__buffer := (*reflect.SliceHeader)(unsafe.Pointer(&buffer))
-	C.g_output_stream_write_async(self.CPointer, (unsafe.Pointer)(unsafe.Pointer(__header__buffer.Data)), C.gsize(count), C.int(io_priority), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_output_stream_write_async(self.CPointer, (unsafe.Pointer)(unsafe.Pointer(__header__buffer.Data)), C.gsize(count), C.int(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -8674,9 +9227,13 @@ remaining bytes, using g_bytes_new_from_bytes(). Passing the same
 data in the output stream.
 */
 func (self *TraitOutputStream) WriteBytes(bytes *C.GBytes, cancellable IsCancellable) (return__ int64, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gssize
-	__cgo__return__ = C.g_output_stream_write_bytes(self.CPointer, bytes, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_output_stream_write_bytes(self.CPointer, bytes, __cgo__cancellable, &__cgo_error__)
 	return__ = int64(__cgo__return__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -8700,7 +9257,11 @@ For the synchronous, blocking version of this function, see
 g_output_stream_write_bytes().
 */
 func (self *TraitOutputStream) WriteBytesAsync(bytes *C.GBytes, io_priority int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_output_stream_write_bytes_async(self.CPointer, bytes, C.int(io_priority), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_output_stream_write_bytes_async(self.CPointer, bytes, C.int(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -8762,9 +9323,13 @@ user interaction is required).  See g_permission_acquire_async() for
 the non-blocking version.
 */
 func (self *TraitPermission) Acquire(cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_permission_acquire(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_permission_acquire(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -8779,7 +9344,11 @@ This is the first half of the asynchronous version of
 g_permission_acquire().
 */
 func (self *TraitPermission) AcquireAsync(cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_permission_acquire_async(self.CPointer, cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_permission_acquire_async(self.CPointer, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -8879,9 +9448,13 @@ user interaction is required).  See g_permission_release_async() for
 the non-blocking version.
 */
 func (self *TraitPermission) Release(cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_permission_release(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_permission_release(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -8896,7 +9469,11 @@ This is the first half of the asynchronous version of
 g_permission_release().
 */
 func (self *TraitPermission) ReleaseAsync(cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_permission_release_async(self.CPointer, cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_permission_release_async(self.CPointer, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -9053,9 +9630,17 @@ operation, in which case @error (if non-%NULL) will be set to
 %G_IO_ERROR_CANCELLED.
 */
 func (self *TraitResolver) LookupByAddress(address IsInetAddress, cancellable IsCancellable) (return__ string, __err__ error) {
+	var __cgo__address *C.GInetAddress
+	if address != nil {
+		__cgo__address = address.GetInetAddressPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_resolver_lookup_by_address(self.CPointer, address.GetInetAddressPointer(), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_resolver_lookup_by_address(self.CPointer, __cgo__address, __cgo__cancellable, &__cgo_error__)
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -9069,7 +9654,15 @@ associated hostname, and eventually calls @callback, which must
 call g_resolver_lookup_by_address_finish() to get the final result.
 */
 func (self *TraitResolver) LookupByAddressAsync(address IsInetAddress, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_resolver_lookup_by_address_async(self.CPointer, address.GetInetAddressPointer(), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__address *C.GInetAddress
+	if address != nil {
+		__cgo__address = address.GetInetAddressPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_resolver_lookup_by_address_async(self.CPointer, __cgo__address, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -9098,7 +9691,7 @@ address(es). @hostname may be an ASCII-only or UTF-8 hostname, or
 the textual form of an IP address (in which case this just becomes
 a wrapper around g_inet_address_new_from_string()).
 
-On success, g_resolver_lookup_by_name() will return a #GList of
+On success, g_resolver_lookup_by_name() will return a non-empty #GList of
 #GInetAddress, sorted in order of preference and guaranteed to not
 contain duplicates. That is, if using the result to connect to
 @hostname, you should attempt to connect to the first address
@@ -9107,7 +9700,7 @@ the result to listen on a socket, it is appropriate to add each
 result using e.g. g_socket_listener_add_address().
 
 If the DNS resolution fails, @error (if non-%NULL) will be set to a
-value from #GResolverError.
+value from #GResolverError and %NULL will be returned.
 
 If @cancellable is non-%NULL, it can be used to cancel the
 operation, in which case @error (if non-%NULL) will be set to
@@ -9119,8 +9712,12 @@ address, it may be easier to create a #GNetworkAddress and use its
 */
 func (self *TraitResolver) LookupByName(hostname string, cancellable IsCancellable) (return__ *C.GList, __err__ error) {
 	__cgo__hostname := (*C.gchar)(unsafe.Pointer(C.CString(hostname)))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
-	return__ = C.g_resolver_lookup_by_name(self.CPointer, __cgo__hostname, cancellable.GetCancellablePointer(), &__cgo_error__)
+	return__ = C.g_resolver_lookup_by_name(self.CPointer, __cgo__hostname, __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__hostname))
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -9136,7 +9733,11 @@ See g_resolver_lookup_by_name() for more details.
 */
 func (self *TraitResolver) LookupByNameAsync(hostname string, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
 	__cgo__hostname := (*C.gchar)(unsafe.Pointer(C.CString(hostname)))
-	C.g_resolver_lookup_by_name_async(self.CPointer, __cgo__hostname, cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_resolver_lookup_by_name_async(self.CPointer, __cgo__hostname, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	C.free(unsafe.Pointer(__cgo__hostname))
 	return
 }
@@ -9164,7 +9765,7 @@ a list of records as #GVariant tuples. See #GResolverRecordType for
 information on what the records contain for each @record_type.
 
 If the DNS resolution fails, @error (if non-%NULL) will be set to
-a value from #GResolverError.
+a value from #GResolverError and %NULL will be returned.
 
 If @cancellable is non-%NULL, it can be used to cancel the
 operation, in which case @error (if non-%NULL) will be set to
@@ -9172,8 +9773,12 @@ operation, in which case @error (if non-%NULL) will be set to
 */
 func (self *TraitResolver) LookupRecords(rrname string, record_type C.GResolverRecordType, cancellable IsCancellable) (return__ *C.GList, __err__ error) {
 	__cgo__rrname := (*C.gchar)(unsafe.Pointer(C.CString(rrname)))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
-	return__ = C.g_resolver_lookup_records(self.CPointer, __cgo__rrname, record_type, cancellable.GetCancellablePointer(), &__cgo_error__)
+	return__ = C.g_resolver_lookup_records(self.CPointer, __cgo__rrname, record_type, __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__rrname))
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -9189,15 +9794,20 @@ g_resolver_lookup_records() for more details.
 */
 func (self *TraitResolver) LookupRecordsAsync(rrname string, record_type C.GResolverRecordType, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
 	__cgo__rrname := (*C.gchar)(unsafe.Pointer(C.CString(rrname)))
-	C.g_resolver_lookup_records_async(self.CPointer, __cgo__rrname, record_type, cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_resolver_lookup_records_async(self.CPointer, __cgo__rrname, record_type, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	C.free(unsafe.Pointer(__cgo__rrname))
 	return
 }
 
 /*
 Retrieves the result of a previous call to
-g_resolver_lookup_records_async(). Returns a list of records as #GVariant
-tuples. See #GResolverRecordType for information on what the records contain.
+g_resolver_lookup_records_async(). Returns a non-empty list of records as
+#GVariant tuples. See #GResolverRecordType for information on what the
+records contain.
 
 If the DNS resolution failed, @error (if non-%NULL) will be set to
 a value from #GResolverError. If the operation was cancelled,
@@ -9219,13 +9829,13 @@ Synchronously performs a DNS SRV lookup for the given @service and
 @service and @protocol arguments do not include the leading underscore
 that appears in the actual DNS entry.
 
-On success, g_resolver_lookup_service() will return a #GList of
+On success, g_resolver_lookup_service() will return a non-empty #GList of
 #GSrvTarget, sorted in order of preference. (That is, you should
 attempt to connect to the first target first, then the second if
 the first fails, etc.)
 
 If the DNS resolution fails, @error (if non-%NULL) will be set to
-a value from #GResolverError.
+a value from #GResolverError and %NULL will be returned.
 
 If @cancellable is non-%NULL, it can be used to cancel the
 operation, in which case @error (if non-%NULL) will be set to
@@ -9239,8 +9849,12 @@ func (self *TraitResolver) LookupService(service string, protocol string, domain
 	__cgo__service := (*C.gchar)(unsafe.Pointer(C.CString(service)))
 	__cgo__protocol := (*C.gchar)(unsafe.Pointer(C.CString(protocol)))
 	__cgo__domain := (*C.gchar)(unsafe.Pointer(C.CString(domain)))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
-	return__ = C.g_resolver_lookup_service(self.CPointer, __cgo__service, __cgo__protocol, __cgo__domain, cancellable.GetCancellablePointer(), &__cgo_error__)
+	return__ = C.g_resolver_lookup_service(self.CPointer, __cgo__service, __cgo__protocol, __cgo__domain, __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__service))
 	C.free(unsafe.Pointer(__cgo__protocol))
 	C.free(unsafe.Pointer(__cgo__domain))
@@ -9261,7 +9875,11 @@ func (self *TraitResolver) LookupServiceAsync(service string, protocol string, d
 	__cgo__service := (*C.gchar)(unsafe.Pointer(C.CString(service)))
 	__cgo__protocol := (*C.gchar)(unsafe.Pointer(C.CString(protocol)))
 	__cgo__domain := (*C.gchar)(unsafe.Pointer(C.CString(domain)))
-	C.g_resolver_lookup_service_async(self.CPointer, __cgo__service, __cgo__protocol, __cgo__domain, cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_resolver_lookup_service_async(self.CPointer, __cgo__service, __cgo__protocol, __cgo__domain, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	C.free(unsafe.Pointer(__cgo__service))
 	C.free(unsafe.Pointer(__cgo__protocol))
 	C.free(unsafe.Pointer(__cgo__domain))
@@ -10159,7 +10777,11 @@ Calling this function takes a reference to @simple for as long as
 is needed to run the job and report its completion.
 */
 func (self *TraitSimpleAsyncResult) RunInThread(func_ C.GSimpleAsyncThreadFunc, io_priority int, cancellable IsCancellable) {
-	C.g_simple_async_result_run_in_thread(self.CPointer, func_, C.int(io_priority), cancellable.GetCancellablePointer())
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_simple_async_result_run_in_thread(self.CPointer, func_, C.int(io_priority), __cgo__cancellable)
 	return
 }
 
@@ -10181,7 +10803,11 @@ The checking described above is done regardless of any call to the
 unrelated g_simple_async_result_set_handle_cancellation() function.
 */
 func (self *TraitSimpleAsyncResult) SetCheckCancellable(check_cancellable IsCancellable) {
-	C.g_simple_async_result_set_check_cancellable(self.CPointer, check_cancellable.GetCancellablePointer())
+	var __cgo__check_cancellable *C.GCancellable
+	if check_cancellable != nil {
+		__cgo__check_cancellable = check_cancellable.GetCancellablePointer()
+	}
+	C.g_simple_async_result_set_check_cancellable(self.CPointer, __cgo__check_cancellable)
 	return
 }
 
@@ -10347,9 +10973,13 @@ or return %G_IO_ERROR_WOULD_BLOCK if non-blocking I/O is enabled.
 To be notified of an incoming connection, wait for the %G_IO_IN condition.
 */
 func (self *TraitSocket) Accept(cancellable IsCancellable) (return__ *Socket, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ *C.GSocket
-	__cgo__return__ = C.g_socket_accept(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_socket_accept(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	if __cgo__return__ != nil {
 		return__ = NewSocketFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -10385,13 +11015,17 @@ broadcast packets sent to that address. (The behavior of unicast
 UDP packets to an address with multiple listeners is not defined.)
 */
 func (self *TraitSocket) Bind(address IsSocketAddress, allow_reuse bool) (return__ bool, __err__ error) {
+	var __cgo__address *C.GSocketAddress
+	if address != nil {
+		__cgo__address = address.GetSocketAddressPointer()
+	}
 	__cgo__allow_reuse := C.gboolean(0)
 	if allow_reuse {
 		__cgo__allow_reuse = C.gboolean(1)
 	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_socket_bind(self.CPointer, address.GetSocketAddressPointer(), __cgo__allow_reuse, &__cgo_error__)
+	__cgo__return__ = C.g_socket_bind(self.CPointer, __cgo__address, __cgo__allow_reuse, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -10500,9 +11134,13 @@ resolution, and the behavior is undefined if @timeout is not an
 exact number of milliseconds.
 */
 func (self *TraitSocket) ConditionTimedWait(condition C.GIOCondition, timeout int64, cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_socket_condition_timed_wait(self.CPointer, condition, C.gint64(timeout), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_socket_condition_timed_wait(self.CPointer, condition, C.gint64(timeout), __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -10523,9 +11161,13 @@ the appropriate value (%G_IO_ERROR_CANCELLED or
 See also g_socket_condition_timed_wait().
 */
 func (self *TraitSocket) ConditionWait(condition C.GIOCondition, cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_socket_condition_wait(self.CPointer, condition, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_socket_condition_wait(self.CPointer, condition, __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -10552,9 +11194,17 @@ for the G_IO_OUT condition. The result of the connection must then be
 checked with g_socket_check_connect_result().
 */
 func (self *TraitSocket) Connect(address IsSocketAddress, cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__address *C.GSocketAddress
+	if address != nil {
+		__cgo__address = address.GetSocketAddressPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_socket_connect(self.CPointer, address.GetSocketAddressPointer(), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_socket_connect(self.CPointer, __cgo__address, __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -10576,8 +11226,9 @@ func (self *TraitSocket) ConnectionFactoryCreateConnection() (return__ *SocketCo
 }
 
 /*
-Creates a %GSource that can be attached to a %GMainContext to monitor
-for the availability of the specified @condition on the socket.
+Creates a #GSource that can be attached to a %GMainContext to monitor
+for the availability of the specified @condition on the socket. The #GSource
+keeps a reference to the @socket.
 
 The callback on the source is of the #GSocketSourceFunc type.
 
@@ -10597,7 +11248,11 @@ marked as having had a timeout, and so the next #GSocket I/O method
 you call will then fail with a %G_IO_ERROR_TIMED_OUT.
 */
 func (self *TraitSocket) CreateSource(condition C.GIOCondition, cancellable IsCancellable) (return__ *C.GSource) {
-	return__ = C.g_socket_create_source(self.CPointer, condition, cancellable.GetCancellablePointer())
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	return__ = C.g_socket_create_source(self.CPointer, condition, __cgo__cancellable)
 	return
 }
 
@@ -10876,6 +11531,10 @@ in RFC 4604 is used. Note that on older platforms this may fail
 with a %G_IO_ERROR_NOT_SUPPORTED error.
 */
 func (self *TraitSocket) JoinMulticastGroup(group IsInetAddress, source_specific bool, iface string) (return__ bool, __err__ error) {
+	var __cgo__group *C.GInetAddress
+	if group != nil {
+		__cgo__group = group.GetInetAddressPointer()
+	}
 	__cgo__source_specific := C.gboolean(0)
 	if source_specific {
 		__cgo__source_specific = C.gboolean(1)
@@ -10883,7 +11542,7 @@ func (self *TraitSocket) JoinMulticastGroup(group IsInetAddress, source_specific
 	__cgo__iface := (*C.gchar)(unsafe.Pointer(C.CString(iface)))
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_socket_join_multicast_group(self.CPointer, group.GetInetAddressPointer(), __cgo__source_specific, __cgo__iface, &__cgo_error__)
+	__cgo__return__ = C.g_socket_join_multicast_group(self.CPointer, __cgo__group, __cgo__source_specific, __cgo__iface, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__iface))
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
@@ -10901,6 +11560,10 @@ when you joined the group).
 unicast messages after calling this.
 */
 func (self *TraitSocket) LeaveMulticastGroup(group IsInetAddress, source_specific bool, iface string) (return__ bool, __err__ error) {
+	var __cgo__group *C.GInetAddress
+	if group != nil {
+		__cgo__group = group.GetInetAddressPointer()
+	}
 	__cgo__source_specific := C.gboolean(0)
 	if source_specific {
 		__cgo__source_specific = C.gboolean(1)
@@ -10908,7 +11571,7 @@ func (self *TraitSocket) LeaveMulticastGroup(group IsInetAddress, source_specifi
 	__cgo__iface := (*C.gchar)(unsafe.Pointer(C.CString(iface)))
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_socket_leave_multicast_group(self.CPointer, group.GetInetAddressPointer(), __cgo__source_specific, __cgo__iface, &__cgo_error__)
+	__cgo__return__ = C.g_socket_leave_multicast_group(self.CPointer, __cgo__group, __cgo__source_specific, __cgo__iface, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__iface))
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
@@ -10965,9 +11628,13 @@ On error -1 is returned and @error is set accordingly.
 */
 func (self *TraitSocket) Receive(buffer []byte, size int64, cancellable IsCancellable) (return__ int64, __err__ error) {
 	__header__buffer := (*reflect.SliceHeader)(unsafe.Pointer(&buffer))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gssize
-	__cgo__return__ = C.g_socket_receive(self.CPointer, (*C.gchar)(unsafe.Pointer(__header__buffer.Data)), C.gsize(size), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_socket_receive(self.CPointer, (*C.gchar)(unsafe.Pointer(__header__buffer.Data)), C.gsize(size), __cgo__cancellable, &__cgo_error__)
 	return__ = int64(__cgo__return__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -10987,9 +11654,13 @@ See g_socket_receive() for additional information.
 func (self *TraitSocket) ReceiveFrom(buffer []byte, size int64, cancellable IsCancellable) (address *SocketAddress, return__ int64, __err__ error) {
 	var __cgo__address *C.GSocketAddress
 	__header__buffer := (*reflect.SliceHeader)(unsafe.Pointer(&buffer))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gssize
-	__cgo__return__ = C.g_socket_receive_from(self.CPointer, &__cgo__address, (*C.gchar)(unsafe.Pointer(__header__buffer.Data)), C.gsize(size), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_socket_receive_from(self.CPointer, &__cgo__address, (*C.gchar)(unsafe.Pointer(__header__buffer.Data)), C.gsize(size), __cgo__cancellable, &__cgo_error__)
 	if __cgo__address != nil {
 		address = NewSocketAddressFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__address).Pointer()))
 	}
@@ -11061,9 +11732,13 @@ On error -1 is returned and @error is set accordingly.
 */
 func (self *TraitSocket) ReceiveMessage(vectors *C.GInputVector, num_vectors int, messages ***C.GSocketControlMessage, num_messages *C.gint, flags *C.gint, cancellable IsCancellable) (address *SocketAddress, return__ int64, __err__ error) {
 	var __cgo__address *C.GSocketAddress
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gssize
-	__cgo__return__ = C.g_socket_receive_message(self.CPointer, &__cgo__address, vectors, C.gint(num_vectors), messages, num_messages, flags, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_socket_receive_message(self.CPointer, &__cgo__address, vectors, C.gint(num_vectors), messages, num_messages, flags, __cgo__cancellable, &__cgo_error__)
 	if __cgo__address != nil {
 		address = NewSocketAddressFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__address).Pointer()))
 	}
@@ -11085,9 +11760,13 @@ func (self *TraitSocket) ReceiveWithBlocking(buffer []byte, size int64, blocking
 	if blocking {
 		__cgo__blocking = C.gboolean(1)
 	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gssize
-	__cgo__return__ = C.g_socket_receive_with_blocking(self.CPointer, (*C.gchar)(unsafe.Pointer(__header__buffer.Data)), C.gsize(size), __cgo__blocking, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_socket_receive_with_blocking(self.CPointer, (*C.gchar)(unsafe.Pointer(__header__buffer.Data)), C.gsize(size), __cgo__blocking, __cgo__cancellable, &__cgo_error__)
 	return__ = int64(__cgo__return__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -11113,9 +11792,13 @@ On error -1 is returned and @error is set accordingly.
 */
 func (self *TraitSocket) Send(buffer []byte, size int64, cancellable IsCancellable) (return__ int64, __err__ error) {
 	__header__buffer := (*reflect.SliceHeader)(unsafe.Pointer(&buffer))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gssize
-	__cgo__return__ = C.g_socket_send(self.CPointer, (*C.gchar)(unsafe.Pointer(__header__buffer.Data)), C.gsize(size), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_socket_send(self.CPointer, (*C.gchar)(unsafe.Pointer(__header__buffer.Data)), C.gsize(size), __cgo__cancellable, &__cgo_error__)
 	return__ = int64(__cgo__return__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -11163,9 +11846,17 @@ very common due to the way the underlying APIs work.)
 On error -1 is returned and @error is set accordingly.
 */
 func (self *TraitSocket) SendMessage(address IsSocketAddress, vectors *C.GOutputVector, num_vectors int, messages **C.GSocketControlMessage, num_messages int, flags int, cancellable IsCancellable) (return__ int64, __err__ error) {
+	var __cgo__address *C.GSocketAddress
+	if address != nil {
+		__cgo__address = address.GetSocketAddressPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gssize
-	__cgo__return__ = C.g_socket_send_message(self.CPointer, address.GetSocketAddressPointer(), vectors, C.gint(num_vectors), messages, C.gint(num_messages), C.gint(flags), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_socket_send_message(self.CPointer, __cgo__address, vectors, C.gint(num_vectors), messages, C.gint(num_messages), C.gint(flags), __cgo__cancellable, &__cgo_error__)
 	return__ = int64(__cgo__return__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -11181,10 +11872,18 @@ g_socket_connect()).
 See g_socket_send() for additional information.
 */
 func (self *TraitSocket) SendTo(address IsSocketAddress, buffer []byte, size int64, cancellable IsCancellable) (return__ int64, __err__ error) {
+	var __cgo__address *C.GSocketAddress
+	if address != nil {
+		__cgo__address = address.GetSocketAddressPointer()
+	}
 	__header__buffer := (*reflect.SliceHeader)(unsafe.Pointer(&buffer))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gssize
-	__cgo__return__ = C.g_socket_send_to(self.CPointer, address.GetSocketAddressPointer(), (*C.gchar)(unsafe.Pointer(__header__buffer.Data)), C.gsize(size), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_socket_send_to(self.CPointer, __cgo__address, (*C.gchar)(unsafe.Pointer(__header__buffer.Data)), C.gsize(size), __cgo__cancellable, &__cgo_error__)
 	return__ = int64(__cgo__return__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -11203,9 +11902,13 @@ func (self *TraitSocket) SendWithBlocking(buffer []byte, size int64, blocking bo
 	if blocking {
 		__cgo__blocking = C.gboolean(1)
 	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gssize
-	__cgo__return__ = C.g_socket_send_with_blocking(self.CPointer, (*C.gchar)(unsafe.Pointer(__header__buffer.Data)), C.gsize(size), __cgo__blocking, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_socket_send_with_blocking(self.CPointer, (*C.gchar)(unsafe.Pointer(__header__buffer.Data)), C.gsize(size), __cgo__blocking, __cgo__cancellable, &__cgo_error__)
 	return__ = int64(__cgo__return__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -11498,9 +12201,13 @@ internal errors (other than @cancellable being triggered) will be
 ignored.
 */
 func (self *TraitSocketAddressEnumerator) Next(cancellable IsCancellable) (return__ *SocketAddress, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ *C.GSocketAddress
-	__cgo__return__ = C.g_socket_address_enumerator_next(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_socket_address_enumerator_next(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	if __cgo__return__ != nil {
 		return__ = NewSocketAddressFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -11516,7 +12223,11 @@ and then calls @callback, which must call
 g_socket_address_enumerator_next_finish() to get the result.
 */
 func (self *TraitSocketAddressEnumerator) NextAsync(cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_socket_address_enumerator_next_async(self.CPointer, cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_socket_address_enumerator_next_async(self.CPointer, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -11600,9 +12311,13 @@ If a local address is specified with g_socket_client_set_local_address() the
 socket will be bound to this address before connecting.
 */
 func (self *TraitSocketClient) Connect(connectable *C.GSocketConnectable, cancellable IsCancellable) (return__ *SocketConnection, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ *C.GSocketConnection
-	__cgo__return__ = C.g_socket_client_connect(self.CPointer, connectable, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_socket_client_connect(self.CPointer, connectable, __cgo__cancellable, &__cgo_error__)
 	if __cgo__return__ != nil {
 		return__ = NewSocketConnectionFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -11620,7 +12335,11 @@ called. You can then call g_socket_client_connect_finish() to get
 the result of the operation.
 */
 func (self *TraitSocketClient) ConnectAsync(connectable *C.GSocketConnectable, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_socket_client_connect_async(self.CPointer, connectable, cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_socket_client_connect_async(self.CPointer, connectable, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -11674,9 +12393,13 @@ accordingly.
 */
 func (self *TraitSocketClient) ConnectToHost(host_and_port string, default_port uint16, cancellable IsCancellable) (return__ *SocketConnection, __err__ error) {
 	__cgo__host_and_port := (*C.gchar)(unsafe.Pointer(C.CString(host_and_port)))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ *C.GSocketConnection
-	__cgo__return__ = C.g_socket_client_connect_to_host(self.CPointer, __cgo__host_and_port, C.guint16(default_port), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_socket_client_connect_to_host(self.CPointer, __cgo__host_and_port, C.guint16(default_port), __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__host_and_port))
 	if __cgo__return__ != nil {
 		return__ = NewSocketConnectionFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
@@ -11696,7 +12419,11 @@ the result of the operation.
 */
 func (self *TraitSocketClient) ConnectToHostAsync(host_and_port string, default_port uint16, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
 	__cgo__host_and_port := (*C.gchar)(unsafe.Pointer(C.CString(host_and_port)))
-	C.g_socket_client_connect_to_host_async(self.CPointer, __cgo__host_and_port, C.guint16(default_port), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_socket_client_connect_to_host_async(self.CPointer, __cgo__host_and_port, C.guint16(default_port), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	C.free(unsafe.Pointer(__cgo__host_and_port))
 	return
 }
@@ -11736,9 +12463,13 @@ accordingly.
 func (self *TraitSocketClient) ConnectToService(domain string, service string, cancellable IsCancellable) (return__ *SocketConnection, __err__ error) {
 	__cgo__domain := (*C.gchar)(unsafe.Pointer(C.CString(domain)))
 	__cgo__service := (*C.gchar)(unsafe.Pointer(C.CString(service)))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ *C.GSocketConnection
-	__cgo__return__ = C.g_socket_client_connect_to_service(self.CPointer, __cgo__domain, __cgo__service, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_socket_client_connect_to_service(self.CPointer, __cgo__domain, __cgo__service, __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__domain))
 	C.free(unsafe.Pointer(__cgo__service))
 	if __cgo__return__ != nil {
@@ -11757,7 +12488,11 @@ g_socket_client_connect_to_service().
 func (self *TraitSocketClient) ConnectToServiceAsync(domain string, service string, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
 	__cgo__domain := (*C.gchar)(unsafe.Pointer(C.CString(domain)))
 	__cgo__service := (*C.gchar)(unsafe.Pointer(C.CString(service)))
-	C.g_socket_client_connect_to_service_async(self.CPointer, __cgo__domain, __cgo__service, cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_socket_client_connect_to_service_async(self.CPointer, __cgo__domain, __cgo__service, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	C.free(unsafe.Pointer(__cgo__domain))
 	C.free(unsafe.Pointer(__cgo__service))
 	return
@@ -11804,9 +12539,13 @@ accordingly.
 */
 func (self *TraitSocketClient) ConnectToUri(uri string, default_port uint16, cancellable IsCancellable) (return__ *SocketConnection, __err__ error) {
 	__cgo__uri := (*C.gchar)(unsafe.Pointer(C.CString(uri)))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ *C.GSocketConnection
-	__cgo__return__ = C.g_socket_client_connect_to_uri(self.CPointer, __cgo__uri, C.guint16(default_port), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_socket_client_connect_to_uri(self.CPointer, __cgo__uri, C.guint16(default_port), __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__uri))
 	if __cgo__return__ != nil {
 		return__ = NewSocketConnectionFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
@@ -11826,7 +12565,11 @@ the result of the operation.
 */
 func (self *TraitSocketClient) ConnectToUriAsync(uri string, default_port uint16, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
 	__cgo__uri := (*C.gchar)(unsafe.Pointer(C.CString(uri)))
-	C.g_socket_client_connect_to_uri_async(self.CPointer, __cgo__uri, C.guint16(default_port), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_socket_client_connect_to_uri_async(self.CPointer, __cgo__uri, C.guint16(default_port), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	C.free(unsafe.Pointer(__cgo__uri))
 	return
 }
@@ -11985,7 +12728,11 @@ side of the connection is on a specific port, or on
 a specific interface.
 */
 func (self *TraitSocketClient) SetLocalAddress(address IsSocketAddress) {
-	C.g_socket_client_set_local_address(self.CPointer, address.GetSocketAddressPointer())
+	var __cgo__address *C.GSocketAddress
+	if address != nil {
+		__cgo__address = address.GetSocketAddressPointer()
+	}
+	C.g_socket_client_set_local_address(self.CPointer, __cgo__address)
 	return
 }
 
@@ -12096,9 +12843,17 @@ func NewTraitSocketConnection(p unsafe.Pointer) *TraitSocketConnection {
 Connect @connection to the specified remote address.
 */
 func (self *TraitSocketConnection) Connect(address IsSocketAddress, cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__address *C.GSocketAddress
+	if address != nil {
+		__cgo__address = address.GetSocketAddressPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_socket_connection_connect(self.CPointer, address.GetSocketAddressPointer(), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_socket_connection_connect(self.CPointer, __cgo__address, __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -12115,7 +12870,15 @@ socket if it is currently set.
 Use g_socket_connection_connect_finish() to retrieve the result.
 */
 func (self *TraitSocketConnection) ConnectAsync(address IsSocketAddress, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_socket_connection_connect_async(self.CPointer, address.GetSocketAddressPointer(), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__address *C.GSocketAddress
+	if address != nil {
+		__cgo__address = address.GetSocketAddressPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_socket_connection_connect_async(self.CPointer, __cgo__address, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -12281,9 +13044,13 @@ triggering the cancellable object from another thread. If the operation
 was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
 */
 func (self *TraitSocketListener) Accept(cancellable IsCancellable) (source_object *C.GObject, return__ *SocketConnection, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ *C.GSocketConnection
-	__cgo__return__ = C.g_socket_listener_accept(self.CPointer, &source_object, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_socket_listener_accept(self.CPointer, &source_object, __cgo__cancellable, &__cgo_error__)
 	if __cgo__return__ != nil {
 		return__ = NewSocketConnectionFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -12301,7 +13068,11 @@ called. You can then call g_socket_listener_accept_socket()
 to get the result of the operation.
 */
 func (self *TraitSocketListener) AcceptAsync(cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_socket_listener_accept_async(self.CPointer, cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_socket_listener_accept_async(self.CPointer, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -12338,9 +13109,13 @@ triggering the cancellable object from another thread. If the operation
 was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
 */
 func (self *TraitSocketListener) AcceptSocket(cancellable IsCancellable) (source_object *C.GObject, return__ *Socket, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ *C.GSocket
-	__cgo__return__ = C.g_socket_listener_accept_socket(self.CPointer, &source_object, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_socket_listener_accept_socket(self.CPointer, &source_object, __cgo__cancellable, &__cgo_error__)
 	if __cgo__return__ != nil {
 		return__ = NewSocketFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -12358,7 +13133,11 @@ called. You can then call g_socket_listener_accept_socket_finish()
 to get the result of the operation.
 */
 func (self *TraitSocketListener) AcceptSocketAsync(cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_socket_listener_accept_socket_async(self.CPointer, cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_socket_listener_accept_socket_async(self.CPointer, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -12400,10 +13179,14 @@ requesting a binding to port 0 (ie: "any port").  This address, if
 requested, belongs to the caller and must be freed.
 */
 func (self *TraitSocketListener) AddAddress(address IsSocketAddress, type_ C.GSocketType, protocol C.GSocketProtocol, source_object *C.GObject) (effective_address *SocketAddress, return__ bool, __err__ error) {
+	var __cgo__address *C.GSocketAddress
+	if address != nil {
+		__cgo__address = address.GetSocketAddressPointer()
+	}
 	var __cgo__effective_address *C.GSocketAddress
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_socket_listener_add_address(self.CPointer, address.GetSocketAddressPointer(), type_, protocol, source_object, &__cgo__effective_address, &__cgo_error__)
+	__cgo__return__ = C.g_socket_listener_add_address(self.CPointer, __cgo__address, type_, protocol, source_object, &__cgo__effective_address, &__cgo_error__)
 	if __cgo__effective_address != nil {
 		effective_address = NewSocketAddressFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__effective_address).Pointer()))
 	}
@@ -12467,11 +13250,20 @@ address and listened to.
 to accept to identify this particular source, which is
 useful if you're listening on multiple addresses and do
 different things depending on what address is connected to.
+
+The @socket will not be automatically closed when the @listener is finalized
+unless the listener held the final reference to the socket. Before GLib 2.42,
+the @socket was automatically closed on finalization of the @listener, even
+if references to it were held elsewhere.
 */
 func (self *TraitSocketListener) AddSocket(socket IsSocket, source_object *C.GObject) (return__ bool, __err__ error) {
+	var __cgo__socket *C.GSocket
+	if socket != nil {
+		__cgo__socket = socket.GetSocketPointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_socket_listener_add_socket(self.CPointer, socket.GetSocketPointer(), source_object, &__cgo_error__)
+	__cgo__return__ = C.g_socket_listener_add_socket(self.CPointer, __cgo__socket, source_object, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -12608,9 +13400,13 @@ attempt to interact with the pipes while the operation is in progress
 (either from another thread or if using the asynchronous version).
 */
 func (self *TraitSubprocess) Communicate(stdin_buf *C.GBytes, cancellable IsCancellable) (stdout_buf *C.GBytes, stderr_buf *C.GBytes, return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_subprocess_communicate(self.CPointer, stdin_buf, cancellable.GetCancellablePointer(), &stdout_buf, &stderr_buf, &__cgo_error__)
+	__cgo__return__ = C.g_subprocess_communicate(self.CPointer, stdin_buf, __cgo__cancellable, &stdout_buf, &stderr_buf, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -12623,7 +13419,11 @@ Asynchronous version of g_subprocess_communicate().  Complete
 invocation with g_subprocess_communicate_finish().
 */
 func (self *TraitSubprocess) CommunicateAsync(stdin_buf *C.GBytes, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_subprocess_communicate_async(self.CPointer, stdin_buf, cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_subprocess_communicate_async(self.CPointer, stdin_buf, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -12647,11 +13447,15 @@ process as UTF-8, and returns it as a regular NUL terminated string.
 */
 func (self *TraitSubprocess) CommunicateUtf8(stdin_buf string, cancellable IsCancellable) (stdout_buf string, stderr_buf string, return__ bool, __err__ error) {
 	__cgo__stdin_buf := C.CString(stdin_buf)
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo__stdout_buf *C.char
 	var __cgo__stderr_buf *C.char
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_subprocess_communicate_utf8(self.CPointer, __cgo__stdin_buf, cancellable.GetCancellablePointer(), &__cgo__stdout_buf, &__cgo__stderr_buf, &__cgo_error__)
+	__cgo__return__ = C.g_subprocess_communicate_utf8(self.CPointer, __cgo__stdin_buf, __cgo__cancellable, &__cgo__stdout_buf, &__cgo__stderr_buf, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__stdin_buf))
 	stdout_buf = C.GoString(__cgo__stdout_buf)
 	stderr_buf = C.GoString(__cgo__stderr_buf)
@@ -12663,12 +13467,16 @@ func (self *TraitSubprocess) CommunicateUtf8(stdin_buf string, cancellable IsCan
 }
 
 /*
-Asynchronous version of g_subprocess_communicate_utf().  Complete
+Asynchronous version of g_subprocess_communicate_utf8().  Complete
 invocation with g_subprocess_communicate_utf8_finish().
 */
 func (self *TraitSubprocess) CommunicateUtf8Async(stdin_buf string, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
 	__cgo__stdin_buf := C.CString(stdin_buf)
-	C.g_subprocess_communicate_utf8_async(self.CPointer, __cgo__stdin_buf, cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_subprocess_communicate_utf8_async(self.CPointer, __cgo__stdin_buf, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	C.free(unsafe.Pointer(__cgo__stdin_buf))
 	return
 }
@@ -12886,11 +13694,18 @@ g_subprocess_get_exit_status().
 
 This function does not fail in the case of the subprocess having
 abnormal termination.  See g_subprocess_wait_check() for that.
+
+Cancelling @cancellable doesn't kill the subprocess.  Call
+g_subprocess_force_exit() if it is desirable.
 */
 func (self *TraitSubprocess) Wait(cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_subprocess_wait(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_subprocess_wait(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -12904,7 +13719,11 @@ Wait for the subprocess to terminate.
 This is the asynchronous version of g_subprocess_wait().
 */
 func (self *TraitSubprocess) WaitAsync(cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_subprocess_wait_async(self.CPointer, cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_subprocess_wait_async(self.CPointer, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -12912,9 +13731,13 @@ func (self *TraitSubprocess) WaitAsync(cancellable IsCancellable, callback C.GAs
 Combines g_subprocess_wait() with g_spawn_check_exit_status().
 */
 func (self *TraitSubprocess) WaitCheck(cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_subprocess_wait_check(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_subprocess_wait_check(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -12928,7 +13751,11 @@ Combines g_subprocess_wait_async() with g_spawn_check_exit_status().
 This is the asynchronous version of g_subprocess_wait_check().
 */
 func (self *TraitSubprocess) WaitCheckAsync(cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_subprocess_wait_check_async(self.CPointer, cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_subprocess_wait_check_async(self.CPointer, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -13151,8 +13978,7 @@ func (self *TraitSubprocessLauncher) Setenv(variable string, value string, overw
 // g_subprocess_launcher_spawn is not generated due to varargs
 
 /*
-A convenience helper for creating a #GSubprocess given a provided
-array of arguments.
+Creates a #GSubprocess given a provided array of arguments.
 */
 func (self *TraitSubprocessLauncher) Spawnv(argv []string) (return__ *Subprocess, __err__ error) {
 	__header__argv := (*reflect.SliceHeader)(unsafe.Pointer(&argv))
@@ -13911,8 +14737,12 @@ their #GTlsCertificate:issuer, #GTlsCertificate:private-key, or
 #GTlsCertificate:private-key-pem properties differ.
 */
 func (self *TraitTlsCertificate) IsSame(cert_two IsTlsCertificate) (return__ bool) {
+	var __cgo__cert_two *C.GTlsCertificate
+	if cert_two != nil {
+		__cgo__cert_two = cert_two.GetTlsCertificatePointer()
+	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_tls_certificate_is_same(self.CPointer, cert_two.GetTlsCertificatePointer())
+	__cgo__return__ = C.g_tls_certificate_is_same(self.CPointer, __cgo__cert_two)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -13939,7 +14769,11 @@ value.
 as appropriate.)
 */
 func (self *TraitTlsCertificate) Verify(identity *C.GSocketConnectable, trusted_ca IsTlsCertificate) (return__ C.GTlsCertificateFlags) {
-	return__ = C.g_tls_certificate_verify(self.CPointer, identity, trusted_ca.GetTlsCertificatePointer())
+	var __cgo__trusted_ca *C.GTlsCertificate
+	if trusted_ca != nil {
+		__cgo__trusted_ca = trusted_ca.GetTlsCertificatePointer()
+	}
+	return__ = C.g_tls_certificate_verify(self.CPointer, identity, __cgo__trusted_ca)
 	return
 }
 
@@ -13960,8 +14794,12 @@ Used by #GTlsConnection implementations to emit the
 #GTlsConnection::accept-certificate signal.
 */
 func (self *TraitTlsConnection) EmitAcceptCertificate(peer_cert IsTlsCertificate, errors C.GTlsCertificateFlags) (return__ bool) {
+	var __cgo__peer_cert *C.GTlsCertificate
+	if peer_cert != nil {
+		__cgo__peer_cert = peer_cert.GetTlsCertificatePointer()
+	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_tls_connection_emit_accept_certificate(self.CPointer, peer_cert.GetTlsCertificatePointer(), errors)
+	__cgo__return__ = C.g_tls_connection_emit_accept_certificate(self.CPointer, __cgo__peer_cert, errors)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -14078,9 +14916,13 @@ renegotiate parameters (encryption methods, etc) with the client.
 handshake.
 */
 func (self *TraitTlsConnection) Handshake(cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_tls_connection_handshake(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_tls_connection_handshake(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -14093,7 +14935,11 @@ Asynchronously performs a TLS handshake on @conn. See
 g_tls_connection_handshake() for more information.
 */
 func (self *TraitTlsConnection) HandshakeAsync(io_priority int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_tls_connection_handshake_async(self.CPointer, C.int(io_priority), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_tls_connection_handshake_async(self.CPointer, C.int(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -14133,7 +14979,11 @@ that g_tls_client_connection_get_accepted_cas() will return
 non-%NULL.)
 */
 func (self *TraitTlsConnection) SetCertificate(certificate IsTlsCertificate) {
-	C.g_tls_connection_set_certificate(self.CPointer, certificate.GetTlsCertificatePointer())
+	var __cgo__certificate *C.GTlsCertificate
+	if certificate != nil {
+		__cgo__certificate = certificate.GetTlsCertificatePointer()
+	}
+	C.g_tls_connection_set_certificate(self.CPointer, __cgo__certificate)
 	return
 }
 
@@ -14148,7 +14998,11 @@ client-side connections, unless that bit is not set in
 #GTlsClientConnection:validation-flags).
 */
 func (self *TraitTlsConnection) SetDatabase(database IsTlsDatabase) {
-	C.g_tls_connection_set_database(self.CPointer, database.GetTlsDatabasePointer())
+	var __cgo__database *C.GTlsDatabase
+	if database != nil {
+		__cgo__database = database.GetTlsDatabasePointer()
+	}
+	C.g_tls_connection_set_database(self.CPointer, __cgo__database)
 	return
 }
 
@@ -14161,7 +15015,11 @@ The @interaction argument will normally be a derived subclass of
 should occur for this connection.
 */
 func (self *TraitTlsConnection) SetInteraction(interaction IsTlsInteraction) {
-	C.g_tls_connection_set_interaction(self.CPointer, interaction.GetTlsInteractionPointer())
+	var __cgo__interaction *C.GTlsInteraction
+	if interaction != nil {
+		__cgo__interaction = interaction.GetTlsInteractionPointer()
+	}
+	C.g_tls_connection_set_interaction(self.CPointer, __cgo__interaction)
 	return
 }
 
@@ -14254,8 +15112,12 @@ and between applications. If a certificate is modified in the database,
 then it is not guaranteed that this handle will continue to point to it.
 */
 func (self *TraitTlsDatabase) CreateCertificateHandle(certificate IsTlsCertificate) (return__ string) {
+	var __cgo__certificate *C.GTlsCertificate
+	if certificate != nil {
+		__cgo__certificate = certificate.GetTlsCertificatePointer()
+	}
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_tls_database_create_certificate_handle(self.CPointer, certificate.GetTlsCertificatePointer())
+	__cgo__return__ = C.g_tls_database_create_certificate_handle(self.CPointer, __cgo__certificate)
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -14276,9 +15138,17 @@ the lookup operation asynchronously.
 */
 func (self *TraitTlsDatabase) LookupCertificateForHandle(handle string, interaction IsTlsInteraction, flags C.GTlsDatabaseLookupFlags, cancellable IsCancellable) (return__ *TlsCertificate, __err__ error) {
 	__cgo__handle := (*C.gchar)(unsafe.Pointer(C.CString(handle)))
+	var __cgo__interaction *C.GTlsInteraction
+	if interaction != nil {
+		__cgo__interaction = interaction.GetTlsInteractionPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ *C.GTlsCertificate
-	__cgo__return__ = C.g_tls_database_lookup_certificate_for_handle(self.CPointer, __cgo__handle, interaction.GetTlsInteractionPointer(), flags, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_tls_database_lookup_certificate_for_handle(self.CPointer, __cgo__handle, __cgo__interaction, flags, __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__handle))
 	if __cgo__return__ != nil {
 		return__ = NewTlsCertificateFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
@@ -14295,7 +15165,15 @@ g_tls_database_lookup_certificate_for_handle() for more information.
 */
 func (self *TraitTlsDatabase) LookupCertificateForHandleAsync(handle string, interaction IsTlsInteraction, flags C.GTlsDatabaseLookupFlags, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
 	__cgo__handle := (*C.gchar)(unsafe.Pointer(C.CString(handle)))
-	C.g_tls_database_lookup_certificate_for_handle_async(self.CPointer, __cgo__handle, interaction.GetTlsInteractionPointer(), flags, cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__interaction *C.GTlsInteraction
+	if interaction != nil {
+		__cgo__interaction = interaction.GetTlsInteractionPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_tls_database_lookup_certificate_for_handle_async(self.CPointer, __cgo__handle, __cgo__interaction, flags, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	C.free(unsafe.Pointer(__cgo__handle))
 	return
 }
@@ -14331,9 +15209,21 @@ This function can block, use g_tls_database_lookup_certificate_issuer_async() to
 the lookup operation asynchronously.
 */
 func (self *TraitTlsDatabase) LookupCertificateIssuer(certificate IsTlsCertificate, interaction IsTlsInteraction, flags C.GTlsDatabaseLookupFlags, cancellable IsCancellable) (return__ *TlsCertificate, __err__ error) {
+	var __cgo__certificate *C.GTlsCertificate
+	if certificate != nil {
+		__cgo__certificate = certificate.GetTlsCertificatePointer()
+	}
+	var __cgo__interaction *C.GTlsInteraction
+	if interaction != nil {
+		__cgo__interaction = interaction.GetTlsInteractionPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ *C.GTlsCertificate
-	__cgo__return__ = C.g_tls_database_lookup_certificate_issuer(self.CPointer, certificate.GetTlsCertificatePointer(), interaction.GetTlsInteractionPointer(), flags, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_tls_database_lookup_certificate_issuer(self.CPointer, __cgo__certificate, __cgo__interaction, flags, __cgo__cancellable, &__cgo_error__)
 	if __cgo__return__ != nil {
 		return__ = NewTlsCertificateFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -14348,7 +15238,19 @@ Asynchronously lookup the issuer of @certificate in the database. See
 g_tls_database_lookup_certificate_issuer() for more information.
 */
 func (self *TraitTlsDatabase) LookupCertificateIssuerAsync(certificate IsTlsCertificate, interaction IsTlsInteraction, flags C.GTlsDatabaseLookupFlags, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_tls_database_lookup_certificate_issuer_async(self.CPointer, certificate.GetTlsCertificatePointer(), interaction.GetTlsInteractionPointer(), flags, cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__certificate *C.GTlsCertificate
+	if certificate != nil {
+		__cgo__certificate = certificate.GetTlsCertificatePointer()
+	}
+	var __cgo__interaction *C.GTlsInteraction
+	if interaction != nil {
+		__cgo__interaction = interaction.GetTlsInteractionPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_tls_database_lookup_certificate_issuer_async(self.CPointer, __cgo__certificate, __cgo__interaction, flags, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -14376,8 +15278,16 @@ This function can block, use g_tls_database_lookup_certificates_issued_by_async(
 the lookup operation asynchronously.
 */
 func (self *TraitTlsDatabase) LookupCertificatesIssuedBy(issuer_raw_dn *C.GByteArray, interaction IsTlsInteraction, flags C.GTlsDatabaseLookupFlags, cancellable IsCancellable) (return__ *C.GList, __err__ error) {
+	var __cgo__interaction *C.GTlsInteraction
+	if interaction != nil {
+		__cgo__interaction = interaction.GetTlsInteractionPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
-	return__ = C.g_tls_database_lookup_certificates_issued_by(self.CPointer, issuer_raw_dn, interaction.GetTlsInteractionPointer(), flags, cancellable.GetCancellablePointer(), &__cgo_error__)
+	return__ = C.g_tls_database_lookup_certificates_issued_by(self.CPointer, issuer_raw_dn, __cgo__interaction, flags, __cgo__cancellable, &__cgo_error__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
 	}
@@ -14393,7 +15303,15 @@ of of this asynchronous operation. The byte array should not be modified during
 this time.
 */
 func (self *TraitTlsDatabase) LookupCertificatesIssuedByAsync(issuer_raw_dn *C.GByteArray, interaction IsTlsInteraction, flags C.GTlsDatabaseLookupFlags, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_tls_database_lookup_certificates_issued_by_async(self.CPointer, issuer_raw_dn, interaction.GetTlsInteractionPointer(), flags, cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__interaction *C.GTlsInteraction
+	if interaction != nil {
+		__cgo__interaction = interaction.GetTlsInteractionPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_tls_database_lookup_certificates_issued_by_async(self.CPointer, issuer_raw_dn, __cgo__interaction, flags, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -14437,9 +15355,21 @@ This function can block, use g_tls_database_verify_chain_async() to perform
 the verification operation asynchronously.
 */
 func (self *TraitTlsDatabase) VerifyChain(chain IsTlsCertificate, purpose string, identity *C.GSocketConnectable, interaction IsTlsInteraction, flags C.GTlsDatabaseVerifyFlags, cancellable IsCancellable) (return__ C.GTlsCertificateFlags, __err__ error) {
+	var __cgo__chain *C.GTlsCertificate
+	if chain != nil {
+		__cgo__chain = chain.GetTlsCertificatePointer()
+	}
 	__cgo__purpose := (*C.gchar)(unsafe.Pointer(C.CString(purpose)))
+	var __cgo__interaction *C.GTlsInteraction
+	if interaction != nil {
+		__cgo__interaction = interaction.GetTlsInteractionPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
-	return__ = C.g_tls_database_verify_chain(self.CPointer, chain.GetTlsCertificatePointer(), __cgo__purpose, identity, interaction.GetTlsInteractionPointer(), flags, cancellable.GetCancellablePointer(), &__cgo_error__)
+	return__ = C.g_tls_database_verify_chain(self.CPointer, __cgo__chain, __cgo__purpose, identity, __cgo__interaction, flags, __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__purpose))
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -14453,8 +15383,20 @@ any missing certificates to the chain. See g_tls_database_verify_chain()
 for more information.
 */
 func (self *TraitTlsDatabase) VerifyChainAsync(chain IsTlsCertificate, purpose string, identity *C.GSocketConnectable, interaction IsTlsInteraction, flags C.GTlsDatabaseVerifyFlags, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
+	var __cgo__chain *C.GTlsCertificate
+	if chain != nil {
+		__cgo__chain = chain.GetTlsCertificatePointer()
+	}
 	__cgo__purpose := (*C.gchar)(unsafe.Pointer(C.CString(purpose)))
-	C.g_tls_database_verify_chain_async(self.CPointer, chain.GetTlsCertificatePointer(), __cgo__purpose, identity, interaction.GetTlsInteractionPointer(), flags, cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__interaction *C.GTlsInteraction
+	if interaction != nil {
+		__cgo__interaction = interaction.GetTlsInteractionPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_tls_database_verify_chain_async(self.CPointer, __cgo__chain, __cgo__purpose, identity, __cgo__interaction, flags, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	C.free(unsafe.Pointer(__cgo__purpose))
 	return
 }
@@ -14500,8 +15442,16 @@ contains a %G_IO_ERROR_CANCELLED error code. Certain implementations may
 not support immediate cancellation.
 */
 func (self *TraitTlsInteraction) AskPassword(password IsTlsPassword, cancellable IsCancellable) (return__ C.GTlsInteractionResult, __err__ error) {
+	var __cgo__password *C.GTlsPassword
+	if password != nil {
+		__cgo__password = password.GetTlsPasswordPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
-	return__ = C.g_tls_interaction_ask_password(self.CPointer, password.GetTlsPasswordPointer(), cancellable.GetCancellablePointer(), &__cgo_error__)
+	return__ = C.g_tls_interaction_ask_password(self.CPointer, __cgo__password, __cgo__cancellable, &__cgo_error__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
 	}
@@ -14526,7 +15476,15 @@ not support immediate cancellation.
 Certain implementations may not support immediate cancellation.
 */
 func (self *TraitTlsInteraction) AskPasswordAsync(password IsTlsPassword, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_tls_interaction_ask_password_async(self.CPointer, password.GetTlsPasswordPointer(), cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__password *C.GTlsPassword
+	if password != nil {
+		__cgo__password = password.GetTlsPasswordPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_tls_interaction_ask_password_async(self.CPointer, __cgo__password, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -14572,8 +15530,16 @@ contains a %G_IO_ERROR_CANCELLED error code. Certain implementations may
 not support immediate cancellation.
 */
 func (self *TraitTlsInteraction) InvokeAskPassword(password IsTlsPassword, cancellable IsCancellable) (return__ C.GTlsInteractionResult, __err__ error) {
+	var __cgo__password *C.GTlsPassword
+	if password != nil {
+		__cgo__password = password.GetTlsPasswordPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
-	return__ = C.g_tls_interaction_invoke_ask_password(self.CPointer, password.GetTlsPasswordPointer(), cancellable.GetCancellablePointer(), &__cgo_error__)
+	return__ = C.g_tls_interaction_invoke_ask_password(self.CPointer, __cgo__password, __cgo__cancellable, &__cgo_error__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
 	}
@@ -14603,8 +15569,16 @@ contains a %G_IO_ERROR_CANCELLED error code. Certain implementations may
 not support immediate cancellation.
 */
 func (self *TraitTlsInteraction) InvokeRequestCertificate(connection IsTlsConnection, flags C.GTlsCertificateRequestFlags, cancellable IsCancellable) (return__ C.GTlsInteractionResult, __err__ error) {
+	var __cgo__connection *C.GTlsConnection
+	if connection != nil {
+		__cgo__connection = connection.GetTlsConnectionPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
-	return__ = C.g_tls_interaction_invoke_request_certificate(self.CPointer, connection.GetTlsConnectionPointer(), flags, cancellable.GetCancellablePointer(), &__cgo_error__)
+	return__ = C.g_tls_interaction_invoke_request_certificate(self.CPointer, __cgo__connection, flags, __cgo__cancellable, &__cgo_error__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
 	}
@@ -14630,8 +15604,16 @@ contains a %G_IO_ERROR_CANCELLED error code. Certain implementations may
 not support immediate cancellation.
 */
 func (self *TraitTlsInteraction) RequestCertificate(connection IsTlsConnection, flags C.GTlsCertificateRequestFlags, cancellable IsCancellable) (return__ C.GTlsInteractionResult, __err__ error) {
+	var __cgo__connection *C.GTlsConnection
+	if connection != nil {
+		__cgo__connection = connection.GetTlsConnectionPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
-	return__ = C.g_tls_interaction_request_certificate(self.CPointer, connection.GetTlsConnectionPointer(), flags, cancellable.GetCancellablePointer(), &__cgo_error__)
+	return__ = C.g_tls_interaction_request_certificate(self.CPointer, __cgo__connection, flags, __cgo__cancellable, &__cgo_error__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
 	}
@@ -14649,7 +15631,15 @@ when the operation completes. Alternatively the user may abort this certificate
 request, which will usually abort the TLS connection.
 */
 func (self *TraitTlsInteraction) RequestCertificateAsync(connection IsTlsConnection, flags C.GTlsCertificateRequestFlags, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_tls_interaction_request_certificate_async(self.CPointer, connection.GetTlsConnectionPointer(), flags, cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__connection *C.GTlsConnection
+	if connection != nil {
+		__cgo__connection = connection.GetTlsConnectionPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_tls_interaction_request_certificate_async(self.CPointer, __cgo__connection, flags, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -14813,9 +15803,13 @@ Other ways to exchange credentials with a foreign peer includes the
 #GUnixCredentialsMessage type and g_socket_get_credentials() function.
 */
 func (self *TraitUnixConnection) ReceiveCredentials(cancellable IsCancellable) (return__ *Credentials, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ *C.GCredentials
-	__cgo__return__ = C.g_unix_connection_receive_credentials(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_unix_connection_receive_credentials(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	if __cgo__return__ != nil {
 		return__ = NewCredentialsFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -14835,7 +15829,11 @@ When the operation is finished, @callback will be called. You can then call
 g_unix_connection_receive_credentials_finish() to get the result of the operation.
 */
 func (self *TraitUnixConnection) ReceiveCredentialsAsync(cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_unix_connection_receive_credentials_async(self.CPointer, cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_unix_connection_receive_credentials_async(self.CPointer, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -14866,9 +15864,13 @@ stream, as this is required for fd passing to work on some
 implementations.
 */
 func (self *TraitUnixConnection) ReceiveFd(cancellable IsCancellable) (return__ int, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.g_unix_connection_receive_fd(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_unix_connection_receive_fd(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	return__ = int(__cgo__return__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -14890,9 +15892,13 @@ Other ways to exchange credentials with a foreign peer includes the
 #GUnixCredentialsMessage type and g_socket_get_credentials() function.
 */
 func (self *TraitUnixConnection) SendCredentials(cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_unix_connection_send_credentials(self.CPointer, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_unix_connection_send_credentials(self.CPointer, __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -14910,7 +15916,11 @@ When the operation is finished, @callback will be called. You can then call
 g_unix_connection_send_credentials_finish() to get the result of the operation.
 */
 func (self *TraitUnixConnection) SendCredentialsAsync(cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	C.g_unix_connection_send_credentials_async(self.CPointer, cancellable.GetCancellablePointer(), callback, (C.gpointer)(user_data))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
+	C.g_unix_connection_send_credentials_async(self.CPointer, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -14939,9 +15949,13 @@ stream, as this is required for fd passing to work on some
 implementations.
 */
 func (self *TraitUnixConnection) SendFd(fd int, cancellable IsCancellable) (return__ bool, __err__ error) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_unix_connection_send_fd(self.CPointer, C.gint(fd), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_unix_connection_send_fd(self.CPointer, C.gint(fd), __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -15517,7 +16531,11 @@ progress; it may only be called immediately after creation of @compressor,
 or after resetting it with g_converter_reset().
 */
 func (self *TraitZlibCompressor) SetFileInfo(file_info IsFileInfo) {
-	C.g_zlib_compressor_set_file_info(self.CPointer, file_info.GetFileInfoPointer())
+	var __cgo__file_info *C.GFileInfo
+	if file_info != nil {
+		__cgo__file_info = file_info.GetFileInfoPointer()
+	}
+	C.g_zlib_compressor_set_file_info(self.CPointer, __cgo__file_info)
 	return
 }
 

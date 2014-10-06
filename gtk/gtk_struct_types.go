@@ -3,6 +3,7 @@ package gtk
 /*
 #include <gtk/gtk.h>
 #include <gtk/gtkx.h>
+#include <glib.h>
 #include <stdlib.h>
 */
 import "C"

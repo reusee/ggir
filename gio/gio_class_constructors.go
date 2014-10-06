@@ -69,8 +69,12 @@ Creates a new #GInputStream from the given @base_stream, with
 a buffer set to the default size (4 kilobytes).
 */
 func BufferedInputStreamNew(base_stream IsInputStream) (return__ *BufferedInputStream) {
+	var __cgo__base_stream *C.GInputStream
+	if base_stream != nil {
+		__cgo__base_stream = base_stream.GetInputStreamPointer()
+	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_buffered_input_stream_new(base_stream.GetInputStreamPointer())
+	__cgo__return__ = C.g_buffered_input_stream_new(__cgo__base_stream)
 	if __cgo__return__ != nil {
 		return__ = NewBufferedInputStreamFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -82,8 +86,12 @@ Creates a new #GBufferedInputStream from the given @base_stream,
 with a buffer set to @size.
 */
 func BufferedInputStreamNewSized(base_stream IsInputStream, size int64) (return__ *BufferedInputStream) {
+	var __cgo__base_stream *C.GInputStream
+	if base_stream != nil {
+		__cgo__base_stream = base_stream.GetInputStreamPointer()
+	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_buffered_input_stream_new_sized(base_stream.GetInputStreamPointer(), C.gsize(size))
+	__cgo__return__ = C.g_buffered_input_stream_new_sized(__cgo__base_stream, C.gsize(size))
 	if __cgo__return__ != nil {
 		return__ = NewBufferedInputStreamFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -94,8 +102,12 @@ func BufferedInputStreamNewSized(base_stream IsInputStream, size int64) (return_
 Creates a new buffered output stream for a base stream.
 */
 func BufferedOutputStreamNew(base_stream IsOutputStream) (return__ *BufferedOutputStream) {
+	var __cgo__base_stream *C.GOutputStream
+	if base_stream != nil {
+		__cgo__base_stream = base_stream.GetOutputStreamPointer()
+	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_buffered_output_stream_new(base_stream.GetOutputStreamPointer())
+	__cgo__return__ = C.g_buffered_output_stream_new(__cgo__base_stream)
 	if __cgo__return__ != nil {
 		return__ = NewBufferedOutputStreamFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -106,8 +118,12 @@ func BufferedOutputStreamNew(base_stream IsOutputStream) (return__ *BufferedOutp
 Creates a new buffered output stream with a given buffer size.
 */
 func BufferedOutputStreamNewSized(base_stream IsOutputStream, size int64) (return__ *BufferedOutputStream) {
+	var __cgo__base_stream *C.GOutputStream
+	if base_stream != nil {
+		__cgo__base_stream = base_stream.GetOutputStreamPointer()
+	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_buffered_output_stream_new_sized(base_stream.GetOutputStreamPointer(), C.gsize(size))
+	__cgo__return__ = C.g_buffered_output_stream_new_sized(__cgo__base_stream, C.gsize(size))
 	if __cgo__return__ != nil {
 		return__ = NewBufferedOutputStreamFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -169,8 +185,12 @@ func CharsetConverterNew(to_charset string, from_charset string) (return__ *Char
 Creates a new converter input stream for the @base_stream.
 */
 func ConverterInputStreamNew(base_stream IsInputStream, converter *C.GConverter) (return__ *ConverterInputStream) {
+	var __cgo__base_stream *C.GInputStream
+	if base_stream != nil {
+		__cgo__base_stream = base_stream.GetInputStreamPointer()
+	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_converter_input_stream_new(base_stream.GetInputStreamPointer(), converter)
+	__cgo__return__ = C.g_converter_input_stream_new(__cgo__base_stream, converter)
 	if __cgo__return__ != nil {
 		return__ = NewConverterInputStreamFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -181,8 +201,12 @@ func ConverterInputStreamNew(base_stream IsInputStream, converter *C.GConverter)
 Creates a new converter output stream for the @base_stream.
 */
 func ConverterOutputStreamNew(base_stream IsOutputStream, converter *C.GConverter) (return__ *ConverterOutputStream) {
+	var __cgo__base_stream *C.GOutputStream
+	if base_stream != nil {
+		__cgo__base_stream = base_stream.GetOutputStreamPointer()
+	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_converter_output_stream_new(base_stream.GetOutputStreamPointer(), converter)
+	__cgo__return__ = C.g_converter_output_stream_new(__cgo__base_stream, converter)
 	if __cgo__return__ != nil {
 		return__ = NewConverterOutputStreamFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -265,9 +289,17 @@ authentication process.
 */
 func DBusConnectionNewForAddressSync(address string, flags C.GDBusConnectionFlags, observer IsDBusAuthObserver, cancellable IsCancellable) (return__ *DBusConnection, __err__ error) {
 	__cgo__address := (*C.gchar)(unsafe.Pointer(C.CString(address)))
+	var __cgo__observer *C.GDBusAuthObserver
+	if observer != nil {
+		__cgo__observer = observer.GetDBusAuthObserverPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_dbus_connection_new_for_address_sync(__cgo__address, flags, observer.GetDBusAuthObserverPointer(), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_dbus_connection_new_for_address_sync(__cgo__address, flags, __cgo__observer, __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__address))
 	if __cgo__return__ != nil {
 		return__ = NewDBusConnectionFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
@@ -296,10 +328,22 @@ This is a synchronous failable constructor. See
 g_dbus_connection_new() for the asynchronous version.
 */
 func DBusConnectionNewSync(stream IsIOStream, guid string, flags C.GDBusConnectionFlags, observer IsDBusAuthObserver, cancellable IsCancellable) (return__ *DBusConnection, __err__ error) {
+	var __cgo__stream *C.GIOStream
+	if stream != nil {
+		__cgo__stream = stream.GetIOStreamPointer()
+	}
 	__cgo__guid := (*C.gchar)(unsafe.Pointer(C.CString(guid)))
+	var __cgo__observer *C.GDBusAuthObserver
+	if observer != nil {
+		__cgo__observer = observer.GetDBusAuthObserverPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_dbus_connection_new_sync(stream.GetIOStreamPointer(), __cgo__guid, flags, observer.GetDBusAuthObserverPointer(), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_dbus_connection_new_sync(__cgo__stream, __cgo__guid, flags, __cgo__observer, __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__guid))
 	if __cgo__return__ != nil {
 		return__ = NewDBusConnectionFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
@@ -422,9 +466,13 @@ for the asynchronous version.
 func DBusObjectManagerClientNewForBusSync(bus_type C.GBusType, flags C.GDBusObjectManagerClientFlags, name string, object_path string, get_proxy_type_func C.GDBusProxyTypeFunc, get_proxy_type_user_data unsafe.Pointer, get_proxy_type_destroy_notify C.GDestroyNotify, cancellable IsCancellable) (return__ *DBusObjectManagerClient, __err__ error) {
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
 	__cgo__object_path := (*C.gchar)(unsafe.Pointer(C.CString(object_path)))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_dbus_object_manager_client_new_for_bus_sync(bus_type, flags, __cgo__name, __cgo__object_path, get_proxy_type_func, (C.gpointer)(get_proxy_type_user_data), get_proxy_type_destroy_notify, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_dbus_object_manager_client_new_for_bus_sync(bus_type, flags, __cgo__name, __cgo__object_path, get_proxy_type_func, (C.gpointer)(get_proxy_type_user_data), get_proxy_type_destroy_notify, __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__name))
 	C.free(unsafe.Pointer(__cgo__object_path))
 	if __cgo__return__ != nil {
@@ -444,11 +492,19 @@ blocked until a reply is received. See g_dbus_object_manager_client_new()
 for the asynchronous version.
 */
 func DBusObjectManagerClientNewSync(connection IsDBusConnection, flags C.GDBusObjectManagerClientFlags, name string, object_path string, get_proxy_type_func C.GDBusProxyTypeFunc, get_proxy_type_user_data unsafe.Pointer, get_proxy_type_destroy_notify C.GDestroyNotify, cancellable IsCancellable) (return__ *DBusObjectManagerClient, __err__ error) {
+	var __cgo__connection *C.GDBusConnection
+	if connection != nil {
+		__cgo__connection = connection.GetDBusConnectionPointer()
+	}
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
 	__cgo__object_path := (*C.gchar)(unsafe.Pointer(C.CString(object_path)))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_dbus_object_manager_client_new_sync(connection.GetDBusConnectionPointer(), flags, __cgo__name, __cgo__object_path, get_proxy_type_func, (C.gpointer)(get_proxy_type_user_data), get_proxy_type_destroy_notify, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_dbus_object_manager_client_new_sync(__cgo__connection, flags, __cgo__name, __cgo__object_path, get_proxy_type_func, (C.gpointer)(get_proxy_type_user_data), get_proxy_type_destroy_notify, __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__name))
 	C.free(unsafe.Pointer(__cgo__object_path))
 	if __cgo__return__ != nil {
@@ -485,9 +541,13 @@ Creates a new #GDBusObjectProxy for the given connection and
 object path.
 */
 func DBusObjectProxyNew(connection IsDBusConnection, object_path string) (return__ *DBusObjectProxy) {
+	var __cgo__connection *C.GDBusConnection
+	if connection != nil {
+		__cgo__connection = connection.GetDBusConnectionPointer()
+	}
 	__cgo__object_path := (*C.gchar)(unsafe.Pointer(C.CString(object_path)))
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_dbus_object_proxy_new(connection.GetDBusConnectionPointer(), __cgo__object_path)
+	__cgo__return__ = C.g_dbus_object_proxy_new(__cgo__connection, __cgo__object_path)
 	C.free(unsafe.Pointer(__cgo__object_path))
 	if __cgo__return__ != nil {
 		return__ = NewDBusObjectProxyFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
@@ -550,9 +610,13 @@ func DBusProxyNewForBusSync(bus_type C.GBusType, flags C.GDBusProxyFlags, info *
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
 	__cgo__object_path := (*C.gchar)(unsafe.Pointer(C.CString(object_path)))
 	__cgo__interface_name := (*C.gchar)(unsafe.Pointer(C.CString(interface_name)))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_dbus_proxy_new_for_bus_sync(bus_type, flags, info, __cgo__name, __cgo__object_path, __cgo__interface_name, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_dbus_proxy_new_for_bus_sync(bus_type, flags, info, __cgo__name, __cgo__object_path, __cgo__interface_name, __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__name))
 	C.free(unsafe.Pointer(__cgo__object_path))
 	C.free(unsafe.Pointer(__cgo__interface_name))
@@ -586,12 +650,20 @@ and g_dbus_proxy_new_finish() for the asynchronous version.
 #GDBusProxy is used in this [example][gdbus-wellknown-proxy].
 */
 func DBusProxyNewSync(connection IsDBusConnection, flags C.GDBusProxyFlags, info *C.GDBusInterfaceInfo, name string, object_path string, interface_name string, cancellable IsCancellable) (return__ *DBusProxy, __err__ error) {
+	var __cgo__connection *C.GDBusConnection
+	if connection != nil {
+		__cgo__connection = connection.GetDBusConnectionPointer()
+	}
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
 	__cgo__object_path := (*C.gchar)(unsafe.Pointer(C.CString(object_path)))
 	__cgo__interface_name := (*C.gchar)(unsafe.Pointer(C.CString(interface_name)))
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_dbus_proxy_new_sync(connection.GetDBusConnectionPointer(), flags, info, __cgo__name, __cgo__object_path, __cgo__interface_name, cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_dbus_proxy_new_sync(__cgo__connection, flags, info, __cgo__name, __cgo__object_path, __cgo__interface_name, __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__name))
 	C.free(unsafe.Pointer(__cgo__object_path))
 	C.free(unsafe.Pointer(__cgo__interface_name))
@@ -625,9 +697,17 @@ g_dbus_server_new() for the asynchronous version.
 func DBusServerNewSync(address string, flags C.GDBusServerFlags, guid string, observer IsDBusAuthObserver, cancellable IsCancellable) (return__ *DBusServer, __err__ error) {
 	__cgo__address := (*C.gchar)(unsafe.Pointer(C.CString(address)))
 	__cgo__guid := (*C.gchar)(unsafe.Pointer(C.CString(guid)))
+	var __cgo__observer *C.GDBusAuthObserver
+	if observer != nil {
+		__cgo__observer = observer.GetDBusAuthObserverPointer()
+	}
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_dbus_server_new_sync(__cgo__address, flags, __cgo__guid, observer.GetDBusAuthObserverPointer(), cancellable.GetCancellablePointer(), &__cgo_error__)
+	__cgo__return__ = C.g_dbus_server_new_sync(__cgo__address, flags, __cgo__guid, __cgo__observer, __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__address))
 	C.free(unsafe.Pointer(__cgo__guid))
 	if __cgo__return__ != nil {
@@ -643,8 +723,12 @@ func DBusServerNewSync(address string, flags C.GDBusServerFlags, guid string, ob
 Creates a new data input stream for the @base_stream.
 */
 func DataInputStreamNew(base_stream IsInputStream) (return__ *DataInputStream) {
+	var __cgo__base_stream *C.GInputStream
+	if base_stream != nil {
+		__cgo__base_stream = base_stream.GetInputStreamPointer()
+	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_data_input_stream_new(base_stream.GetInputStreamPointer())
+	__cgo__return__ = C.g_data_input_stream_new(__cgo__base_stream)
 	if __cgo__return__ != nil {
 		return__ = NewDataInputStreamFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -655,8 +739,12 @@ func DataInputStreamNew(base_stream IsInputStream) (return__ *DataInputStream) {
 Creates a new data output stream for @base_stream.
 */
 func DataOutputStreamNew(base_stream IsOutputStream) (return__ *DataOutputStream) {
+	var __cgo__base_stream *C.GOutputStream
+	if base_stream != nil {
+		__cgo__base_stream = base_stream.GetOutputStreamPointer()
+	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_data_output_stream_new(base_stream.GetOutputStreamPointer())
+	__cgo__return__ = C.g_data_output_stream_new(__cgo__base_stream)
 	if __cgo__return__ != nil {
 		return__ = NewDataOutputStreamFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -741,8 +829,12 @@ func EmblemNewWithOrigin(icon *C.GIcon, origin C.GEmblemOrigin) (return__ *Emble
 Creates a new emblemed icon for @icon with the emblem @emblem.
 */
 func EmblemedIconNew(icon *C.GIcon, emblem IsEmblem) (return__ *EmblemedIcon) {
+	var __cgo__emblem *C.GEmblem
+	if emblem != nil {
+		__cgo__emblem = emblem.GetEmblemPointer()
+	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_emblemed_icon_new(icon, emblem.GetEmblemPointer())
+	__cgo__return__ = C.g_emblemed_icon_new(icon, __cgo__emblem)
 	if __cgo__return__ != nil {
 		return__ = NewEmblemedIconFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -859,9 +951,13 @@ Creates a new #GInetAddressMask representing all addresses whose
 first @length bits match @addr.
 */
 func InetAddressMaskNew(addr IsInetAddress, length uint) (return__ *InetAddressMask, __err__ error) {
+	var __cgo__addr *C.GInetAddress
+	if addr != nil {
+		__cgo__addr = addr.GetInetAddressPointer()
+	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_inet_address_mask_new(addr.GetInetAddressPointer(), C.guint(length), &__cgo_error__)
+	__cgo__return__ = C.g_inet_address_mask_new(__cgo__addr, C.guint(length), &__cgo_error__)
 	if __cgo__return__ != nil {
 		return__ = NewInetAddressMaskFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -896,8 +992,12 @@ func InetAddressMaskNewFromString(mask_string string) (return__ *InetAddressMask
 Creates a new #GInetSocketAddress for @address and @port.
 */
 func InetSocketAddressNew(address IsInetAddress, port uint16) (return__ *InetSocketAddress) {
+	var __cgo__address *C.GInetAddress
+	if address != nil {
+		__cgo__address = address.GetInetAddressPointer()
+	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_inet_socket_address_new(address.GetInetAddressPointer(), C.guint16(port))
+	__cgo__return__ = C.g_inet_socket_address_new(__cgo__address, C.guint16(port))
 	if __cgo__return__ != nil {
 		return__ = NewInetSocketAddressFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -1068,8 +1168,12 @@ Creates a #GMenuItem as an exact copy of an existing menu item in a
 g_menu_model_get_n_items() first).
 */
 func MenuItemNewFromModel(model IsMenuModel, item_index int) (return__ *MenuItem) {
+	var __cgo__model *C.GMenuModel
+	if model != nil {
+		__cgo__model = model.GetMenuModelPointer()
+	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_menu_item_new_from_model(model.GetMenuModelPointer(), C.gint(item_index))
+	__cgo__return__ = C.g_menu_item_new_from_model(__cgo__model, C.gint(item_index))
 	if __cgo__return__ != nil {
 		return__ = NewMenuItemFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -1140,8 +1244,12 @@ purpose of understanding what is really going on).
 */
 func MenuItemNewSection(label string, section IsMenuModel) (return__ *MenuItem) {
 	__cgo__label := (*C.gchar)(unsafe.Pointer(C.CString(label)))
+	var __cgo__section *C.GMenuModel
+	if section != nil {
+		__cgo__section = section.GetMenuModelPointer()
+	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_menu_item_new_section(__cgo__label, section.GetMenuModelPointer())
+	__cgo__return__ = C.g_menu_item_new_section(__cgo__label, __cgo__section)
 	C.free(unsafe.Pointer(__cgo__label))
 	if __cgo__return__ != nil {
 		return__ = NewMenuItemFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
@@ -1157,8 +1265,12 @@ g_menu_item_set_submenu().
 */
 func MenuItemNewSubmenu(label string, submenu IsMenuModel) (return__ *MenuItem) {
 	__cgo__label := (*C.gchar)(unsafe.Pointer(C.CString(label)))
+	var __cgo__submenu *C.GMenuModel
+	if submenu != nil {
+		__cgo__submenu = submenu.GetMenuModelPointer()
+	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_menu_item_new_submenu(__cgo__label, submenu.GetMenuModelPointer())
+	__cgo__return__ = C.g_menu_item_new_submenu(__cgo__label, __cgo__submenu)
 	C.free(unsafe.Pointer(__cgo__label))
 	if __cgo__return__ != nil {
 		return__ = NewMenuItemFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
@@ -1264,12 +1376,16 @@ tunnel through @dest_hostname and @dest_port.
 directly if you want to set those.)
 */
 func ProxyAddressNew(inetaddr IsInetAddress, port uint16, protocol string, dest_hostname string, dest_port uint16, username string, password string) (return__ *ProxyAddress) {
+	var __cgo__inetaddr *C.GInetAddress
+	if inetaddr != nil {
+		__cgo__inetaddr = inetaddr.GetInetAddressPointer()
+	}
 	__cgo__protocol := (*C.gchar)(unsafe.Pointer(C.CString(protocol)))
 	__cgo__dest_hostname := (*C.gchar)(unsafe.Pointer(C.CString(dest_hostname)))
 	__cgo__username := (*C.gchar)(unsafe.Pointer(C.CString(username)))
 	__cgo__password := (*C.gchar)(unsafe.Pointer(C.CString(password)))
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_proxy_address_new(inetaddr.GetInetAddressPointer(), C.guint16(port), __cgo__protocol, __cgo__dest_hostname, C.guint16(dest_port), __cgo__username, __cgo__password)
+	__cgo__return__ = C.g_proxy_address_new(__cgo__inetaddr, C.guint16(port), __cgo__protocol, __cgo__dest_hostname, C.guint16(dest_port), __cgo__username, __cgo__password)
 	C.free(unsafe.Pointer(__cgo__protocol))
 	C.free(unsafe.Pointer(__cgo__dest_hostname))
 	C.free(unsafe.Pointer(__cgo__username))
@@ -1676,8 +1792,12 @@ do not want this behavior, you can use
 g_task_set_check_cancellable() to change it.
 */
 func TaskNew(source_object gobject.IsObject, cancellable IsCancellable, callback C.GAsyncReadyCallback, callback_data unsafe.Pointer) (return__ *Task) {
+	var __cgo__cancellable *C.GCancellable
+	if cancellable != nil {
+		__cgo__cancellable = cancellable.GetCancellablePointer()
+	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_task_new(C.gpointer(unsafe.Pointer(reflect.ValueOf(source_object.GetObjectPointer()).Pointer())), cancellable.GetCancellablePointer(), callback, (C.gpointer)(callback_data))
+	__cgo__return__ = C.g_task_new(C.gpointer(unsafe.Pointer(reflect.ValueOf(source_object.GetObjectPointer()).Pointer())), __cgo__cancellable, callback, (C.gpointer)(callback_data))
 	if __cgo__return__ != nil {
 		return__ = NewTaskFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -1688,8 +1808,16 @@ func TaskNew(source_object gobject.IsObject, cancellable IsCancellable, callback
 Wraps @base_io_stream and @socket together as a #GSocketConnection.
 */
 func TcpWrapperConnectionNew(base_io_stream IsIOStream, socket IsSocket) (return__ *TcpWrapperConnection) {
+	var __cgo__base_io_stream *C.GIOStream
+	if base_io_stream != nil {
+		__cgo__base_io_stream = base_io_stream.GetIOStreamPointer()
+	}
+	var __cgo__socket *C.GSocket
+	if socket != nil {
+		__cgo__socket = socket.GetSocketPointer()
+	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_tcp_wrapper_connection_new(base_io_stream.GetIOStreamPointer(), socket.GetSocketPointer())
+	__cgo__return__ = C.g_tcp_wrapper_connection_new(__cgo__base_io_stream, __cgo__socket)
 	if __cgo__return__ != nil {
 		return__ = NewTcpWrapperConnectionFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -1875,8 +2003,12 @@ func UnixCredentialsMessageNew() (return__ *UnixCredentialsMessage) {
 Creates a new #GUnixCredentialsMessage holding @credentials.
 */
 func UnixCredentialsMessageNewWithCredentials(credentials IsCredentials) (return__ *UnixCredentialsMessage) {
+	var __cgo__credentials *C.GCredentials
+	if credentials != nil {
+		__cgo__credentials = credentials.GetCredentialsPointer()
+	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_unix_credentials_message_new_with_credentials(credentials.GetCredentialsPointer())
+	__cgo__return__ = C.g_unix_credentials_message_new_with_credentials(__cgo__credentials)
 	if __cgo__return__ != nil {
 		return__ = NewUnixCredentialsMessageFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -1932,8 +2064,12 @@ func UnixFDMessageNew() (return__ *UnixFDMessage) {
 Creates a new #GUnixFDMessage containing @list.
 */
 func UnixFDMessageNewWithFdList(fd_list IsUnixFDList) (return__ *UnixFDMessage) {
+	var __cgo__fd_list *C.GUnixFDList
+	if fd_list != nil {
+		__cgo__fd_list = fd_list.GetUnixFDListPointer()
+	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.g_unix_fd_message_new_with_fd_list(fd_list.GetUnixFDListPointer())
+	__cgo__return__ = C.g_unix_fd_message_new_with_fd_list(__cgo__fd_list)
 	if __cgo__return__ != nil {
 		return__ = NewUnixFDMessageFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}

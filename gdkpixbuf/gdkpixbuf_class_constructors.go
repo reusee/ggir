@@ -39,8 +39,34 @@ func PixbufNew(colorspace C.GdkColorspace, has_alpha bool, bits_per_sample int, 
 }
 
 /*
+Creates a new #GdkPixbuf out of in-memory readonly image data.
+Currently only RGB images with 8 bits per sample are supported.
+This is the #GBytes variant of gdk_pixbuf_new_from_data().
+*/
+func PixbufNewFromBytes(data *C.GBytes, colorspace C.GdkColorspace, has_alpha bool, bits_per_sample int, width int, height int, rowstride int) (return__ *Pixbuf) {
+	__cgo__has_alpha := C.gboolean(0)
+	if has_alpha {
+		__cgo__has_alpha = C.gboolean(1)
+	}
+	var __cgo__return__ interface{}
+	__cgo__return__ = C.gdk_pixbuf_new_from_bytes(data, colorspace, __cgo__has_alpha, C.int(bits_per_sample), C.int(width), C.int(height), C.int(rowstride))
+	if __cgo__return__ != nil {
+		return__ = NewPixbufFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
+	}
+	return
+}
+
+/*
 Creates a new #GdkPixbuf out of in-memory image data.  Currently only RGB
 images with 8 bits per sample are supported.
+
+Since you are providing a pre-allocated pixel buffer, you must also
+specify a way to free that data.  This is done with a function of
+type #GdkPixbufDestroyNotify.  When a pixbuf created with is
+finalized, your destroy notification function will be called, and
+it is its responsibility to free the pixel array.
+
+See also gdk_pixbuf_new_from_bytes().
 */
 func PixbufNewFromData(data []byte, colorspace C.GdkColorspace, has_alpha bool, bits_per_sample int, width int, height int, rowstride int, destroy_fn C.GdkPixbufDestroyNotify, destroy_fn_data unsafe.Pointer) (return__ *Pixbuf) {
 	__header__data := (*reflect.SliceHeader)(unsafe.Pointer(&data))

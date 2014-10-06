@@ -61,8 +61,12 @@ Some useful ones are:
 - #GDK_BLANK_CURSOR (Blank cursor). Since 2.16
 */
 func CursorNewForDisplay(display IsDisplay, cursor_type C.GdkCursorType) (return__ *Cursor) {
+	var __cgo__display *C.GdkDisplay
+	if display != nil {
+		__cgo__display = display.GetDisplayPointer()
+	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gdk_cursor_new_for_display(display.GetDisplayPointer(), cursor_type)
+	__cgo__return__ = C.gdk_cursor_new_for_display(__cgo__display, cursor_type)
 	if __cgo__return__ != nil {
 		return__ = NewCursorFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -74,9 +78,13 @@ Creates a new cursor by looking up @name in the current cursor
 theme.
 */
 func CursorNewFromName(display IsDisplay, name string) (return__ *Cursor) {
+	var __cgo__display *C.GdkDisplay
+	if display != nil {
+		__cgo__display = display.GetDisplayPointer()
+	}
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gdk_cursor_new_from_name(display.GetDisplayPointer(), __cgo__name)
+	__cgo__return__ = C.gdk_cursor_new_from_name(__cgo__display, __cgo__name)
 	C.free(unsafe.Pointer(__cgo__name))
 	if __cgo__return__ != nil {
 		return__ = NewCursorFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
@@ -105,8 +113,12 @@ On the X backend, support for RGBA cursors requires a
 sufficently new version of the X Render extension.
 */
 func CursorNewFromPixbuf(display IsDisplay, pixbuf *C.GdkPixbuf, x int, y int) (return__ *Cursor) {
+	var __cgo__display *C.GdkDisplay
+	if display != nil {
+		__cgo__display = display.GetDisplayPointer()
+	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gdk_cursor_new_from_pixbuf(display.GetDisplayPointer(), pixbuf, C.gint(x), C.gint(y))
+	__cgo__return__ = C.gdk_cursor_new_from_pixbuf(__cgo__display, pixbuf, C.gint(x), C.gint(y))
 	if __cgo__return__ != nil {
 		return__ = NewCursorFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -129,8 +141,12 @@ On the X backend, support for RGBA cursors requires a
 sufficently new version of the X Render extension.
 */
 func CursorNewFromSurface(display IsDisplay, surface *C.cairo_surface_t, x float64, y float64) (return__ *Cursor) {
+	var __cgo__display *C.GdkDisplay
+	if display != nil {
+		__cgo__display = display.GetDisplayPointer()
+	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gdk_cursor_new_from_surface(display.GetDisplayPointer(), surface, C.gdouble(x), C.gdouble(y))
+	__cgo__return__ = C.gdk_cursor_new_from_surface(__cgo__display, surface, C.gdouble(x), C.gdouble(y))
 	if __cgo__return__ != nil {
 		return__ = NewCursorFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -144,8 +160,12 @@ more details.  Note: to use this on displays other than the default
 display, @parent must be specified.
 */
 func WindowNew(parent IsWindow, attributes *C.GdkWindowAttr, attributes_mask C.gint) (return__ *Window) {
+	var __cgo__parent *C.GdkWindow
+	if parent != nil {
+		__cgo__parent = parent.GetWindowPointer()
+	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gdk_window_new(parent.GetWindowPointer(), attributes, attributes_mask)
+	__cgo__return__ = C.gdk_window_new(__cgo__parent, attributes, attributes_mask)
 	if __cgo__return__ != nil {
 		return__ = NewWindowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}

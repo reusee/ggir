@@ -442,7 +442,11 @@ and then notify a change on the "foo" property with:
 ]|
 */
 func (self *TraitObject) NotifyByPspec(pspec IsParamSpec) {
-	C.g_object_notify_by_pspec(self.CPointer, pspec.GetParamSpecPointer())
+	var __cgo__pspec *C.GParamSpec
+	if pspec != nil {
+		__cgo__pspec = pspec.GetParamSpecPointer()
+	}
+	C.g_object_notify_by_pspec(self.CPointer, __cgo__pspec)
 	return
 }
 

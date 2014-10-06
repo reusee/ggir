@@ -81,7 +81,11 @@ Note that calling cairo_reset_clip() on the resulting #cairo_t will
 produce undefined results, so avoid it at all costs.
 */
 func CairoCreate(window IsWindow) (return__ *C.cairo_t) {
-	return__ = C.gdk_cairo_create(window.GetWindowPointer())
+	var __cgo__window *C.GdkWindow
+	if window != nil {
+		__cgo__window = window.GetWindowPointer()
+	}
+	return__ = C.gdk_cairo_create(__cgo__window)
 	return
 }
 
@@ -157,7 +161,11 @@ Note that the contents of @window are undefined outside of the
 visible part of @window, so use this function with care.
 */
 func CairoSetSourceWindow(cr *C.cairo_t, window IsWindow, x float64, y float64) {
-	C.gdk_cairo_set_source_window(cr, window.GetWindowPointer(), C.gdouble(x), C.gdouble(y))
+	var __cgo__window *C.GdkWindow
+	if window != nil {
+		__cgo__window = window.GetWindowPointer()
+	}
+	C.gdk_cairo_set_source_window(cr, __cgo__window, C.gdouble(x), C.gdouble(y))
 	return
 }
 
@@ -166,30 +174,15 @@ Creates an image surface with the same contents as
 the pixbuf.
 */
 func CairoSurfaceCreateFromPixbuf(pixbuf *C.GdkPixbuf, scale int, for_window IsWindow) (return__ *C.cairo_surface_t) {
-	return__ = C.gdk_cairo_surface_create_from_pixbuf(pixbuf, C.int(scale), for_window.GetWindowPointer())
+	var __cgo__for_window *C.GdkWindow
+	if for_window != nil {
+		__cgo__for_window = for_window.GetWindowPointer()
+	}
+	return__ = C.gdk_cairo_surface_create_from_pixbuf(pixbuf, C.int(scale), __cgo__for_window)
 	return
 }
 
-/*
-Parses a textual specification of a color and fill in the
-@red, @green, and @blue fields of a #GdkColor.
-
-The string can either one of a large set of standard names
-(taken from the X11 `rgb.txt` file), or it can be a hexadecimal
-value in the form “\#rgb” “\#rrggbb”, “\#rrrgggbbb” or
-“\#rrrrggggbbbb” where “r”, “g” and “b” are hex digits of
-the red, green, and blue components of the color, respectively.
-(White in the four forms is “\#fff”, “\#ffffff”, “\#fffffffff”
-and “\#ffffffffffff”).
-*/
-func ColorParse(spec string) (color C.GdkColor, return__ bool) {
-	__cgo__spec := (*C.gchar)(unsafe.Pointer(C.CString(spec)))
-	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gdk_color_parse(__cgo__spec, &color)
-	C.free(unsafe.Pointer(__cgo__spec))
-	return__ = __cgo__return__ == C.gboolean(1)
-	return
-}
+// gdk_color_parse is not generated due to deprecation attr
 
 /*
 Disables multidevice support in GDK. This call must happen prior
@@ -212,7 +205,11 @@ Aborts a drag without dropping.
 This function is called by the drag source.
 */
 func DragAbort(context IsDragContext, time_ uint32) {
-	C.gdk_drag_abort(context.GetDragContextPointer(), C.guint32(time_))
+	var __cgo__context *C.GdkDragContext
+	if context != nil {
+		__cgo__context = context.GetDragContextPointer()
+	}
+	C.gdk_drag_abort(__cgo__context, C.guint32(time_))
 	return
 }
 
@@ -225,8 +222,12 @@ begin a drag with a different device.
 This function is called by the drag source.
 */
 func DragBegin(window IsWindow, targets *C.GList) (return__ *DragContext) {
+	var __cgo__window *C.GdkWindow
+	if window != nil {
+		__cgo__window = window.GetWindowPointer()
+	}
 	var __cgo__return__ *C.GdkDragContext
-	__cgo__return__ = C.gdk_drag_begin(window.GetWindowPointer(), targets)
+	__cgo__return__ = C.gdk_drag_begin(__cgo__window, targets)
 	if __cgo__return__ != nil {
 		return__ = NewDragContextFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -239,8 +240,16 @@ Starts a drag and creates a new drag context for it.
 This function is called by the drag source.
 */
 func DragBeginForDevice(window IsWindow, device IsDevice, targets *C.GList) (return__ *DragContext) {
+	var __cgo__window *C.GdkWindow
+	if window != nil {
+		__cgo__window = window.GetWindowPointer()
+	}
+	var __cgo__device *C.GdkDevice
+	if device != nil {
+		__cgo__device = device.GetDevicePointer()
+	}
 	var __cgo__return__ *C.GdkDragContext
-	__cgo__return__ = C.gdk_drag_begin_for_device(window.GetWindowPointer(), device.GetDevicePointer(), targets)
+	__cgo__return__ = C.gdk_drag_begin_for_device(__cgo__window, __cgo__device, targets)
 	if __cgo__return__ != nil {
 		return__ = NewDragContextFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -253,7 +262,11 @@ Drops on the current destination.
 This function is called by the drag source.
 */
 func DragDrop(context IsDragContext, time_ uint32) {
-	C.gdk_drag_drop(context.GetDragContextPointer(), C.guint32(time_))
+	var __cgo__context *C.GdkDragContext
+	if context != nil {
+		__cgo__context = context.GetDragContextPointer()
+	}
+	C.gdk_drag_drop(__cgo__context, C.guint32(time_))
 	return
 }
 
@@ -264,8 +277,12 @@ handling a %GDK_DROP_FINISHED event, its return value is
 meaningless at other times.
 */
 func DragDropSucceeded(context IsDragContext) (return__ bool) {
+	var __cgo__context *C.GdkDragContext
+	if context != nil {
+		__cgo__context = context.GetDragContextPointer()
+	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gdk_drag_drop_succeeded(context.GetDragContextPointer())
+	__cgo__return__ = C.gdk_drag_drop_succeeded(__cgo__context)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -278,8 +295,20 @@ This function is called by the drag source to obtain the
 @dest_window and @protocol parameters for gdk_drag_motion().
 */
 func DragFindWindowForScreen(context IsDragContext, drag_window IsWindow, screen IsScreen, x_root int, y_root int) (dest_window *Window, protocol C.GdkDragProtocol) {
+	var __cgo__context *C.GdkDragContext
+	if context != nil {
+		__cgo__context = context.GetDragContextPointer()
+	}
+	var __cgo__drag_window *C.GdkWindow
+	if drag_window != nil {
+		__cgo__drag_window = drag_window.GetWindowPointer()
+	}
+	var __cgo__screen *C.GdkScreen
+	if screen != nil {
+		__cgo__screen = screen.GetScreenPointer()
+	}
 	var __cgo__dest_window *C.GdkWindow
-	C.gdk_drag_find_window_for_screen(context.GetDragContextPointer(), drag_window.GetWindowPointer(), screen.GetScreenPointer(), C.gint(x_root), C.gint(y_root), &__cgo__dest_window, &protocol)
+	C.gdk_drag_find_window_for_screen(__cgo__context, __cgo__drag_window, __cgo__screen, C.gint(x_root), C.gint(y_root), &__cgo__dest_window, &protocol)
 	if __cgo__dest_window != nil {
 		dest_window = NewWindowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__dest_window).Pointer()))
 	}
@@ -290,7 +319,11 @@ func DragFindWindowForScreen(context IsDragContext, drag_window IsWindow, screen
 Returns the selection atom for the current source window.
 */
 func DragGetSelection(context IsDragContext) (return__ C.GdkAtom) {
-	return__ = C.gdk_drag_get_selection(context.GetDragContextPointer())
+	var __cgo__context *C.GdkDragContext
+	if context != nil {
+		__cgo__context = context.GetDragContextPointer()
+	}
+	return__ = C.gdk_drag_get_selection(__cgo__context)
 	return
 }
 
@@ -301,8 +334,16 @@ set of actions changes.
 This function is called by the drag source.
 */
 func DragMotion(context IsDragContext, dest_window IsWindow, protocol C.GdkDragProtocol, x_root int, y_root int, suggested_action C.GdkDragAction, possible_actions C.GdkDragAction, time_ uint32) (return__ bool) {
+	var __cgo__context *C.GdkDragContext
+	if context != nil {
+		__cgo__context = context.GetDragContextPointer()
+	}
+	var __cgo__dest_window *C.GdkWindow
+	if dest_window != nil {
+		__cgo__dest_window = dest_window.GetWindowPointer()
+	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gdk_drag_motion(context.GetDragContextPointer(), dest_window.GetWindowPointer(), protocol, C.gint(x_root), C.gint(y_root), suggested_action, possible_actions, C.guint32(time_))
+	__cgo__return__ = C.gdk_drag_motion(__cgo__context, __cgo__dest_window, protocol, C.gint(x_root), C.gint(y_root), suggested_action, possible_actions, C.guint32(time_))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -314,7 +355,11 @@ This function is called by the drag destination in response to
 gdk_drag_motion() called by the drag source.
 */
 func DragStatus(context IsDragContext, action C.GdkDragAction, time_ uint32) {
-	C.gdk_drag_status(context.GetDragContextPointer(), action, C.guint32(time_))
+	var __cgo__context *C.GdkDragContext
+	if context != nil {
+		__cgo__context = context.GetDragContextPointer()
+	}
+	C.gdk_drag_status(__cgo__context, action, C.guint32(time_))
 	return
 }
 
@@ -324,11 +369,15 @@ Ends the drag operation after a drop.
 This function is called by the drag destination.
 */
 func DropFinish(context IsDragContext, success bool, time_ uint32) {
+	var __cgo__context *C.GdkDragContext
+	if context != nil {
+		__cgo__context = context.GetDragContextPointer()
+	}
 	__cgo__success := C.gboolean(0)
 	if success {
 		__cgo__success = C.gboolean(1)
 	}
-	C.gdk_drop_finish(context.GetDragContextPointer(), __cgo__success, C.guint32(time_))
+	C.gdk_drop_finish(__cgo__context, __cgo__success, C.guint32(time_))
 	return
 }
 
@@ -339,11 +388,15 @@ This function is called by the drag destination in response
 to a drop initiated by the drag source.
 */
 func DropReply(context IsDragContext, accepted bool, time_ uint32) {
+	var __cgo__context *C.GdkDragContext
+	if context != nil {
+		__cgo__context = context.GetDragContextPointer()
+	}
 	__cgo__accepted := C.gboolean(0)
 	if accepted {
 		__cgo__accepted = C.gboolean(1)
 	}
-	C.gdk_drop_reply(context.GetDragContextPointer(), __cgo__accepted, C.guint32(time_))
+	C.gdk_drop_reply(__cgo__context, __cgo__accepted, C.guint32(time_))
 	return
 }
 
@@ -731,8 +784,12 @@ func NotifyStartupCompleteWithId(startup_id string) {
 Gets the window that @window is embedded in.
 */
 func OffscreenWindowGetEmbedder(window IsWindow) (return__ *Window) {
+	var __cgo__window *C.GdkWindow
+	if window != nil {
+		__cgo__window = window.GetWindowPointer()
+	}
 	var __cgo__return__ *C.GdkWindow
-	__cgo__return__ = C.gdk_offscreen_window_get_embedder(window.GetWindowPointer())
+	__cgo__return__ = C.gdk_offscreen_window_get_embedder(__cgo__window)
 	if __cgo__return__ != nil {
 		return__ = NewWindowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -745,7 +802,11 @@ If you need to keep this around over window resizes, you need to
 add a reference to it.
 */
 func OffscreenWindowGetSurface(window IsWindow) (return__ *C.cairo_surface_t) {
-	return__ = C.gdk_offscreen_window_get_surface(window.GetWindowPointer())
+	var __cgo__window *C.GdkWindow
+	if window != nil {
+		__cgo__window = window.GetWindowPointer()
+	}
+	return__ = C.gdk_offscreen_window_get_surface(__cgo__window)
 	return
 }
 
@@ -758,7 +819,15 @@ signal on the @embedder and the #GdkWindow::to-embedder and
 #GdkWindow::from-embedder signals on @window.
 */
 func OffscreenWindowSetEmbedder(window IsWindow, embedder IsWindow) {
-	C.gdk_offscreen_window_set_embedder(window.GetWindowPointer(), embedder.GetWindowPointer())
+	var __cgo__window *C.GdkWindow
+	if window != nil {
+		__cgo__window = window.GetWindowPointer()
+	}
+	var __cgo__embedder *C.GdkWindow
+	if embedder != nil {
+		__cgo__embedder = embedder.GetWindowPointer()
+	}
+	C.gdk_offscreen_window_set_embedder(__cgo__window, __cgo__embedder)
 	return
 }
 
@@ -798,7 +867,11 @@ is more convenient if you want to keep a context around and track
 changes to the screen’s font rendering settings.
 */
 func PangoContextGetForScreen(screen IsScreen) (return__ *C.PangoContext) {
-	return__ = C.gdk_pango_context_get_for_screen(screen.GetScreenPointer())
+	var __cgo__screen *C.GdkScreen
+	if screen != nil {
+		__cgo__screen = screen.GetScreenPointer()
+	}
+	return__ = C.gdk_pango_context_get_for_screen(__cgo__screen)
 	return
 }
 
@@ -884,7 +957,11 @@ instead.
  it returns %NULL; so check the return value.)
 */
 func PixbufGetFromWindow(window IsWindow, src_x int, src_y int, width int, height int) (return__ *C.GdkPixbuf) {
-	return__ = C.gdk_pixbuf_get_from_window(window.GetWindowPointer(), C.gint(src_x), C.gint(src_y), C.gint(width), C.gint(height))
+	var __cgo__window *C.GdkWindow
+	if window != nil {
+		__cgo__window = window.GetWindowPointer()
+	}
+	return__ = C.gdk_pixbuf_get_from_window(__cgo__window, C.gint(src_x), C.gint(src_y), C.gint(width), C.gint(height))
 	return
 }
 
@@ -903,7 +980,11 @@ func PreParseLibgtkOnly() {
 Changes the contents of a property on a window.
 */
 func PropertyChange(window IsWindow, property C.GdkAtom, type_ C.GdkAtom, format int, mode C.GdkPropMode, data *C.guchar, nelements int) {
-	C.gdk_property_change(window.GetWindowPointer(), property, type_, C.gint(format), mode, data, C.gint(nelements))
+	var __cgo__window *C.GdkWindow
+	if window != nil {
+		__cgo__window = window.GetWindowPointer()
+	}
+	C.gdk_property_change(__cgo__window, property, type_, C.gint(format), mode, data, C.gint(nelements))
 	return
 }
 
@@ -911,7 +992,11 @@ func PropertyChange(window IsWindow, property C.GdkAtom, type_ C.GdkAtom, format
 Deletes a property from a window.
 */
 func PropertyDelete(window IsWindow, property C.GdkAtom) {
-	C.gdk_property_delete(window.GetWindowPointer(), property)
+	var __cgo__window *C.GdkWindow
+	if window != nil {
+		__cgo__window = window.GetWindowPointer()
+	}
+	C.gdk_property_delete(__cgo__window, property)
 	return
 }
 
@@ -930,11 +1015,15 @@ XGetWindowProperty() directly until a replacement function for
 gdk_property_get() is provided.
 */
 func PropertyGet(window IsWindow, property C.GdkAtom, type_ C.GdkAtom, offset uint64, length uint64, pdelete int) (actual_property_type C.GdkAtom, actual_format int, actual_length int, data string, return__ bool) {
+	var __cgo__window *C.GdkWindow
+	if window != nil {
+		__cgo__window = window.GetWindowPointer()
+	}
 	var __cgo__actual_format C.gint
 	var __cgo__actual_length C.gint
 	var __cgo__data *C.guchar
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gdk_property_get(window.GetWindowPointer(), property, type_, C.gulong(offset), C.gulong(length), C.gint(pdelete), &actual_property_type, &__cgo__actual_format, &__cgo__actual_length, &__cgo__data)
+	__cgo__return__ = C.gdk_property_get(__cgo__window, property, type_, C.gulong(offset), C.gulong(length), C.gint(pdelete), &actual_property_type, &__cgo__actual_format, &__cgo__actual_length, &__cgo__data)
 	actual_format = int(__cgo__actual_format)
 	actual_length = int(__cgo__actual_length)
 	data = C.GoString((*C.char)(unsafe.Pointer(__cgo__data)))
@@ -1015,7 +1104,11 @@ Retrieves the contents of a selection in a given
 form.
 */
 func SelectionConvert(requestor IsWindow, selection C.GdkAtom, target C.GdkAtom, time_ uint32) {
-	C.gdk_selection_convert(requestor.GetWindowPointer(), selection, target, C.guint32(time_))
+	var __cgo__requestor *C.GdkWindow
+	if requestor != nil {
+		__cgo__requestor = requestor.GetWindowPointer()
+	}
+	C.gdk_selection_convert(__cgo__requestor, selection, target, C.guint32(time_))
 	return
 }
 
@@ -1039,8 +1132,12 @@ process if a foreign window was previously created for that
 window, but a new foreign window will never be created by this call.
 */
 func SelectionOwnerGetForDisplay(display IsDisplay, selection C.GdkAtom) (return__ *Window) {
+	var __cgo__display *C.GdkDisplay
+	if display != nil {
+		__cgo__display = display.GetDisplayPointer()
+	}
 	var __cgo__return__ *C.GdkWindow
-	__cgo__return__ = C.gdk_selection_owner_get_for_display(display.GetDisplayPointer(), selection)
+	__cgo__return__ = C.gdk_selection_owner_get_for_display(__cgo__display, selection)
 	if __cgo__return__ != nil {
 		return__ = NewWindowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -1051,12 +1148,16 @@ func SelectionOwnerGetForDisplay(display IsDisplay, selection C.GdkAtom) (return
 Sets the owner of the given selection.
 */
 func SelectionOwnerSet(owner IsWindow, selection C.GdkAtom, time_ uint32, send_event bool) (return__ bool) {
+	var __cgo__owner *C.GdkWindow
+	if owner != nil {
+		__cgo__owner = owner.GetWindowPointer()
+	}
 	__cgo__send_event := C.gboolean(0)
 	if send_event {
 		__cgo__send_event = C.gboolean(1)
 	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gdk_selection_owner_set(owner.GetWindowPointer(), selection, C.guint32(time_), __cgo__send_event)
+	__cgo__return__ = C.gdk_selection_owner_set(__cgo__owner, selection, C.guint32(time_), __cgo__send_event)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -1065,12 +1166,20 @@ func SelectionOwnerSet(owner IsWindow, selection C.GdkAtom, time_ uint32, send_e
 Sets the #GdkWindow @owner as the current owner of the selection @selection.
 */
 func SelectionOwnerSetForDisplay(display IsDisplay, owner IsWindow, selection C.GdkAtom, time_ uint32, send_event bool) (return__ bool) {
+	var __cgo__display *C.GdkDisplay
+	if display != nil {
+		__cgo__display = display.GetDisplayPointer()
+	}
+	var __cgo__owner *C.GdkWindow
+	if owner != nil {
+		__cgo__owner = owner.GetWindowPointer()
+	}
 	__cgo__send_event := C.gboolean(0)
 	if send_event {
 		__cgo__send_event = C.gboolean(1)
 	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gdk_selection_owner_set_for_display(display.GetDisplayPointer(), owner.GetWindowPointer(), selection, C.guint32(time_), __cgo__send_event)
+	__cgo__return__ = C.gdk_selection_owner_set_for_display(__cgo__display, __cgo__owner, selection, C.guint32(time_), __cgo__send_event)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -1082,9 +1191,13 @@ will not be used by applications, who should use the #GtkClipboard
 API instead.
 */
 func SelectionPropertyGet(requestor IsWindow, data []string, prop_type *C.GdkAtom, prop_format *C.gint) (return__ int) {
+	var __cgo__requestor *C.GdkWindow
+	if requestor != nil {
+		__cgo__requestor = requestor.GetWindowPointer()
+	}
 	__header__data := (*reflect.SliceHeader)(unsafe.Pointer(&data))
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gdk_selection_property_get(requestor.GetWindowPointer(), (**C.guchar)(unsafe.Pointer(__header__data.Data)), prop_type, prop_format)
+	__cgo__return__ = C.gdk_selection_property_get(__cgo__requestor, (**C.guchar)(unsafe.Pointer(__header__data.Data)), prop_type, prop_format)
 	return__ = int(__cgo__return__)
 	return
 }
@@ -1093,7 +1206,11 @@ func SelectionPropertyGet(requestor IsWindow, data []string, prop_type *C.GdkAto
 Sends a response to SelectionRequest event.
 */
 func SelectionSendNotify(requestor IsWindow, selection C.GdkAtom, target C.GdkAtom, property C.GdkAtom, time_ uint32) {
-	C.gdk_selection_send_notify(requestor.GetWindowPointer(), selection, target, property, C.guint32(time_))
+	var __cgo__requestor *C.GdkWindow
+	if requestor != nil {
+		__cgo__requestor = requestor.GetWindowPointer()
+	}
+	C.gdk_selection_send_notify(__cgo__requestor, selection, target, property, C.guint32(time_))
 	return
 }
 
@@ -1101,7 +1218,15 @@ func SelectionSendNotify(requestor IsWindow, selection C.GdkAtom, target C.GdkAt
 Send a response to SelectionRequest event.
 */
 func SelectionSendNotifyForDisplay(display IsDisplay, requestor IsWindow, selection C.GdkAtom, target C.GdkAtom, property C.GdkAtom, time_ uint32) {
-	C.gdk_selection_send_notify_for_display(display.GetDisplayPointer(), requestor.GetWindowPointer(), selection, target, property, C.guint32(time_))
+	var __cgo__display *C.GdkDisplay
+	if display != nil {
+		__cgo__display = display.GetDisplayPointer()
+	}
+	var __cgo__requestor *C.GdkWindow
+	if requestor != nil {
+		__cgo__requestor = requestor.GetWindowPointer()
+	}
+	C.gdk_selection_send_notify_for_display(__cgo__display, __cgo__requestor, selection, target, property, C.guint32(time_))
 	return
 }
 
@@ -1194,7 +1319,11 @@ func SettingGet(name string, value *C.GValue) (return__ bool) {
 }
 
 func SynthesizeWindowState(window IsWindow, unset_flags C.GdkWindowState, set_flags C.GdkWindowState) {
-	C.gdk_synthesize_window_state(window.GetWindowPointer(), unset_flags, set_flags)
+	var __cgo__window *C.GdkWindow
+	if window != nil {
+		__cgo__window = window.GetWindowPointer()
+	}
+	C.gdk_synthesize_window_state(__cgo__window, unset_flags, set_flags)
 	return
 }
 
@@ -1206,7 +1335,11 @@ This function is intended to be used to synchronize with rendering
 pipelines, to benchmark windowing system rendering operations.
 */
 func TestRenderSync(window IsWindow) {
-	C.gdk_test_render_sync(window.GetWindowPointer())
+	var __cgo__window *C.GdkWindow
+	if window != nil {
+		__cgo__window = window.GetWindowPointer()
+	}
+	C.gdk_test_render_sync(__cgo__window)
 	return
 }
 
@@ -1225,8 +1358,12 @@ function to call which will generate a button press event followed
 by its accompanying button release event.
 */
 func TestSimulateButton(window IsWindow, x int, y int, button uint, modifiers C.GdkModifierType, button_pressrelease C.GdkEventType) (return__ bool) {
+	var __cgo__window *C.GdkWindow
+	if window != nil {
+		__cgo__window = window.GetWindowPointer()
+	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gdk_test_simulate_button(window.GetWindowPointer(), C.gint(x), C.gint(y), C.guint(button), modifiers, button_pressrelease)
+	__cgo__return__ = C.gdk_test_simulate_button(__cgo__window, C.gint(x), C.gint(y), C.guint(button), modifiers, button_pressrelease)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -1250,8 +1387,12 @@ right function to call which will generate a key press event
 followed by its accompanying key release event.
 */
 func TestSimulateKey(window IsWindow, x int, y int, keyval uint, modifiers C.GdkModifierType, key_pressrelease C.GdkEventType) (return__ bool) {
+	var __cgo__window *C.GdkWindow
+	if window != nil {
+		__cgo__window = window.GetWindowPointer()
+	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gdk_test_simulate_key(window.GetWindowPointer(), C.gint(x), C.gint(y), C.guint(keyval), modifiers, key_pressrelease)
+	__cgo__return__ = C.gdk_test_simulate_key(__cgo__window, C.gint(x), C.gint(y), C.guint(keyval), modifiers, key_pressrelease)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -1261,9 +1402,13 @@ Converts a text property in the given encoding to
 a list of UTF-8 strings.
 */
 func TextPropertyToUtf8ListForDisplay(display IsDisplay, encoding C.GdkAtom, format int, text []byte, length int) (list **C.gchar, return__ int) {
+	var __cgo__display *C.GdkDisplay
+	if display != nil {
+		__cgo__display = display.GetDisplayPointer()
+	}
 	__header__text := (*reflect.SliceHeader)(unsafe.Pointer(&text))
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gdk_text_property_to_utf8_list_for_display(display.GetDisplayPointer(), encoding, C.gint(format), (*C.guchar)(unsafe.Pointer(__header__text.Data)), C.gint(length), &list)
+	__cgo__return__ = C.gdk_text_property_to_utf8_list_for_display(__cgo__display, encoding, C.gint(format), (*C.guchar)(unsafe.Pointer(__header__text.Data)), C.gint(length), &list)
 	return__ = int(__cgo__return__)
 	return
 }

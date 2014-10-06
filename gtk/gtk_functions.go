@@ -3,6 +3,7 @@ package gtk
 /*
 #include <gtk/gtk.h>
 #include <gtk/gtkx.h>
+#include <glib.h>
 #include <stdlib.h>
 #cgo pkg-config: gtk+-3.0
 */
@@ -192,119 +193,23 @@ func AcceleratorValid(keyval uint, modifiers C.GdkModifierType) (return__ bool) 
 
 // gtk_alternative_dialog_button_order is not generated due to deprecation attr
 
-/*
-Parses a signal description from @signal_desc and incorporates
-it into @binding_set.
+// gtk_binding_entry_add_signal_from_string is not generated due to explicit ignore
 
-Signal descriptions may either bind a key combination to
-one or more signals:
-|[
-  bind "key" {
-    "signalname" (param, ...)
-    ...
-  }
-]|
+// gtk_binding_entry_add_signall is not generated due to explicit ignore
 
-Or they may also unbind a key combination:
-|[
-  unbind "key"
-]|
+// gtk_binding_entry_remove is not generated due to explicit ignore
 
-Key combinations must be in a format that can be parsed by
-gtk_accelerator_parse().
-*/
-func BindingEntryAddSignalFromString(binding_set *C.GtkBindingSet, signal_desc string) (return__ C.GTokenType) {
-	__cgo__signal_desc := (*C.gchar)(unsafe.Pointer(C.CString(signal_desc)))
-	return__ = C.gtk_binding_entry_add_signal_from_string(binding_set, __cgo__signal_desc)
-	C.free(unsafe.Pointer(__cgo__signal_desc))
-	return
-}
+// gtk_binding_entry_skip is not generated due to explicit ignore
 
-/*
-Override or install a new key binding for @keyval with @modifiers on
-@binding_set.
-*/
-func BindingEntryAddSignall(binding_set *C.GtkBindingSet, keyval uint, modifiers C.GdkModifierType, signal_name string, binding_args *C.GSList) {
-	__cgo__signal_name := (*C.gchar)(unsafe.Pointer(C.CString(signal_name)))
-	C.gtk_binding_entry_add_signall(binding_set, C.guint(keyval), modifiers, __cgo__signal_name, binding_args)
-	C.free(unsafe.Pointer(__cgo__signal_name))
-	return
-}
+// gtk_binding_set_by_class is not generated due to explicit ignore
 
-/*
-Remove a binding previously installed via
-gtk_binding_entry_add_signal() on @binding_set.
-*/
-func BindingEntryRemove(binding_set *C.GtkBindingSet, keyval uint, modifiers C.GdkModifierType) {
-	C.gtk_binding_entry_remove(binding_set, C.guint(keyval), modifiers)
-	return
-}
+// gtk_binding_set_find is not generated due to explicit ignore
 
-/*
-Install a binding on @binding_set which causes key lookups
-to be aborted, to prevent bindings from lower priority sets
-to be activated.
-*/
-func BindingEntrySkip(binding_set *C.GtkBindingSet, keyval uint, modifiers C.GdkModifierType) {
-	C.gtk_binding_entry_skip(binding_set, C.guint(keyval), modifiers)
-	return
-}
+// gtk_binding_set_new is not generated due to explicit ignore
 
-/*
-This function returns the binding set named after the type name of
-the passed in class structure. New binding sets are created on
-demand by this function.
-*/
-func BindingSetByClass(object_class unsafe.Pointer) (return__ *C.GtkBindingSet) {
-	return__ = C.gtk_binding_set_by_class((C.gpointer)(object_class))
-	return
-}
+// gtk_bindings_activate is not generated due to explicit ignore
 
-/*
-Find a binding set by its globally unique name.
-
-The @set_name can either be a name used for gtk_binding_set_new()
-or the type name of a class used in gtk_binding_set_by_class().
-*/
-func BindingSetFind(set_name string) (return__ *C.GtkBindingSet) {
-	__cgo__set_name := (*C.gchar)(unsafe.Pointer(C.CString(set_name)))
-	return__ = C.gtk_binding_set_find(__cgo__set_name)
-	C.free(unsafe.Pointer(__cgo__set_name))
-	return
-}
-
-/*
-GTK+ maintains a global list of binding sets. Each binding set has
-a unique name which needs to be specified upon creation.
-*/
-func BindingSetNew(set_name string) (return__ *C.GtkBindingSet) {
-	__cgo__set_name := (*C.gchar)(unsafe.Pointer(C.CString(set_name)))
-	return__ = C.gtk_binding_set_new(__cgo__set_name)
-	C.free(unsafe.Pointer(__cgo__set_name))
-	return
-}
-
-/*
-Find a key binding matching @keyval and @modifiers and activate the
-binding on @object.
-*/
-func BindingsActivate(object *C.GObject, keyval uint, modifiers C.GdkModifierType) (return__ bool) {
-	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_bindings_activate(object, C.guint(keyval), modifiers)
-	return__ = __cgo__return__ == C.gboolean(1)
-	return
-}
-
-/*
-Looks up key bindings for @object to find one matching
-@event, and if one was found, activate it.
-*/
-func BindingsActivateEvent(object *C.GObject, event *C.GdkEventKey) (return__ bool) {
-	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_bindings_activate_event(object, event)
-	return__ = __cgo__return__ == C.gboolean(1)
-	return
-}
+// gtk_bindings_activate_event is not generated due to explicit ignore
 
 func BuilderErrorQuark() (return__ C.GQuark) {
 	return__ = C.gtk_builder_error_quark()
@@ -341,7 +246,11 @@ signal. It is intended to help porting multiwindow widgets from
 GTK+ 2 to the rendering architecture of GTK+ 3.
 */
 func CairoTransformToWindow(cr *C.cairo_t, widget IsWidget, window *C.GdkWindow) {
-	C.gtk_cairo_transform_to_window(cr, widget.GetWidgetPointer(), window)
+	var __cgo__widget *C.GtkWidget
+	if widget != nil {
+		__cgo__widget = widget.GetWidgetPointer()
+	}
+	C.gtk_cairo_transform_to_window(cr, __cgo__widget, window)
 	return
 }
 
@@ -388,11 +297,15 @@ If the @block_others parameter is %TRUE, any other devices will be
 unable to interact with @widget during the grab.
 */
 func DeviceGrabAdd(widget IsWidget, device *C.GdkDevice, block_others bool) {
+	var __cgo__widget *C.GtkWidget
+	if widget != nil {
+		__cgo__widget = widget.GetWidgetPointer()
+	}
 	__cgo__block_others := C.gboolean(0)
 	if block_others {
 		__cgo__block_others = C.gboolean(1)
 	}
-	C.gtk_device_grab_add(widget.GetWidgetPointer(), device, __cgo__block_others)
+	C.gtk_device_grab_add(__cgo__widget, device, __cgo__block_others)
 	return
 }
 
@@ -403,7 +316,11 @@ You have to pair calls to gtk_device_grab_add() and
 gtk_device_grab_remove().
 */
 func DeviceGrabRemove(widget IsWidget, device *C.GdkDevice) {
-	C.gtk_device_grab_remove(widget.GetWidgetPointer(), device)
+	var __cgo__widget *C.GtkWidget
+	if widget != nil {
+		__cgo__widget = widget.GetWidgetPointer()
+	}
+	C.gtk_device_grab_remove(__cgo__widget, device)
 	return
 }
 
@@ -476,9 +393,9 @@ func DragSetIconDefault(context *C.GdkDragContext) {
 }
 
 /*
-Sets the icon for a given drag from the given @icon.  See the
-documentation for gtk_drag_set_icon_name() for more details about
-using icons in drag and drop.
+Sets the icon for a given drag from the given @icon.
+See the documentation for gtk_drag_set_icon_name()
+for more details about using icons in drag and drop.
 */
 func DragSetIconGicon(context *C.GdkDragContext, icon *C.GIcon, hot_x int, hot_y int) {
 	C.gtk_drag_set_icon_gicon(context, icon, C.gint(hot_x), C.gint(hot_y))
@@ -525,13 +442,22 @@ func DragSetIconSurface(context *C.GdkDragContext, surface *C.cairo_surface_t) {
 }
 
 /*
-Changes the icon for a widget to a given widget. GTK+
-will not destroy the icon, so if you don’t want
+Changes the icon for a widget to a given widget.
+GTK+ will not destroy the icon, so if you don’t want
 it to persist, you should connect to the “drag-end”
 signal and destroy it yourself.
+
+GTK+ will, however, change the opacity and position of
+the window as part of the drag animation. If you want
+to reuse the window, you have to restore these to
+the values you need after each drag operation.
 */
 func DragSetIconWidget(context *C.GdkDragContext, widget IsWidget, hot_x int, hot_y int) {
-	C.gtk_drag_set_icon_widget(context, widget.GetWidgetPointer(), C.gint(hot_x), C.gint(hot_y))
+	var __cgo__widget *C.GtkWidget
+	if widget != nil {
+		__cgo__widget = widget.GetWidgetPointer()
+	}
+	C.gtk_drag_set_icon_widget(context, __cgo__widget, C.gint(hot_x), C.gint(hot_y))
 	return
 }
 
@@ -851,6 +777,10 @@ gtk_init_with_args() or g_option_context_parse() with
 the option group returned by gtk_get_option_group(),
 you don’t have to call gtk_init().
 
+And if you are using #GtkApplication, you don't have to call any of the
+initialization functions either; the #GtkApplication::startup handler
+does it for you.
+
 This function will terminate your program if it was unable to
 initialize the windowing system for some reason. If you want
 your program to fall back to a textual interface you want to
@@ -1114,8 +1044,20 @@ setup dialog. See gtk_print_run_page_setup_dialog_async() if this is
 a problem.
 */
 func PrintRunPageSetupDialog(parent IsWindow, page_setup IsPageSetup, settings IsPrintSettings) (return__ *PageSetup) {
+	var __cgo__parent *C.GtkWindow
+	if parent != nil {
+		__cgo__parent = parent.GetWindowPointer()
+	}
+	var __cgo__page_setup *C.GtkPageSetup
+	if page_setup != nil {
+		__cgo__page_setup = page_setup.GetPageSetupPointer()
+	}
+	var __cgo__settings *C.GtkPrintSettings
+	if settings != nil {
+		__cgo__settings = settings.GetPrintSettingsPointer()
+	}
 	var __cgo__return__ *C.GtkPageSetup
-	__cgo__return__ = C.gtk_print_run_page_setup_dialog(parent.GetWindowPointer(), page_setup.GetPageSetupPointer(), settings.GetPrintSettingsPointer())
+	__cgo__return__ = C.gtk_print_run_page_setup_dialog(__cgo__parent, __cgo__page_setup, __cgo__settings)
 	if __cgo__return__ != nil {
 		return__ = NewPageSetupFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -1130,7 +1072,19 @@ showing the page setup dialog on platforms that support this, and calls @done_cb
 from a signal handler for the ::response signal of the dialog.
 */
 func PrintRunPageSetupDialogAsync(parent IsWindow, page_setup IsPageSetup, settings IsPrintSettings, done_cb C.GtkPageSetupDoneFunc, data unsafe.Pointer) {
-	C.gtk_print_run_page_setup_dialog_async(parent.GetWindowPointer(), page_setup.GetPageSetupPointer(), settings.GetPrintSettingsPointer(), done_cb, (C.gpointer)(data))
+	var __cgo__parent *C.GtkWindow
+	if parent != nil {
+		__cgo__parent = parent.GetWindowPointer()
+	}
+	var __cgo__page_setup *C.GtkPageSetup
+	if page_setup != nil {
+		__cgo__page_setup = page_setup.GetPageSetupPointer()
+	}
+	var __cgo__settings *C.GtkPrintSettings
+	if settings != nil {
+		__cgo__settings = settings.GetPrintSettingsPointer()
+	}
+	C.gtk_print_run_page_setup_dialog_async(__cgo__parent, __cgo__page_setup, __cgo__settings, done_cb, (C.gpointer)(data))
 	return
 }
 
@@ -1155,7 +1109,11 @@ gdk_window_invalidate_rect() or gtk_widget_queue_draw() instead
 of making up expose events.
 */
 func PropagateEvent(widget IsWidget, event *C.GdkEvent) {
-	C.gtk_propagate_event(widget.GetWidgetPointer(), event)
+	var __cgo__widget *C.GtkWidget
+	if widget != nil {
+		__cgo__widget = widget.GetWidgetPointer()
+	}
+	C.gtk_propagate_event(__cgo__widget, event)
 	return
 }
 
@@ -1285,12 +1243,16 @@ func RecentManagerErrorQuark() (return__ C.GQuark) {
 }
 
 /*
-Renders an activity area (Such as in #GtkSpinner or the
-fill line in #GtkRange), the state %GTK_STATE_FLAG_ACTIVE
-determines whether there is activity going on.
+Renders an activity indicator (such as in #GtkSpinner).
+The state %GTK_STATE_FLAG_ACTIVE determines whether there is
+activity going on.
 */
 func RenderActivity(context IsStyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64) {
-	C.gtk_render_activity(context.GetStyleContextPointer(), cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
+	var __cgo__context *C.GtkStyleContext
+	if context != nil {
+		__cgo__context = context.GetStyleContextPointer()
+	}
+	C.gtk_render_activity(__cgo__context, cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
 	return
 }
 
@@ -1302,7 +1264,11 @@ Typical arrow rendering at 0, 1&solidus;2 &pi;, &pi; and 3&solidus;2 &pi;:
 ![](arrows.png)
 */
 func RenderArrow(context IsStyleContext, cr *C.cairo_t, angle float64, x float64, y float64, size float64) {
-	C.gtk_render_arrow(context.GetStyleContextPointer(), cr, C.gdouble(angle), C.gdouble(x), C.gdouble(y), C.gdouble(size))
+	var __cgo__context *C.GtkStyleContext
+	if context != nil {
+		__cgo__context = context.GetStyleContextPointer()
+	}
+	C.gtk_render_arrow(__cgo__context, cr, C.gdouble(angle), C.gdouble(x), C.gdouble(y), C.gdouble(size))
 	return
 }
 
@@ -1315,7 +1281,11 @@ Typical background rendering, showing the effect of
 ![](background.png)
 */
 func RenderBackground(context IsStyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64) {
-	C.gtk_render_background(context.GetStyleContextPointer(), cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
+	var __cgo__context *C.GtkStyleContext
+	if context != nil {
+		__cgo__context = context.GetStyleContextPointer()
+	}
+	C.gtk_render_background(__cgo__context, cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
 	return
 }
 
@@ -1331,7 +1301,11 @@ Typical checkmark rendering:
 ![](checks.png)
 */
 func RenderCheck(context IsStyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64) {
-	C.gtk_render_check(context.GetStyleContextPointer(), cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
+	var __cgo__context *C.GtkStyleContext
+	if context != nil {
+		__cgo__context = context.GetStyleContextPointer()
+	}
+	C.gtk_render_check(__cgo__context, cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
 	return
 }
 
@@ -1345,7 +1319,11 @@ Typical expander rendering:
 ![](expanders.png)
 */
 func RenderExpander(context IsStyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64) {
-	C.gtk_render_expander(context.GetStyleContextPointer(), cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
+	var __cgo__context *C.GtkStyleContext
+	if context != nil {
+		__cgo__context = context.GetStyleContextPointer()
+	}
+	C.gtk_render_expander(__cgo__context, cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
 	return
 }
 
@@ -1359,7 +1337,11 @@ Typical extension rendering:
 ![](extensions.png)
 */
 func RenderExtension(context IsStyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64, gap_side C.GtkPositionType) {
-	C.gtk_render_extension(context.GetStyleContextPointer(), cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height), gap_side)
+	var __cgo__context *C.GtkStyleContext
+	if context != nil {
+		__cgo__context = context.GetStyleContextPointer()
+	}
+	C.gtk_render_extension(__cgo__context, cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height), gap_side)
 	return
 }
 
@@ -1371,7 +1353,11 @@ Typical focus rendering:
 ![](focus.png)
 */
 func RenderFocus(context IsStyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64) {
-	C.gtk_render_focus(context.GetStyleContextPointer(), cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
+	var __cgo__context *C.GtkStyleContext
+	if context != nil {
+		__cgo__context = context.GetStyleContextPointer()
+	}
+	C.gtk_render_focus(__cgo__context, cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
 	return
 }
 
@@ -1384,7 +1370,11 @@ Examples of frame rendering, showing the effect of `border-image`,
 ![](frames.png)
 */
 func RenderFrame(context IsStyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64) {
-	C.gtk_render_frame(context.GetStyleContextPointer(), cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
+	var __cgo__context *C.GtkStyleContext
+	if context != nil {
+		__cgo__context = context.GetStyleContextPointer()
+	}
+	C.gtk_render_frame(__cgo__context, cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
 	return
 }
 
@@ -1399,7 +1389,11 @@ Typical rendering of a frame with a gap:
 ![](frame-gap.png)
 */
 func RenderFrameGap(context IsStyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64, gap_side C.GtkPositionType, xy0_gap float64, xy1_gap float64) {
-	C.gtk_render_frame_gap(context.GetStyleContextPointer(), cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height), gap_side, C.gdouble(xy0_gap), C.gdouble(xy1_gap))
+	var __cgo__context *C.GtkStyleContext
+	if context != nil {
+		__cgo__context = context.GetStyleContextPointer()
+	}
+	C.gtk_render_frame_gap(__cgo__context, cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height), gap_side, C.gdouble(xy0_gap), C.gdouble(xy1_gap))
 	return
 }
 
@@ -1413,7 +1407,11 @@ Handles rendered for the paned and grip classes:
 ![](handles.png)
 */
 func RenderHandle(context IsStyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64) {
-	C.gtk_render_handle(context.GetStyleContextPointer(), cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
+	var __cgo__context *C.GtkStyleContext
+	if context != nil {
+		__cgo__context = context.GetStyleContextPointer()
+	}
+	C.gtk_render_handle(__cgo__context, cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
 	return
 }
 
@@ -1421,7 +1419,11 @@ func RenderHandle(context IsStyleContext, cr *C.cairo_t, x float64, y float64, w
 Renders the icon in @pixbuf at the specified @x and @y coordinates.
 */
 func RenderIcon(context IsStyleContext, cr *C.cairo_t, pixbuf *C.GdkPixbuf, x float64, y float64) {
-	C.gtk_render_icon(context.GetStyleContextPointer(), cr, pixbuf, C.gdouble(x), C.gdouble(y))
+	var __cgo__context *C.GtkStyleContext
+	if context != nil {
+		__cgo__context = context.GetStyleContextPointer()
+	}
+	C.gtk_render_icon(__cgo__context, cr, pixbuf, C.gdouble(x), C.gdouble(y))
 	return
 }
 
@@ -1431,7 +1433,11 @@ func RenderIcon(context IsStyleContext, cr *C.cairo_t, pixbuf *C.GdkPixbuf, x fl
 Renders the icon in @surface at the specified @x and @y coordinates.
 */
 func RenderIconSurface(context IsStyleContext, cr *C.cairo_t, surface *C.cairo_surface_t, x float64, y float64) {
-	C.gtk_render_icon_surface(context.GetStyleContextPointer(), cr, surface, C.gdouble(x), C.gdouble(y))
+	var __cgo__context *C.GtkStyleContext
+	if context != nil {
+		__cgo__context = context.GetStyleContextPointer()
+	}
+	C.gtk_render_icon_surface(__cgo__context, cr, surface, C.gdouble(x), C.gdouble(y))
 	return
 }
 
@@ -1439,7 +1445,11 @@ func RenderIconSurface(context IsStyleContext, cr *C.cairo_t, surface *C.cairo_s
 Draws a text caret on @cr at the specified index of @layout.
 */
 func RenderInsertionCursor(context IsStyleContext, cr *C.cairo_t, x float64, y float64, layout *C.PangoLayout, index int, direction C.PangoDirection) {
-	C.gtk_render_insertion_cursor(context.GetStyleContextPointer(), cr, C.gdouble(x), C.gdouble(y), layout, C.int(index), direction)
+	var __cgo__context *C.GtkStyleContext
+	if context != nil {
+		__cgo__context = context.GetStyleContextPointer()
+	}
+	C.gtk_render_insertion_cursor(__cgo__context, cr, C.gdouble(x), C.gdouble(y), layout, C.int(index), direction)
 	return
 }
 
@@ -1447,7 +1457,11 @@ func RenderInsertionCursor(context IsStyleContext, cr *C.cairo_t, x float64, y f
 Renders @layout on the coordinates @x, @y
 */
 func RenderLayout(context IsStyleContext, cr *C.cairo_t, x float64, y float64, layout *C.PangoLayout) {
-	C.gtk_render_layout(context.GetStyleContextPointer(), cr, C.gdouble(x), C.gdouble(y), layout)
+	var __cgo__context *C.GtkStyleContext
+	if context != nil {
+		__cgo__context = context.GetStyleContextPointer()
+	}
+	C.gtk_render_layout(__cgo__context, cr, C.gdouble(x), C.gdouble(y), layout)
 	return
 }
 
@@ -1455,7 +1469,11 @@ func RenderLayout(context IsStyleContext, cr *C.cairo_t, x float64, y float64, l
 Renders a line from (x0, y0) to (x1, y1).
 */
 func RenderLine(context IsStyleContext, cr *C.cairo_t, x0 float64, y0 float64, x1 float64, y1 float64) {
-	C.gtk_render_line(context.GetStyleContextPointer(), cr, C.gdouble(x0), C.gdouble(y0), C.gdouble(x1), C.gdouble(y1))
+	var __cgo__context *C.GtkStyleContext
+	if context != nil {
+		__cgo__context = context.GetStyleContextPointer()
+	}
+	C.gtk_render_line(__cgo__context, cr, C.gdouble(x0), C.gdouble(y0), C.gdouble(x1), C.gdouble(y1))
 	return
 }
 
@@ -1469,7 +1487,11 @@ Typical option mark rendering:
 ![](options.png)
 */
 func RenderOption(context IsStyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64) {
-	C.gtk_render_option(context.GetStyleContextPointer(), cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
+	var __cgo__context *C.GtkStyleContext
+	if context != nil {
+		__cgo__context = context.GetStyleContextPointer()
+	}
+	C.gtk_render_option(__cgo__context, cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height))
 	return
 }
 
@@ -1483,7 +1505,11 @@ Typical slider rendering:
 ![](sliders.png)
 */
 func RenderSlider(context IsStyleContext, cr *C.cairo_t, x float64, y float64, width float64, height float64, orientation C.GtkOrientation) {
-	C.gtk_render_slider(context.GetStyleContextPointer(), cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height), orientation)
+	var __cgo__context *C.GtkStyleContext
+	if context != nil {
+		__cgo__context = context.GetStyleContextPointer()
+	}
+	C.gtk_render_slider(__cgo__context, cr, C.gdouble(x), C.gdouble(y), C.gdouble(width), C.gdouble(height), orientation)
 	return
 }
 
@@ -1509,7 +1535,11 @@ Appends a specified target to the list of supported targets for a
 given widget and selection.
 */
 func SelectionAddTarget(widget IsWidget, selection C.GdkAtom, target C.GdkAtom, info uint) {
-	C.gtk_selection_add_target(widget.GetWidgetPointer(), selection, target, C.guint(info))
+	var __cgo__widget *C.GtkWidget
+	if widget != nil {
+		__cgo__widget = widget.GetWidgetPointer()
+	}
+	C.gtk_selection_add_target(__cgo__widget, selection, target, C.guint(info))
 	return
 }
 
@@ -1518,7 +1548,11 @@ Prepends a table of targets to the list of supported targets
 for a given widget and selection.
 */
 func SelectionAddTargets(widget IsWidget, selection C.GdkAtom, targets *C.GtkTargetEntry, ntargets uint) {
-	C.gtk_selection_add_targets(widget.GetWidgetPointer(), selection, targets, C.guint(ntargets))
+	var __cgo__widget *C.GtkWidget
+	if widget != nil {
+		__cgo__widget = widget.GetWidgetPointer()
+	}
+	C.gtk_selection_add_targets(__cgo__widget, selection, targets, C.guint(ntargets))
 	return
 }
 
@@ -1527,7 +1561,11 @@ Remove all targets registered for the given selection for the
 widget.
 */
 func SelectionClearTargets(widget IsWidget, selection C.GdkAtom) {
-	C.gtk_selection_clear_targets(widget.GetWidgetPointer(), selection)
+	var __cgo__widget *C.GtkWidget
+	if widget != nil {
+		__cgo__widget = widget.GetWidgetPointer()
+	}
+	C.gtk_selection_clear_targets(__cgo__widget, selection)
 	return
 }
 
@@ -1536,8 +1574,12 @@ Requests the contents of a selection. When received,
 a “selection-received” signal will be generated.
 */
 func SelectionConvert(widget IsWidget, selection C.GdkAtom, target C.GdkAtom, time_ uint32) (return__ bool) {
+	var __cgo__widget *C.GtkWidget
+	if widget != nil {
+		__cgo__widget = widget.GetWidgetPointer()
+	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_selection_convert(widget.GetWidgetPointer(), selection, target, C.guint32(time_))
+	__cgo__return__ = C.gtk_selection_convert(__cgo__widget, selection, target, C.guint32(time_))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -1547,8 +1589,12 @@ Claims ownership of a given selection for a particular widget,
 or, if @widget is %NULL, release ownership of the selection.
 */
 func SelectionOwnerSet(widget IsWidget, selection C.GdkAtom, time_ uint32) (return__ bool) {
+	var __cgo__widget *C.GtkWidget
+	if widget != nil {
+		__cgo__widget = widget.GetWidgetPointer()
+	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_selection_owner_set(widget.GetWidgetPointer(), selection, C.guint32(time_))
+	__cgo__return__ = C.gtk_selection_owner_set(__cgo__widget, selection, C.guint32(time_))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -1558,8 +1604,12 @@ Claim ownership of a given selection for a particular widget, or,
 if @widget is %NULL, release ownership of the selection.
 */
 func SelectionOwnerSetForDisplay(display *C.GdkDisplay, widget IsWidget, selection C.GdkAtom, time_ uint32) (return__ bool) {
+	var __cgo__widget *C.GtkWidget
+	if widget != nil {
+		__cgo__widget = widget.GetWidgetPointer()
+	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_selection_owner_set_for_display(display, widget.GetWidgetPointer(), selection, C.guint32(time_))
+	__cgo__return__ = C.gtk_selection_owner_set_for_display(display, __cgo__widget, selection, C.guint32(time_))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -1571,7 +1621,11 @@ destroyed. This function will not generally be
 called by applications.
 */
 func SelectionRemoveAll(widget IsWidget) {
-	C.gtk_selection_remove_all(widget.GetWidgetPointer())
+	var __cgo__widget *C.GtkWidget
+	if widget != nil {
+		__cgo__widget = widget.GetWidgetPointer()
+	}
+	C.gtk_selection_remove_all(__cgo__widget)
 	return
 }
 
@@ -1594,6 +1648,7 @@ Typical examples are
 - `file:///home/gnome/pict.jpg`
 - `http://www.gnome.org`
 - `mailto:me@gnome.org`
+
 Ideally the timestamp is taken from the event triggering
 the gtk_show_uri() call. If timestamp is not known you can take
 %GDK_CURRENT_TIME.
@@ -1663,8 +1718,12 @@ Determines if any of the targets in @targets can be used to
 provide rich text.
 */
 func TargetsIncludeRichText(targets *C.GdkAtom, n_targets int, buffer IsTextBuffer) (return__ bool) {
+	var __cgo__buffer *C.GtkTextBuffer
+	if buffer != nil {
+		__cgo__buffer = buffer.GetTextBufferPointer()
+	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_targets_include_rich_text(targets, C.gint(n_targets), buffer.GetTextBufferPointer())
+	__cgo__return__ = C.gtk_targets_include_rich_text(targets, C.gint(n_targets), __cgo__buffer)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -1724,9 +1783,13 @@ so this function is genrally only useful in test programs with
 predetermined locales, see gtk_test_init() for more details.
 */
 func TestFindLabel(widget IsWidget, label_pattern string) (return__ *Widget) {
+	var __cgo__widget *C.GtkWidget
+	if widget != nil {
+		__cgo__widget = widget.GetWidgetPointer()
+	}
 	__cgo__label_pattern := (*C.gchar)(unsafe.Pointer(C.CString(label_pattern)))
 	var __cgo__return__ *C.GtkWidget
-	__cgo__return__ = C.gtk_test_find_label(widget.GetWidgetPointer(), __cgo__label_pattern)
+	__cgo__return__ = C.gtk_test_find_label(__cgo__widget, __cgo__label_pattern)
 	C.free(unsafe.Pointer(__cgo__label_pattern))
 	if __cgo__return__ != nil {
 		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
@@ -1744,8 +1807,12 @@ widget, relative to another labeling widget. Such as finding a
 button or text entry widget, given its corresponding label widget.
 */
 func TestFindSibling(base_widget IsWidget, widget_type C.GType) (return__ *Widget) {
+	var __cgo__base_widget *C.GtkWidget
+	if base_widget != nil {
+		__cgo__base_widget = base_widget.GetWidgetPointer()
+	}
 	var __cgo__return__ *C.GtkWidget
-	__cgo__return__ = C.gtk_test_find_sibling(base_widget.GetWidgetPointer(), widget_type)
+	__cgo__return__ = C.gtk_test_find_sibling(__cgo__base_widget, widget_type)
 	if __cgo__return__ != nil {
 		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -1762,9 +1829,13 @@ gtk_test_widget_click() for possible caveats involving the search of
 such widgets and synthesizing widget events.
 */
 func TestFindWidget(widget IsWidget, label_pattern string, widget_type C.GType) (return__ *Widget) {
+	var __cgo__widget *C.GtkWidget
+	if widget != nil {
+		__cgo__widget = widget.GetWidgetPointer()
+	}
 	__cgo__label_pattern := (*C.gchar)(unsafe.Pointer(C.CString(label_pattern)))
 	var __cgo__return__ *C.GtkWidget
-	__cgo__return__ = C.gtk_test_find_widget(widget.GetWidgetPointer(), __cgo__label_pattern, widget_type)
+	__cgo__return__ = C.gtk_test_find_widget(__cgo__widget, __cgo__label_pattern, widget_type)
 	C.free(unsafe.Pointer(__cgo__label_pattern))
 	if __cgo__return__ != nil {
 		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
@@ -1803,8 +1874,12 @@ of the adjustment belonging to @widget, and is not a percentage
 as passed in to gtk_test_slider_set_perc().
 */
 func TestSliderGetValue(widget IsWidget) (return__ float64) {
+	var __cgo__widget *C.GtkWidget
+	if widget != nil {
+		__cgo__widget = widget.GetWidgetPointer()
+	}
 	var __cgo__return__ C.double
-	__cgo__return__ = C.gtk_test_slider_get_value(widget.GetWidgetPointer())
+	__cgo__return__ = C.gtk_test_slider_get_value(__cgo__widget)
 	return__ = float64(__cgo__return__)
 	return
 }
@@ -1817,7 +1892,11 @@ a value between the lower and upper limits, according to the
 @percentage argument.
 */
 func TestSliderSetPerc(widget IsWidget, percentage float64) {
-	C.gtk_test_slider_set_perc(widget.GetWidgetPointer(), C.double(percentage))
+	var __cgo__widget *C.GtkWidget
+	if widget != nil {
+		__cgo__widget = widget.GetWidgetPointer()
+	}
+	C.gtk_test_slider_set_perc(__cgo__widget, C.double(percentage))
 	return
 }
 
@@ -1827,12 +1906,16 @@ spin button arrow areas, usually leading to an increase or decrease of
 spin button’s value.
 */
 func TestSpinButtonClick(spinner IsSpinButton, button uint, upwards bool) (return__ bool) {
+	var __cgo__spinner *C.GtkSpinButton
+	if spinner != nil {
+		__cgo__spinner = spinner.GetSpinButtonPointer()
+	}
 	__cgo__upwards := C.gboolean(0)
 	if upwards {
 		__cgo__upwards = C.gboolean(1)
 	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_test_spin_button_click(spinner.GetSpinButtonPointer(), C.guint(button), __cgo__upwards)
+	__cgo__return__ = C.gtk_test_spin_button_click(__cgo__spinner, C.guint(button), __cgo__upwards)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -1842,8 +1925,12 @@ Retrive the text string of @widget if it is a GtkLabel,
 GtkEditable (entry and text widgets) or GtkTextView.
 */
 func TestTextGet(widget IsWidget) (return__ string) {
+	var __cgo__widget *C.GtkWidget
+	if widget != nil {
+		__cgo__widget = widget.GetWidgetPointer()
+	}
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.gtk_test_text_get(widget.GetWidgetPointer())
+	__cgo__return__ = C.gtk_test_text_get(__cgo__widget)
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -1853,8 +1940,12 @@ Set the text string of @widget to @string if it is a GtkLabel,
 GtkEditable (entry and text widgets) or GtkTextView.
 */
 func TestTextSet(widget IsWidget, string_ string) {
+	var __cgo__widget *C.GtkWidget
+	if widget != nil {
+		__cgo__widget = widget.GetWidgetPointer()
+	}
 	__cgo__string_ := (*C.gchar)(unsafe.Pointer(C.CString(string_)))
-	C.gtk_test_text_set(widget.GetWidgetPointer(), __cgo__string_)
+	C.gtk_test_text_set(__cgo__widget, __cgo__string_)
 	C.free(unsafe.Pointer(__cgo__string_))
 	return
 }
@@ -1870,8 +1961,12 @@ particular because the mouse pointer is warped to the button click
 location, see gdk_test_simulate_button() for details.
 */
 func TestWidgetClick(widget IsWidget, button uint, modifiers C.GdkModifierType) (return__ bool) {
+	var __cgo__widget *C.GtkWidget
+	if widget != nil {
+		__cgo__widget = widget.GetWidgetPointer()
+	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_test_widget_click(widget.GetWidgetPointer(), C.guint(button), modifiers)
+	__cgo__return__ = C.gtk_test_widget_click(__cgo__widget, C.guint(button), modifiers)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -1886,8 +1981,12 @@ particular because the mouse pointer is warped to the key press
 location, see gdk_test_simulate_key() for details.
 */
 func TestWidgetSendKey(widget IsWidget, keyval uint, modifiers C.GdkModifierType) (return__ bool) {
+	var __cgo__widget *C.GtkWidget
+	if widget != nil {
+		__cgo__widget = widget.GetWidgetPointer()
+	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_test_widget_send_key(widget.GetWidgetPointer(), C.guint(keyval), modifiers)
+	__cgo__return__ = C.gtk_test_widget_send_key(__cgo__widget, C.guint(keyval), modifiers)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -1902,7 +2001,11 @@ depend on @widget relayouting or on interaction with the display
 server.
 */
 func TestWidgetWaitForDraw(widget IsWidget) {
-	C.gtk_test_widget_wait_for_draw(widget.GetWidgetPointer())
+	var __cgo__widget *C.GtkWidget
+	if widget != nil {
+		__cgo__widget = widget.GetWidgetPointer()
+	}
+	C.gtk_test_widget_wait_for_draw(__cgo__widget)
 	return
 }
 
@@ -1949,8 +2052,9 @@ Lets a set of row reference created by
 gtk_tree_row_reference_new_proxy() know that the
 model emitted the #GtkTreeModel::rows-reordered signal.
 */
-func TreeRowReferenceReordered(proxy *C.GObject, path *C.GtkTreePath, iter *C.GtkTreeIter, new_order *C.gint) {
-	C.gtk_tree_row_reference_reordered(proxy, path, iter, new_order)
+func TreeRowReferenceReordered(proxy *C.GObject, path *C.GtkTreePath, iter *C.GtkTreeIter, new_order []int) {
+	__header__new_order := (*reflect.SliceHeader)(unsafe.Pointer(&new_order))
+	C.gtk_tree_row_reference_reordered(proxy, path, iter, (*C.gint)(unsafe.Pointer(__header__new_order.Data)))
 	return
 }
 

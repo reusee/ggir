@@ -248,6 +248,9 @@ func CclosureMarshalVOIDVOID(closure *C.GClosure, return_value *C.GValue, n_para
 /*
 A generic marshaller function implemented via
 [libffi](http://sourceware.org/libffi/).
+
+Normally this function is not passed explicitly to g_signal_new(),
+but used automatically by GLib when specifying a %NULL marshaller.
 */
 func CclosureMarshalGeneric(closure *C.GClosure, return_gvalue *C.GValue, n_param_values uint, param_values *C.GValue, invocation_hint unsafe.Pointer, marshal_data unsafe.Pointer) {
 	C.g_cclosure_marshal_generic(closure, return_gvalue, C.guint(n_param_values), param_values, (C.gpointer)(invocation_hint), (C.gpointer)(marshal_data))
@@ -271,7 +274,11 @@ associated with a #GObject, and want the callback to no longer run
 after the object is is freed.
 */
 func CclosureNewObject(callback_func C.GCallback, object IsObject) (return__ *C.GClosure) {
-	return__ = C.g_cclosure_new_object(callback_func, object.GetObjectPointer())
+	var __cgo__object *C.GObject
+	if object != nil {
+		__cgo__object = object.GetObjectPointer()
+	}
+	return__ = C.g_cclosure_new_object(callback_func, __cgo__object)
 	return
 }
 
@@ -283,7 +290,11 @@ associated with a #GObject, and want the callback to no longer run
 after the object is is freed.
 */
 func CclosureNewObjectSwap(callback_func C.GCallback, object IsObject) (return__ *C.GClosure) {
-	return__ = C.g_cclosure_new_object_swap(callback_func, object.GetObjectPointer())
+	var __cgo__object *C.GObject
+	if object != nil {
+		__cgo__object = object.GetObjectPointer()
+	}
+	return__ = C.g_cclosure_new_object_swap(callback_func, __cgo__object)
 	return
 }
 
@@ -680,8 +691,12 @@ useful unless you are implementing a new base type similar to GObject.
 */
 func GParamSpecOverride(name string, overridden IsParamSpec) (return__ *ParamSpec) {
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
+	var __cgo__overridden *C.GParamSpec
+	if overridden != nil {
+		__cgo__overridden = overridden.GetParamSpecPointer()
+	}
 	var __cgo__return__ *C.GParamSpec
-	__cgo__return__ = C.g_param_spec_override(__cgo__name, overridden.GetParamSpecPointer())
+	__cgo__return__ = C.g_param_spec_override(__cgo__name, __cgo__overridden)
 	C.free(unsafe.Pointer(__cgo__name))
 	if __cgo__return__ != nil {
 		return__ = NewParamSpecFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
@@ -883,8 +898,12 @@ func GParamSpecValueArray(name string, nick string, blurb string, element_spec I
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
 	__cgo__nick := (*C.gchar)(unsafe.Pointer(C.CString(nick)))
 	__cgo__blurb := (*C.gchar)(unsafe.Pointer(C.CString(blurb)))
+	var __cgo__element_spec *C.GParamSpec
+	if element_spec != nil {
+		__cgo__element_spec = element_spec.GetParamSpecPointer()
+	}
 	var __cgo__return__ *C.GParamSpec
-	__cgo__return__ = C.g_param_spec_value_array(__cgo__name, __cgo__nick, __cgo__blurb, element_spec.GetParamSpecPointer(), flags)
+	__cgo__return__ = C.g_param_spec_value_array(__cgo__name, __cgo__nick, __cgo__blurb, __cgo__element_spec, flags)
 	C.free(unsafe.Pointer(__cgo__name))
 	C.free(unsafe.Pointer(__cgo__nick))
 	C.free(unsafe.Pointer(__cgo__blurb))
@@ -940,12 +959,16 @@ See also g_value_type_transformable(), g_value_transform() and
 g_param_value_validate().
 */
 func ParamValueConvert(pspec IsParamSpec, src_value *C.GValue, dest_value *C.GValue, strict_validation bool) (return__ bool) {
+	var __cgo__pspec *C.GParamSpec
+	if pspec != nil {
+		__cgo__pspec = pspec.GetParamSpecPointer()
+	}
 	__cgo__strict_validation := C.gboolean(0)
 	if strict_validation {
 		__cgo__strict_validation = C.gboolean(1)
 	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_param_value_convert(pspec.GetParamSpecPointer(), src_value, dest_value, __cgo__strict_validation)
+	__cgo__return__ = C.g_param_value_convert(__cgo__pspec, src_value, dest_value, __cgo__strict_validation)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -954,8 +977,12 @@ func ParamValueConvert(pspec IsParamSpec, src_value *C.GValue, dest_value *C.GVa
 Checks whether @value contains the default value as specified in @pspec.
 */
 func ParamValueDefaults(pspec IsParamSpec, value *C.GValue) (return__ bool) {
+	var __cgo__pspec *C.GParamSpec
+	if pspec != nil {
+		__cgo__pspec = pspec.GetParamSpecPointer()
+	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_param_value_defaults(pspec.GetParamSpecPointer(), value)
+	__cgo__return__ = C.g_param_value_defaults(__cgo__pspec, value)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -964,7 +991,11 @@ func ParamValueDefaults(pspec IsParamSpec, value *C.GValue) (return__ bool) {
 Sets @value to its default value as specified in @pspec.
 */
 func ParamValueSetDefault(pspec IsParamSpec, value *C.GValue) {
-	C.g_param_value_set_default(pspec.GetParamSpecPointer(), value)
+	var __cgo__pspec *C.GParamSpec
+	if pspec != nil {
+		__cgo__pspec = pspec.GetParamSpecPointer()
+	}
+	C.g_param_value_set_default(__cgo__pspec, value)
 	return
 }
 
@@ -977,8 +1008,12 @@ it is modified accordingly, so the resulting value will fit into the
 range -42 .. +42.
 */
 func ParamValueValidate(pspec IsParamSpec, value *C.GValue) (return__ bool) {
+	var __cgo__pspec *C.GParamSpec
+	if pspec != nil {
+		__cgo__pspec = pspec.GetParamSpecPointer()
+	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_param_value_validate(pspec.GetParamSpecPointer(), value)
+	__cgo__return__ = C.g_param_value_validate(__cgo__pspec, value)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -989,8 +1024,12 @@ if @value1 is found to be less than, equal to or greater than @value2,
 respectively.
 */
 func ParamValuesCmp(pspec IsParamSpec, value1 *C.GValue, value2 *C.GValue) (return__ int) {
+	var __cgo__pspec *C.GParamSpec
+	if pspec != nil {
+		__cgo__pspec = pspec.GetParamSpecPointer()
+	}
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.g_param_values_cmp(pspec.GetParamSpecPointer(), value1, value2)
+	__cgo__return__ = C.g_param_values_cmp(__cgo__pspec, value1, value2)
 	return__ = int(__cgo__return__)
 	return
 }
@@ -1244,6 +1283,11 @@ func SignalHandlersBlockMatched(instance IsObject, mask C.GSignalMatchType, sign
 	return
 }
 
+/*
+Destroy all signal handlers of a type instance. This function is
+an implementation detail of the #GObject dispose implementation,
+and should not be used outside of the type system.
+*/
 func SignalHandlersDestroy(instance IsObject) {
 	C.g_signal_handlers_destroy(C.gpointer(unsafe.Pointer(instance.GetObjectPointer())))
 	return
@@ -1363,7 +1407,7 @@ Creates a new signal. (This is usually done in the class initializer.)
 
 See g_signal_new() for details on allowed signal names.
 
-If c_marshaller is %NULL @g_cclosure_marshal_generic will be used as
+If c_marshaller is %NULL, g_cclosure_marshal_generic() will be used as
 the marshaller for this signal.
 */
 func SignalNewv(signal_name string, itype C.GType, signal_flags C.GSignalFlags, class_closure *C.GClosure, accumulator C.GSignalAccumulator, accu_data unsafe.Pointer, c_marshaller C.GSignalCMarshaller, return_type C.GType, n_params uint, param_types *C.GType) (return__ uint) {
@@ -1549,7 +1593,9 @@ Registers a private class structure for a classed type;
 when the class is allocated, the private structures for
 the class and all of its parent types are allocated
 sequentially in the same memory block as the public
-structures. This function should be called in the
+structures, and are zero-filled.
+
+This function should be called in the
 type's get_type() function after the type is registered.
 The private structure can be retrieved using the
 G_TYPE_CLASS_GET_PRIVATE() macro.
@@ -1637,6 +1683,13 @@ func TypeCheckInstanceIsA(instance *C.GTypeInstance, iface_type C.GType) (return
 	return
 }
 
+func TypeCheckInstanceIsFundamentallyA(instance *C.GTypeInstance, fundamental_type C.GType) (return__ bool) {
+	var __cgo__return__ C.gboolean
+	__cgo__return__ = C.g_type_check_instance_is_fundamentally_a(instance, fundamental_type)
+	return__ = __cgo__return__ == C.gboolean(1)
+	return
+}
+
 func TypeCheckIsValueType(type_ C.GType) (return__ bool) {
 	var __cgo__return__ C.gboolean
 	__cgo__return__ = C.g_type_check_is_value_type(type_)
@@ -1675,7 +1728,7 @@ Registers a private structure for an instantiatable type.
 When an object is allocated, the private structures for
 the type and all of its parent types are allocated
 sequentially in the same memory block as the public
-structures.
+structures, and are zero-filled.
 
 Note that the accumulated size of the private structures of
 a type and all its parent types cannot exceed 64 KiB.
@@ -1717,6 +1770,7 @@ my_object_init (MyObject *my_object)
   my_object->priv = G_TYPE_INSTANCE_GET_PRIVATE (my_object,
                                                  MY_TYPE_OBJECT,
                                                  MyObjectPrivate);
+  // my_object->priv->some_field will be automatically initialised to 0
 }
 
 static int
@@ -1806,6 +1860,9 @@ implementators of fundamental types only. E.g. instances of the
 #GObject hierarchy should be created via g_object_new() and never
 directly through g_type_create_instance() which doesn't handle things
 like singleton objects or object construction.
+
+The extended members of the returned instance are guaranteed to be filled
+with zeros.
 
 Note: Do not use this function, unless you're implementing a
 fundamental type. Also language bindings should not use this

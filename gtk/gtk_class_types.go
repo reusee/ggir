@@ -3,6 +3,7 @@ package gtk
 /*
 #include <gtk/gtk.h>
 #include <gtk/gtkx.h>
+#include <glib.h>
 #include <stdlib.h>
 #include <glib-object.h>
 #cgo pkg-config: gobject-2.0
@@ -407,6 +408,27 @@ func NewArrowFromCPointer(p unsafe.Pointer) *Arrow {
 	return ret
 }
 
+type ArrowAccessible struct {
+	*TraitArrowAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewArrowAccessibleFromCPointer(p unsafe.Pointer) *ArrowAccessible {
+	ret := &ArrowAccessible{
+		NewTraitArrowAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ArrowAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type AspectFrame struct {
 	*TraitAspectFrame
 	*TraitFrame
@@ -490,6 +512,29 @@ func NewBinFromCPointer(p unsafe.Pointer) *Bin {
 	return ret
 }
 
+type BooleanCellAccessible struct {
+	*TraitBooleanCellAccessible
+	*TraitRendererCellAccessible
+	*TraitCellAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewBooleanCellAccessibleFromCPointer(p unsafe.Pointer) *BooleanCellAccessible {
+	ret := &BooleanCellAccessible{
+		NewTraitBooleanCellAccessible(p),
+		NewTraitRendererCellAccessible(p),
+		NewTraitCellAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *BooleanCellAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type Box struct {
 	*TraitBox
 	*TraitContainer
@@ -561,6 +606,29 @@ func NewButtonFromCPointer(p unsafe.Pointer) *Button {
 	return ret
 }
 
+type ButtonAccessible struct {
+	*TraitButtonAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewButtonAccessibleFromCPointer(p unsafe.Pointer) *ButtonAccessible {
+	ret := &ButtonAccessible{
+		NewTraitButtonAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ButtonAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type ButtonBox struct {
 	*TraitButtonBox
 	*TraitBox
@@ -606,6 +674,25 @@ func NewCalendarFromCPointer(p unsafe.Pointer) *Calendar {
 	}
 	C.g_object_ref_sink(C.gpointer(p))
 	runtime.SetFinalizer(ret, func(p *Calendar) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type CellAccessible struct {
+	*TraitCellAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewCellAccessibleFromCPointer(p unsafe.Pointer) *CellAccessible {
+	ret := &CellAccessible{
+		NewTraitCellAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *CellAccessible) {
 		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
 	})
 	return ret
@@ -968,6 +1055,31 @@ func NewCheckMenuItemFromCPointer(p unsafe.Pointer) *CheckMenuItem {
 	return ret
 }
 
+type CheckMenuItemAccessible struct {
+	*TraitCheckMenuItemAccessible
+	*TraitMenuItemAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewCheckMenuItemAccessibleFromCPointer(p unsafe.Pointer) *CheckMenuItemAccessible {
+	ret := &CheckMenuItemAccessible{
+		NewTraitCheckMenuItemAccessible(p),
+		NewTraitMenuItemAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *CheckMenuItemAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type Clipboard struct {
 	*TraitClipboard
 	*gobject.TraitObject
@@ -1159,6 +1271,29 @@ func NewComboBoxFromCPointer(p unsafe.Pointer) *ComboBox {
 	return ret
 }
 
+type ComboBoxAccessible struct {
+	*TraitComboBoxAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewComboBoxAccessibleFromCPointer(p unsafe.Pointer) *ComboBoxAccessible {
+	ret := &ComboBoxAccessible{
+		NewTraitComboBoxAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ComboBoxAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type ComboBoxText struct {
 	*TraitComboBoxText
 	*TraitComboBox
@@ -1206,6 +1341,48 @@ func NewContainerFromCPointer(p unsafe.Pointer) *Container {
 	}
 	C.g_object_ref_sink(C.gpointer(p))
 	runtime.SetFinalizer(ret, func(p *Container) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type ContainerAccessible struct {
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewContainerAccessibleFromCPointer(p unsafe.Pointer) *ContainerAccessible {
+	ret := &ContainerAccessible{
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ContainerAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type ContainerCellAccessible struct {
+	*TraitContainerCellAccessible
+	*TraitCellAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewContainerCellAccessibleFromCPointer(p unsafe.Pointer) *ContainerCellAccessible {
+	ret := &ContainerCellAccessible{
+		NewTraitContainerCellAccessible(p),
+		NewTraitCellAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ContainerCellAccessible) {
 		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
 	})
 	return ret
@@ -1305,6 +1482,27 @@ func NewEntryFromCPointer(p unsafe.Pointer) *Entry {
 	return ret
 }
 
+type EntryAccessible struct {
+	*TraitEntryAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewEntryAccessibleFromCPointer(p unsafe.Pointer) *EntryAccessible {
+	ret := &EntryAccessible{
+		NewTraitEntryAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *EntryAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type EntryBuffer struct {
 	*TraitEntryBuffer
 	*gobject.TraitObject
@@ -1370,6 +1568,25 @@ func NewEventBoxFromCPointer(p unsafe.Pointer) *EventBox {
 	return ret
 }
 
+type EventController struct {
+	*TraitEventController
+	*gobject.TraitObject
+	CPointer unsafe.Pointer
+}
+
+func NewEventControllerFromCPointer(p unsafe.Pointer) *EventController {
+	ret := &EventController{
+		NewTraitEventController(p),
+		gobject.NewTraitObject(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *EventController) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type Expander struct {
 	*TraitExpander
 	*TraitBin
@@ -1392,6 +1609,29 @@ func NewExpanderFromCPointer(p unsafe.Pointer) *Expander {
 	}
 	C.g_object_ref_sink(C.gpointer(p))
 	runtime.SetFinalizer(ret, func(p *Expander) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type ExpanderAccessible struct {
+	*TraitExpanderAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewExpanderAccessibleFromCPointer(p unsafe.Pointer) *ExpanderAccessible {
+	ret := &ExpanderAccessible{
+		NewTraitExpanderAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ExpanderAccessible) {
 		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
 	})
 	return ret
@@ -1553,6 +1793,29 @@ func NewFlowBoxFromCPointer(p unsafe.Pointer) *FlowBox {
 	return ret
 }
 
+type FlowBoxAccessible struct {
+	*TraitFlowBoxAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewFlowBoxAccessibleFromCPointer(p unsafe.Pointer) *FlowBoxAccessible {
+	ret := &FlowBoxAccessible{
+		NewTraitFlowBoxAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *FlowBoxAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type FlowBoxChild struct {
 	*TraitFlowBoxChild
 	*TraitBin
@@ -1575,6 +1838,29 @@ func NewFlowBoxChildFromCPointer(p unsafe.Pointer) *FlowBoxChild {
 	}
 	C.g_object_ref_sink(C.gpointer(p))
 	runtime.SetFinalizer(ret, func(p *FlowBoxChild) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type FlowBoxChildAccessible struct {
+	*TraitFlowBoxChildAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewFlowBoxChildAccessibleFromCPointer(p unsafe.Pointer) *FlowBoxChildAccessible {
+	ret := &FlowBoxChildAccessible{
+		NewTraitFlowBoxChildAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *FlowBoxChildAccessible) {
 		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
 	})
 	return ret
@@ -1747,6 +2033,246 @@ func NewFrameFromCPointer(p unsafe.Pointer) *Frame {
 	}
 	C.g_object_ref_sink(C.gpointer(p))
 	runtime.SetFinalizer(ret, func(p *Frame) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type FrameAccessible struct {
+	*TraitFrameAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewFrameAccessibleFromCPointer(p unsafe.Pointer) *FrameAccessible {
+	ret := &FrameAccessible{
+		NewTraitFrameAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *FrameAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type Gesture struct {
+	*TraitGesture
+	*TraitEventController
+	*gobject.TraitObject
+	CPointer unsafe.Pointer
+}
+
+func NewGestureFromCPointer(p unsafe.Pointer) *Gesture {
+	ret := &Gesture{
+		NewTraitGesture(p),
+		NewTraitEventController(p),
+		gobject.NewTraitObject(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *Gesture) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type GestureDrag struct {
+	*TraitGestureDrag
+	*TraitGestureSingle
+	*TraitGesture
+	*TraitEventController
+	*gobject.TraitObject
+	CPointer unsafe.Pointer
+}
+
+func NewGestureDragFromCPointer(p unsafe.Pointer) *GestureDrag {
+	ret := &GestureDrag{
+		NewTraitGestureDrag(p),
+		NewTraitGestureSingle(p),
+		NewTraitGesture(p),
+		NewTraitEventController(p),
+		gobject.NewTraitObject(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *GestureDrag) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type GestureLongPress struct {
+	*TraitGestureLongPress
+	*TraitGestureSingle
+	*TraitGesture
+	*TraitEventController
+	*gobject.TraitObject
+	CPointer unsafe.Pointer
+}
+
+func NewGestureLongPressFromCPointer(p unsafe.Pointer) *GestureLongPress {
+	ret := &GestureLongPress{
+		NewTraitGestureLongPress(p),
+		NewTraitGestureSingle(p),
+		NewTraitGesture(p),
+		NewTraitEventController(p),
+		gobject.NewTraitObject(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *GestureLongPress) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type GestureMultiPress struct {
+	*TraitGestureMultiPress
+	*TraitGestureSingle
+	*TraitGesture
+	*TraitEventController
+	*gobject.TraitObject
+	CPointer unsafe.Pointer
+}
+
+func NewGestureMultiPressFromCPointer(p unsafe.Pointer) *GestureMultiPress {
+	ret := &GestureMultiPress{
+		NewTraitGestureMultiPress(p),
+		NewTraitGestureSingle(p),
+		NewTraitGesture(p),
+		NewTraitEventController(p),
+		gobject.NewTraitObject(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *GestureMultiPress) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type GesturePan struct {
+	*TraitGesturePan
+	*TraitGestureDrag
+	*TraitGestureSingle
+	*TraitGesture
+	*TraitEventController
+	*gobject.TraitObject
+	CPointer unsafe.Pointer
+}
+
+func NewGesturePanFromCPointer(p unsafe.Pointer) *GesturePan {
+	ret := &GesturePan{
+		NewTraitGesturePan(p),
+		NewTraitGestureDrag(p),
+		NewTraitGestureSingle(p),
+		NewTraitGesture(p),
+		NewTraitEventController(p),
+		gobject.NewTraitObject(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *GesturePan) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type GestureRotate struct {
+	*TraitGestureRotate
+	*TraitGesture
+	*TraitEventController
+	*gobject.TraitObject
+	CPointer unsafe.Pointer
+}
+
+func NewGestureRotateFromCPointer(p unsafe.Pointer) *GestureRotate {
+	ret := &GestureRotate{
+		NewTraitGestureRotate(p),
+		NewTraitGesture(p),
+		NewTraitEventController(p),
+		gobject.NewTraitObject(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *GestureRotate) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type GestureSingle struct {
+	*TraitGestureSingle
+	*TraitGesture
+	*TraitEventController
+	*gobject.TraitObject
+	CPointer unsafe.Pointer
+}
+
+func NewGestureSingleFromCPointer(p unsafe.Pointer) *GestureSingle {
+	ret := &GestureSingle{
+		NewTraitGestureSingle(p),
+		NewTraitGesture(p),
+		NewTraitEventController(p),
+		gobject.NewTraitObject(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *GestureSingle) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type GestureSwipe struct {
+	*TraitGestureSwipe
+	*TraitGestureSingle
+	*TraitGesture
+	*TraitEventController
+	*gobject.TraitObject
+	CPointer unsafe.Pointer
+}
+
+func NewGestureSwipeFromCPointer(p unsafe.Pointer) *GestureSwipe {
+	ret := &GestureSwipe{
+		NewTraitGestureSwipe(p),
+		NewTraitGestureSingle(p),
+		NewTraitGesture(p),
+		NewTraitEventController(p),
+		gobject.NewTraitObject(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *GestureSwipe) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type GestureZoom struct {
+	*TraitGestureZoom
+	*TraitGesture
+	*TraitEventController
+	*gobject.TraitObject
+	CPointer unsafe.Pointer
+}
+
+func NewGestureZoomFromCPointer(p unsafe.Pointer) *GestureZoom {
+	ret := &GestureZoom{
+		NewTraitGestureZoom(p),
+		NewTraitGesture(p),
+		NewTraitEventController(p),
+		gobject.NewTraitObject(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *GestureZoom) {
 		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
 	})
 	return ret
@@ -2157,6 +2683,29 @@ func NewIconViewFromCPointer(p unsafe.Pointer) *IconView {
 	return ret
 }
 
+type IconViewAccessible struct {
+	*TraitIconViewAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewIconViewAccessibleFromCPointer(p unsafe.Pointer) *IconViewAccessible {
+	ret := &IconViewAccessible{
+		NewTraitIconViewAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *IconViewAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type Image struct {
 	*TraitImage
 	*TraitMisc
@@ -2177,6 +2726,50 @@ func NewImageFromCPointer(p unsafe.Pointer) *Image {
 	}
 	C.g_object_ref_sink(C.gpointer(p))
 	runtime.SetFinalizer(ret, func(p *Image) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type ImageAccessible struct {
+	*TraitImageAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewImageAccessibleFromCPointer(p unsafe.Pointer) *ImageAccessible {
+	ret := &ImageAccessible{
+		NewTraitImageAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ImageAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type ImageCellAccessible struct {
+	*TraitImageCellAccessible
+	*TraitRendererCellAccessible
+	*TraitCellAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewImageCellAccessibleFromCPointer(p unsafe.Pointer) *ImageCellAccessible {
+	ret := &ImageCellAccessible{
+		NewTraitImageCellAccessible(p),
+		NewTraitRendererCellAccessible(p),
+		NewTraitCellAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ImageCellAccessible) {
 		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
 	})
 	return ret
@@ -2286,6 +2879,27 @@ func NewLabelFromCPointer(p unsafe.Pointer) *Label {
 	return ret
 }
 
+type LabelAccessible struct {
+	*TraitLabelAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewLabelAccessibleFromCPointer(p unsafe.Pointer) *LabelAccessible {
+	ret := &LabelAccessible{
+		NewTraitLabelAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *LabelAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type Layout struct {
 	*TraitLayout
 	*TraitContainer
@@ -2334,6 +2948,27 @@ func NewLevelBarFromCPointer(p unsafe.Pointer) *LevelBar {
 	return ret
 }
 
+type LevelBarAccessible struct {
+	*TraitLevelBarAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewLevelBarAccessibleFromCPointer(p unsafe.Pointer) *LevelBarAccessible {
+	ret := &LevelBarAccessible{
+		NewTraitLevelBarAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *LevelBarAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type LinkButton struct {
 	*TraitLinkButton
 	*TraitButton
@@ -2358,6 +2993,31 @@ func NewLinkButtonFromCPointer(p unsafe.Pointer) *LinkButton {
 	}
 	C.g_object_ref_sink(C.gpointer(p))
 	runtime.SetFinalizer(ret, func(p *LinkButton) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type LinkButtonAccessible struct {
+	*TraitLinkButtonAccessible
+	*TraitButtonAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewLinkButtonAccessibleFromCPointer(p unsafe.Pointer) *LinkButtonAccessible {
+	ret := &LinkButtonAccessible{
+		NewTraitLinkButtonAccessible(p),
+		NewTraitButtonAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *LinkButtonAccessible) {
 		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
 	})
 	return ret
@@ -2388,6 +3048,29 @@ func NewListBoxFromCPointer(p unsafe.Pointer) *ListBox {
 	return ret
 }
 
+type ListBoxAccessible struct {
+	*TraitListBoxAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewListBoxAccessibleFromCPointer(p unsafe.Pointer) *ListBoxAccessible {
+	ret := &ListBoxAccessible{
+		NewTraitListBoxAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ListBoxAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type ListBoxRow struct {
 	*TraitListBoxRow
 	*TraitBin
@@ -2410,6 +3093,29 @@ func NewListBoxRowFromCPointer(p unsafe.Pointer) *ListBoxRow {
 	}
 	C.g_object_ref_sink(C.gpointer(p))
 	runtime.SetFinalizer(ret, func(p *ListBoxRow) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type ListBoxRowAccessible struct {
+	*TraitListBoxRowAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewListBoxRowAccessibleFromCPointer(p unsafe.Pointer) *ListBoxRowAccessible {
+	ret := &ListBoxRowAccessible{
+		NewTraitListBoxRowAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ListBoxRowAccessible) {
 		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
 	})
 	return ret
@@ -2463,6 +3169,31 @@ func NewLockButtonFromCPointer(p unsafe.Pointer) *LockButton {
 	return ret
 }
 
+type LockButtonAccessible struct {
+	*TraitLockButtonAccessible
+	*TraitButtonAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewLockButtonAccessibleFromCPointer(p unsafe.Pointer) *LockButtonAccessible {
+	ret := &LockButtonAccessible{
+		NewTraitLockButtonAccessible(p),
+		NewTraitButtonAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *LockButtonAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type Menu struct {
 	*TraitMenu
 	*TraitMenuShell
@@ -2485,6 +3216,31 @@ func NewMenuFromCPointer(p unsafe.Pointer) *Menu {
 	}
 	C.g_object_ref_sink(C.gpointer(p))
 	runtime.SetFinalizer(ret, func(p *Menu) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type MenuAccessible struct {
+	*TraitMenuAccessible
+	*TraitMenuShellAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewMenuAccessibleFromCPointer(p unsafe.Pointer) *MenuAccessible {
+	ret := &MenuAccessible{
+		NewTraitMenuAccessible(p),
+		NewTraitMenuShellAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *MenuAccessible) {
 		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
 	})
 	return ret
@@ -2548,6 +3304,33 @@ func NewMenuButtonFromCPointer(p unsafe.Pointer) *MenuButton {
 	return ret
 }
 
+type MenuButtonAccessible struct {
+	*TraitMenuButtonAccessible
+	*TraitToggleButtonAccessible
+	*TraitButtonAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewMenuButtonAccessibleFromCPointer(p unsafe.Pointer) *MenuButtonAccessible {
+	ret := &MenuButtonAccessible{
+		NewTraitMenuButtonAccessible(p),
+		NewTraitToggleButtonAccessible(p),
+		NewTraitButtonAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *MenuButtonAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type MenuItem struct {
 	*TraitMenuItem
 	*TraitBin
@@ -2575,6 +3358,29 @@ func NewMenuItemFromCPointer(p unsafe.Pointer) *MenuItem {
 	return ret
 }
 
+type MenuItemAccessible struct {
+	*TraitMenuItemAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewMenuItemAccessibleFromCPointer(p unsafe.Pointer) *MenuItemAccessible {
+	ret := &MenuItemAccessible{
+		NewTraitMenuItemAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *MenuItemAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type MenuShell struct {
 	*TraitMenuShell
 	*TraitContainer
@@ -2595,6 +3401,29 @@ func NewMenuShellFromCPointer(p unsafe.Pointer) *MenuShell {
 	}
 	C.g_object_ref_sink(C.gpointer(p))
 	runtime.SetFinalizer(ret, func(p *MenuShell) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type MenuShellAccessible struct {
+	*TraitMenuShellAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewMenuShellAccessibleFromCPointer(p unsafe.Pointer) *MenuShellAccessible {
+	ret := &MenuShellAccessible{
+		NewTraitMenuShellAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *MenuShellAccessible) {
 		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
 	})
 	return ret
@@ -2727,6 +3556,46 @@ func NewNotebookFromCPointer(p unsafe.Pointer) *Notebook {
 	return ret
 }
 
+type NotebookAccessible struct {
+	*TraitNotebookAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewNotebookAccessibleFromCPointer(p unsafe.Pointer) *NotebookAccessible {
+	ret := &NotebookAccessible{
+		NewTraitNotebookAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *NotebookAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type NotebookPageAccessible struct {
+	*TraitNotebookPageAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewNotebookPageAccessibleFromCPointer(p unsafe.Pointer) *NotebookPageAccessible {
+	ret := &NotebookPageAccessible{
+		NewTraitNotebookPageAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *NotebookPageAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type NumerableIcon struct {
 	*TraitNumerableIcon
 	CPointer unsafe.Pointer
@@ -2844,6 +3713,29 @@ func NewPanedFromCPointer(p unsafe.Pointer) *Paned {
 	return ret
 }
 
+type PanedAccessible struct {
+	*TraitPanedAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewPanedAccessibleFromCPointer(p unsafe.Pointer) *PanedAccessible {
+	ret := &PanedAccessible{
+		NewTraitPanedAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *PanedAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type PlacesSidebar struct {
 	*TraitPlacesSidebar
 	*TraitScrolledWindow
@@ -2929,6 +3821,29 @@ func NewPopoverFromCPointer(p unsafe.Pointer) *Popover {
 	return ret
 }
 
+type PopoverAccessible struct {
+	*TraitPopoverAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewPopoverAccessibleFromCPointer(p unsafe.Pointer) *PopoverAccessible {
+	ret := &PopoverAccessible{
+		NewTraitPopoverAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *PopoverAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type PrintContext struct {
 	*TraitPrintContext
 	*gobject.TraitObject
@@ -3009,6 +3924,27 @@ func NewProgressBarFromCPointer(p unsafe.Pointer) *ProgressBar {
 	return ret
 }
 
+type ProgressBarAccessible struct {
+	*TraitProgressBarAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewProgressBarAccessibleFromCPointer(p unsafe.Pointer) *ProgressBarAccessible {
+	ret := &ProgressBarAccessible{
+		NewTraitProgressBarAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ProgressBarAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type RadioAction struct {
 	*TraitRadioAction
 	*TraitToggleAction
@@ -3065,6 +4001,33 @@ func NewRadioButtonFromCPointer(p unsafe.Pointer) *RadioButton {
 	return ret
 }
 
+type RadioButtonAccessible struct {
+	*TraitRadioButtonAccessible
+	*TraitToggleButtonAccessible
+	*TraitButtonAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewRadioButtonAccessibleFromCPointer(p unsafe.Pointer) *RadioButtonAccessible {
+	ret := &RadioButtonAccessible{
+		NewTraitRadioButtonAccessible(p),
+		NewTraitToggleButtonAccessible(p),
+		NewTraitButtonAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *RadioButtonAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type RadioMenuItem struct {
 	*TraitRadioMenuItem
 	*TraitCheckMenuItem
@@ -3091,6 +4054,33 @@ func NewRadioMenuItemFromCPointer(p unsafe.Pointer) *RadioMenuItem {
 	}
 	C.g_object_ref_sink(C.gpointer(p))
 	runtime.SetFinalizer(ret, func(p *RadioMenuItem) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type RadioMenuItemAccessible struct {
+	*TraitRadioMenuItemAccessible
+	*TraitCheckMenuItemAccessible
+	*TraitMenuItemAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewRadioMenuItemAccessibleFromCPointer(p unsafe.Pointer) *RadioMenuItemAccessible {
+	ret := &RadioMenuItemAccessible{
+		NewTraitRadioMenuItemAccessible(p),
+		NewTraitCheckMenuItemAccessible(p),
+		NewTraitMenuItemAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *RadioMenuItemAccessible) {
 		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
 	})
 	return ret
@@ -3147,6 +4137,27 @@ func NewRangeFromCPointer(p unsafe.Pointer) *Range {
 	}
 	C.g_object_ref_sink(C.gpointer(p))
 	runtime.SetFinalizer(ret, func(p *Range) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type RangeAccessible struct {
+	*TraitRangeAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewRangeAccessibleFromCPointer(p unsafe.Pointer) *RangeAccessible {
+	ret := &RangeAccessible{
+		NewTraitRangeAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *RangeAccessible) {
 		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
 	})
 	return ret
@@ -3319,6 +4330,27 @@ func NewRecentManagerFromCPointer(p unsafe.Pointer) *RecentManager {
 	return ret
 }
 
+type RendererCellAccessible struct {
+	*TraitRendererCellAccessible
+	*TraitCellAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewRendererCellAccessibleFromCPointer(p unsafe.Pointer) *RendererCellAccessible {
+	ret := &RendererCellAccessible{
+		NewTraitRendererCellAccessible(p),
+		NewTraitCellAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *RendererCellAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type Revealer struct {
 	*TraitRevealer
 	*TraitBin
@@ -3371,6 +4403,29 @@ func NewScaleFromCPointer(p unsafe.Pointer) *Scale {
 	return ret
 }
 
+type ScaleAccessible struct {
+	*TraitScaleAccessible
+	*TraitRangeAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewScaleAccessibleFromCPointer(p unsafe.Pointer) *ScaleAccessible {
+	ret := &ScaleAccessible{
+		NewTraitScaleAccessible(p),
+		NewTraitRangeAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ScaleAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type ScaleButton struct {
 	*TraitScaleButton
 	*TraitButton
@@ -3395,6 +4450,31 @@ func NewScaleButtonFromCPointer(p unsafe.Pointer) *ScaleButton {
 	}
 	C.g_object_ref_sink(C.gpointer(p))
 	runtime.SetFinalizer(ret, func(p *ScaleButton) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type ScaleButtonAccessible struct {
+	*TraitScaleButtonAccessible
+	*TraitButtonAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewScaleButtonAccessibleFromCPointer(p unsafe.Pointer) *ScaleButtonAccessible {
+	ret := &ScaleButtonAccessible{
+		NewTraitScaleButtonAccessible(p),
+		NewTraitButtonAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ScaleButtonAccessible) {
 		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
 	})
 	return ret
@@ -3447,6 +4527,29 @@ func NewScrolledWindowFromCPointer(p unsafe.Pointer) *ScrolledWindow {
 	}
 	C.g_object_ref_sink(C.gpointer(p))
 	runtime.SetFinalizer(ret, func(p *ScrolledWindow) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type ScrolledWindowAccessible struct {
+	*TraitScrolledWindowAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewScrolledWindowAccessibleFromCPointer(p unsafe.Pointer) *ScrolledWindowAccessible {
+	ret := &ScrolledWindowAccessible{
+		NewTraitScrolledWindowAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ScrolledWindowAccessible) {
 		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
 	})
 	return ret
@@ -3673,6 +4776,29 @@ func NewSpinButtonFromCPointer(p unsafe.Pointer) *SpinButton {
 	return ret
 }
 
+type SpinButtonAccessible struct {
+	*TraitSpinButtonAccessible
+	*TraitEntryAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewSpinButtonAccessibleFromCPointer(p unsafe.Pointer) *SpinButtonAccessible {
+	ret := &SpinButtonAccessible{
+		NewTraitSpinButtonAccessible(p),
+		NewTraitEntryAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *SpinButtonAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type Spinner struct {
 	*TraitSpinner
 	*TraitWidget
@@ -3691,6 +4817,27 @@ func NewSpinnerFromCPointer(p unsafe.Pointer) *Spinner {
 	}
 	C.g_object_ref_sink(C.gpointer(p))
 	runtime.SetFinalizer(ret, func(p *Spinner) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type SpinnerAccessible struct {
+	*TraitSpinnerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewSpinnerAccessibleFromCPointer(p unsafe.Pointer) *SpinnerAccessible {
+	ret := &SpinnerAccessible{
+		NewTraitSpinnerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *SpinnerAccessible) {
 		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
 	})
 	return ret
@@ -3794,6 +4941,29 @@ func NewStatusbarFromCPointer(p unsafe.Pointer) *Statusbar {
 	return ret
 }
 
+type StatusbarAccessible struct {
+	*TraitStatusbarAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewStatusbarAccessibleFromCPointer(p unsafe.Pointer) *StatusbarAccessible {
+	ret := &StatusbarAccessible{
+		NewTraitStatusbarAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *StatusbarAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type Style struct {
 	*TraitStyle
 	*gobject.TraitObject
@@ -3874,6 +5044,27 @@ func NewSwitchFromCPointer(p unsafe.Pointer) *Switch {
 	return ret
 }
 
+type SwitchAccessible struct {
+	*TraitSwitchAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewSwitchAccessibleFromCPointer(p unsafe.Pointer) *SwitchAccessible {
+	ret := &SwitchAccessible{
+		NewTraitSwitchAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *SwitchAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type Table struct {
 	*TraitTable
 	*TraitContainer
@@ -3942,6 +5133,29 @@ func NewTextBufferFromCPointer(p unsafe.Pointer) *TextBuffer {
 	}
 	C.g_object_ref_sink(C.gpointer(p))
 	runtime.SetFinalizer(ret, func(p *TextBuffer) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type TextCellAccessible struct {
+	*TraitTextCellAccessible
+	*TraitRendererCellAccessible
+	*TraitCellAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewTextCellAccessibleFromCPointer(p unsafe.Pointer) *TextCellAccessible {
+	ret := &TextCellAccessible{
+		NewTraitTextCellAccessible(p),
+		NewTraitRendererCellAccessible(p),
+		NewTraitCellAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *TextCellAccessible) {
 		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
 	})
 	return ret
@@ -4048,6 +5262,29 @@ func NewTextViewFromCPointer(p unsafe.Pointer) *TextView {
 	return ret
 }
 
+type TextViewAccessible struct {
+	*TraitTextViewAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewTextViewAccessibleFromCPointer(p unsafe.Pointer) *TextViewAccessible {
+	ret := &TextViewAccessible{
+		NewTraitTextViewAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *TextViewAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type ThemingEngine struct {
 	*TraitThemingEngine
 	*gobject.TraitObject
@@ -4112,6 +5349,31 @@ func NewToggleButtonFromCPointer(p unsafe.Pointer) *ToggleButton {
 	}
 	C.g_object_ref_sink(C.gpointer(p))
 	runtime.SetFinalizer(ret, func(p *ToggleButton) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type ToggleButtonAccessible struct {
+	*TraitToggleButtonAccessible
+	*TraitButtonAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewToggleButtonAccessibleFromCPointer(p unsafe.Pointer) *ToggleButtonAccessible {
+	ret := &ToggleButtonAccessible{
+		NewTraitToggleButtonAccessible(p),
+		NewTraitButtonAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ToggleButtonAccessible) {
 		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
 	})
 	return ret
@@ -4298,6 +5560,23 @@ func NewTooltipFromCPointer(p unsafe.Pointer) *Tooltip {
 	return ret
 }
 
+type ToplevelAccessible struct {
+	*TraitToplevelAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewToplevelAccessibleFromCPointer(p unsafe.Pointer) *ToplevelAccessible {
+	ret := &ToplevelAccessible{
+		NewTraitToplevelAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *ToplevelAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type TreeModelFilter struct {
 	*TraitTreeModelFilter
 	*gobject.TraitObject
@@ -4394,6 +5673,29 @@ func NewTreeViewFromCPointer(p unsafe.Pointer) *TreeView {
 	}
 	C.g_object_ref_sink(C.gpointer(p))
 	runtime.SetFinalizer(ret, func(p *TreeView) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type TreeViewAccessible struct {
+	*TraitTreeViewAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewTreeViewAccessibleFromCPointer(p unsafe.Pointer) *TreeViewAccessible {
+	ret := &TreeViewAccessible{
+		NewTraitTreeViewAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *TreeViewAccessible) {
 		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
 	})
 	return ret
@@ -4680,6 +5982,25 @@ func NewWidgetFromCPointer(p unsafe.Pointer) *Widget {
 	return ret
 }
 
+type WidgetAccessible struct {
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewWidgetAccessibleFromCPointer(p unsafe.Pointer) *WidgetAccessible {
+	ret := &WidgetAccessible{
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *WidgetAccessible) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
 type Window struct {
 	*TraitWindow
 	*TraitBin
@@ -4702,6 +6023,29 @@ func NewWindowFromCPointer(p unsafe.Pointer) *Window {
 	}
 	C.g_object_ref_sink(C.gpointer(p))
 	runtime.SetFinalizer(ret, func(p *Window) {
+		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
+	})
+	return ret
+}
+
+type WindowAccessible struct {
+	*TraitWindowAccessible
+	*TraitContainerAccessible
+	*TraitWidgetAccessible
+	*TraitAccessible
+	CPointer unsafe.Pointer
+}
+
+func NewWindowAccessibleFromCPointer(p unsafe.Pointer) *WindowAccessible {
+	ret := &WindowAccessible{
+		NewTraitWindowAccessible(p),
+		NewTraitContainerAccessible(p),
+		NewTraitWidgetAccessible(p),
+		NewTraitAccessible(p),
+		p,
+	}
+	C.g_object_ref_sink(C.gpointer(p))
+	runtime.SetFinalizer(ret, func(p *WindowAccessible) {
 		C.g_object_unref(C.gpointer(unsafe.Pointer(p.CPointer)))
 	})
 	return ret

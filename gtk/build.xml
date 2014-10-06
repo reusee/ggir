@@ -20,6 +20,7 @@
 
   <include>gtk/gtk.h</include>
   <include>gtk/gtkx.h</include>
+  <include>glib.h</include>
 
   <pkg-config>gtk+-3.0</pkg-config>
 
@@ -34,6 +35,8 @@
     <entry>gtk_icon_theme_choose_icon_for_scale</entry>
     <entry>gtk_icon_theme_get_search_path</entry>
     <entry>gtk_icon_theme_set_search_path</entry>
+    <!-- build error -->
+    <entry>gtk_binding_*</entry>
   </function-ignore-patterns>
 
   <constant-ignore-patterns>
