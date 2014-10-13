@@ -629,11 +629,7 @@ g_application_withdraw_notification().
 */
 func (self *TraitApplication) SendNotification(id string, notification IsNotification) {
 	__cgo__id := (*C.gchar)(unsafe.Pointer(C.CString(id)))
-	var __cgo__notification *C.GNotification
-	if notification != nil {
-		__cgo__notification = notification.GetNotificationPointer()
-	}
-	C.g_application_send_notification(self.CPointer, __cgo__id, __cgo__notification)
+	C.g_application_send_notification(self.CPointer, __cgo__id, notification.GetNotificationPointer())
 	C.free(unsafe.Pointer(__cgo__id))
 	return
 }
@@ -1616,13 +1612,9 @@ This operation can fail if #GCredentials is not supported on the
 the OS.
 */
 func (self *TraitCredentials) IsSameUser(other_credentials IsCredentials) (return__ bool, __err__ error) {
-	var __cgo__other_credentials *C.GCredentials
-	if other_credentials != nil {
-		__cgo__other_credentials = other_credentials.GetCredentialsPointer()
-	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_credentials_is_same_user(self.CPointer, __cgo__other_credentials, &__cgo_error__)
+	__cgo__return__ = C.g_credentials_is_same_user(self.CPointer, other_credentials.GetCredentialsPointer(), &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -1715,16 +1707,12 @@ func (self *TraitDBusAuthObserver) AllowMechanism(mechanism string) (return__ bo
 Emits the #GDBusAuthObserver::authorize-authenticated-peer signal on @observer.
 */
 func (self *TraitDBusAuthObserver) AuthorizeAuthenticatedPeer(stream IsIOStream, credentials IsCredentials) (return__ bool) {
-	var __cgo__stream *C.GIOStream
-	if stream != nil {
-		__cgo__stream = stream.GetIOStreamPointer()
-	}
 	var __cgo__credentials *C.GCredentials
 	if credentials != nil {
 		__cgo__credentials = credentials.GetCredentialsPointer()
 	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_dbus_auth_observer_authorize_authenticated_peer(self.CPointer, __cgo__stream, __cgo__credentials)
+	__cgo__return__ = C.g_dbus_auth_observer_authorize_authenticated_peer(self.CPointer, stream.GetIOStreamPointer(), __cgo__credentials)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -2127,13 +2115,9 @@ this function.
 */
 func (self *TraitDBusConnection) ExportMenuModel(object_path string, menu IsMenuModel) (return__ uint, __err__ error) {
 	__cgo__object_path := (*C.gchar)(unsafe.Pointer(C.CString(object_path)))
-	var __cgo__menu *C.GMenuModel
-	if menu != nil {
-		__cgo__menu = menu.GetMenuModelPointer()
-	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.guint
-	__cgo__return__ = C.g_dbus_connection_export_menu_model(self.CPointer, __cgo__object_path, __cgo__menu, &__cgo_error__)
+	__cgo__return__ = C.g_dbus_connection_export_menu_model(self.CPointer, __cgo__object_path, menu.GetMenuModelPointer(), &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__object_path))
 	return__ = uint(__cgo__return__)
 	if __cgo_error__ != nil {
@@ -2437,14 +2421,10 @@ Note that @message must be unlocked, unless @flags contain the
 %G_DBUS_SEND_MESSAGE_FLAGS_PRESERVE_SERIAL flag.
 */
 func (self *TraitDBusConnection) SendMessage(message IsDBusMessage, flags C.GDBusSendMessageFlags) (out_serial uint32, return__ bool, __err__ error) {
-	var __cgo__message *C.GDBusMessage
-	if message != nil {
-		__cgo__message = message.GetDBusMessagePointer()
-	}
 	var __cgo__out_serial C.guint32
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_dbus_connection_send_message(self.CPointer, __cgo__message, flags, &__cgo__out_serial, &__cgo_error__)
+	__cgo__return__ = C.g_dbus_connection_send_message(self.CPointer, message.GetDBusMessagePointer(), flags, &__cgo__out_serial, &__cgo_error__)
 	out_serial = uint32(__cgo__out_serial)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
@@ -2483,16 +2463,12 @@ for an example of how to use this low-level API to send and receive
 UNIX file descriptors.
 */
 func (self *TraitDBusConnection) SendMessageWithReply(message IsDBusMessage, flags C.GDBusSendMessageFlags, timeout_msec int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) (out_serial uint32) {
-	var __cgo__message *C.GDBusMessage
-	if message != nil {
-		__cgo__message = message.GetDBusMessagePointer()
-	}
 	var __cgo__out_serial C.guint32
 	var __cgo__cancellable *C.GCancellable
 	if cancellable != nil {
 		__cgo__cancellable = cancellable.GetCancellablePointer()
 	}
-	C.g_dbus_connection_send_message_with_reply(self.CPointer, __cgo__message, flags, C.gint(timeout_msec), &__cgo__out_serial, __cgo__cancellable, callback, (C.gpointer)(user_data))
+	C.g_dbus_connection_send_message_with_reply(self.CPointer, message.GetDBusMessagePointer(), flags, C.gint(timeout_msec), &__cgo__out_serial, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	out_serial = uint32(__cgo__out_serial)
 	return
 }
@@ -2553,10 +2529,6 @@ Note that @message must be unlocked, unless @flags contain the
 %G_DBUS_SEND_MESSAGE_FLAGS_PRESERVE_SERIAL flag.
 */
 func (self *TraitDBusConnection) SendMessageWithReplySync(message IsDBusMessage, flags C.GDBusSendMessageFlags, timeout_msec int, cancellable IsCancellable) (out_serial uint32, return__ *DBusMessage, __err__ error) {
-	var __cgo__message *C.GDBusMessage
-	if message != nil {
-		__cgo__message = message.GetDBusMessagePointer()
-	}
 	var __cgo__out_serial C.guint32
 	var __cgo__cancellable *C.GCancellable
 	if cancellable != nil {
@@ -2564,7 +2536,7 @@ func (self *TraitDBusConnection) SendMessageWithReplySync(message IsDBusMessage,
 	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ *C.GDBusMessage
-	__cgo__return__ = C.g_dbus_connection_send_message_with_reply_sync(self.CPointer, __cgo__message, flags, C.gint(timeout_msec), &__cgo__out_serial, __cgo__cancellable, &__cgo_error__)
+	__cgo__return__ = C.g_dbus_connection_send_message_with_reply_sync(self.CPointer, message.GetDBusMessagePointer(), flags, C.gint(timeout_msec), &__cgo__out_serial, __cgo__cancellable, &__cgo_error__)
 	out_serial = uint32(__cgo__out_serial)
 	if __cgo__return__ != nil {
 		return__ = NewDBusMessageFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
@@ -2721,14 +2693,10 @@ the same for all connections.
 Use g_dbus_interface_skeleton_unexport() to unexport the object.
 */
 func (self *TraitDBusInterfaceSkeleton) Export(connection IsDBusConnection, object_path string) (return__ bool, __err__ error) {
-	var __cgo__connection *C.GDBusConnection
-	if connection != nil {
-		__cgo__connection = connection.GetDBusConnectionPointer()
-	}
 	__cgo__object_path := (*C.gchar)(unsafe.Pointer(C.CString(object_path)))
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_dbus_interface_skeleton_export(self.CPointer, __cgo__connection, __cgo__object_path, &__cgo_error__)
+	__cgo__return__ = C.g_dbus_interface_skeleton_export(self.CPointer, connection.GetDBusConnectionPointer(), __cgo__object_path, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__object_path))
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
@@ -2822,12 +2790,8 @@ func (self *TraitDBusInterfaceSkeleton) GetVtable() (return__ *C.GDBusInterfaceV
 Checks if @interface_ is exported on @connection.
 */
 func (self *TraitDBusInterfaceSkeleton) HasConnection(connection IsDBusConnection) (return__ bool) {
-	var __cgo__connection *C.GDBusConnection
-	if connection != nil {
-		__cgo__connection = connection.GetDBusConnectionPointer()
-	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_dbus_interface_skeleton_has_connection(self.CPointer, __cgo__connection)
+	__cgo__return__ = C.g_dbus_interface_skeleton_has_connection(self.CPointer, connection.GetDBusConnectionPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -2858,11 +2822,7 @@ To stop exporting on all connections the interface is exported on,
 use g_dbus_interface_skeleton_unexport().
 */
 func (self *TraitDBusInterfaceSkeleton) UnexportFromConnection(connection IsDBusConnection) {
-	var __cgo__connection *C.GDBusConnection
-	if connection != nil {
-		__cgo__connection = connection.GetDBusConnectionPointer()
-	}
-	C.g_dbus_interface_skeleton_unexport_from_connection(self.CPointer, __cgo__connection)
+	C.g_dbus_interface_skeleton_unexport_from_connection(self.CPointer, connection.GetDBusConnectionPointer())
 	return
 }
 
@@ -3670,11 +3630,7 @@ Note that @manager will take a reference on @object for as long as
 it is exported.
 */
 func (self *TraitDBusObjectManagerServer) Export(object IsDBusObjectSkeleton) {
-	var __cgo__object *C.GDBusObjectSkeleton
-	if object != nil {
-		__cgo__object = object.GetDBusObjectSkeletonPointer()
-	}
-	C.g_dbus_object_manager_server_export(self.CPointer, __cgo__object)
+	C.g_dbus_object_manager_server_export(self.CPointer, object.GetDBusObjectSkeletonPointer())
 	return
 }
 
@@ -3685,11 +3641,7 @@ if an object with the given path already exists. As such, the
 #GDBusObjectProxy:g-object-path property of @object may be modified.
 */
 func (self *TraitDBusObjectManagerServer) ExportUniquely(object IsDBusObjectSkeleton) {
-	var __cgo__object *C.GDBusObjectSkeleton
-	if object != nil {
-		__cgo__object = object.GetDBusObjectSkeletonPointer()
-	}
-	C.g_dbus_object_manager_server_export_uniquely(self.CPointer, __cgo__object)
+	C.g_dbus_object_manager_server_export_uniquely(self.CPointer, object.GetDBusObjectSkeletonPointer())
 	return
 }
 
@@ -3709,12 +3661,8 @@ func (self *TraitDBusObjectManagerServer) GetConnection() (return__ *DBusConnect
 Returns whether @object is currently exported on @manager.
 */
 func (self *TraitDBusObjectManagerServer) IsExported(object IsDBusObjectSkeleton) (return__ bool) {
-	var __cgo__object *C.GDBusObjectSkeleton
-	if object != nil {
-		__cgo__object = object.GetDBusObjectSkeletonPointer()
-	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_dbus_object_manager_server_is_exported(self.CPointer, __cgo__object)
+	__cgo__return__ = C.g_dbus_object_manager_server_is_exported(self.CPointer, object.GetDBusObjectSkeletonPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -3794,11 +3742,7 @@ Note that @object takes its own reference on @interface_ and holds
 it until removed.
 */
 func (self *TraitDBusObjectSkeleton) AddInterface(interface_ IsDBusInterfaceSkeleton) {
-	var __cgo__interface_ *C.GDBusInterfaceSkeleton
-	if interface_ != nil {
-		__cgo__interface_ = interface_.GetDBusInterfaceSkeletonPointer()
-	}
-	C.g_dbus_object_skeleton_add_interface(self.CPointer, __cgo__interface_)
+	C.g_dbus_object_skeleton_add_interface(self.CPointer, interface_.GetDBusInterfaceSkeletonPointer())
 	return
 }
 
@@ -3816,11 +3760,7 @@ func (self *TraitDBusObjectSkeleton) Flush() {
 Removes @interface_ from @object.
 */
 func (self *TraitDBusObjectSkeleton) RemoveInterface(interface_ IsDBusInterfaceSkeleton) {
-	var __cgo__interface_ *C.GDBusInterfaceSkeleton
-	if interface_ != nil {
-		__cgo__interface_ = interface_.GetDBusInterfaceSkeletonPointer()
-	}
-	C.g_dbus_object_skeleton_remove_interface(self.CPointer, __cgo__interface_)
+	C.g_dbus_object_skeleton_remove_interface(self.CPointer, interface_.GetDBusInterfaceSkeletonPointer())
 	return
 }
 
@@ -5201,11 +5141,7 @@ func NewTraitEmblemedIcon(p unsafe.Pointer) *TraitEmblemedIcon {
 Adds @emblem to the #GList of #GEmblems.
 */
 func (self *TraitEmblemedIcon) AddEmblem(emblem IsEmblem) {
-	var __cgo__emblem *C.GEmblem
-	if emblem != nil {
-		__cgo__emblem = emblem.GetEmblemPointer()
-	}
-	C.g_emblemed_icon_add_emblem(self.CPointer, __cgo__emblem)
+	C.g_emblemed_icon_add_emblem(self.CPointer, emblem.GetEmblemPointer())
 	return
 }
 
@@ -5321,11 +5257,7 @@ This is a convenience method that's equivalent to:
 ]|
 */
 func (self *TraitFileEnumerator) GetChild(info IsFileInfo) (return__ *C.GFile) {
-	var __cgo__info *C.GFileInfo
-	if info != nil {
-		__cgo__info = info.GetFileInfoPointer()
-	}
-	return__ = C.g_file_enumerator_get_child(self.CPointer, __cgo__info)
+	return__ = C.g_file_enumerator_get_child(self.CPointer, info.GetFileInfoPointer())
 	return
 }
 
@@ -5584,11 +5516,7 @@ Copies all of the [GFileAttribute][gio-GFileAttribute]
 from @src_info to @dest_info.
 */
 func (self *TraitFileInfo) CopyInto(dest_info IsFileInfo) {
-	var __cgo__dest_info *C.GFileInfo
-	if dest_info != nil {
-		__cgo__dest_info = dest_info.GetFileInfoPointer()
-	}
-	C.g_file_info_copy_into(self.CPointer, __cgo__dest_info)
+	C.g_file_info_copy_into(self.CPointer, dest_info.GetFileInfoPointer())
 	return
 }
 
@@ -6824,15 +6752,11 @@ You can then call g_io_stream_splice_finish() to get the
 result of the operation.
 */
 func (self *TraitIOStream) SpliceAsync(stream2 IsIOStream, flags C.GIOStreamSpliceFlags, io_priority int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	var __cgo__stream2 *C.GIOStream
-	if stream2 != nil {
-		__cgo__stream2 = stream2.GetIOStreamPointer()
-	}
 	var __cgo__cancellable *C.GCancellable
 	if cancellable != nil {
 		__cgo__cancellable = cancellable.GetCancellablePointer()
 	}
-	C.g_io_stream_splice_async(self.CPointer, __cgo__stream2, flags, C.int(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
+	C.g_io_stream_splice_async(self.CPointer, stream2.GetIOStreamPointer(), flags, C.int(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -6852,12 +6776,8 @@ func NewTraitInetAddress(p unsafe.Pointer) *TraitInetAddress {
 Checks if two #GInetAddress instances are equal, e.g. the same address.
 */
 func (self *TraitInetAddress) Equal(other_address IsInetAddress) (return__ bool) {
-	var __cgo__other_address *C.GInetAddress
-	if other_address != nil {
-		__cgo__other_address = other_address.GetInetAddressPointer()
-	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_inet_address_equal(self.CPointer, __cgo__other_address)
+	__cgo__return__ = C.g_inet_address_equal(self.CPointer, other_address.GetInetAddressPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -7020,12 +6940,8 @@ func NewTraitInetAddressMask(p unsafe.Pointer) *TraitInetAddressMask {
 Tests if @mask and @mask2 are the same mask.
 */
 func (self *TraitInetAddressMask) Equal(mask2 IsInetAddressMask) (return__ bool) {
-	var __cgo__mask2 *C.GInetAddressMask
-	if mask2 != nil {
-		__cgo__mask2 = mask2.GetInetAddressMaskPointer()
-	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_inet_address_mask_equal(self.CPointer, __cgo__mask2)
+	__cgo__return__ = C.g_inet_address_mask_equal(self.CPointer, mask2.GetInetAddressMaskPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -7064,12 +6980,8 @@ func (self *TraitInetAddressMask) GetLength() (return__ uint) {
 Tests if @address falls within the range described by @mask.
 */
 func (self *TraitInetAddressMask) Matches(address IsInetAddress) (return__ bool) {
-	var __cgo__address *C.GInetAddress
-	if address != nil {
-		__cgo__address = address.GetInetAddressPointer()
-	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_inet_address_mask_matches(self.CPointer, __cgo__address)
+	__cgo__return__ = C.g_inet_address_mask_matches(self.CPointer, address.GetInetAddressPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -7697,11 +7609,7 @@ Appends @item to the end of @menu.
 See g_menu_insert_item() for more information.
 */
 func (self *TraitMenu) AppendItem(item IsMenuItem) {
-	var __cgo__item *C.GMenuItem
-	if item != nil {
-		__cgo__item = item.GetMenuItemPointer()
-	}
-	C.g_menu_append_item(self.CPointer, __cgo__item)
+	C.g_menu_append_item(self.CPointer, item.GetMenuItemPointer())
 	return
 }
 
@@ -7712,11 +7620,7 @@ more flexible alternative.
 */
 func (self *TraitMenu) AppendSection(label string, section IsMenuModel) {
 	__cgo__label := (*C.gchar)(unsafe.Pointer(C.CString(label)))
-	var __cgo__section *C.GMenuModel
-	if section != nil {
-		__cgo__section = section.GetMenuModelPointer()
-	}
-	C.g_menu_append_section(self.CPointer, __cgo__label, __cgo__section)
+	C.g_menu_append_section(self.CPointer, __cgo__label, section.GetMenuModelPointer())
 	C.free(unsafe.Pointer(__cgo__label))
 	return
 }
@@ -7728,11 +7632,7 @@ more flexible alternative.
 */
 func (self *TraitMenu) AppendSubmenu(label string, submenu IsMenuModel) {
 	__cgo__label := (*C.gchar)(unsafe.Pointer(C.CString(label)))
-	var __cgo__submenu *C.GMenuModel
-	if submenu != nil {
-		__cgo__submenu = submenu.GetMenuModelPointer()
-	}
-	C.g_menu_append_submenu(self.CPointer, __cgo__label, __cgo__submenu)
+	C.g_menu_append_submenu(self.CPointer, __cgo__label, submenu.GetMenuModelPointer())
 	C.free(unsafe.Pointer(__cgo__label))
 	return
 }
@@ -7786,11 +7686,7 @@ g_menu_insert_submenu() as well as "prepend" and "append" variants of
 each of these functions.
 */
 func (self *TraitMenu) InsertItem(position int, item IsMenuItem) {
-	var __cgo__item *C.GMenuItem
-	if item != nil {
-		__cgo__item = item.GetMenuItemPointer()
-	}
-	C.g_menu_insert_item(self.CPointer, C.gint(position), __cgo__item)
+	C.g_menu_insert_item(self.CPointer, C.gint(position), item.GetMenuItemPointer())
 	return
 }
 
@@ -7801,11 +7697,7 @@ flexible alternative.
 */
 func (self *TraitMenu) InsertSection(position int, label string, section IsMenuModel) {
 	__cgo__label := (*C.gchar)(unsafe.Pointer(C.CString(label)))
-	var __cgo__section *C.GMenuModel
-	if section != nil {
-		__cgo__section = section.GetMenuModelPointer()
-	}
-	C.g_menu_insert_section(self.CPointer, C.gint(position), __cgo__label, __cgo__section)
+	C.g_menu_insert_section(self.CPointer, C.gint(position), __cgo__label, section.GetMenuModelPointer())
 	C.free(unsafe.Pointer(__cgo__label))
 	return
 }
@@ -7817,11 +7709,7 @@ flexible alternative.
 */
 func (self *TraitMenu) InsertSubmenu(position int, label string, submenu IsMenuModel) {
 	__cgo__label := (*C.gchar)(unsafe.Pointer(C.CString(label)))
-	var __cgo__submenu *C.GMenuModel
-	if submenu != nil {
-		__cgo__submenu = submenu.GetMenuModelPointer()
-	}
-	C.g_menu_insert_submenu(self.CPointer, C.gint(position), __cgo__label, __cgo__submenu)
+	C.g_menu_insert_submenu(self.CPointer, C.gint(position), __cgo__label, submenu.GetMenuModelPointer())
 	C.free(unsafe.Pointer(__cgo__label))
 	return
 }
@@ -7846,11 +7734,7 @@ Prepends @item to the start of @menu.
 See g_menu_insert_item() for more information.
 */
 func (self *TraitMenu) PrependItem(item IsMenuItem) {
-	var __cgo__item *C.GMenuItem
-	if item != nil {
-		__cgo__item = item.GetMenuItemPointer()
-	}
-	C.g_menu_prepend_item(self.CPointer, __cgo__item)
+	C.g_menu_prepend_item(self.CPointer, item.GetMenuItemPointer())
 	return
 }
 
@@ -7861,11 +7745,7 @@ a more flexible alternative.
 */
 func (self *TraitMenu) PrependSection(label string, section IsMenuModel) {
 	__cgo__label := (*C.gchar)(unsafe.Pointer(C.CString(label)))
-	var __cgo__section *C.GMenuModel
-	if section != nil {
-		__cgo__section = section.GetMenuModelPointer()
-	}
-	C.g_menu_prepend_section(self.CPointer, __cgo__label, __cgo__section)
+	C.g_menu_prepend_section(self.CPointer, __cgo__label, section.GetMenuModelPointer())
 	C.free(unsafe.Pointer(__cgo__label))
 	return
 }
@@ -7877,11 +7757,7 @@ a more flexible alternative.
 */
 func (self *TraitMenu) PrependSubmenu(label string, submenu IsMenuModel) {
 	__cgo__label := (*C.gchar)(unsafe.Pointer(C.CString(label)))
-	var __cgo__submenu *C.GMenuModel
-	if submenu != nil {
-		__cgo__submenu = submenu.GetMenuModelPointer()
-	}
-	C.g_menu_prepend_submenu(self.CPointer, __cgo__label, __cgo__submenu)
+	C.g_menu_prepend_submenu(self.CPointer, __cgo__label, submenu.GetMenuModelPointer())
 	C.free(unsafe.Pointer(__cgo__label))
 	return
 }
@@ -9040,17 +8916,13 @@ func (self *TraitOutputStream) SetPending() (return__ bool, __err__ error) {
 Splices an input stream into an output stream.
 */
 func (self *TraitOutputStream) Splice(source IsInputStream, flags C.GOutputStreamSpliceFlags, cancellable IsCancellable) (return__ int64, __err__ error) {
-	var __cgo__source *C.GInputStream
-	if source != nil {
-		__cgo__source = source.GetInputStreamPointer()
-	}
 	var __cgo__cancellable *C.GCancellable
 	if cancellable != nil {
 		__cgo__cancellable = cancellable.GetCancellablePointer()
 	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gssize
-	__cgo__return__ = C.g_output_stream_splice(self.CPointer, __cgo__source, flags, __cgo__cancellable, &__cgo_error__)
+	__cgo__return__ = C.g_output_stream_splice(self.CPointer, source.GetInputStreamPointer(), flags, __cgo__cancellable, &__cgo_error__)
 	return__ = int64(__cgo__return__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -9068,15 +8940,11 @@ For the synchronous, blocking version of this function, see
 g_output_stream_splice().
 */
 func (self *TraitOutputStream) SpliceAsync(source IsInputStream, flags C.GOutputStreamSpliceFlags, io_priority int, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	var __cgo__source *C.GInputStream
-	if source != nil {
-		__cgo__source = source.GetInputStreamPointer()
-	}
 	var __cgo__cancellable *C.GCancellable
 	if cancellable != nil {
 		__cgo__cancellable = cancellable.GetCancellablePointer()
 	}
-	C.g_output_stream_splice_async(self.CPointer, __cgo__source, flags, C.int(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
+	C.g_output_stream_splice_async(self.CPointer, source.GetInputStreamPointer(), flags, C.int(io_priority), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -9630,17 +9498,13 @@ operation, in which case @error (if non-%NULL) will be set to
 %G_IO_ERROR_CANCELLED.
 */
 func (self *TraitResolver) LookupByAddress(address IsInetAddress, cancellable IsCancellable) (return__ string, __err__ error) {
-	var __cgo__address *C.GInetAddress
-	if address != nil {
-		__cgo__address = address.GetInetAddressPointer()
-	}
 	var __cgo__cancellable *C.GCancellable
 	if cancellable != nil {
 		__cgo__cancellable = cancellable.GetCancellablePointer()
 	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_resolver_lookup_by_address(self.CPointer, __cgo__address, __cgo__cancellable, &__cgo_error__)
+	__cgo__return__ = C.g_resolver_lookup_by_address(self.CPointer, address.GetInetAddressPointer(), __cgo__cancellable, &__cgo_error__)
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -9654,15 +9518,11 @@ associated hostname, and eventually calls @callback, which must
 call g_resolver_lookup_by_address_finish() to get the final result.
 */
 func (self *TraitResolver) LookupByAddressAsync(address IsInetAddress, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	var __cgo__address *C.GInetAddress
-	if address != nil {
-		__cgo__address = address.GetInetAddressPointer()
-	}
 	var __cgo__cancellable *C.GCancellable
 	if cancellable != nil {
 		__cgo__cancellable = cancellable.GetCancellablePointer()
 	}
-	C.g_resolver_lookup_by_address_async(self.CPointer, __cgo__address, __cgo__cancellable, callback, (C.gpointer)(user_data))
+	C.g_resolver_lookup_by_address_async(self.CPointer, address.GetInetAddressPointer(), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -11015,17 +10875,13 @@ broadcast packets sent to that address. (The behavior of unicast
 UDP packets to an address with multiple listeners is not defined.)
 */
 func (self *TraitSocket) Bind(address IsSocketAddress, allow_reuse bool) (return__ bool, __err__ error) {
-	var __cgo__address *C.GSocketAddress
-	if address != nil {
-		__cgo__address = address.GetSocketAddressPointer()
-	}
 	__cgo__allow_reuse := C.gboolean(0)
 	if allow_reuse {
 		__cgo__allow_reuse = C.gboolean(1)
 	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_socket_bind(self.CPointer, __cgo__address, __cgo__allow_reuse, &__cgo_error__)
+	__cgo__return__ = C.g_socket_bind(self.CPointer, address.GetSocketAddressPointer(), __cgo__allow_reuse, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -11194,17 +11050,13 @@ for the G_IO_OUT condition. The result of the connection must then be
 checked with g_socket_check_connect_result().
 */
 func (self *TraitSocket) Connect(address IsSocketAddress, cancellable IsCancellable) (return__ bool, __err__ error) {
-	var __cgo__address *C.GSocketAddress
-	if address != nil {
-		__cgo__address = address.GetSocketAddressPointer()
-	}
 	var __cgo__cancellable *C.GCancellable
 	if cancellable != nil {
 		__cgo__cancellable = cancellable.GetCancellablePointer()
 	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_socket_connect(self.CPointer, __cgo__address, __cgo__cancellable, &__cgo_error__)
+	__cgo__return__ = C.g_socket_connect(self.CPointer, address.GetSocketAddressPointer(), __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -11531,10 +11383,6 @@ in RFC 4604 is used. Note that on older platforms this may fail
 with a %G_IO_ERROR_NOT_SUPPORTED error.
 */
 func (self *TraitSocket) JoinMulticastGroup(group IsInetAddress, source_specific bool, iface string) (return__ bool, __err__ error) {
-	var __cgo__group *C.GInetAddress
-	if group != nil {
-		__cgo__group = group.GetInetAddressPointer()
-	}
 	__cgo__source_specific := C.gboolean(0)
 	if source_specific {
 		__cgo__source_specific = C.gboolean(1)
@@ -11542,7 +11390,7 @@ func (self *TraitSocket) JoinMulticastGroup(group IsInetAddress, source_specific
 	__cgo__iface := (*C.gchar)(unsafe.Pointer(C.CString(iface)))
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_socket_join_multicast_group(self.CPointer, __cgo__group, __cgo__source_specific, __cgo__iface, &__cgo_error__)
+	__cgo__return__ = C.g_socket_join_multicast_group(self.CPointer, group.GetInetAddressPointer(), __cgo__source_specific, __cgo__iface, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__iface))
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
@@ -11560,10 +11408,6 @@ when you joined the group).
 unicast messages after calling this.
 */
 func (self *TraitSocket) LeaveMulticastGroup(group IsInetAddress, source_specific bool, iface string) (return__ bool, __err__ error) {
-	var __cgo__group *C.GInetAddress
-	if group != nil {
-		__cgo__group = group.GetInetAddressPointer()
-	}
 	__cgo__source_specific := C.gboolean(0)
 	if source_specific {
 		__cgo__source_specific = C.gboolean(1)
@@ -11571,7 +11415,7 @@ func (self *TraitSocket) LeaveMulticastGroup(group IsInetAddress, source_specifi
 	__cgo__iface := (*C.gchar)(unsafe.Pointer(C.CString(iface)))
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_socket_leave_multicast_group(self.CPointer, __cgo__group, __cgo__source_specific, __cgo__iface, &__cgo_error__)
+	__cgo__return__ = C.g_socket_leave_multicast_group(self.CPointer, group.GetInetAddressPointer(), __cgo__source_specific, __cgo__iface, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__iface))
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
@@ -12843,17 +12687,13 @@ func NewTraitSocketConnection(p unsafe.Pointer) *TraitSocketConnection {
 Connect @connection to the specified remote address.
 */
 func (self *TraitSocketConnection) Connect(address IsSocketAddress, cancellable IsCancellable) (return__ bool, __err__ error) {
-	var __cgo__address *C.GSocketAddress
-	if address != nil {
-		__cgo__address = address.GetSocketAddressPointer()
-	}
 	var __cgo__cancellable *C.GCancellable
 	if cancellable != nil {
 		__cgo__cancellable = cancellable.GetCancellablePointer()
 	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_socket_connection_connect(self.CPointer, __cgo__address, __cgo__cancellable, &__cgo_error__)
+	__cgo__return__ = C.g_socket_connection_connect(self.CPointer, address.GetSocketAddressPointer(), __cgo__cancellable, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -12870,15 +12710,11 @@ socket if it is currently set.
 Use g_socket_connection_connect_finish() to retrieve the result.
 */
 func (self *TraitSocketConnection) ConnectAsync(address IsSocketAddress, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	var __cgo__address *C.GSocketAddress
-	if address != nil {
-		__cgo__address = address.GetSocketAddressPointer()
-	}
 	var __cgo__cancellable *C.GCancellable
 	if cancellable != nil {
 		__cgo__cancellable = cancellable.GetCancellablePointer()
 	}
-	C.g_socket_connection_connect_async(self.CPointer, __cgo__address, __cgo__cancellable, callback, (C.gpointer)(user_data))
+	C.g_socket_connection_connect_async(self.CPointer, address.GetSocketAddressPointer(), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -13179,14 +13015,10 @@ requesting a binding to port 0 (ie: "any port").  This address, if
 requested, belongs to the caller and must be freed.
 */
 func (self *TraitSocketListener) AddAddress(address IsSocketAddress, type_ C.GSocketType, protocol C.GSocketProtocol, source_object *C.GObject) (effective_address *SocketAddress, return__ bool, __err__ error) {
-	var __cgo__address *C.GSocketAddress
-	if address != nil {
-		__cgo__address = address.GetSocketAddressPointer()
-	}
 	var __cgo__effective_address *C.GSocketAddress
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_socket_listener_add_address(self.CPointer, __cgo__address, type_, protocol, source_object, &__cgo__effective_address, &__cgo_error__)
+	__cgo__return__ = C.g_socket_listener_add_address(self.CPointer, address.GetSocketAddressPointer(), type_, protocol, source_object, &__cgo__effective_address, &__cgo_error__)
 	if __cgo__effective_address != nil {
 		effective_address = NewSocketAddressFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__effective_address).Pointer()))
 	}
@@ -13257,13 +13089,9 @@ the @socket was automatically closed on finalization of the @listener, even
 if references to it were held elsewhere.
 */
 func (self *TraitSocketListener) AddSocket(socket IsSocket, source_object *C.GObject) (return__ bool, __err__ error) {
-	var __cgo__socket *C.GSocket
-	if socket != nil {
-		__cgo__socket = socket.GetSocketPointer()
-	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_socket_listener_add_socket(self.CPointer, __cgo__socket, source_object, &__cgo_error__)
+	__cgo__return__ = C.g_socket_listener_add_socket(self.CPointer, socket.GetSocketPointer(), source_object, &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -14737,12 +14565,8 @@ their #GTlsCertificate:issuer, #GTlsCertificate:private-key, or
 #GTlsCertificate:private-key-pem properties differ.
 */
 func (self *TraitTlsCertificate) IsSame(cert_two IsTlsCertificate) (return__ bool) {
-	var __cgo__cert_two *C.GTlsCertificate
-	if cert_two != nil {
-		__cgo__cert_two = cert_two.GetTlsCertificatePointer()
-	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_tls_certificate_is_same(self.CPointer, __cgo__cert_two)
+	__cgo__return__ = C.g_tls_certificate_is_same(self.CPointer, cert_two.GetTlsCertificatePointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -14794,12 +14618,8 @@ Used by #GTlsConnection implementations to emit the
 #GTlsConnection::accept-certificate signal.
 */
 func (self *TraitTlsConnection) EmitAcceptCertificate(peer_cert IsTlsCertificate, errors C.GTlsCertificateFlags) (return__ bool) {
-	var __cgo__peer_cert *C.GTlsCertificate
-	if peer_cert != nil {
-		__cgo__peer_cert = peer_cert.GetTlsCertificatePointer()
-	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_tls_connection_emit_accept_certificate(self.CPointer, __cgo__peer_cert, errors)
+	__cgo__return__ = C.g_tls_connection_emit_accept_certificate(self.CPointer, peer_cert.GetTlsCertificatePointer(), errors)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -14979,11 +14799,7 @@ that g_tls_client_connection_get_accepted_cas() will return
 non-%NULL.)
 */
 func (self *TraitTlsConnection) SetCertificate(certificate IsTlsCertificate) {
-	var __cgo__certificate *C.GTlsCertificate
-	if certificate != nil {
-		__cgo__certificate = certificate.GetTlsCertificatePointer()
-	}
-	C.g_tls_connection_set_certificate(self.CPointer, __cgo__certificate)
+	C.g_tls_connection_set_certificate(self.CPointer, certificate.GetTlsCertificatePointer())
 	return
 }
 
@@ -14998,11 +14814,7 @@ client-side connections, unless that bit is not set in
 #GTlsClientConnection:validation-flags).
 */
 func (self *TraitTlsConnection) SetDatabase(database IsTlsDatabase) {
-	var __cgo__database *C.GTlsDatabase
-	if database != nil {
-		__cgo__database = database.GetTlsDatabasePointer()
-	}
-	C.g_tls_connection_set_database(self.CPointer, __cgo__database)
+	C.g_tls_connection_set_database(self.CPointer, database.GetTlsDatabasePointer())
 	return
 }
 
@@ -15112,12 +14924,8 @@ and between applications. If a certificate is modified in the database,
 then it is not guaranteed that this handle will continue to point to it.
 */
 func (self *TraitTlsDatabase) CreateCertificateHandle(certificate IsTlsCertificate) (return__ string) {
-	var __cgo__certificate *C.GTlsCertificate
-	if certificate != nil {
-		__cgo__certificate = certificate.GetTlsCertificatePointer()
-	}
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.g_tls_database_create_certificate_handle(self.CPointer, __cgo__certificate)
+	__cgo__return__ = C.g_tls_database_create_certificate_handle(self.CPointer, certificate.GetTlsCertificatePointer())
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -15209,10 +15017,6 @@ This function can block, use g_tls_database_lookup_certificate_issuer_async() to
 the lookup operation asynchronously.
 */
 func (self *TraitTlsDatabase) LookupCertificateIssuer(certificate IsTlsCertificate, interaction IsTlsInteraction, flags C.GTlsDatabaseLookupFlags, cancellable IsCancellable) (return__ *TlsCertificate, __err__ error) {
-	var __cgo__certificate *C.GTlsCertificate
-	if certificate != nil {
-		__cgo__certificate = certificate.GetTlsCertificatePointer()
-	}
 	var __cgo__interaction *C.GTlsInteraction
 	if interaction != nil {
 		__cgo__interaction = interaction.GetTlsInteractionPointer()
@@ -15223,7 +15027,7 @@ func (self *TraitTlsDatabase) LookupCertificateIssuer(certificate IsTlsCertifica
 	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ *C.GTlsCertificate
-	__cgo__return__ = C.g_tls_database_lookup_certificate_issuer(self.CPointer, __cgo__certificate, __cgo__interaction, flags, __cgo__cancellable, &__cgo_error__)
+	__cgo__return__ = C.g_tls_database_lookup_certificate_issuer(self.CPointer, certificate.GetTlsCertificatePointer(), __cgo__interaction, flags, __cgo__cancellable, &__cgo_error__)
 	if __cgo__return__ != nil {
 		return__ = NewTlsCertificateFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -15238,10 +15042,6 @@ Asynchronously lookup the issuer of @certificate in the database. See
 g_tls_database_lookup_certificate_issuer() for more information.
 */
 func (self *TraitTlsDatabase) LookupCertificateIssuerAsync(certificate IsTlsCertificate, interaction IsTlsInteraction, flags C.GTlsDatabaseLookupFlags, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	var __cgo__certificate *C.GTlsCertificate
-	if certificate != nil {
-		__cgo__certificate = certificate.GetTlsCertificatePointer()
-	}
 	var __cgo__interaction *C.GTlsInteraction
 	if interaction != nil {
 		__cgo__interaction = interaction.GetTlsInteractionPointer()
@@ -15250,7 +15050,7 @@ func (self *TraitTlsDatabase) LookupCertificateIssuerAsync(certificate IsTlsCert
 	if cancellable != nil {
 		__cgo__cancellable = cancellable.GetCancellablePointer()
 	}
-	C.g_tls_database_lookup_certificate_issuer_async(self.CPointer, __cgo__certificate, __cgo__interaction, flags, __cgo__cancellable, callback, (C.gpointer)(user_data))
+	C.g_tls_database_lookup_certificate_issuer_async(self.CPointer, certificate.GetTlsCertificatePointer(), __cgo__interaction, flags, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -15355,10 +15155,6 @@ This function can block, use g_tls_database_verify_chain_async() to perform
 the verification operation asynchronously.
 */
 func (self *TraitTlsDatabase) VerifyChain(chain IsTlsCertificate, purpose string, identity *C.GSocketConnectable, interaction IsTlsInteraction, flags C.GTlsDatabaseVerifyFlags, cancellable IsCancellable) (return__ C.GTlsCertificateFlags, __err__ error) {
-	var __cgo__chain *C.GTlsCertificate
-	if chain != nil {
-		__cgo__chain = chain.GetTlsCertificatePointer()
-	}
 	__cgo__purpose := (*C.gchar)(unsafe.Pointer(C.CString(purpose)))
 	var __cgo__interaction *C.GTlsInteraction
 	if interaction != nil {
@@ -15369,7 +15165,7 @@ func (self *TraitTlsDatabase) VerifyChain(chain IsTlsCertificate, purpose string
 		__cgo__cancellable = cancellable.GetCancellablePointer()
 	}
 	var __cgo_error__ *C.GError
-	return__ = C.g_tls_database_verify_chain(self.CPointer, __cgo__chain, __cgo__purpose, identity, __cgo__interaction, flags, __cgo__cancellable, &__cgo_error__)
+	return__ = C.g_tls_database_verify_chain(self.CPointer, chain.GetTlsCertificatePointer(), __cgo__purpose, identity, __cgo__interaction, flags, __cgo__cancellable, &__cgo_error__)
 	C.free(unsafe.Pointer(__cgo__purpose))
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -15383,10 +15179,6 @@ any missing certificates to the chain. See g_tls_database_verify_chain()
 for more information.
 */
 func (self *TraitTlsDatabase) VerifyChainAsync(chain IsTlsCertificate, purpose string, identity *C.GSocketConnectable, interaction IsTlsInteraction, flags C.GTlsDatabaseVerifyFlags, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	var __cgo__chain *C.GTlsCertificate
-	if chain != nil {
-		__cgo__chain = chain.GetTlsCertificatePointer()
-	}
 	__cgo__purpose := (*C.gchar)(unsafe.Pointer(C.CString(purpose)))
 	var __cgo__interaction *C.GTlsInteraction
 	if interaction != nil {
@@ -15396,7 +15188,7 @@ func (self *TraitTlsDatabase) VerifyChainAsync(chain IsTlsCertificate, purpose s
 	if cancellable != nil {
 		__cgo__cancellable = cancellable.GetCancellablePointer()
 	}
-	C.g_tls_database_verify_chain_async(self.CPointer, __cgo__chain, __cgo__purpose, identity, __cgo__interaction, flags, __cgo__cancellable, callback, (C.gpointer)(user_data))
+	C.g_tls_database_verify_chain_async(self.CPointer, chain.GetTlsCertificatePointer(), __cgo__purpose, identity, __cgo__interaction, flags, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	C.free(unsafe.Pointer(__cgo__purpose))
 	return
 }
@@ -15442,16 +15234,12 @@ contains a %G_IO_ERROR_CANCELLED error code. Certain implementations may
 not support immediate cancellation.
 */
 func (self *TraitTlsInteraction) AskPassword(password IsTlsPassword, cancellable IsCancellable) (return__ C.GTlsInteractionResult, __err__ error) {
-	var __cgo__password *C.GTlsPassword
-	if password != nil {
-		__cgo__password = password.GetTlsPasswordPointer()
-	}
 	var __cgo__cancellable *C.GCancellable
 	if cancellable != nil {
 		__cgo__cancellable = cancellable.GetCancellablePointer()
 	}
 	var __cgo_error__ *C.GError
-	return__ = C.g_tls_interaction_ask_password(self.CPointer, __cgo__password, __cgo__cancellable, &__cgo_error__)
+	return__ = C.g_tls_interaction_ask_password(self.CPointer, password.GetTlsPasswordPointer(), __cgo__cancellable, &__cgo_error__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
 	}
@@ -15476,15 +15264,11 @@ not support immediate cancellation.
 Certain implementations may not support immediate cancellation.
 */
 func (self *TraitTlsInteraction) AskPasswordAsync(password IsTlsPassword, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	var __cgo__password *C.GTlsPassword
-	if password != nil {
-		__cgo__password = password.GetTlsPasswordPointer()
-	}
 	var __cgo__cancellable *C.GCancellable
 	if cancellable != nil {
 		__cgo__cancellable = cancellable.GetCancellablePointer()
 	}
-	C.g_tls_interaction_ask_password_async(self.CPointer, __cgo__password, __cgo__cancellable, callback, (C.gpointer)(user_data))
+	C.g_tls_interaction_ask_password_async(self.CPointer, password.GetTlsPasswordPointer(), __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -15530,16 +15314,12 @@ contains a %G_IO_ERROR_CANCELLED error code. Certain implementations may
 not support immediate cancellation.
 */
 func (self *TraitTlsInteraction) InvokeAskPassword(password IsTlsPassword, cancellable IsCancellable) (return__ C.GTlsInteractionResult, __err__ error) {
-	var __cgo__password *C.GTlsPassword
-	if password != nil {
-		__cgo__password = password.GetTlsPasswordPointer()
-	}
 	var __cgo__cancellable *C.GCancellable
 	if cancellable != nil {
 		__cgo__cancellable = cancellable.GetCancellablePointer()
 	}
 	var __cgo_error__ *C.GError
-	return__ = C.g_tls_interaction_invoke_ask_password(self.CPointer, __cgo__password, __cgo__cancellable, &__cgo_error__)
+	return__ = C.g_tls_interaction_invoke_ask_password(self.CPointer, password.GetTlsPasswordPointer(), __cgo__cancellable, &__cgo_error__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
 	}
@@ -15569,16 +15349,12 @@ contains a %G_IO_ERROR_CANCELLED error code. Certain implementations may
 not support immediate cancellation.
 */
 func (self *TraitTlsInteraction) InvokeRequestCertificate(connection IsTlsConnection, flags C.GTlsCertificateRequestFlags, cancellable IsCancellable) (return__ C.GTlsInteractionResult, __err__ error) {
-	var __cgo__connection *C.GTlsConnection
-	if connection != nil {
-		__cgo__connection = connection.GetTlsConnectionPointer()
-	}
 	var __cgo__cancellable *C.GCancellable
 	if cancellable != nil {
 		__cgo__cancellable = cancellable.GetCancellablePointer()
 	}
 	var __cgo_error__ *C.GError
-	return__ = C.g_tls_interaction_invoke_request_certificate(self.CPointer, __cgo__connection, flags, __cgo__cancellable, &__cgo_error__)
+	return__ = C.g_tls_interaction_invoke_request_certificate(self.CPointer, connection.GetTlsConnectionPointer(), flags, __cgo__cancellable, &__cgo_error__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
 	}
@@ -15604,16 +15380,12 @@ contains a %G_IO_ERROR_CANCELLED error code. Certain implementations may
 not support immediate cancellation.
 */
 func (self *TraitTlsInteraction) RequestCertificate(connection IsTlsConnection, flags C.GTlsCertificateRequestFlags, cancellable IsCancellable) (return__ C.GTlsInteractionResult, __err__ error) {
-	var __cgo__connection *C.GTlsConnection
-	if connection != nil {
-		__cgo__connection = connection.GetTlsConnectionPointer()
-	}
 	var __cgo__cancellable *C.GCancellable
 	if cancellable != nil {
 		__cgo__cancellable = cancellable.GetCancellablePointer()
 	}
 	var __cgo_error__ *C.GError
-	return__ = C.g_tls_interaction_request_certificate(self.CPointer, __cgo__connection, flags, __cgo__cancellable, &__cgo_error__)
+	return__ = C.g_tls_interaction_request_certificate(self.CPointer, connection.GetTlsConnectionPointer(), flags, __cgo__cancellable, &__cgo_error__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
 	}
@@ -15631,15 +15403,11 @@ when the operation completes. Alternatively the user may abort this certificate
 request, which will usually abort the TLS connection.
 */
 func (self *TraitTlsInteraction) RequestCertificateAsync(connection IsTlsConnection, flags C.GTlsCertificateRequestFlags, cancellable IsCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	var __cgo__connection *C.GTlsConnection
-	if connection != nil {
-		__cgo__connection = connection.GetTlsConnectionPointer()
-	}
 	var __cgo__cancellable *C.GCancellable
 	if cancellable != nil {
 		__cgo__cancellable = cancellable.GetCancellablePointer()
 	}
-	C.g_tls_interaction_request_certificate_async(self.CPointer, __cgo__connection, flags, __cgo__cancellable, callback, (C.gpointer)(user_data))
+	C.g_tls_interaction_request_certificate_async(self.CPointer, connection.GetTlsConnectionPointer(), flags, __cgo__cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 

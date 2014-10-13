@@ -200,12 +200,8 @@ func ApplicationNew(application_id string, flags C.GApplicationFlags) (return__ 
 Creates a new #GtkApplicationWindow.
 */
 func ApplicationWindowNew(application IsApplication) (return__ *ApplicationWindow) {
-	var __cgo__application *C.GtkApplication
-	if application != nil {
-		__cgo__application = application.GetApplicationPointer()
-	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gtk_application_window_new(__cgo__application)
+	__cgo__return__ = C.gtk_application_window_new(application.GetApplicationPointer())
 	if __cgo__return__ != nil {
 		return__ = NewApplicationWindowFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -584,16 +580,8 @@ in this way alignments with cellviews for other rows are
 possible.
 */
 func CellViewNewWithContext(area IsCellArea, context IsCellAreaContext) (return__ *CellView) {
-	var __cgo__area *C.GtkCellArea
-	if area != nil {
-		__cgo__area = area.GetCellAreaPointer()
-	}
-	var __cgo__context *C.GtkCellAreaContext
-	if context != nil {
-		__cgo__context = context.GetCellAreaContextPointer()
-	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gtk_cell_view_new_with_context(__cgo__area, __cgo__context)
+	__cgo__return__ = C.gtk_cell_view_new_with_context(area.GetCellAreaPointer(), context.GetCellAreaContextPointer())
 	if __cgo__return__ != nil {
 		return__ = NewCellViewFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -810,12 +798,8 @@ func ComboBoxNew() (return__ *ComboBox) {
 Creates a new empty #GtkComboBox using @area to layout cells.
 */
 func ComboBoxNewWithArea(area IsCellArea) (return__ *ComboBox) {
-	var __cgo__area *C.GtkCellArea
-	if area != nil {
-		__cgo__area = area.GetCellAreaPointer()
-	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gtk_combo_box_new_with_area(__cgo__area)
+	__cgo__return__ = C.gtk_combo_box_new_with_area(area.GetCellAreaPointer())
 	if __cgo__return__ != nil {
 		return__ = NewComboBoxFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -828,12 +812,8 @@ Creates a new empty #GtkComboBox with an entry.
 The new combo box will use @area to layout cells.
 */
 func ComboBoxNewWithAreaAndEntry(area IsCellArea) (return__ *ComboBox) {
-	var __cgo__area *C.GtkCellArea
-	if area != nil {
-		__cgo__area = area.GetCellAreaPointer()
-	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gtk_combo_box_new_with_area_and_entry(__cgo__area)
+	__cgo__return__ = C.gtk_combo_box_new_with_area_and_entry(area.GetCellAreaPointer())
 	if __cgo__return__ != nil {
 		return__ = NewComboBoxFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -969,12 +949,8 @@ func EntryNew() (return__ *Entry) {
 Creates a new entry with the specified text buffer.
 */
 func EntryNewWithBuffer(buffer IsEntryBuffer) (return__ *Entry) {
-	var __cgo__buffer *C.GtkEntryBuffer
-	if buffer != nil {
-		__cgo__buffer = buffer.GetEntryBufferPointer()
-	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gtk_entry_new_with_buffer(__cgo__buffer)
+	__cgo__return__ = C.gtk_entry_new_with_buffer(buffer.GetEntryBufferPointer())
 	if __cgo__return__ != nil {
 		return__ = NewEntryFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -1015,12 +991,8 @@ specified @area to layout cells in the underlying
 #GtkTreeViewColumn for the drop-down menu.
 */
 func EntryCompletionNewWithArea(area IsCellArea) (return__ *EntryCompletion) {
-	var __cgo__area *C.GtkCellArea
-	if area != nil {
-		__cgo__area = area.GetCellAreaPointer()
-	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gtk_entry_completion_new_with_area(__cgo__area)
+	__cgo__return__ = C.gtk_entry_completion_new_with_area(area.GetCellAreaPointer())
 	if __cgo__return__ != nil {
 		return__ = NewEntryCompletionFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -1260,12 +1232,8 @@ func FrameNew(label string) (return__ *Frame) {
 Returns a newly created #GtkGesture that recognizes drags.
 */
 func GestureDragNew(widget IsWidget) (return__ *GestureDrag) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gtk_gesture_drag_new(__cgo__widget)
+	__cgo__return__ = C.gtk_gesture_drag_new(widget.GetWidgetPointer())
 	if __cgo__return__ != nil {
 		return__ = NewGestureDragFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -1276,12 +1244,8 @@ func GestureDragNew(widget IsWidget) (return__ *GestureDrag) {
 Returns a newly created #GtkGesture that recognizes long presses.
 */
 func GestureLongPressNew(widget IsWidget) (return__ *GestureLongPress) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gtk_gesture_long_press_new(__cgo__widget)
+	__cgo__return__ = C.gtk_gesture_long_press_new(widget.GetWidgetPointer())
 	if __cgo__return__ != nil {
 		return__ = NewGestureLongPressFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -1293,12 +1257,8 @@ Returns a newly created #GtkGesture that recognizes single and multiple
 presses.
 */
 func GestureMultiPressNew(widget IsWidget) (return__ *GestureMultiPress) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gtk_gesture_multi_press_new(__cgo__widget)
+	__cgo__return__ = C.gtk_gesture_multi_press_new(widget.GetWidgetPointer())
 	if __cgo__return__ != nil {
 		return__ = NewGestureMultiPressFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -1309,12 +1269,8 @@ func GestureMultiPressNew(widget IsWidget) (return__ *GestureMultiPress) {
 Returns a newly created #GtkGesture that recognizes pan gestures.
 */
 func GesturePanNew(widget IsWidget, orientation C.GtkOrientation) (return__ *GesturePan) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gtk_gesture_pan_new(__cgo__widget, orientation)
+	__cgo__return__ = C.gtk_gesture_pan_new(widget.GetWidgetPointer(), orientation)
 	if __cgo__return__ != nil {
 		return__ = NewGesturePanFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -1326,12 +1282,8 @@ Returns a newly created #GtkGesture that recognizes 2-touch
 rotation gestures.
 */
 func GestureRotateNew(widget IsWidget) (return__ *GestureRotate) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gtk_gesture_rotate_new(__cgo__widget)
+	__cgo__return__ = C.gtk_gesture_rotate_new(widget.GetWidgetPointer())
 	if __cgo__return__ != nil {
 		return__ = NewGestureRotateFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -1342,12 +1294,8 @@ func GestureRotateNew(widget IsWidget) (return__ *GestureRotate) {
 Returns a newly created #GtkGesture that recognizes swipes.
 */
 func GestureSwipeNew(widget IsWidget) (return__ *GestureSwipe) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gtk_gesture_swipe_new(__cgo__widget)
+	__cgo__return__ = C.gtk_gesture_swipe_new(widget.GetWidgetPointer())
 	if __cgo__return__ != nil {
 		return__ = NewGestureSwipeFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -1359,12 +1307,8 @@ Returns a newly created #GtkGesture that recognizes zoom
 in/out gestures (usually known as pinch/zoom).
 */
 func GestureZoomNew(widget IsWidget) (return__ *GestureZoom) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gtk_gesture_zoom_new(__cgo__widget)
+	__cgo__return__ = C.gtk_gesture_zoom_new(widget.GetWidgetPointer())
 	if __cgo__return__ != nil {
 		return__ = NewGestureZoomFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -1443,12 +1387,8 @@ func IMMulticontextNew() (return__ *IMMulticontext) {
 Creates a #GtkIconInfo for a #GdkPixbuf.
 */
 func IconInfoNewForPixbuf(icon_theme IsIconTheme, pixbuf *C.GdkPixbuf) (return__ *IconInfo) {
-	var __cgo__icon_theme *C.GtkIconTheme
-	if icon_theme != nil {
-		__cgo__icon_theme = icon_theme.GetIconThemePointer()
-	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gtk_icon_info_new_for_pixbuf(__cgo__icon_theme, pixbuf)
+	__cgo__return__ = C.gtk_icon_info_new_for_pixbuf(icon_theme.GetIconThemePointer(), pixbuf)
 	if __cgo__return__ != nil {
 		return__ = NewIconInfoFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -1488,12 +1428,8 @@ Creates a new #GtkIconView widget using the
 specified @area to layout cells inside the icons.
 */
 func IconViewNewWithArea(area IsCellArea) (return__ *IconView) {
-	var __cgo__area *C.GtkCellArea
-	if area != nil {
-		__cgo__area = area.GetCellAreaPointer()
-	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gtk_icon_view_new_with_area(__cgo__area)
+	__cgo__return__ = C.gtk_icon_view_new_with_area(area.GetCellAreaPointer())
 	if __cgo__return__ != nil {
 		return__ = NewIconViewFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -2061,16 +1997,8 @@ func NotebookNew() (return__ *Notebook) {
 }
 
 func NotebookPageAccessibleNew(notebook IsNotebookAccessible, child IsWidget) (return__ *NotebookPageAccessible) {
-	var __cgo__notebook *C.GtkNotebookAccessible
-	if notebook != nil {
-		__cgo__notebook = notebook.GetNotebookAccessiblePointer()
-	}
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gtk_notebook_page_accessible_new(__cgo__notebook, __cgo__child)
+	__cgo__return__ = C.gtk_notebook_page_accessible_new(notebook.GetNotebookAccessiblePointer(), child.GetWidgetPointer())
 	if __cgo__return__ != nil {
 		return__ = NewNotebookPageAccessibleFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -2446,12 +2374,8 @@ func RadioMenuItemNew(group *C.GSList) (return__ *RadioMenuItem) {
 Creates a new #GtkRadioMenuItem adding it to the same group as @group.
 */
 func RadioMenuItemNewFromWidget(group IsRadioMenuItem) (return__ *RadioMenuItem) {
-	var __cgo__group *C.GtkRadioMenuItem
-	if group != nil {
-		__cgo__group = group.GetRadioMenuItemPointer()
-	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gtk_radio_menu_item_new_from_widget(__cgo__group)
+	__cgo__return__ = C.gtk_radio_menu_item_new_from_widget(group.GetRadioMenuItemPointer())
 	if __cgo__return__ != nil {
 		return__ = NewRadioMenuItemFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -2477,13 +2401,9 @@ Creates a new GtkRadioMenuItem whose child is a simple GtkLabel.
 The new #GtkRadioMenuItem is added to the same group as @group.
 */
 func RadioMenuItemNewWithLabelFromWidget(group IsRadioMenuItem, label string) (return__ *RadioMenuItem) {
-	var __cgo__group *C.GtkRadioMenuItem
-	if group != nil {
-		__cgo__group = group.GetRadioMenuItemPointer()
-	}
 	__cgo__label := (*C.gchar)(unsafe.Pointer(C.CString(label)))
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gtk_radio_menu_item_new_with_label_from_widget(__cgo__group, __cgo__label)
+	__cgo__return__ = C.gtk_radio_menu_item_new_with_label_from_widget(group.GetRadioMenuItemPointer(), __cgo__label)
 	C.free(unsafe.Pointer(__cgo__label))
 	if __cgo__return__ != nil {
 		return__ = NewRadioMenuItemFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
@@ -2515,13 +2435,9 @@ indicate the mnemonic for the menu item.
 The new #GtkRadioMenuItem is added to the same group as @group.
 */
 func RadioMenuItemNewWithMnemonicFromWidget(group IsRadioMenuItem, label string) (return__ *RadioMenuItem) {
-	var __cgo__group *C.GtkRadioMenuItem
-	if group != nil {
-		__cgo__group = group.GetRadioMenuItemPointer()
-	}
 	__cgo__label := (*C.gchar)(unsafe.Pointer(C.CString(label)))
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gtk_radio_menu_item_new_with_mnemonic_from_widget(__cgo__group, __cgo__label)
+	__cgo__return__ = C.gtk_radio_menu_item_new_with_mnemonic_from_widget(group.GetRadioMenuItemPointer(), __cgo__label)
 	C.free(unsafe.Pointer(__cgo__label))
 	if __cgo__return__ != nil {
 		return__ = NewRadioMenuItemFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
@@ -2604,12 +2520,8 @@ object or if you wish to share a common #GtkRecentManager object
 among multiple #GtkRecentChooser widgets.
 */
 func RecentChooserMenuNewForManager(manager IsRecentManager) (return__ *RecentChooserMenu) {
-	var __cgo__manager *C.GtkRecentManager
-	if manager != nil {
-		__cgo__manager = manager.GetRecentManagerPointer()
-	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gtk_recent_chooser_menu_new_for_manager(__cgo__manager)
+	__cgo__return__ = C.gtk_recent_chooser_menu_new_for_manager(manager.GetRecentManagerPointer())
 	if __cgo__return__ != nil {
 		return__ = NewRecentChooserMenuFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -2636,12 +2548,8 @@ This is useful if you have implemented your own recent manager, or if you
 have a customized instance of a #GtkRecentManager object.
 */
 func RecentChooserWidgetNewForManager(manager IsRecentManager) (return__ *RecentChooserWidget) {
-	var __cgo__manager *C.GtkRecentManager
-	if manager != nil {
-		__cgo__manager = manager.GetRecentManagerPointer()
-	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gtk_recent_chooser_widget_new_for_manager(__cgo__manager)
+	__cgo__return__ = C.gtk_recent_chooser_widget_new_for_manager(manager.GetRecentManagerPointer())
 	if __cgo__return__ != nil {
 		return__ = NewRecentChooserWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -2688,12 +2596,8 @@ func RecentManagerNew() (return__ *RecentManager) {
 }
 
 func RendererCellAccessibleNew(renderer IsCellRenderer) (return__ *RendererCellAccessible) {
-	var __cgo__renderer *C.GtkCellRenderer
-	if renderer != nil {
-		__cgo__renderer = renderer.GetCellRendererPointer()
-	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gtk_renderer_cell_accessible_new(__cgo__renderer)
+	__cgo__return__ = C.gtk_renderer_cell_accessible_new(renderer.GetCellRendererPointer())
 	if __cgo__return__ != nil {
 		return__ = NewRendererCellAccessibleFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -3144,12 +3048,8 @@ text view adds its own reference count to the buffer; it does not
 take over an existing reference.
 */
 func TextViewNewWithBuffer(buffer IsTextBuffer) (return__ *TextView) {
-	var __cgo__buffer *C.GtkTextBuffer
-	if buffer != nil {
-		__cgo__buffer = buffer.GetTextBufferPointer()
-	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gtk_text_view_new_with_buffer(__cgo__buffer)
+	__cgo__return__ = C.gtk_text_view_new_with_buffer(buffer.GetTextBufferPointer())
 	if __cgo__return__ != nil {
 		return__ = NewTextViewFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -3339,12 +3239,8 @@ func TreeViewColumnNew() (return__ *TreeViewColumn) {
 Creates a new #GtkTreeViewColumn using @area to render its cells.
 */
 func TreeViewColumnNewWithArea(area IsCellArea) (return__ *TreeViewColumn) {
-	var __cgo__area *C.GtkCellArea
-	if area != nil {
-		__cgo__area = area.GetCellAreaPointer()
-	}
 	var __cgo__return__ interface{}
-	__cgo__return__ = C.gtk_tree_view_column_new_with_area(__cgo__area)
+	__cgo__return__ = C.gtk_tree_view_column_new_with_area(area.GetCellAreaPointer())
 	if __cgo__return__ != nil {
 		return__ = NewTreeViewColumnFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}

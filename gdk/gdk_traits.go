@@ -89,11 +89,7 @@ If neither @screen or @display are set, the default screen and
 display are used.
 */
 func (self *TraitAppLaunchContext) SetScreen(screen IsScreen) {
-	var __cgo__screen *C.GdkScreen
-	if screen != nil {
-		__cgo__screen = screen.GetScreenPointer()
-	}
-	C.gdk_app_launch_context_set_screen(self.CPointer, __cgo__screen)
+	C.gdk_app_launch_context_set_screen(self.CPointer, screen.GetScreenPointer())
 	return
 }
 
@@ -285,13 +281,9 @@ more motion events delivered directly, independent of the windowing
 system.
 */
 func (self *TraitDevice) GetHistory(window IsWindow, start uint32, stop uint32) (events **C.GdkTimeCoord, n_events int, return__ bool) {
-	var __cgo__window *C.GdkWindow
-	if window != nil {
-		__cgo__window = window.GetWindowPointer()
-	}
 	var __cgo__n_events C.gint
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gdk_device_get_history(self.CPointer, __cgo__window, C.guint32(start), C.guint32(stop), &events, &__cgo__n_events)
+	__cgo__return__ = C.gdk_device_get_history(self.CPointer, window.GetWindowPointer(), C.guint32(start), C.guint32(stop), &events, &__cgo__n_events)
 	n_events = int(__cgo__n_events)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
@@ -417,11 +409,7 @@ function may not be called on devices of type %GDK_DEVICE_TYPE_SLAVE,
 unless there is an ongoing grab on them. See gdk_device_grab().
 */
 func (self *TraitDevice) GetState(window IsWindow, axes *C.gdouble) (mask C.GdkModifierType) {
-	var __cgo__window *C.GdkWindow
-	if window != nil {
-		__cgo__window = window.GetWindowPointer()
-	}
-	C.gdk_device_get_state(self.CPointer, __cgo__window, axes, &mask)
+	C.gdk_device_get_state(self.CPointer, window.GetWindowPointer(), axes, &mask)
 	return
 }
 
@@ -490,10 +478,6 @@ cleaned up when the grab ends, you should handle the #GdkEventGrabBroken
 events that are emitted when the grab ends unvoluntarily.
 */
 func (self *TraitDevice) Grab(window IsWindow, grab_ownership C.GdkGrabOwnership, owner_events bool, event_mask C.GdkEventMask, cursor IsCursor, time_ uint32) (return__ C.GdkGrabStatus) {
-	var __cgo__window *C.GdkWindow
-	if window != nil {
-		__cgo__window = window.GetWindowPointer()
-	}
 	__cgo__owner_events := C.gboolean(0)
 	if owner_events {
 		__cgo__owner_events = C.gboolean(1)
@@ -502,7 +486,7 @@ func (self *TraitDevice) Grab(window IsWindow, grab_ownership C.GdkGrabOwnership
 	if cursor != nil {
 		__cgo__cursor = cursor.GetCursorPointer()
 	}
-	return__ = C.gdk_device_grab(self.CPointer, __cgo__window, grab_ownership, __cgo__owner_events, event_mask, __cgo__cursor, C.guint32(time_))
+	return__ = C.gdk_device_grab(self.CPointer, window.GetWindowPointer(), grab_ownership, __cgo__owner_events, event_mask, __cgo__cursor, C.guint32(time_))
 	return
 }
 
@@ -580,11 +564,7 @@ some rare use cases like keyboard navigation support
 for the color picker in the #GtkColorSelectionDialog.
 */
 func (self *TraitDevice) Warp(screen IsScreen, x int, y int) {
-	var __cgo__screen *C.GdkScreen
-	if screen != nil {
-		__cgo__screen = screen.GetScreenPointer()
-	}
-	C.gdk_device_warp(self.CPointer, __cgo__screen, C.gint(x), C.gint(y))
+	C.gdk_device_warp(self.CPointer, screen.GetScreenPointer(), C.gint(x), C.gint(y))
 	return
 }
 
@@ -671,12 +651,8 @@ func (self *TraitDisplay) Close() {
 Returns %TRUE if there is an ongoing grab on @device for @display.
 */
 func (self *TraitDisplay) DeviceIsGrabbed(device IsDevice) (return__ bool) {
-	var __cgo__device *C.GdkDevice
-	if device != nil {
-		__cgo__device = device.GetDevicePointer()
-	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gdk_display_device_is_grabbed(self.CPointer, __cgo__device)
+	__cgo__return__ = C.gdk_display_device_is_grabbed(self.CPointer, device.GetDevicePointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -913,11 +889,7 @@ according to the
 [FreeDesktop Clipboard Specification](http://www.freedesktop.org/Standards/clipboard-manager-spec).
 */
 func (self *TraitDisplay) StoreClipboard(clipboard_window IsWindow, time_ uint32, targets *C.GdkAtom, n_targets int) {
-	var __cgo__clipboard_window *C.GdkWindow
-	if clipboard_window != nil {
-		__cgo__clipboard_window = clipboard_window.GetWindowPointer()
-	}
-	C.gdk_display_store_clipboard(self.CPointer, __cgo__clipboard_window, C.guint32(time_), targets, C.gint(n_targets))
+	C.gdk_display_store_clipboard(self.CPointer, clipboard_window.GetWindowPointer(), C.guint32(time_), targets, C.gint(n_targets))
 	return
 }
 
@@ -1073,11 +1045,7 @@ func (self *TraitDisplayManager) OpenDisplay(name string) (return__ *Display) {
 Sets @display as the default display.
 */
 func (self *TraitDisplayManager) SetDefaultDisplay(display IsDisplay) {
-	var __cgo__display *C.GdkDisplay
-	if display != nil {
-		__cgo__display = display.GetDisplayPointer()
-	}
-	C.gdk_display_manager_set_default_display(self.CPointer, __cgo__display)
+	C.gdk_display_manager_set_default_display(self.CPointer, display.GetDisplayPointer())
 	return
 }
 
@@ -1175,11 +1143,7 @@ Associates a #GdkDevice to @context, so all Drag and Drop events
 for @context are emitted as if they came from this device.
 */
 func (self *TraitDragContext) SetDevice(device IsDevice) {
-	var __cgo__device *C.GdkDevice
-	if device != nil {
-		__cgo__device = device.GetDevicePointer()
-	}
-	C.gdk_drag_context_set_device(self.CPointer, __cgo__device)
+	C.gdk_drag_context_set_device(self.CPointer, device.GetDevicePointer())
 	return
 }
 
@@ -1594,12 +1558,8 @@ Returns the number of the monitor in which the largest area of the
 bounding rectangle of @window resides.
 */
 func (self *TraitScreen) GetMonitorAtWindow(window IsWindow) (return__ int) {
-	var __cgo__window *C.GdkWindow
-	if window != nil {
-		__cgo__window = window.GetWindowPointer()
-	}
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gdk_screen_get_monitor_at_window(self.CPointer, __cgo__window)
+	__cgo__return__ = C.gdk_screen_get_monitor_at_window(self.CPointer, window.GetWindowPointer())
 	return__ = int(__cgo__return__)
 	return
 }
@@ -2102,11 +2062,7 @@ example. The function works best with window managers that support the
 but has a fallback implementation for other window managers.
 */
 func (self *TraitWindow) BeginMoveDragForDevice(device IsDevice, button int, root_x int, root_y int, timestamp uint32) {
-	var __cgo__device *C.GdkDevice
-	if device != nil {
-		__cgo__device = device.GetDevicePointer()
-	}
-	C.gdk_window_begin_move_drag_for_device(self.CPointer, __cgo__device, C.gint(button), C.gint(root_x), C.gint(root_y), C.guint32(timestamp))
+	C.gdk_window_begin_move_drag_for_device(self.CPointer, device.GetDevicePointer(), C.gint(button), C.gint(root_x), C.gint(root_y), C.guint32(timestamp))
 	return
 }
 
@@ -2186,11 +2142,7 @@ with window managers that support the
 but has a fallback implementation for other window managers.
 */
 func (self *TraitWindow) BeginResizeDragForDevice(edge C.GdkWindowEdge, device IsDevice, button int, root_x int, root_y int, timestamp uint32) {
-	var __cgo__device *C.GdkDevice
-	if device != nil {
-		__cgo__device = device.GetDevicePointer()
-	}
-	C.gdk_window_begin_resize_drag_for_device(self.CPointer, edge, __cgo__device, C.gint(button), C.gint(root_x), C.gint(root_y), C.guint32(timestamp))
+	C.gdk_window_begin_resize_drag_for_device(self.CPointer, edge, device.GetDevicePointer(), C.gint(button), C.gint(root_x), C.gint(root_y), C.guint32(timestamp))
 	return
 }
 
@@ -2516,12 +2468,8 @@ there is no custom cursor set on the specified window, and it is
 using the cursor for its parent window.
 */
 func (self *TraitWindow) GetDeviceCursor(device IsDevice) (return__ *Cursor) {
-	var __cgo__device *C.GdkDevice
-	if device != nil {
-		__cgo__device = device.GetDevicePointer()
-	}
 	var __cgo__return__ *C.GdkCursor
-	__cgo__return__ = C.gdk_window_get_device_cursor(self.CPointer, __cgo__device)
+	__cgo__return__ = C.gdk_window_get_device_cursor(self.CPointer, device.GetDevicePointer())
 	if __cgo__return__ != nil {
 		return__ = NewCursorFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -2532,11 +2480,7 @@ func (self *TraitWindow) GetDeviceCursor(device IsDevice) (return__ *Cursor) {
 Returns the event mask for @window corresponding to an specific device.
 */
 func (self *TraitWindow) GetDeviceEvents(device IsDevice) (return__ C.GdkEventMask) {
-	var __cgo__device *C.GdkDevice
-	if device != nil {
-		__cgo__device = device.GetDevicePointer()
-	}
-	return__ = C.gdk_window_get_device_events(self.CPointer, __cgo__device)
+	return__ = C.gdk_window_get_device_events(self.CPointer, device.GetDevicePointer())
 	return
 }
 
@@ -2548,14 +2492,10 @@ corner of @window.
 Use gdk_window_get_device_position_double() if you need subpixel precision.
 */
 func (self *TraitWindow) GetDevicePosition(device IsDevice) (x int, y int, mask C.GdkModifierType, return__ *Window) {
-	var __cgo__device *C.GdkDevice
-	if device != nil {
-		__cgo__device = device.GetDevicePointer()
-	}
 	var __cgo__x C.gint
 	var __cgo__y C.gint
 	var __cgo__return__ *C.GdkWindow
-	__cgo__return__ = C.gdk_window_get_device_position(self.CPointer, __cgo__device, &__cgo__x, &__cgo__y, &mask)
+	__cgo__return__ = C.gdk_window_get_device_position(self.CPointer, device.GetDevicePointer(), &__cgo__x, &__cgo__y, &mask)
 	x = int(__cgo__x)
 	y = int(__cgo__y)
 	if __cgo__return__ != nil {
@@ -2570,14 +2510,10 @@ The position is given in coordinates relative to the upper left
 corner of @window.
 */
 func (self *TraitWindow) GetDevicePositionDouble(device IsDevice) (x float64, y float64, mask C.GdkModifierType, return__ *Window) {
-	var __cgo__device *C.GdkDevice
-	if device != nil {
-		__cgo__device = device.GetDevicePointer()
-	}
 	var __cgo__x C.gdouble
 	var __cgo__y C.gdouble
 	var __cgo__return__ *C.GdkWindow
-	__cgo__return__ = C.gdk_window_get_device_position_double(self.CPointer, __cgo__device, &__cgo__x, &__cgo__y, &mask)
+	__cgo__return__ = C.gdk_window_get_device_position_double(self.CPointer, device.GetDevicePointer(), &__cgo__x, &__cgo__y, &mask)
 	x = float64(__cgo__x)
 	y = float64(__cgo__y)
 	if __cgo__return__ != nil {
@@ -3367,11 +3303,7 @@ Reparents @window into the given @new_parent. The window being
 reparented will be unmapped as a side effect.
 */
 func (self *TraitWindow) Reparent(new_parent IsWindow, x int, y int) {
-	var __cgo__new_parent *C.GdkWindow
-	if new_parent != nil {
-		__cgo__new_parent = new_parent.GetWindowPointer()
-	}
-	C.gdk_window_reparent(self.CPointer, __cgo__new_parent, C.gint(x), C.gint(y))
+	C.gdk_window_reparent(self.CPointer, new_parent.GetWindowPointer(), C.gint(x), C.gint(y))
 	return
 }
 
@@ -3576,15 +3508,7 @@ the cursor. To make the cursor invisible, use %GDK_BLANK_CURSOR. Passing
 use this default.
 */
 func (self *TraitWindow) SetDeviceCursor(device IsDevice, cursor IsCursor) {
-	var __cgo__device *C.GdkDevice
-	if device != nil {
-		__cgo__device = device.GetDevicePointer()
-	}
-	var __cgo__cursor *C.GdkCursor
-	if cursor != nil {
-		__cgo__cursor = cursor.GetCursorPointer()
-	}
-	C.gdk_window_set_device_cursor(self.CPointer, __cgo__device, __cgo__cursor)
+	C.gdk_window_set_device_cursor(self.CPointer, device.GetDevicePointer(), cursor.GetCursorPointer())
 	return
 }
 
@@ -3596,11 +3520,7 @@ press events. The event mask is the bitwise OR of values from the
 #GdkEventMask enumeration.
 */
 func (self *TraitWindow) SetDeviceEvents(device IsDevice, event_mask C.GdkEventMask) {
-	var __cgo__device *C.GdkDevice
-	if device != nil {
-		__cgo__device = device.GetDevicePointer()
-	}
-	C.gdk_window_set_device_events(self.CPointer, __cgo__device, event_mask)
+	C.gdk_window_set_device_events(self.CPointer, device.GetDevicePointer(), event_mask)
 	return
 }
 
@@ -4065,11 +3985,7 @@ See gtk_window_set_transient_for() if you’re using #GtkWindow or
 #GtkDialog.
 */
 func (self *TraitWindow) SetTransientFor(parent IsWindow) {
-	var __cgo__parent *C.GdkWindow
-	if parent != nil {
-		__cgo__parent = parent.GetWindowPointer()
-	}
-	C.gdk_window_set_transient_for(self.CPointer, __cgo__parent)
+	C.gdk_window_set_transient_for(self.CPointer, parent.GetWindowPointer())
 	return
 }
 

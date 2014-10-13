@@ -88,11 +88,7 @@ to infinity.
 ![](composite.png)
 */
 func (self *TraitPixbuf) Composite(dest IsPixbuf, dest_x int, dest_y int, dest_width int, dest_height int, offset_x float64, offset_y float64, scale_x float64, scale_y float64, interp_type C.GdkInterpType, overall_alpha int) {
-	var __cgo__dest *C.GdkPixbuf
-	if dest != nil {
-		__cgo__dest = dest.GetPixbufPointer()
-	}
-	C.gdk_pixbuf_composite(self.CPointer, __cgo__dest, C.int(dest_x), C.int(dest_y), C.int(dest_width), C.int(dest_height), C.double(offset_x), C.double(offset_y), C.double(scale_x), C.double(scale_y), interp_type, C.int(overall_alpha))
+	C.gdk_pixbuf_composite(self.CPointer, dest.GetPixbufPointer(), C.int(dest_x), C.int(dest_y), C.int(dest_width), C.int(dest_height), C.double(offset_x), C.double(offset_y), C.double(scale_x), C.double(scale_y), interp_type, C.int(overall_alpha))
 	return
 }
 
@@ -108,11 +104,7 @@ See gdk_pixbuf_composite_color_simple() for a simpler variant of this
 function suitable for many tasks.
 */
 func (self *TraitPixbuf) CompositeColor(dest IsPixbuf, dest_x int, dest_y int, dest_width int, dest_height int, offset_x float64, offset_y float64, scale_x float64, scale_y float64, interp_type C.GdkInterpType, overall_alpha int, check_x int, check_y int, check_size int, color1 uint32, color2 uint32) {
-	var __cgo__dest *C.GdkPixbuf
-	if dest != nil {
-		__cgo__dest = dest.GetPixbufPointer()
-	}
-	C.gdk_pixbuf_composite_color(self.CPointer, __cgo__dest, C.int(dest_x), C.int(dest_y), C.int(dest_width), C.int(dest_height), C.double(offset_x), C.double(offset_y), C.double(scale_x), C.double(scale_y), interp_type, C.int(overall_alpha), C.int(check_x), C.int(check_y), C.int(check_size), C.guint32(color1), C.guint32(color2))
+	C.gdk_pixbuf_composite_color(self.CPointer, dest.GetPixbufPointer(), C.int(dest_x), C.int(dest_y), C.int(dest_width), C.int(dest_height), C.double(offset_x), C.double(offset_y), C.double(scale_x), C.double(scale_y), interp_type, C.int(overall_alpha), C.int(check_x), C.int(check_y), C.int(check_size), C.guint32(color1), C.guint32(color2))
 	return
 }
 
@@ -152,11 +144,7 @@ same pixbuf, it will be overwritten during the copy operation.
 Therefore, you can not use this function to scroll a pixbuf.
 */
 func (self *TraitPixbuf) CopyArea(src_x int, src_y int, width int, height int, dest_pixbuf IsPixbuf, dest_x int, dest_y int) {
-	var __cgo__dest_pixbuf *C.GdkPixbuf
-	if dest_pixbuf != nil {
-		__cgo__dest_pixbuf = dest_pixbuf.GetPixbufPointer()
-	}
-	C.gdk_pixbuf_copy_area(self.CPointer, C.int(src_x), C.int(src_y), C.int(width), C.int(height), __cgo__dest_pixbuf, C.int(dest_x), C.int(dest_y))
+	C.gdk_pixbuf_copy_area(self.CPointer, C.int(src_x), C.int(src_y), C.int(width), C.int(height), dest_pixbuf.GetPixbufPointer(), C.int(dest_x), C.int(dest_y))
 	return
 }
 
@@ -368,15 +356,11 @@ pixelated image. @src and @dest must have the same image format, size, and
 rowstride.
 */
 func (self *TraitPixbuf) SaturateAndPixelate(dest IsPixbuf, saturation float32, pixelate bool) {
-	var __cgo__dest *C.GdkPixbuf
-	if dest != nil {
-		__cgo__dest = dest.GetPixbufPointer()
-	}
 	__cgo__pixelate := C.gboolean(0)
 	if pixelate {
 		__cgo__pixelate = C.gboolean(1)
 	}
-	C.gdk_pixbuf_saturate_and_pixelate(self.CPointer, __cgo__dest, C.gfloat(saturation), __cgo__pixelate)
+	C.gdk_pixbuf_saturate_and_pixelate(self.CPointer, dest.GetPixbufPointer(), C.gfloat(saturation), __cgo__pixelate)
 	return
 }
 
@@ -472,11 +456,7 @@ same pixbuf, it will be overwritten during the scaling which
 results in rendering artifacts.
 */
 func (self *TraitPixbuf) Scale(dest IsPixbuf, dest_x int, dest_y int, dest_width int, dest_height int, offset_x float64, offset_y float64, scale_x float64, scale_y float64, interp_type C.GdkInterpType) {
-	var __cgo__dest *C.GdkPixbuf
-	if dest != nil {
-		__cgo__dest = dest.GetPixbufPointer()
-	}
-	C.gdk_pixbuf_scale(self.CPointer, __cgo__dest, C.int(dest_x), C.int(dest_y), C.int(dest_width), C.int(dest_height), C.double(offset_x), C.double(offset_y), C.double(scale_x), C.double(scale_y), interp_type)
+	C.gdk_pixbuf_scale(self.CPointer, dest.GetPixbufPointer(), C.int(dest_x), C.int(dest_y), C.int(dest_width), C.int(dest_height), C.double(offset_x), C.double(offset_y), C.double(scale_x), C.double(scale_y), interp_type)
 	return
 }
 
@@ -861,11 +841,7 @@ have the dimensions specified when the animation
 was constructed.
 */
 func (self *TraitPixbufSimpleAnim) AddFrame(pixbuf IsPixbuf) {
-	var __cgo__pixbuf *C.GdkPixbuf
-	if pixbuf != nil {
-		__cgo__pixbuf = pixbuf.GetPixbufPointer()
-	}
-	C.gdk_pixbuf_simple_anim_add_frame(self.CPointer, __cgo__pixbuf)
+	C.gdk_pixbuf_simple_anim_add_frame(self.CPointer, pixbuf.GetPixbufPointer())
 	return
 }
 

@@ -416,13 +416,9 @@ Like g_bus_own_name() but takes a #GDBusConnection instead of a
 #GBusType.
 */
 func BusOwnNameOnConnection(connection IsDBusConnection, name string, flags C.GBusNameOwnerFlags, name_acquired_handler C.GBusNameAcquiredCallback, name_lost_handler C.GBusNameLostCallback, user_data unsafe.Pointer, user_data_free_func C.GDestroyNotify) (return__ uint) {
-	var __cgo__connection *C.GDBusConnection
-	if connection != nil {
-		__cgo__connection = connection.GetDBusConnectionPointer()
-	}
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
 	var __cgo__return__ C.guint
-	__cgo__return__ = C.g_bus_own_name_on_connection(__cgo__connection, __cgo__name, flags, name_acquired_handler, name_lost_handler, (C.gpointer)(user_data), user_data_free_func)
+	__cgo__return__ = C.g_bus_own_name_on_connection(connection.GetDBusConnectionPointer(), __cgo__name, flags, name_acquired_handler, name_lost_handler, (C.gpointer)(user_data), user_data_free_func)
 	C.free(unsafe.Pointer(__cgo__name))
 	return__ = uint(__cgo__return__)
 	return
@@ -433,13 +429,9 @@ Version of g_bus_own_name_on_connection() using closures instead of
 callbacks for easier binding in other languages.
 */
 func BusOwnNameOnConnectionWithClosures(connection IsDBusConnection, name string, flags C.GBusNameOwnerFlags, name_acquired_closure *C.GClosure, name_lost_closure *C.GClosure) (return__ uint) {
-	var __cgo__connection *C.GDBusConnection
-	if connection != nil {
-		__cgo__connection = connection.GetDBusConnectionPointer()
-	}
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
 	var __cgo__return__ C.guint
-	__cgo__return__ = C.g_bus_own_name_on_connection_with_closures(__cgo__connection, __cgo__name, flags, name_acquired_closure, name_lost_closure)
+	__cgo__return__ = C.g_bus_own_name_on_connection_with_closures(connection.GetDBusConnectionPointer(), __cgo__name, flags, name_acquired_closure, name_lost_closure)
 	C.free(unsafe.Pointer(__cgo__name))
 	return__ = uint(__cgo__return__)
 	return
@@ -519,13 +511,9 @@ Like g_bus_watch_name() but takes a #GDBusConnection instead of a
 #GBusType.
 */
 func BusWatchNameOnConnection(connection IsDBusConnection, name string, flags C.GBusNameWatcherFlags, name_appeared_handler C.GBusNameAppearedCallback, name_vanished_handler C.GBusNameVanishedCallback, user_data unsafe.Pointer, user_data_free_func C.GDestroyNotify) (return__ uint) {
-	var __cgo__connection *C.GDBusConnection
-	if connection != nil {
-		__cgo__connection = connection.GetDBusConnectionPointer()
-	}
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
 	var __cgo__return__ C.guint
-	__cgo__return__ = C.g_bus_watch_name_on_connection(__cgo__connection, __cgo__name, flags, name_appeared_handler, name_vanished_handler, (C.gpointer)(user_data), user_data_free_func)
+	__cgo__return__ = C.g_bus_watch_name_on_connection(connection.GetDBusConnectionPointer(), __cgo__name, flags, name_appeared_handler, name_vanished_handler, (C.gpointer)(user_data), user_data_free_func)
 	C.free(unsafe.Pointer(__cgo__name))
 	return__ = uint(__cgo__return__)
 	return
@@ -536,13 +524,9 @@ Version of g_bus_watch_name_on_connection() using closures instead of callbacks 
 easier binding in other languages.
 */
 func BusWatchNameOnConnectionWithClosures(connection IsDBusConnection, name string, flags C.GBusNameWatcherFlags, name_appeared_closure *C.GClosure, name_vanished_closure *C.GClosure) (return__ uint) {
-	var __cgo__connection *C.GDBusConnection
-	if connection != nil {
-		__cgo__connection = connection.GetDBusConnectionPointer()
-	}
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
 	var __cgo__return__ C.guint
-	__cgo__return__ = C.g_bus_watch_name_on_connection_with_closures(__cgo__connection, __cgo__name, flags, name_appeared_closure, name_vanished_closure)
+	__cgo__return__ = C.g_bus_watch_name_on_connection_with_closures(connection.GetDBusConnectionPointer(), __cgo__name, flags, name_appeared_closure, name_vanished_closure)
 	C.free(unsafe.Pointer(__cgo__name))
 	return__ = uint(__cgo__return__)
 	return
@@ -1508,10 +1492,6 @@ returns %TRUE, or else the behavior is undefined. If @blocking is
 %TRUE, then @stream does not need to be a #GPollableInputStream.
 */
 func PollableStreamRead(stream IsInputStream, buffer []byte, count int64, blocking bool, cancellable IsCancellable) (return__ int64, __err__ error) {
-	var __cgo__stream *C.GInputStream
-	if stream != nil {
-		__cgo__stream = stream.GetInputStreamPointer()
-	}
 	__header__buffer := (*reflect.SliceHeader)(unsafe.Pointer(&buffer))
 	__cgo__blocking := C.gboolean(0)
 	if blocking {
@@ -1523,7 +1503,7 @@ func PollableStreamRead(stream IsInputStream, buffer []byte, count int64, blocki
 	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gssize
-	__cgo__return__ = C.g_pollable_stream_read(__cgo__stream, (unsafe.Pointer)(unsafe.Pointer(__header__buffer.Data)), C.gsize(count), __cgo__blocking, __cgo__cancellable, &__cgo_error__)
+	__cgo__return__ = C.g_pollable_stream_read(stream.GetInputStreamPointer(), (unsafe.Pointer)(unsafe.Pointer(__header__buffer.Data)), C.gsize(count), __cgo__blocking, __cgo__cancellable, &__cgo_error__)
 	return__ = int64(__cgo__return__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -1544,10 +1524,6 @@ behavior is undefined. If @blocking is %TRUE, then @stream does not
 need to be a #GPollableOutputStream.
 */
 func PollableStreamWrite(stream IsOutputStream, buffer []byte, count int64, blocking bool, cancellable IsCancellable) (return__ int64, __err__ error) {
-	var __cgo__stream *C.GOutputStream
-	if stream != nil {
-		__cgo__stream = stream.GetOutputStreamPointer()
-	}
 	__header__buffer := (*reflect.SliceHeader)(unsafe.Pointer(&buffer))
 	__cgo__blocking := C.gboolean(0)
 	if blocking {
@@ -1559,7 +1535,7 @@ func PollableStreamWrite(stream IsOutputStream, buffer []byte, count int64, bloc
 	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gssize
-	__cgo__return__ = C.g_pollable_stream_write(__cgo__stream, (unsafe.Pointer)(unsafe.Pointer(__header__buffer.Data)), C.gsize(count), __cgo__blocking, __cgo__cancellable, &__cgo_error__)
+	__cgo__return__ = C.g_pollable_stream_write(stream.GetOutputStreamPointer(), (unsafe.Pointer)(unsafe.Pointer(__header__buffer.Data)), C.gsize(count), __cgo__blocking, __cgo__cancellable, &__cgo_error__)
 	return__ = int64(__cgo__return__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -1588,10 +1564,6 @@ behavior is undefined. If @blocking is %TRUE, then @stream does not
 need to be a #GPollableOutputStream.
 */
 func PollableStreamWriteAll(stream IsOutputStream, buffer []byte, count int64, blocking bool, cancellable IsCancellable) (bytes_written int64, return__ bool, __err__ error) {
-	var __cgo__stream *C.GOutputStream
-	if stream != nil {
-		__cgo__stream = stream.GetOutputStreamPointer()
-	}
 	__header__buffer := (*reflect.SliceHeader)(unsafe.Pointer(&buffer))
 	__cgo__blocking := C.gboolean(0)
 	if blocking {
@@ -1604,7 +1576,7 @@ func PollableStreamWriteAll(stream IsOutputStream, buffer []byte, count int64, b
 	}
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.g_pollable_stream_write_all(__cgo__stream, (unsafe.Pointer)(unsafe.Pointer(__header__buffer.Data)), C.gsize(count), __cgo__blocking, &__cgo__bytes_written, __cgo__cancellable, &__cgo_error__)
+	__cgo__return__ = C.g_pollable_stream_write_all(stream.GetOutputStreamPointer(), (unsafe.Pointer)(unsafe.Pointer(__header__buffer.Data)), C.gsize(count), __cgo__blocking, &__cgo__bytes_written, __cgo__cancellable, &__cgo_error__)
 	bytes_written = int64(__cgo__bytes_written)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
@@ -1839,12 +1811,8 @@ must have pollable input and output streams) which is assumed to
 communicate with the server identified by @server_identity.
 */
 func TlsClientConnectionNew(base_io_stream IsIOStream, server_identity *C.GSocketConnectable) (return__ *C.GIOStream, __err__ error) {
-	var __cgo__base_io_stream *C.GIOStream
-	if base_io_stream != nil {
-		__cgo__base_io_stream = base_io_stream.GetIOStreamPointer()
-	}
 	var __cgo_error__ *C.GError
-	return__ = C.g_tls_client_connection_new(__cgo__base_io_stream, server_identity, &__cgo_error__)
+	return__ = C.g_tls_client_connection_new(base_io_stream.GetIOStreamPointer(), server_identity, &__cgo_error__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
 	}
@@ -1881,16 +1849,12 @@ Creates a new #GTlsServerConnection wrapping @base_io_stream (which
 must have pollable input and output streams).
 */
 func TlsServerConnectionNew(base_io_stream IsIOStream, certificate IsTlsCertificate) (return__ *C.GIOStream, __err__ error) {
-	var __cgo__base_io_stream *C.GIOStream
-	if base_io_stream != nil {
-		__cgo__base_io_stream = base_io_stream.GetIOStreamPointer()
-	}
 	var __cgo__certificate *C.GTlsCertificate
 	if certificate != nil {
 		__cgo__certificate = certificate.GetTlsCertificatePointer()
 	}
 	var __cgo_error__ *C.GError
-	return__ = C.g_tls_server_connection_new(__cgo__base_io_stream, __cgo__certificate, &__cgo_error__)
+	return__ = C.g_tls_server_connection_new(base_io_stream.GetIOStreamPointer(), __cgo__certificate, &__cgo_error__)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
 	}

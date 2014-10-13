@@ -603,11 +603,7 @@ func (self *TraitAccelLabel) SetAccelClosure(accel_closure *C.GClosure) {
 Sets the widget to be monitored by this accelerator label.
 */
 func (self *TraitAccelLabel) SetAccelWidget(accel_widget IsWidget) {
-	var __cgo__accel_widget *C.GtkWidget
-	if accel_widget != nil {
-		__cgo__accel_widget = accel_widget.GetWidgetPointer()
-	}
-	C.gtk_accel_label_set_accel_widget(self.CPointer, __cgo__accel_widget)
+	C.gtk_accel_label_set_accel_widget(self.CPointer, accel_widget.GetWidgetPointer())
 	return
 }
 
@@ -791,11 +787,7 @@ Adds @child to @action_bar, packed with reference to the
 end of the @action_bar.
 */
 func (self *TraitActionBar) PackEnd(child IsWidget) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	C.gtk_action_bar_pack_end(self.CPointer, __cgo__child)
+	C.gtk_action_bar_pack_end(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
@@ -804,11 +796,7 @@ Adds @child to @action_bar, packed with reference to the
 start of the @action_bar.
 */
 func (self *TraitActionBar) PackStart(child IsWidget) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	C.gtk_action_bar_pack_start(self.CPointer, __cgo__child)
+	C.gtk_action_bar_pack_start(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
@@ -1457,11 +1445,7 @@ GTK+ will keep the application running as long as it has
 any windows.
 */
 func (self *TraitApplication) AddWindow(window IsWindow) {
-	var __cgo__window *C.GtkWindow
-	if window != nil {
-		__cgo__window = window.GetWindowPointer()
-	}
-	C.gtk_application_add_window(self.CPointer, __cgo__window)
+	C.gtk_application_add_window(self.CPointer, window.GetWindowPointer())
 	return
 }
 
@@ -1687,11 +1671,7 @@ The application may stop running as a result of a call to this
 function.
 */
 func (self *TraitApplication) RemoveWindow(window IsWindow) {
-	var __cgo__window *C.GtkWindow
-	if window != nil {
-		__cgo__window = window.GetWindowPointer()
-	}
-	C.gtk_application_remove_window(self.CPointer, __cgo__window)
+	C.gtk_application_remove_window(self.CPointer, window.GetWindowPointer())
 	return
 }
 
@@ -1882,11 +1862,7 @@ func NewTraitAssistant(p unsafe.Pointer) *TraitAssistant {
 Adds a widget to the action area of a #GtkAssistant.
 */
 func (self *TraitAssistant) AddActionWidget(child IsWidget) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	C.gtk_assistant_add_action_widget(self.CPointer, __cgo__child)
+	C.gtk_assistant_add_action_widget(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
@@ -1894,12 +1870,8 @@ func (self *TraitAssistant) AddActionWidget(child IsWidget) {
 Appends a page to the @assistant.
 */
 func (self *TraitAssistant) AppendPage(page IsWidget) (return__ int) {
-	var __cgo__page *C.GtkWidget
-	if page != nil {
-		__cgo__page = page.GetWidgetPointer()
-	}
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_assistant_append_page(self.CPointer, __cgo__page)
+	__cgo__return__ = C.gtk_assistant_append_page(self.CPointer, page.GetWidgetPointer())
 	return__ = int(__cgo__return__)
 	return
 }
@@ -1956,12 +1928,8 @@ func (self *TraitAssistant) GetNthPage(page_num int) (return__ *Widget) {
 Gets whether @page is complete.
 */
 func (self *TraitAssistant) GetPageComplete(page IsWidget) (return__ bool) {
-	var __cgo__page *C.GtkWidget
-	if page != nil {
-		__cgo__page = page.GetWidgetPointer()
-	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_assistant_get_page_complete(self.CPointer, __cgo__page)
+	__cgo__return__ = C.gtk_assistant_get_page_complete(self.CPointer, page.GetWidgetPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -1974,12 +1942,8 @@ func (self *TraitAssistant) GetPageComplete(page IsWidget) (return__ bool) {
 Gets the title for @page.
 */
 func (self *TraitAssistant) GetPageTitle(page IsWidget) (return__ string) {
-	var __cgo__page *C.GtkWidget
-	if page != nil {
-		__cgo__page = page.GetWidgetPointer()
-	}
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.gtk_assistant_get_page_title(self.CPointer, __cgo__page)
+	__cgo__return__ = C.gtk_assistant_get_page_title(self.CPointer, page.GetWidgetPointer())
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -1988,11 +1952,7 @@ func (self *TraitAssistant) GetPageTitle(page IsWidget) (return__ string) {
 Gets the page type of @page.
 */
 func (self *TraitAssistant) GetPageType(page IsWidget) (return__ C.GtkAssistantPageType) {
-	var __cgo__page *C.GtkWidget
-	if page != nil {
-		__cgo__page = page.GetWidgetPointer()
-	}
-	return__ = C.gtk_assistant_get_page_type(self.CPointer, __cgo__page)
+	return__ = C.gtk_assistant_get_page_type(self.CPointer, page.GetWidgetPointer())
 	return
 }
 
@@ -2000,12 +1960,8 @@ func (self *TraitAssistant) GetPageType(page IsWidget) (return__ C.GtkAssistantP
 Inserts a page in the @assistant at a given position.
 */
 func (self *TraitAssistant) InsertPage(page IsWidget, position int) (return__ int) {
-	var __cgo__page *C.GtkWidget
-	if page != nil {
-		__cgo__page = page.GetWidgetPointer()
-	}
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_assistant_insert_page(self.CPointer, __cgo__page, C.gint(position))
+	__cgo__return__ = C.gtk_assistant_insert_page(self.CPointer, page.GetWidgetPointer(), C.gint(position))
 	return__ = int(__cgo__return__)
 	return
 }
@@ -2028,12 +1984,8 @@ func (self *TraitAssistant) NextPage() {
 Prepends a page to the @assistant.
 */
 func (self *TraitAssistant) PrependPage(page IsWidget) (return__ int) {
-	var __cgo__page *C.GtkWidget
-	if page != nil {
-		__cgo__page = page.GetWidgetPointer()
-	}
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_assistant_prepend_page(self.CPointer, __cgo__page)
+	__cgo__return__ = C.gtk_assistant_prepend_page(self.CPointer, page.GetWidgetPointer())
 	return__ = int(__cgo__return__)
 	return
 }
@@ -2056,11 +2008,7 @@ func (self *TraitAssistant) PreviousPage() {
 Removes a widget from the action area of a #GtkAssistant.
 */
 func (self *TraitAssistant) RemoveActionWidget(child IsWidget) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	C.gtk_assistant_remove_action_widget(self.CPointer, __cgo__child)
+	C.gtk_assistant_remove_action_widget(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
@@ -2105,15 +2053,11 @@ This will make @assistant update the buttons state
 to be able to continue the task.
 */
 func (self *TraitAssistant) SetPageComplete(page IsWidget, complete bool) {
-	var __cgo__page *C.GtkWidget
-	if page != nil {
-		__cgo__page = page.GetWidgetPointer()
-	}
 	__cgo__complete := C.gboolean(0)
 	if complete {
 		__cgo__complete = C.gboolean(1)
 	}
-	C.gtk_assistant_set_page_complete(self.CPointer, __cgo__page, __cgo__complete)
+	C.gtk_assistant_set_page_complete(self.CPointer, page.GetWidgetPointer(), __cgo__complete)
 	return
 }
 
@@ -2128,12 +2072,8 @@ The title is displayed in the header area of the assistant
 when @page is the current page.
 */
 func (self *TraitAssistant) SetPageTitle(page IsWidget, title string) {
-	var __cgo__page *C.GtkWidget
-	if page != nil {
-		__cgo__page = page.GetWidgetPointer()
-	}
 	__cgo__title := (*C.gchar)(unsafe.Pointer(C.CString(title)))
-	C.gtk_assistant_set_page_title(self.CPointer, __cgo__page, __cgo__title)
+	C.gtk_assistant_set_page_title(self.CPointer, page.GetWidgetPointer(), __cgo__title)
 	C.free(unsafe.Pointer(__cgo__title))
 	return
 }
@@ -2144,11 +2084,7 @@ Sets the page type for @page.
 The page type determines the page behavior in the @assistant.
 */
 func (self *TraitAssistant) SetPageType(page IsWidget, type_ C.GtkAssistantPageType) {
-	var __cgo__page *C.GtkWidget
-	if page != nil {
-		__cgo__page = page.GetWidgetPointer()
-	}
-	C.gtk_assistant_set_page_type(self.CPointer, __cgo__page, type_)
+	C.gtk_assistant_set_page_type(self.CPointer, page.GetWidgetPointer(), type_)
 	return
 }
 
@@ -2265,10 +2201,6 @@ The @child is packed after (away from end of) any other child
 packed with reference to the end of @box.
 */
 func (self *TraitBox) PackEnd(child IsWidget, expand bool, fill bool, padding uint) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	__cgo__expand := C.gboolean(0)
 	if expand {
 		__cgo__expand = C.gboolean(1)
@@ -2277,7 +2209,7 @@ func (self *TraitBox) PackEnd(child IsWidget, expand bool, fill bool, padding ui
 	if fill {
 		__cgo__fill = C.gboolean(1)
 	}
-	C.gtk_box_pack_end(self.CPointer, __cgo__child, __cgo__expand, __cgo__fill, C.guint(padding))
+	C.gtk_box_pack_end(self.CPointer, child.GetWidgetPointer(), __cgo__expand, __cgo__fill, C.guint(padding))
 	return
 }
 
@@ -2287,10 +2219,6 @@ The @child is packed after any other child packed with reference
 to the start of @box.
 */
 func (self *TraitBox) PackStart(child IsWidget, expand bool, fill bool, padding uint) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	__cgo__expand := C.gboolean(0)
 	if expand {
 		__cgo__expand = C.gboolean(1)
@@ -2299,7 +2227,7 @@ func (self *TraitBox) PackStart(child IsWidget, expand bool, fill bool, padding 
 	if fill {
 		__cgo__fill = C.gboolean(1)
 	}
-	C.gtk_box_pack_start(self.CPointer, __cgo__child, __cgo__expand, __cgo__fill, C.guint(padding))
+	C.gtk_box_pack_start(self.CPointer, child.GetWidgetPointer(), __cgo__expand, __cgo__fill, C.guint(padding))
 	return
 }
 
@@ -2307,14 +2235,10 @@ func (self *TraitBox) PackStart(child IsWidget, expand bool, fill bool, padding 
 Obtains information about how @child is packed into @box.
 */
 func (self *TraitBox) QueryChildPacking(child IsWidget) (expand bool, fill bool, padding uint, pack_type C.GtkPackType) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	var __cgo__expand C.gboolean
 	var __cgo__fill C.gboolean
 	var __cgo__padding C.guint
-	C.gtk_box_query_child_packing(self.CPointer, __cgo__child, &__cgo__expand, &__cgo__fill, &__cgo__padding, &pack_type)
+	C.gtk_box_query_child_packing(self.CPointer, child.GetWidgetPointer(), &__cgo__expand, &__cgo__fill, &__cgo__padding, &pack_type)
 	expand = __cgo__expand == C.gboolean(1)
 	fill = __cgo__fill == C.gboolean(1)
 	padding = uint(__cgo__padding)
@@ -2333,11 +2257,7 @@ in the list will be packed just after all other widgets of the
 same packing type that appear earlier in the list.
 */
 func (self *TraitBox) ReorderChild(child IsWidget, position int) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	C.gtk_box_reorder_child(self.CPointer, __cgo__child, C.gint(position))
+	C.gtk_box_reorder_child(self.CPointer, child.GetWidgetPointer(), C.gint(position))
 	return
 }
 
@@ -2373,10 +2293,6 @@ func (self *TraitBox) SetCenterWidget(widget IsWidget) {
 Sets the way @child is packed into @box.
 */
 func (self *TraitBox) SetChildPacking(child IsWidget, expand bool, fill bool, padding uint, pack_type C.GtkPackType) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	__cgo__expand := C.gboolean(0)
 	if expand {
 		__cgo__expand = C.gboolean(1)
@@ -2385,7 +2301,7 @@ func (self *TraitBox) SetChildPacking(child IsWidget, expand bool, fill bool, pa
 	if fill {
 		__cgo__fill = C.gboolean(1)
 	}
-	C.gtk_box_set_child_packing(self.CPointer, __cgo__child, __cgo__expand, __cgo__fill, C.guint(padding), pack_type)
+	C.gtk_box_set_child_packing(self.CPointer, child.GetWidgetPointer(), __cgo__expand, __cgo__fill, C.guint(padding), pack_type)
 	return
 }
 
@@ -2738,11 +2654,7 @@ You only need this function if there is more than one #GApplication
 in your process.  @application cannot be %NULL.
 */
 func (self *TraitBuilder) SetApplication(application IsApplication) {
-	var __cgo__application *C.GtkApplication
-	if application != nil {
-		__cgo__application = application.GetApplicationPointer()
-	}
-	C.gtk_builder_set_application(self.CPointer, __cgo__application)
+	C.gtk_builder_set_application(self.CPointer, application.GetApplicationPointer())
 	return
 }
 
@@ -2964,11 +2876,7 @@ displayed if the label text is %NULL or if
 gtk_widget_show() on @image yourself.
 */
 func (self *TraitButton) SetImage(image IsWidget) {
-	var __cgo__image *C.GtkWidget
-	if image != nil {
-		__cgo__image = image.GetWidgetPointer()
-	}
-	C.gtk_button_set_image(self.CPointer, __cgo__image)
+	C.gtk_button_set_image(self.CPointer, image.GetWidgetPointer())
 	return
 }
 
@@ -3051,12 +2959,8 @@ Returns whether the child is exempted from homogenous
 sizing.
 */
 func (self *TraitButtonBox) GetChildNonHomogeneous(child IsWidget) (return__ bool) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_button_box_get_child_non_homogeneous(self.CPointer, __cgo__child)
+	__cgo__return__ = C.gtk_button_box_get_child_non_homogeneous(self.CPointer, child.GetWidgetPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -3065,12 +2969,8 @@ func (self *TraitButtonBox) GetChildNonHomogeneous(child IsWidget) (return__ boo
 Returns whether @child should appear in a secondary group of children.
 */
 func (self *TraitButtonBox) GetChildSecondary(child IsWidget) (return__ bool) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_button_box_get_child_secondary(self.CPointer, __cgo__child)
+	__cgo__return__ = C.gtk_button_box_get_child_secondary(self.CPointer, child.GetWidgetPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -3087,15 +2987,11 @@ func (self *TraitButtonBox) GetLayout() (return__ C.GtkButtonBoxStyle) {
 Sets whether the child is exempted from homogeous sizing.
 */
 func (self *TraitButtonBox) SetChildNonHomogeneous(child IsWidget, non_homogeneous bool) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	__cgo__non_homogeneous := C.gboolean(0)
 	if non_homogeneous {
 		__cgo__non_homogeneous = C.gboolean(1)
 	}
-	C.gtk_button_box_set_child_non_homogeneous(self.CPointer, __cgo__child, __cgo__non_homogeneous)
+	C.gtk_button_box_set_child_non_homogeneous(self.CPointer, child.GetWidgetPointer(), __cgo__non_homogeneous)
 	return
 }
 
@@ -3114,15 +3010,11 @@ the other end of the button box from the main children. For the
 other styles, they appear immediately next to the main children.
 */
 func (self *TraitButtonBox) SetChildSecondary(child IsWidget, is_secondary bool) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	__cgo__is_secondary := C.gboolean(0)
 	if is_secondary {
 		__cgo__is_secondary = C.gboolean(1)
 	}
-	C.gtk_button_box_set_child_secondary(self.CPointer, __cgo__child, __cgo__is_secondary)
+	C.gtk_button_box_set_child_secondary(self.CPointer, child.GetWidgetPointer(), __cgo__is_secondary)
 	return
 }
 
@@ -3314,20 +3206,12 @@ cell, however some subclasses which embed widgets in the area
 can also activate a widget if it currently has the focus.
 */
 func (self *TraitCellArea) Activate(context IsCellAreaContext, widget IsWidget, cell_area *C.GdkRectangle, flags C.GtkCellRendererState, edit_only bool) (return__ bool) {
-	var __cgo__context *C.GtkCellAreaContext
-	if context != nil {
-		__cgo__context = context.GetCellAreaContextPointer()
-	}
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
 	__cgo__edit_only := C.gboolean(0)
 	if edit_only {
 		__cgo__edit_only = C.gboolean(1)
 	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_cell_area_activate(self.CPointer, __cgo__context, __cgo__widget, cell_area, flags, __cgo__edit_only)
+	__cgo__return__ = C.gtk_cell_area_activate(self.CPointer, context.GetCellAreaContextPointer(), widget.GetWidgetPointer(), cell_area, flags, __cgo__edit_only)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -3339,16 +3223,8 @@ for keyboard events for free in its own GtkCellArea->activate()
 implementation.
 */
 func (self *TraitCellArea) ActivateCell(widget IsWidget, renderer IsCellRenderer, event *C.GdkEvent, cell_area *C.GdkRectangle, flags C.GtkCellRendererState) (return__ bool) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
-	var __cgo__renderer *C.GtkCellRenderer
-	if renderer != nil {
-		__cgo__renderer = renderer.GetCellRendererPointer()
-	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_cell_area_activate_cell(self.CPointer, __cgo__widget, __cgo__renderer, event, cell_area, flags)
+	__cgo__return__ = C.gtk_cell_area_activate_cell(self.CPointer, widget.GetWidgetPointer(), renderer.GetCellRendererPointer(), event, cell_area, flags)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -3357,11 +3233,7 @@ func (self *TraitCellArea) ActivateCell(widget IsWidget, renderer IsCellRenderer
 Adds @renderer to @area with the default child cell properties.
 */
 func (self *TraitCellArea) Add(renderer IsCellRenderer) {
-	var __cgo__renderer *C.GtkCellRenderer
-	if renderer != nil {
-		__cgo__renderer = renderer.GetCellRendererPointer()
-	}
-	C.gtk_cell_area_add(self.CPointer, __cgo__renderer)
+	C.gtk_cell_area_add(self.CPointer, renderer.GetCellRendererPointer())
 	return
 }
 
@@ -3374,15 +3246,7 @@ Events handled by focus siblings can also activate the given
 focusable @renderer.
 */
 func (self *TraitCellArea) AddFocusSibling(renderer IsCellRenderer, sibling IsCellRenderer) {
-	var __cgo__renderer *C.GtkCellRenderer
-	if renderer != nil {
-		__cgo__renderer = renderer.GetCellRendererPointer()
-	}
-	var __cgo__sibling *C.GtkCellRenderer
-	if sibling != nil {
-		__cgo__sibling = sibling.GetCellRendererPointer()
-	}
-	C.gtk_cell_area_add_focus_sibling(self.CPointer, __cgo__renderer, __cgo__sibling)
+	C.gtk_cell_area_add_focus_sibling(self.CPointer, renderer.GetCellRendererPointer(), sibling.GetCellRendererPointer())
 	return
 }
 
@@ -3410,12 +3274,8 @@ Connects an @attribute to apply values from @column for the
 #GtkTreeModel in use.
 */
 func (self *TraitCellArea) AttributeConnect(renderer IsCellRenderer, attribute string, column int) {
-	var __cgo__renderer *C.GtkCellRenderer
-	if renderer != nil {
-		__cgo__renderer = renderer.GetCellRendererPointer()
-	}
 	__cgo__attribute := (*C.gchar)(unsafe.Pointer(C.CString(attribute)))
-	C.gtk_cell_area_attribute_connect(self.CPointer, __cgo__renderer, __cgo__attribute, C.gint(column))
+	C.gtk_cell_area_attribute_connect(self.CPointer, renderer.GetCellRendererPointer(), __cgo__attribute, C.gint(column))
 	C.free(unsafe.Pointer(__cgo__attribute))
 	return
 }
@@ -3426,12 +3286,8 @@ attribute will no longer be updated with values from the
 model.
 */
 func (self *TraitCellArea) AttributeDisconnect(renderer IsCellRenderer, attribute string) {
-	var __cgo__renderer *C.GtkCellRenderer
-	if renderer != nil {
-		__cgo__renderer = renderer.GetCellRendererPointer()
-	}
 	__cgo__attribute := (*C.gchar)(unsafe.Pointer(C.CString(attribute)))
-	C.gtk_cell_area_attribute_disconnect(self.CPointer, __cgo__renderer, __cgo__attribute)
+	C.gtk_cell_area_attribute_disconnect(self.CPointer, renderer.GetCellRendererPointer(), __cgo__attribute)
 	C.free(unsafe.Pointer(__cgo__attribute))
 	return
 }
@@ -3441,13 +3297,9 @@ Returns the model column that an attribute has been mapped to,
 or -1 if the attribute is not mapped.
 */
 func (self *TraitCellArea) AttributeGetColumn(renderer IsCellRenderer, attribute string) (return__ int) {
-	var __cgo__renderer *C.GtkCellRenderer
-	if renderer != nil {
-		__cgo__renderer = renderer.GetCellRendererPointer()
-	}
 	__cgo__attribute := (*C.gchar)(unsafe.Pointer(C.CString(attribute)))
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_cell_area_attribute_get_column(self.CPointer, __cgo__renderer, __cgo__attribute)
+	__cgo__return__ = C.gtk_cell_area_attribute_get_column(self.CPointer, renderer.GetCellRendererPointer(), __cgo__attribute)
 	C.free(unsafe.Pointer(__cgo__attribute))
 	return__ = int(__cgo__return__)
 	return
@@ -3459,12 +3311,8 @@ func (self *TraitCellArea) AttributeGetColumn(renderer IsCellRenderer, attribute
 Gets the value of a cell property for @renderer in @area.
 */
 func (self *TraitCellArea) CellGetProperty(renderer IsCellRenderer, property_name string, value *C.GValue) {
-	var __cgo__renderer *C.GtkCellRenderer
-	if renderer != nil {
-		__cgo__renderer = renderer.GetCellRendererPointer()
-	}
 	__cgo__property_name := (*C.gchar)(unsafe.Pointer(C.CString(property_name)))
-	C.gtk_cell_area_cell_get_property(self.CPointer, __cgo__renderer, __cgo__property_name, value)
+	C.gtk_cell_area_cell_get_property(self.CPointer, renderer.GetCellRendererPointer(), __cgo__property_name, value)
 	C.free(unsafe.Pointer(__cgo__property_name))
 	return
 }
@@ -3477,12 +3325,8 @@ func (self *TraitCellArea) CellGetProperty(renderer IsCellRenderer, property_nam
 Sets a cell property for @renderer in @area.
 */
 func (self *TraitCellArea) CellSetProperty(renderer IsCellRenderer, property_name string, value *C.GValue) {
-	var __cgo__renderer *C.GtkCellRenderer
-	if renderer != nil {
-		__cgo__renderer = renderer.GetCellRendererPointer()
-	}
 	__cgo__property_name := (*C.gchar)(unsafe.Pointer(C.CString(property_name)))
-	C.gtk_cell_area_cell_set_property(self.CPointer, __cgo__renderer, __cgo__property_name, value)
+	C.gtk_cell_area_cell_set_property(self.CPointer, renderer.GetCellRendererPointer(), __cgo__property_name, value)
 	C.free(unsafe.Pointer(__cgo__property_name))
 	return
 }
@@ -3503,12 +3347,8 @@ was already used to request all the row widths that are
 to be displayed.
 */
 func (self *TraitCellArea) CopyContext(context IsCellAreaContext) (return__ *CellAreaContext) {
-	var __cgo__context *C.GtkCellAreaContext
-	if context != nil {
-		__cgo__context = context.GetCellAreaContextPointer()
-	}
 	var __cgo__return__ *C.GtkCellAreaContext
-	__cgo__return__ = C.gtk_cell_area_copy_context(self.CPointer, __cgo__context)
+	__cgo__return__ = C.gtk_cell_area_copy_context(self.CPointer, context.GetCellAreaContextPointer())
 	if __cgo__return__ != nil {
 		return__ = NewCellAreaContextFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -3536,16 +3376,8 @@ func (self *TraitCellArea) CreateContext() (return__ *CellAreaContext) {
 Delegates event handling to a #GtkCellArea.
 */
 func (self *TraitCellArea) Event(context IsCellAreaContext, widget IsWidget, event *C.GdkEvent, cell_area *C.GdkRectangle, flags C.GtkCellRendererState) (return__ int) {
-	var __cgo__context *C.GtkCellAreaContext
-	if context != nil {
-		__cgo__context = context.GetCellAreaContextPointer()
-	}
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_cell_area_event(self.CPointer, __cgo__context, __cgo__widget, event, cell_area, flags)
+	__cgo__return__ = C.gtk_cell_area_event(self.CPointer, context.GetCellAreaContextPointer(), widget.GetWidgetPointer(), event, cell_area, flags)
 	return__ = int(__cgo__return__)
 	return
 }
@@ -3579,15 +3411,7 @@ Calls @callback for every #GtkCellRenderer in @area with the
 allocated rectangle inside @cell_area.
 */
 func (self *TraitCellArea) ForeachAlloc(context IsCellAreaContext, widget IsWidget, cell_area *C.GdkRectangle, background_area *C.GdkRectangle, callback C.GtkCellAllocCallback, callback_data unsafe.Pointer) {
-	var __cgo__context *C.GtkCellAreaContext
-	if context != nil {
-		__cgo__context = context.GetCellAreaContextPointer()
-	}
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
-	C.gtk_cell_area_foreach_alloc(self.CPointer, __cgo__context, __cgo__widget, cell_area, background_area, callback, (C.gpointer)(callback_data))
+	C.gtk_cell_area_foreach_alloc(self.CPointer, context.GetCellAreaContextPointer(), widget.GetWidgetPointer(), cell_area, background_area, callback, (C.gpointer)(callback_data))
 	return
 }
 
@@ -3596,19 +3420,7 @@ Derives the allocation of @renderer inside @area if @area
 were to be renderered in @cell_area.
 */
 func (self *TraitCellArea) GetCellAllocation(context IsCellAreaContext, widget IsWidget, renderer IsCellRenderer, cell_area *C.GdkRectangle) (allocation C.GdkRectangle) {
-	var __cgo__context *C.GtkCellAreaContext
-	if context != nil {
-		__cgo__context = context.GetCellAreaContextPointer()
-	}
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
-	var __cgo__renderer *C.GtkCellRenderer
-	if renderer != nil {
-		__cgo__renderer = renderer.GetCellRendererPointer()
-	}
-	C.gtk_cell_area_get_cell_allocation(self.CPointer, __cgo__context, __cgo__widget, __cgo__renderer, cell_area, &allocation)
+	C.gtk_cell_area_get_cell_allocation(self.CPointer, context.GetCellAreaContextPointer(), widget.GetWidgetPointer(), renderer.GetCellRendererPointer(), cell_area, &allocation)
 	return
 }
 
@@ -3617,16 +3429,8 @@ Gets the #GtkCellRenderer at @x and @y coordinates inside @area and optionally
 returns the full cell allocation for it inside @cell_area.
 */
 func (self *TraitCellArea) GetCellAtPosition(context IsCellAreaContext, widget IsWidget, cell_area *C.GdkRectangle, x int, y int) (alloc_area C.GdkRectangle, return__ *CellRenderer) {
-	var __cgo__context *C.GtkCellAreaContext
-	if context != nil {
-		__cgo__context = context.GetCellAreaContextPointer()
-	}
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
 	var __cgo__return__ *C.GtkCellRenderer
-	__cgo__return__ = C.gtk_cell_area_get_cell_at_position(self.CPointer, __cgo__context, __cgo__widget, cell_area, C.gint(x), C.gint(y), &alloc_area)
+	__cgo__return__ = C.gtk_cell_area_get_cell_at_position(self.CPointer, context.GetCellAreaContextPointer(), widget.GetWidgetPointer(), cell_area, C.gint(x), C.gint(y), &alloc_area)
 	if __cgo__return__ != nil {
 		return__ = NewCellRendererFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -3691,12 +3495,8 @@ then chose to activate the focus cell for which the event
 cell may have been a sibling.
 */
 func (self *TraitCellArea) GetFocusFromSibling(renderer IsCellRenderer) (return__ *CellRenderer) {
-	var __cgo__renderer *C.GtkCellRenderer
-	if renderer != nil {
-		__cgo__renderer = renderer.GetCellRendererPointer()
-	}
 	var __cgo__return__ *C.GtkCellRenderer
-	__cgo__return__ = C.gtk_cell_area_get_focus_from_sibling(self.CPointer, __cgo__renderer)
+	__cgo__return__ = C.gtk_cell_area_get_focus_from_sibling(self.CPointer, renderer.GetCellRendererPointer())
 	if __cgo__return__ != nil {
 		return__ = NewCellRendererFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -3707,11 +3507,7 @@ func (self *TraitCellArea) GetFocusFromSibling(renderer IsCellRenderer) (return_
 Gets the focus sibling cell renderers for @renderer.
 */
 func (self *TraitCellArea) GetFocusSiblings(renderer IsCellRenderer) (return__ *C.GList) {
-	var __cgo__renderer *C.GtkCellRenderer
-	if renderer != nil {
-		__cgo__renderer = renderer.GetCellRendererPointer()
-	}
-	return__ = C.gtk_cell_area_get_focus_siblings(self.CPointer, __cgo__renderer)
+	return__ = C.gtk_cell_area_get_focus_siblings(self.CPointer, renderer.GetCellRendererPointer())
 	return
 }
 
@@ -3725,17 +3521,9 @@ consult gtk_cell_area_context_get_preferred_height() after a series of
 requests.
 */
 func (self *TraitCellArea) GetPreferredHeight(context IsCellAreaContext, widget IsWidget) (minimum_height int, natural_height int) {
-	var __cgo__context *C.GtkCellAreaContext
-	if context != nil {
-		__cgo__context = context.GetCellAreaContextPointer()
-	}
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
 	var __cgo__minimum_height C.gint
 	var __cgo__natural_height C.gint
-	C.gtk_cell_area_get_preferred_height(self.CPointer, __cgo__context, __cgo__widget, &__cgo__minimum_height, &__cgo__natural_height)
+	C.gtk_cell_area_get_preferred_height(self.CPointer, context.GetCellAreaContextPointer(), widget.GetWidgetPointer(), &__cgo__minimum_height, &__cgo__natural_height)
 	minimum_height = int(__cgo__minimum_height)
 	natural_height = int(__cgo__natural_height)
 	return
@@ -3758,17 +3546,9 @@ the full width of the requested rows checked again with
 gtk_cell_area_context_get_preferred_width().
 */
 func (self *TraitCellArea) GetPreferredHeightForWidth(context IsCellAreaContext, widget IsWidget, width int) (minimum_height int, natural_height int) {
-	var __cgo__context *C.GtkCellAreaContext
-	if context != nil {
-		__cgo__context = context.GetCellAreaContextPointer()
-	}
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
 	var __cgo__minimum_height C.gint
 	var __cgo__natural_height C.gint
-	C.gtk_cell_area_get_preferred_height_for_width(self.CPointer, __cgo__context, __cgo__widget, C.gint(width), &__cgo__minimum_height, &__cgo__natural_height)
+	C.gtk_cell_area_get_preferred_height_for_width(self.CPointer, context.GetCellAreaContextPointer(), widget.GetWidgetPointer(), C.gint(width), &__cgo__minimum_height, &__cgo__natural_height)
 	minimum_height = int(__cgo__minimum_height)
 	natural_height = int(__cgo__natural_height)
 	return
@@ -3784,17 +3564,9 @@ consult gtk_cell_area_context_get_preferred_width() after a series of
 requests.
 */
 func (self *TraitCellArea) GetPreferredWidth(context IsCellAreaContext, widget IsWidget) (minimum_width int, natural_width int) {
-	var __cgo__context *C.GtkCellAreaContext
-	if context != nil {
-		__cgo__context = context.GetCellAreaContextPointer()
-	}
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
 	var __cgo__minimum_width C.gint
 	var __cgo__natural_width C.gint
-	C.gtk_cell_area_get_preferred_width(self.CPointer, __cgo__context, __cgo__widget, &__cgo__minimum_width, &__cgo__natural_width)
+	C.gtk_cell_area_get_preferred_width(self.CPointer, context.GetCellAreaContextPointer(), widget.GetWidgetPointer(), &__cgo__minimum_width, &__cgo__natural_width)
 	minimum_width = int(__cgo__minimum_width)
 	natural_width = int(__cgo__natural_width)
 	return
@@ -3817,17 +3589,9 @@ the full height of the requested rows checked again with
 gtk_cell_area_context_get_preferred_height().
 */
 func (self *TraitCellArea) GetPreferredWidthForHeight(context IsCellAreaContext, widget IsWidget, height int) (minimum_width int, natural_width int) {
-	var __cgo__context *C.GtkCellAreaContext
-	if context != nil {
-		__cgo__context = context.GetCellAreaContextPointer()
-	}
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
 	var __cgo__minimum_width C.gint
 	var __cgo__natural_width C.gint
-	C.gtk_cell_area_get_preferred_width_for_height(self.CPointer, __cgo__context, __cgo__widget, C.gint(height), &__cgo__minimum_width, &__cgo__natural_width)
+	C.gtk_cell_area_get_preferred_width_for_height(self.CPointer, context.GetCellAreaContextPointer(), widget.GetWidgetPointer(), C.gint(height), &__cgo__minimum_width, &__cgo__natural_width)
 	minimum_width = int(__cgo__minimum_width)
 	natural_width = int(__cgo__natural_width)
 	return
@@ -3846,12 +3610,8 @@ func (self *TraitCellArea) GetRequestMode() (return__ C.GtkSizeRequestMode) {
 Checks if @area contains @renderer.
 */
 func (self *TraitCellArea) HasRenderer(renderer IsCellRenderer) (return__ bool) {
-	var __cgo__renderer *C.GtkCellRenderer
-	if renderer != nil {
-		__cgo__renderer = renderer.GetCellRendererPointer()
-	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_cell_area_has_renderer(self.CPointer, __cgo__renderer)
+	__cgo__return__ = C.gtk_cell_area_has_renderer(self.CPointer, renderer.GetCellRendererPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -3862,11 +3622,7 @@ to get the inner area where a given #GtkCellRenderer will be
 rendered. It removes any padding previously added by gtk_cell_area_request_renderer().
 */
 func (self *TraitCellArea) InnerCellArea(widget IsWidget, cell_area *C.GdkRectangle) (inner_area C.GdkRectangle) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
-	C.gtk_cell_area_inner_cell_area(self.CPointer, __cgo__widget, cell_area, &inner_area)
+	C.gtk_cell_area_inner_cell_area(self.CPointer, widget.GetWidgetPointer(), cell_area, &inner_area)
 	return
 }
 
@@ -3886,16 +3642,8 @@ Returns whether @sibling is one of @renderer’s focus siblings
 (see gtk_cell_area_add_focus_sibling()).
 */
 func (self *TraitCellArea) IsFocusSibling(renderer IsCellRenderer, sibling IsCellRenderer) (return__ bool) {
-	var __cgo__renderer *C.GtkCellRenderer
-	if renderer != nil {
-		__cgo__renderer = renderer.GetCellRendererPointer()
-	}
-	var __cgo__sibling *C.GtkCellRenderer
-	if sibling != nil {
-		__cgo__sibling = sibling.GetCellRendererPointer()
-	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_cell_area_is_focus_sibling(self.CPointer, __cgo__renderer, __cgo__sibling)
+	__cgo__return__ = C.gtk_cell_area_is_focus_sibling(self.CPointer, renderer.GetCellRendererPointer(), sibling.GetCellRendererPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -3904,11 +3652,7 @@ func (self *TraitCellArea) IsFocusSibling(renderer IsCellRenderer, sibling IsCel
 Removes @renderer from @area.
 */
 func (self *TraitCellArea) Remove(renderer IsCellRenderer) {
-	var __cgo__renderer *C.GtkCellRenderer
-	if renderer != nil {
-		__cgo__renderer = renderer.GetCellRendererPointer()
-	}
-	C.gtk_cell_area_remove(self.CPointer, __cgo__renderer)
+	C.gtk_cell_area_remove(self.CPointer, renderer.GetCellRendererPointer())
 	return
 }
 
@@ -3917,15 +3661,7 @@ Removes @sibling from @renderer’s focus sibling list
 (see gtk_cell_area_add_focus_sibling()).
 */
 func (self *TraitCellArea) RemoveFocusSibling(renderer IsCellRenderer, sibling IsCellRenderer) {
-	var __cgo__renderer *C.GtkCellRenderer
-	if renderer != nil {
-		__cgo__renderer = renderer.GetCellRendererPointer()
-	}
-	var __cgo__sibling *C.GtkCellRenderer
-	if sibling != nil {
-		__cgo__sibling = sibling.GetCellRendererPointer()
-	}
-	C.gtk_cell_area_remove_focus_sibling(self.CPointer, __cgo__renderer, __cgo__sibling)
+	C.gtk_cell_area_remove_focus_sibling(self.CPointer, renderer.GetCellRendererPointer(), sibling.GetCellRendererPointer())
 	return
 }
 
@@ -3934,19 +3670,11 @@ Renders @area’s cells according to @area’s layout onto @widget at
 the given coordinates.
 */
 func (self *TraitCellArea) Render(context IsCellAreaContext, widget IsWidget, cr *C.cairo_t, background_area *C.GdkRectangle, cell_area *C.GdkRectangle, flags C.GtkCellRendererState, paint_focus bool) {
-	var __cgo__context *C.GtkCellAreaContext
-	if context != nil {
-		__cgo__context = context.GetCellAreaContextPointer()
-	}
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
 	__cgo__paint_focus := C.gboolean(0)
 	if paint_focus {
 		__cgo__paint_focus = C.gboolean(1)
 	}
-	C.gtk_cell_area_render(self.CPointer, __cgo__context, __cgo__widget, cr, background_area, cell_area, flags, __cgo__paint_focus)
+	C.gtk_cell_area_render(self.CPointer, context.GetCellAreaContextPointer(), widget.GetWidgetPointer(), cr, background_area, cell_area, flags, __cgo__paint_focus)
 	return
 }
 
@@ -3958,17 +3686,9 @@ at render and event time since this function will add padding
 around the cell for focus painting.
 */
 func (self *TraitCellArea) RequestRenderer(renderer IsCellRenderer, orientation C.GtkOrientation, widget IsWidget, for_size int) (minimum_size int, natural_size int) {
-	var __cgo__renderer *C.GtkCellRenderer
-	if renderer != nil {
-		__cgo__renderer = renderer.GetCellRendererPointer()
-	}
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
 	var __cgo__minimum_size C.gint
 	var __cgo__natural_size C.gint
-	C.gtk_cell_area_request_renderer(self.CPointer, __cgo__renderer, orientation, __cgo__widget, C.gint(for_size), &__cgo__minimum_size, &__cgo__natural_size)
+	C.gtk_cell_area_request_renderer(self.CPointer, renderer.GetCellRendererPointer(), orientation, widget.GetWidgetPointer(), C.gint(for_size), &__cgo__minimum_size, &__cgo__natural_size)
 	minimum_size = int(__cgo__minimum_size)
 	natural_size = int(__cgo__natural_size)
 	return
@@ -3983,11 +3703,7 @@ however it can also be used to implement functions such
 as gtk_tree_view_set_cursor_on_cell().
 */
 func (self *TraitCellArea) SetFocusCell(renderer IsCellRenderer) {
-	var __cgo__renderer *C.GtkCellRenderer
-	if renderer != nil {
-		__cgo__renderer = renderer.GetCellRendererPointer()
-	}
-	C.gtk_cell_area_set_focus_cell(self.CPointer, __cgo__renderer)
+	C.gtk_cell_area_set_focus_cell(self.CPointer, renderer.GetCellRendererPointer())
 	return
 }
 
@@ -4039,10 +3755,6 @@ The @renderer is packed after (away from end of) any other
 #GtkCellRenderer packed with reference to the end of @box.
 */
 func (self *TraitCellAreaBox) PackEnd(renderer IsCellRenderer, expand bool, align bool, fixed bool) {
-	var __cgo__renderer *C.GtkCellRenderer
-	if renderer != nil {
-		__cgo__renderer = renderer.GetCellRendererPointer()
-	}
 	__cgo__expand := C.gboolean(0)
 	if expand {
 		__cgo__expand = C.gboolean(1)
@@ -4055,7 +3767,7 @@ func (self *TraitCellAreaBox) PackEnd(renderer IsCellRenderer, expand bool, alig
 	if fixed {
 		__cgo__fixed = C.gboolean(1)
 	}
-	C.gtk_cell_area_box_pack_end(self.CPointer, __cgo__renderer, __cgo__expand, __cgo__align, __cgo__fixed)
+	C.gtk_cell_area_box_pack_end(self.CPointer, renderer.GetCellRendererPointer(), __cgo__expand, __cgo__align, __cgo__fixed)
 	return
 }
 
@@ -4066,10 +3778,6 @@ The @renderer is packed after any other #GtkCellRenderer packed
 with reference to the start of @box.
 */
 func (self *TraitCellAreaBox) PackStart(renderer IsCellRenderer, expand bool, align bool, fixed bool) {
-	var __cgo__renderer *C.GtkCellRenderer
-	if renderer != nil {
-		__cgo__renderer = renderer.GetCellRendererPointer()
-	}
 	__cgo__expand := C.gboolean(0)
 	if expand {
 		__cgo__expand = C.gboolean(1)
@@ -4082,7 +3790,7 @@ func (self *TraitCellAreaBox) PackStart(renderer IsCellRenderer, expand bool, al
 	if fixed {
 		__cgo__fixed = C.gboolean(1)
 	}
-	C.gtk_cell_area_box_pack_start(self.CPointer, __cgo__renderer, __cgo__expand, __cgo__align, __cgo__fixed)
+	C.gtk_cell_area_box_pack_start(self.CPointer, renderer.GetCellRendererPointer(), __cgo__expand, __cgo__align, __cgo__fixed)
 	return
 }
 
@@ -4303,13 +4011,9 @@ Some cell renderers may use events; for example, #GtkCellRendererToggle
 toggles when it gets a mouse click.
 */
 func (self *TraitCellRenderer) Activate(event *C.GdkEvent, widget IsWidget, path string, background_area *C.GdkRectangle, cell_area *C.GdkRectangle, flags C.GtkCellRendererState) (return__ bool) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
 	__cgo__path := (*C.gchar)(unsafe.Pointer(C.CString(path)))
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_cell_renderer_activate(self.CPointer, event, __cgo__widget, __cgo__path, background_area, cell_area, flags)
+	__cgo__return__ = C.gtk_cell_renderer_activate(self.CPointer, event, widget.GetWidgetPointer(), __cgo__path, background_area, cell_area, flags)
 	C.free(unsafe.Pointer(__cgo__path))
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
@@ -4320,11 +4024,7 @@ Gets the aligned area used by @cell inside @cell_area. Used for finding
 the appropriate edit and focus rectangle.
 */
 func (self *TraitCellRenderer) GetAlignedArea(widget IsWidget, flags C.GtkCellRendererState, cell_area *C.GdkRectangle) (aligned_area C.GdkRectangle) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
-	C.gtk_cell_renderer_get_aligned_area(self.CPointer, __cgo__widget, flags, cell_area, &aligned_area)
+	C.gtk_cell_renderer_get_aligned_area(self.CPointer, widget.GetWidgetPointer(), flags, cell_area, &aligned_area)
 	return
 }
 
@@ -4368,13 +4068,9 @@ func (self *TraitCellRenderer) GetPadding() (xpad int, ypad int) {
 Retreives a renderer’s natural size when rendered to @widget.
 */
 func (self *TraitCellRenderer) GetPreferredHeight(widget IsWidget) (minimum_size int, natural_size int) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
 	var __cgo__minimum_size C.gint
 	var __cgo__natural_size C.gint
-	C.gtk_cell_renderer_get_preferred_height(self.CPointer, __cgo__widget, &__cgo__minimum_size, &__cgo__natural_size)
+	C.gtk_cell_renderer_get_preferred_height(self.CPointer, widget.GetWidgetPointer(), &__cgo__minimum_size, &__cgo__natural_size)
 	minimum_size = int(__cgo__minimum_size)
 	natural_size = int(__cgo__natural_size)
 	return
@@ -4385,13 +4081,9 @@ Retreives a cell renderers’s minimum and natural height if it were rendered to
 @widget with the specified @width.
 */
 func (self *TraitCellRenderer) GetPreferredHeightForWidth(widget IsWidget, width int) (minimum_height int, natural_height int) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
 	var __cgo__minimum_height C.gint
 	var __cgo__natural_height C.gint
-	C.gtk_cell_renderer_get_preferred_height_for_width(self.CPointer, __cgo__widget, C.gint(width), &__cgo__minimum_height, &__cgo__natural_height)
+	C.gtk_cell_renderer_get_preferred_height_for_width(self.CPointer, widget.GetWidgetPointer(), C.gint(width), &__cgo__minimum_height, &__cgo__natural_height)
 	minimum_height = int(__cgo__minimum_height)
 	natural_height = int(__cgo__natural_height)
 	return
@@ -4402,11 +4094,7 @@ Retrieves the minimum and natural size of a cell taking
 into account the widget’s preference for height-for-width management.
 */
 func (self *TraitCellRenderer) GetPreferredSize(widget IsWidget) (minimum_size C.GtkRequisition, natural_size C.GtkRequisition) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
-	C.gtk_cell_renderer_get_preferred_size(self.CPointer, __cgo__widget, &minimum_size, &natural_size)
+	C.gtk_cell_renderer_get_preferred_size(self.CPointer, widget.GetWidgetPointer(), &minimum_size, &natural_size)
 	return
 }
 
@@ -4414,13 +4102,9 @@ func (self *TraitCellRenderer) GetPreferredSize(widget IsWidget) (minimum_size C
 Retreives a renderer’s natural size when rendered to @widget.
 */
 func (self *TraitCellRenderer) GetPreferredWidth(widget IsWidget) (minimum_size int, natural_size int) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
 	var __cgo__minimum_size C.gint
 	var __cgo__natural_size C.gint
-	C.gtk_cell_renderer_get_preferred_width(self.CPointer, __cgo__widget, &__cgo__minimum_size, &__cgo__natural_size)
+	C.gtk_cell_renderer_get_preferred_width(self.CPointer, widget.GetWidgetPointer(), &__cgo__minimum_size, &__cgo__natural_size)
 	minimum_size = int(__cgo__minimum_size)
 	natural_size = int(__cgo__natural_size)
 	return
@@ -4431,13 +4115,9 @@ Retreives a cell renderers’s minimum and natural width if it were rendered to
 @widget with the specified @height.
 */
 func (self *TraitCellRenderer) GetPreferredWidthForHeight(widget IsWidget, height int) (minimum_width int, natural_width int) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
 	var __cgo__minimum_width C.gint
 	var __cgo__natural_width C.gint
-	C.gtk_cell_renderer_get_preferred_width_for_height(self.CPointer, __cgo__widget, C.gint(height), &__cgo__minimum_width, &__cgo__natural_width)
+	C.gtk_cell_renderer_get_preferred_width_for_height(self.CPointer, widget.GetWidgetPointer(), C.gint(height), &__cgo__minimum_width, &__cgo__natural_width)
 	minimum_width = int(__cgo__minimum_width)
 	natural_width = int(__cgo__natural_width)
 	return
@@ -4470,11 +4150,7 @@ based on the cell renderer and widget sensitivity, and
 the given #GtkCellRendererState.
 */
 func (self *TraitCellRenderer) GetState(widget IsWidget, cell_state C.GtkCellRendererState) (return__ C.GtkStateFlags) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
-	return__ = C.gtk_cell_renderer_get_state(self.CPointer, __cgo__widget, cell_state)
+	return__ = C.gtk_cell_renderer_get_state(self.CPointer, widget.GetWidgetPointer(), cell_state)
 	return
 }
 
@@ -4508,11 +4184,7 @@ so the @background_area rectangles for all cells tile to cover the entire
 @window.
 */
 func (self *TraitCellRenderer) Render(cr *C.cairo_t, widget IsWidget, background_area *C.GdkRectangle, cell_area *C.GdkRectangle, flags C.GtkCellRendererState) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
-	C.gtk_cell_renderer_render(self.CPointer, cr, __cgo__widget, background_area, cell_area, flags)
+	C.gtk_cell_renderer_render(self.CPointer, cr, widget.GetWidgetPointer(), background_area, cell_area, flags)
 	return
 }
 
@@ -4568,12 +4240,8 @@ func (self *TraitCellRenderer) SetVisible(visible bool) {
 Passes an activate event to the cell renderer for possible processing.
 */
 func (self *TraitCellRenderer) StartEditing(event *C.GdkEvent, widget IsWidget, path string, background_area *C.GdkRectangle, cell_area *C.GdkRectangle, flags C.GtkCellRendererState) (return__ *C.GtkCellEditable) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
 	__cgo__path := (*C.gchar)(unsafe.Pointer(C.CString(path)))
-	return__ = C.gtk_cell_renderer_start_editing(self.CPointer, event, __cgo__widget, __cgo__path, background_area, cell_area, flags)
+	return__ = C.gtk_cell_renderer_start_editing(self.CPointer, event, widget.GetWidgetPointer(), __cgo__path, background_area, cell_area, flags)
 	C.free(unsafe.Pointer(__cgo__path))
 	return
 }
@@ -5097,11 +4765,7 @@ various reasons, in particular if the clipboard was empty or if the
 contents of the clipboard could not be converted into rich text form.
 */
 func (self *TraitClipboard) RequestRichText(buffer IsTextBuffer, callback C.GtkClipboardRichTextReceivedFunc, user_data unsafe.Pointer) {
-	var __cgo__buffer *C.GtkTextBuffer
-	if buffer != nil {
-		__cgo__buffer = buffer.GetTextBufferPointer()
-	}
-	C.gtk_clipboard_request_rich_text(self.CPointer, __cgo__buffer, callback, (C.gpointer)(user_data))
+	C.gtk_clipboard_request_rich_text(self.CPointer, buffer.GetTextBufferPointer(), callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -5247,13 +4911,9 @@ waits for the data to be received using the main loop, so events,
 timeouts, etc, may be dispatched during the wait.
 */
 func (self *TraitClipboard) WaitForRichText(buffer IsTextBuffer) (format C.GdkAtom, length int64, return__ []byte) {
-	var __cgo__buffer *C.GtkTextBuffer
-	if buffer != nil {
-		__cgo__buffer = buffer.GetTextBufferPointer()
-	}
 	var __cgo__length C.gsize
 	var __cgo__return__ *C.guint8
-	__cgo__return__ = C.gtk_clipboard_wait_for_rich_text(self.CPointer, __cgo__buffer, &format, &__cgo__length)
+	__cgo__return__ = C.gtk_clipboard_wait_for_rich_text(self.CPointer, buffer.GetTextBufferPointer(), &format, &__cgo__length)
 	length = int64(__cgo__length)
 	defer func() { return__ = C.GoBytes(unsafe.Pointer(__cgo__return__), C.int(length)) }()
 	return
@@ -5328,12 +4988,8 @@ gtk_clipboard_wait_for_rich_text() since it doesn’t need to retrieve
 the actual text.
 */
 func (self *TraitClipboard) WaitIsRichTextAvailable(buffer IsTextBuffer) (return__ bool) {
-	var __cgo__buffer *C.GtkTextBuffer
-	if buffer != nil {
-		__cgo__buffer = buffer.GetTextBufferPointer()
-	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_clipboard_wait_is_rich_text_available(self.CPointer, __cgo__buffer)
+	__cgo__return__ = C.gtk_clipboard_wait_is_rich_text_available(self.CPointer, buffer.GetTextBufferPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -6056,11 +5712,7 @@ may add intermediate children between the added widget and the
 container.
 */
 func (self *TraitContainer) Add(widget IsWidget) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
-	C.gtk_container_add(self.CPointer, __cgo__widget)
+	C.gtk_container_add(self.CPointer, widget.GetWidgetPointer())
 	return
 }
 
@@ -6077,12 +5729,8 @@ func (self *TraitContainer) CheckResize() {
 Gets the value of a child property for @child and @container.
 */
 func (self *TraitContainer) ChildGetProperty(child IsWidget, property_name string, value *C.GValue) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	__cgo__property_name := (*C.gchar)(unsafe.Pointer(C.CString(property_name)))
-	C.gtk_container_child_get_property(self.CPointer, __cgo__child, __cgo__property_name, value)
+	C.gtk_container_child_get_property(self.CPointer, child.GetWidgetPointer(), __cgo__property_name, value)
 	C.free(unsafe.Pointer(__cgo__property_name))
 	return
 }
@@ -6099,12 +5747,8 @@ This is an analogue of g_object_notify() for child properties.
 Also see gtk_widget_child_notify().
 */
 func (self *TraitContainer) ChildNotify(child IsWidget, child_property string) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	__cgo__child_property := (*C.gchar)(unsafe.Pointer(C.CString(child_property)))
-	C.gtk_container_child_notify(self.CPointer, __cgo__child, __cgo__child_property)
+	C.gtk_container_child_notify(self.CPointer, child.GetWidgetPointer(), __cgo__child_property)
 	C.free(unsafe.Pointer(__cgo__child_property))
 	return
 }
@@ -6115,12 +5759,8 @@ func (self *TraitContainer) ChildNotify(child IsWidget, child_property string) {
 Sets a child property for @child and @container.
 */
 func (self *TraitContainer) ChildSetProperty(child IsWidget, property_name string, value *C.GValue) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	__cgo__property_name := (*C.gchar)(unsafe.Pointer(C.CString(property_name)))
-	C.gtk_container_child_set_property(self.CPointer, __cgo__child, __cgo__property_name, value)
+	C.gtk_container_child_set_property(self.CPointer, child.GetWidgetPointer(), __cgo__property_name, value)
 	C.free(unsafe.Pointer(__cgo__property_name))
 	return
 }
@@ -6242,11 +5882,7 @@ Returns a newly created widget path representing all the widget hierarchy
 from the toplevel down to and including @child.
 */
 func (self *TraitContainer) GetPathForChild(child IsWidget) (return__ *C.GtkWidgetPath) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	return__ = C.gtk_container_get_path_for_child(self.CPointer, __cgo__child)
+	return__ = C.gtk_container_get_path_for_child(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
@@ -6270,11 +5906,7 @@ In most cases, a container can simply either inherit the
 and then chain to the ::draw implementation from #GtkContainer.
 */
 func (self *TraitContainer) PropagateDraw(child IsWidget, cr *C.cairo_t) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	C.gtk_container_propagate_draw(self.CPointer, __cgo__child, cr)
+	C.gtk_container_propagate_draw(self.CPointer, child.GetWidgetPointer(), cr)
 	return
 }
 
@@ -6290,11 +5922,7 @@ using gtk_widget_destroy() since this will remove it from the
 container and help break any circular reference count cycles.
 */
 func (self *TraitContainer) Remove(widget IsWidget) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
-	C.gtk_container_remove(self.CPointer, __cgo__widget)
+	C.gtk_container_remove(self.CPointer, widget.GetWidgetPointer())
 	return
 }
 
@@ -6361,11 +5989,7 @@ The adjustments have to be in pixel units and in the same coordinate
 system as the allocation for immediate children of the container.
 */
 func (self *TraitContainer) SetFocusHadjustment(adjustment IsAdjustment) {
-	var __cgo__adjustment *C.GtkAdjustment
-	if adjustment != nil {
-		__cgo__adjustment = adjustment.GetAdjustmentPointer()
-	}
-	C.gtk_container_set_focus_hadjustment(self.CPointer, __cgo__adjustment)
+	C.gtk_container_set_focus_hadjustment(self.CPointer, adjustment.GetAdjustmentPointer())
 	return
 }
 
@@ -6381,11 +6005,7 @@ The adjustments have to be in pixel units and in the same coordinate
 system as the allocation for immediate children of the container.
 */
 func (self *TraitContainer) SetFocusVadjustment(adjustment IsAdjustment) {
-	var __cgo__adjustment *C.GtkAdjustment
-	if adjustment != nil {
-		__cgo__adjustment = adjustment.GetAdjustmentPointer()
-	}
-	C.gtk_container_set_focus_vadjustment(self.CPointer, __cgo__adjustment)
+	C.gtk_container_set_focus_vadjustment(self.CPointer, adjustment.GetAdjustmentPointer())
 	return
 }
 
@@ -6425,11 +6045,7 @@ func NewTraitContainerCellAccessible(p unsafe.Pointer) *TraitContainerCellAccess
 	return &TraitContainerCellAccessible{(*C.GtkContainerCellAccessible)(p)}
 }
 func (self *TraitContainerCellAccessible) AddChild(child IsCellAccessible) {
-	var __cgo__child *C.GtkCellAccessible
-	if child != nil {
-		__cgo__child = child.GetCellAccessiblePointer()
-	}
-	C.gtk_container_cell_accessible_add_child(self.CPointer, __cgo__child)
+	C.gtk_container_cell_accessible_add_child(self.CPointer, child.GetCellAccessiblePointer())
 	return
 }
 
@@ -6442,11 +6058,7 @@ func (self *TraitContainerCellAccessible) GetChildren() (return__ *C.GList) {
 }
 
 func (self *TraitContainerCellAccessible) RemoveChild(child IsCellAccessible) {
-	var __cgo__child *C.GtkCellAccessible
-	if child != nil {
-		__cgo__child = child.GetCellAccessiblePointer()
-	}
-	C.gtk_container_cell_accessible_remove_child(self.CPointer, __cgo__child)
+	C.gtk_container_cell_accessible_remove_child(self.CPointer, child.GetCellAccessiblePointer())
 	return
 }
 
@@ -6547,11 +6159,7 @@ non-activatable widget, simply pack it into the @action_area field
 of the #GtkDialog struct.
 */
 func (self *TraitDialog) AddActionWidget(child IsWidget, response_id int) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	C.gtk_dialog_add_action_widget(self.CPointer, __cgo__child, C.gint(response_id))
+	C.gtk_dialog_add_action_widget(self.CPointer, child.GetWidgetPointer(), C.gint(response_id))
 	return
 }
 
@@ -6604,12 +6212,8 @@ Gets the response id of a widget in the action area
 of a dialog.
 */
 func (self *TraitDialog) GetResponseForWidget(widget IsWidget) (return__ int) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_dialog_get_response_for_widget(self.CPointer, __cgo__widget)
+	__cgo__return__ = C.gtk_dialog_get_response_for_widget(self.CPointer, widget.GetWidgetPointer())
 	return__ = int(__cgo__return__)
 	return
 }
@@ -7276,11 +6880,7 @@ Set the #GtkEntryBuffer object which holds the text for
 this widget.
 */
 func (self *TraitEntry) SetBuffer(buffer IsEntryBuffer) {
-	var __cgo__buffer *C.GtkEntryBuffer
-	if buffer != nil {
-		__cgo__buffer = buffer.GetEntryBufferPointer()
-	}
-	C.gtk_entry_set_buffer(self.CPointer, __cgo__buffer)
+	C.gtk_entry_set_buffer(self.CPointer, buffer.GetEntryBufferPointer())
 	return
 }
 
@@ -7309,11 +6909,7 @@ The adjustment has to be in pixel units and in the same coordinate system
 as the entry.
 */
 func (self *TraitEntry) SetCursorHadjustment(adjustment IsAdjustment) {
-	var __cgo__adjustment *C.GtkAdjustment
-	if adjustment != nil {
-		__cgo__adjustment = adjustment.GetAdjustmentPointer()
-	}
-	C.gtk_entry_set_cursor_hadjustment(self.CPointer, __cgo__adjustment)
+	C.gtk_entry_set_cursor_hadjustment(self.CPointer, adjustment.GetAdjustmentPointer())
 	return
 }
 
@@ -8688,11 +8284,7 @@ func NewTraitFixed(p unsafe.Pointer) *TraitFixed {
 Moves a child of a #GtkFixed container to the given position.
 */
 func (self *TraitFixed) Move(widget IsWidget, x int, y int) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
-	C.gtk_fixed_move(self.CPointer, __cgo__widget, C.gint(x), C.gint(y))
+	C.gtk_fixed_move(self.CPointer, widget.GetWidgetPointer(), C.gint(x), C.gint(y))
 	return
 }
 
@@ -8700,11 +8292,7 @@ func (self *TraitFixed) Move(widget IsWidget, x int, y int) {
 Adds a widget to a #GtkFixed container at the given position.
 */
 func (self *TraitFixed) Put(widget IsWidget, x int, y int) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
-	C.gtk_fixed_put(self.CPointer, __cgo__widget, C.gint(x), C.gint(y))
+	C.gtk_fixed_put(self.CPointer, widget.GetWidgetPointer(), C.gint(x), C.gint(y))
 	return
 }
 
@@ -8820,11 +8408,7 @@ If @position is -1, or larger than the total number of children
 in the @box, then the @widget will be appended to the end.
 */
 func (self *TraitFlowBox) Insert(widget IsWidget, position int) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
-	C.gtk_flow_box_insert(self.CPointer, __cgo__widget, C.gint(position))
+	C.gtk_flow_box_insert(self.CPointer, widget.GetWidgetPointer(), C.gint(position))
 	return
 }
 
@@ -8867,11 +8451,7 @@ Selects a single child of @box, if the selection
 mode allows it.
 */
 func (self *TraitFlowBox) SelectChild(child IsFlowBoxChild) {
-	var __cgo__child *C.GtkFlowBoxChild
-	if child != nil {
-		__cgo__child = child.GetFlowBoxChildPointer()
-	}
-	C.gtk_flow_box_select_child(self.CPointer, __cgo__child)
+	C.gtk_flow_box_select_child(self.CPointer, child.GetFlowBoxChildPointer())
 	return
 }
 
@@ -8936,11 +8516,7 @@ coordinate system as the allocation for immediate children
 of the box.
 */
 func (self *TraitFlowBox) SetHadjustment(adjustment IsAdjustment) {
-	var __cgo__adjustment *C.GtkAdjustment
-	if adjustment != nil {
-		__cgo__adjustment = adjustment.GetAdjustmentPointer()
-	}
-	C.gtk_flow_box_set_hadjustment(self.CPointer, __cgo__adjustment)
+	C.gtk_flow_box_set_hadjustment(self.CPointer, adjustment.GetAdjustmentPointer())
 	return
 }
 
@@ -9026,11 +8602,7 @@ coordinate system as the allocation for immediate children
 of the box.
 */
 func (self *TraitFlowBox) SetVadjustment(adjustment IsAdjustment) {
-	var __cgo__adjustment *C.GtkAdjustment
-	if adjustment != nil {
-		__cgo__adjustment = adjustment.GetAdjustmentPointer()
-	}
-	C.gtk_flow_box_set_vadjustment(self.CPointer, __cgo__adjustment)
+	C.gtk_flow_box_set_vadjustment(self.CPointer, adjustment.GetAdjustmentPointer())
 	return
 }
 
@@ -9048,11 +8620,7 @@ Unselects a single child of @box, if the selection
 mode allows it.
 */
 func (self *TraitFlowBox) UnselectChild(child IsFlowBoxChild) {
-	var __cgo__child *C.GtkFlowBoxChild
-	if child != nil {
-		__cgo__child = child.GetFlowBoxChildPointer()
-	}
-	C.gtk_flow_box_unselect_child(self.CPointer, __cgo__child)
+	C.gtk_flow_box_unselect_child(self.CPointer, child.GetFlowBoxChildPointer())
 	return
 }
 
@@ -9616,11 +9184,7 @@ every other gesture group attached to the same #GtkWidget will switch the
 state for that sequence to #GTK_EVENT_SEQUENCE_DENIED.
 */
 func (self *TraitGesture) Group(gesture IsGesture) {
-	var __cgo__gesture *C.GtkGesture
-	if gesture != nil {
-		__cgo__gesture = gesture.GetGesturePointer()
-	}
-	C.gtk_gesture_group(self.CPointer, __cgo__gesture)
+	C.gtk_gesture_group(self.CPointer, gesture.GetGesturePointer())
 	return
 }
 
@@ -9651,12 +9215,8 @@ func (self *TraitGesture) IsActive() (return__ bool) {
 Returns %TRUE if both gestures pertain to the same group.
 */
 func (self *TraitGesture) IsGroupedWith(other IsGesture) (return__ bool) {
-	var __cgo__other *C.GtkGesture
-	if other != nil {
-		__cgo__other = other.GetGesturePointer()
-	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_gesture_is_grouped_with(self.CPointer, __cgo__other)
+	__cgo__return__ = C.gtk_gesture_is_grouped_with(self.CPointer, other.GetGesturePointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -10079,11 +9639,7 @@ number of “cells” that @child will occupy is determined by
 @width and @height.
 */
 func (self *TraitGrid) Attach(child IsWidget, left int, top int, width int, height int) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	C.gtk_grid_attach(self.CPointer, __cgo__child, C.gint(left), C.gint(top), C.gint(width), C.gint(height))
+	C.gtk_grid_attach(self.CPointer, child.GetWidgetPointer(), C.gint(left), C.gint(top), C.gint(width), C.gint(height))
 	return
 }
 
@@ -10099,15 +9655,11 @@ Attaching widgets labeled [1], [2], [3] with @sibling == %NULL and
 @side == %GTK_POS_LEFT yields a layout of [3][2][1].
 */
 func (self *TraitGrid) AttachNextTo(child IsWidget, sibling IsWidget, side C.GtkPositionType, width int, height int) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	var __cgo__sibling *C.GtkWidget
 	if sibling != nil {
 		__cgo__sibling = sibling.GetWidgetPointer()
 	}
-	C.gtk_grid_attach_next_to(self.CPointer, __cgo__child, __cgo__sibling, side, C.gint(width), C.gint(height))
+	C.gtk_grid_attach_next_to(self.CPointer, child.GetWidgetPointer(), __cgo__sibling, side, C.gint(width), C.gint(height))
 	return
 }
 
@@ -10205,11 +9757,7 @@ a row is inserted. If @side is %GTK_POS_LEFT of %GTK_POS_RIGHT,
 a column is inserted.
 */
 func (self *TraitGrid) InsertNextTo(sibling IsWidget, side C.GtkPositionType) {
-	var __cgo__sibling *C.GtkWidget
-	if sibling != nil {
-		__cgo__sibling = sibling.GetWidgetPointer()
-	}
-	C.gtk_grid_insert_next_to(self.CPointer, __cgo__sibling, side)
+	C.gtk_grid_insert_next_to(self.CPointer, sibling.GetWidgetPointer(), side)
 	return
 }
 
@@ -10514,11 +10062,7 @@ Adds @child to @bar, packed with reference to the
 end of the @bar.
 */
 func (self *TraitHeaderBar) PackEnd(child IsWidget) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	C.gtk_header_bar_pack_end(self.CPointer, __cgo__child)
+	C.gtk_header_bar_pack_end(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
@@ -10527,11 +10071,7 @@ Adds @child to @bar, packed with reference to the
 start of the @bar.
 */
 func (self *TraitHeaderBar) PackStart(child IsWidget) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	C.gtk_header_bar_pack_start(self.CPointer, __cgo__child)
+	C.gtk_header_bar_pack_start(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
@@ -11109,13 +10649,9 @@ This allows loading symbolic icons that will match the system theme.
 See gtk_icon_info_load_symbolic() for more details.
 */
 func (self *TraitIconInfo) LoadSymbolicForContext(context IsStyleContext) (was_symbolic bool, return__ *C.GdkPixbuf, __err__ error) {
-	var __cgo__context *C.GtkStyleContext
-	if context != nil {
-		__cgo__context = context.GetStyleContextPointer()
-	}
 	var __cgo__was_symbolic C.gboolean
 	var __cgo_error__ *C.GError
-	return__ = C.gtk_icon_info_load_symbolic_for_context(self.CPointer, __cgo__context, &__cgo__was_symbolic, &__cgo_error__)
+	return__ = C.gtk_icon_info_load_symbolic_for_context(self.CPointer, context.GetStyleContextPointer(), &__cgo__was_symbolic, &__cgo_error__)
 	was_symbolic = __cgo__was_symbolic == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -11131,11 +10667,7 @@ For more details, see gtk_icon_info_load_symbolic_for_context()
 which is the synchronous version of this call.
 */
 func (self *TraitIconInfo) LoadSymbolicForContextAsync(context IsStyleContext, cancellable *C.GCancellable, callback C.GAsyncReadyCallback, user_data unsafe.Pointer) {
-	var __cgo__context *C.GtkStyleContext
-	if context != nil {
-		__cgo__context = context.GetStyleContextPointer()
-	}
-	C.gtk_icon_info_load_symbolic_for_context_async(self.CPointer, __cgo__context, cancellable, callback, (C.gpointer)(user_data))
+	C.gtk_icon_info_load_symbolic_for_context_async(self.CPointer, context.GetStyleContextPointer(), cancellable, callback, (C.gpointer)(user_data))
 	return
 }
 
@@ -12069,15 +11601,11 @@ the item pointed to by @path. See also gtk_tooltip_set_tip_area().
 See also gtk_icon_view_set_tooltip_column() for a simpler alternative.
 */
 func (self *TraitIconView) SetTooltipCell(tooltip IsTooltip, path *C.GtkTreePath, cell IsCellRenderer) {
-	var __cgo__tooltip *C.GtkTooltip
-	if tooltip != nil {
-		__cgo__tooltip = tooltip.GetTooltipPointer()
-	}
 	var __cgo__cell *C.GtkCellRenderer
 	if cell != nil {
 		__cgo__cell = cell.GetCellRendererPointer()
 	}
-	C.gtk_icon_view_set_tooltip_cell(self.CPointer, __cgo__tooltip, path, __cgo__cell)
+	C.gtk_icon_view_set_tooltip_cell(self.CPointer, tooltip.GetTooltipPointer(), path, __cgo__cell)
 	return
 }
 
@@ -12104,11 +11632,7 @@ See also gtk_icon_view_set_tooltip_column() for a simpler alternative.
 See also gtk_tooltip_set_tip_area().
 */
 func (self *TraitIconView) SetTooltipItem(tooltip IsTooltip, path *C.GtkTreePath) {
-	var __cgo__tooltip *C.GtkTooltip
-	if tooltip != nil {
-		__cgo__tooltip = tooltip.GetTooltipPointer()
-	}
-	C.gtk_icon_view_set_tooltip_item(self.CPointer, __cgo__tooltip, path)
+	C.gtk_icon_view_set_tooltip_item(self.CPointer, tooltip.GetTooltipPointer(), path)
 	return
 }
 
@@ -12398,11 +11922,7 @@ signal on the message area when the widget is activated. The widget
 is appended to the end of the message areas action area.
 */
 func (self *TraitInfoBar) AddActionWidget(child IsWidget, response_id int) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	C.gtk_info_bar_add_action_widget(self.CPointer, __cgo__child, C.gint(response_id))
+	C.gtk_info_bar_add_action_widget(self.CPointer, child.GetWidgetPointer(), C.gint(response_id))
 	return
 }
 
@@ -13173,11 +12693,7 @@ func (self *TraitLayout) GetSize() (width uint, height uint) {
 Moves a current child of @layout to a new position.
 */
 func (self *TraitLayout) Move(child_widget IsWidget, x int, y int) {
-	var __cgo__child_widget *C.GtkWidget
-	if child_widget != nil {
-		__cgo__child_widget = child_widget.GetWidgetPointer()
-	}
-	C.gtk_layout_move(self.CPointer, __cgo__child_widget, C.gint(x), C.gint(y))
+	C.gtk_layout_move(self.CPointer, child_widget.GetWidgetPointer(), C.gint(x), C.gint(y))
 	return
 }
 
@@ -13186,11 +12702,7 @@ Adds @child_widget to @layout, at position (@x,@y).
 @layout becomes the new parent container of @child_widget.
 */
 func (self *TraitLayout) Put(child_widget IsWidget, x int, y int) {
-	var __cgo__child_widget *C.GtkWidget
-	if child_widget != nil {
-		__cgo__child_widget = child_widget.GetWidgetPointer()
-	}
-	C.gtk_layout_put(self.CPointer, __cgo__child_widget, C.gint(x), C.gint(y))
+	C.gtk_layout_put(self.CPointer, child_widget.GetWidgetPointer(), C.gint(x), C.gint(y))
 	return
 }
 
@@ -13457,11 +12969,7 @@ The row will also be unhighlighted when the widget gets
 a drag leave event.
 */
 func (self *TraitListBox) DragHighlightRow(row IsListBoxRow) {
-	var __cgo__row *C.GtkListBoxRow
-	if row != nil {
-		__cgo__row = row.GetListBoxRowPointer()
-	}
-	C.gtk_list_box_drag_highlight_row(self.CPointer, __cgo__row)
+	C.gtk_list_box_drag_highlight_row(self.CPointer, row.GetListBoxRowPointer())
 	return
 }
 
@@ -13564,11 +13072,7 @@ If @position is -1, or larger than the total number of items in the
 @box, then the @child will be appended to the end.
 */
 func (self *TraitListBox) Insert(child IsWidget, position int) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	C.gtk_list_box_insert(self.CPointer, __cgo__child, C.gint(position))
+	C.gtk_list_box_insert(self.CPointer, child.GetWidgetPointer(), C.gint(position))
 	return
 }
 
@@ -13610,11 +13114,7 @@ actually be inserted at the calculated position and this function has the
 same effect of gtk_container_add().
 */
 func (self *TraitListBox) Prepend(child IsWidget) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	C.gtk_list_box_prepend(self.CPointer, __cgo__child)
+	C.gtk_list_box_prepend(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
@@ -13766,11 +13266,7 @@ func (self *TraitListBox) UnselectAll() {
 Unselects a single row of @box, if the selection mode allows it.
 */
 func (self *TraitListBox) UnselectRow(row IsListBoxRow) {
-	var __cgo__row *C.GtkListBoxRow
-	if row != nil {
-		__cgo__row = row.GetListBoxRowPointer()
-	}
-	C.gtk_list_box_unselect_row(self.CPointer, __cgo__row)
+	C.gtk_list_box_unselect_row(self.CPointer, row.GetListBoxRowPointer())
 	return
 }
 
@@ -14180,11 +13676,7 @@ rightmost, uppermost and lower column and row numbers of the table.
 Note that this function is not related to gtk_menu_detach().
 */
 func (self *TraitMenu) Attach(child IsWidget, left_attach uint, right_attach uint, top_attach uint, bottom_attach uint) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	C.gtk_menu_attach(self.CPointer, __cgo__child, C.guint(left_attach), C.guint(right_attach), C.guint(top_attach), C.guint(bottom_attach))
+	C.gtk_menu_attach(self.CPointer, child.GetWidgetPointer(), C.guint(left_attach), C.guint(right_attach), C.guint(top_attach), C.guint(bottom_attach))
 	return
 }
 
@@ -14199,11 +13691,7 @@ An attached menu will also move between screens correctly if the
 widgets moves between screens.
 */
 func (self *TraitMenu) AttachToWidget(attach_widget IsWidget, detacher C.GtkMenuDetachFunc) {
-	var __cgo__attach_widget *C.GtkWidget
-	if attach_widget != nil {
-		__cgo__attach_widget = attach_widget.GetWidgetPointer()
-	}
-	C.gtk_menu_attach_to_widget(self.CPointer, __cgo__attach_widget, detacher)
+	C.gtk_menu_attach_to_widget(self.CPointer, attach_widget.GetWidgetPointer(), detacher)
 	return
 }
 
@@ -14371,11 +13859,7 @@ Moves @child to a new @position in the list of @menu
 children.
 */
 func (self *TraitMenu) ReorderChild(child IsWidget, position int) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	C.gtk_menu_reorder_child(self.CPointer, __cgo__child, C.gint(position))
+	C.gtk_menu_reorder_child(self.CPointer, child.GetWidgetPointer(), C.gint(position))
 	return
 }
 
@@ -14939,15 +14423,11 @@ func NewTraitMenuShell(p unsafe.Pointer) *TraitMenuShell {
 Activates the menu item within the menu shell.
 */
 func (self *TraitMenuShell) ActivateItem(menu_item IsWidget, force_deactivate bool) {
-	var __cgo__menu_item *C.GtkWidget
-	if menu_item != nil {
-		__cgo__menu_item = menu_item.GetWidgetPointer()
-	}
 	__cgo__force_deactivate := C.gboolean(0)
 	if force_deactivate {
 		__cgo__force_deactivate = C.gboolean(1)
 	}
-	C.gtk_menu_shell_activate_item(self.CPointer, __cgo__menu_item, __cgo__force_deactivate)
+	C.gtk_menu_shell_activate_item(self.CPointer, menu_item.GetWidgetPointer(), __cgo__force_deactivate)
 	return
 }
 
@@ -15076,11 +14556,7 @@ Adds a new #GtkMenuItem to the menu shell’s item list
 at the position indicated by @position.
 */
 func (self *TraitMenuShell) Insert(child IsWidget, position int) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	C.gtk_menu_shell_insert(self.CPointer, __cgo__child, C.gint(position))
+	C.gtk_menu_shell_insert(self.CPointer, child.GetWidgetPointer(), C.gint(position))
 	return
 }
 
@@ -15089,11 +14565,7 @@ Adds a new #GtkMenuItem to the beginning of the menu shell's
 item list.
 */
 func (self *TraitMenuShell) Prepend(child IsWidget) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	C.gtk_menu_shell_prepend(self.CPointer, __cgo__child)
+	C.gtk_menu_shell_prepend(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
@@ -15115,11 +14587,7 @@ func (self *TraitMenuShell) SelectFirst(search_sensitive bool) {
 Selects the menu item from the menu shell.
 */
 func (self *TraitMenuShell) SelectItem(menu_item IsWidget) {
-	var __cgo__menu_item *C.GtkWidget
-	if menu_item != nil {
-		__cgo__menu_item = menu_item.GetWidgetPointer()
-	}
-	C.gtk_menu_shell_select_item(self.CPointer, __cgo__menu_item)
+	C.gtk_menu_shell_select_item(self.CPointer, menu_item.GetWidgetPointer())
 	return
 }
 
@@ -15225,11 +14693,7 @@ Sets the #GtkMenu that is popped up when the user clicks on the arrow.
 If @menu is NULL, the arrow button becomes insensitive.
 */
 func (self *TraitMenuToolButton) SetMenu(menu IsWidget) {
-	var __cgo__menu *C.GtkWidget
-	if menu != nil {
-		__cgo__menu = menu.GetWidgetPointer()
-	}
-	C.gtk_menu_tool_button_set_menu(self.CPointer, __cgo__menu)
+	C.gtk_menu_tool_button_set_menu(self.CPointer, menu.GetWidgetPointer())
 	return
 }
 
@@ -15381,16 +14845,12 @@ func NewTraitNotebook(p unsafe.Pointer) *TraitNotebook {
 Appends a page to @notebook.
 */
 func (self *TraitNotebook) AppendPage(child IsWidget, tab_label IsWidget) (return__ int) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	var __cgo__tab_label *C.GtkWidget
 	if tab_label != nil {
 		__cgo__tab_label = tab_label.GetWidgetPointer()
 	}
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_notebook_append_page(self.CPointer, __cgo__child, __cgo__tab_label)
+	__cgo__return__ = C.gtk_notebook_append_page(self.CPointer, child.GetWidgetPointer(), __cgo__tab_label)
 	return__ = int(__cgo__return__)
 	return
 }
@@ -15400,10 +14860,6 @@ Appends a page to @notebook, specifying the widget to use as the
 label in the popup menu.
 */
 func (self *TraitNotebook) AppendPageMenu(child IsWidget, tab_label IsWidget, menu_label IsWidget) (return__ int) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	var __cgo__tab_label *C.GtkWidget
 	if tab_label != nil {
 		__cgo__tab_label = tab_label.GetWidgetPointer()
@@ -15413,7 +14869,7 @@ func (self *TraitNotebook) AppendPageMenu(child IsWidget, tab_label IsWidget, me
 		__cgo__menu_label = menu_label.GetWidgetPointer()
 	}
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_notebook_append_page_menu(self.CPointer, __cgo__child, __cgo__tab_label, __cgo__menu_label)
+	__cgo__return__ = C.gtk_notebook_append_page_menu(self.CPointer, child.GetWidgetPointer(), __cgo__tab_label, __cgo__menu_label)
 	return__ = int(__cgo__return__)
 	return
 }
@@ -15454,12 +14910,8 @@ func (self *TraitNotebook) GetGroupName() (return__ string) {
 Retrieves the menu label widget of the page containing @child.
 */
 func (self *TraitNotebook) GetMenuLabel(child IsWidget) (return__ *Widget) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	var __cgo__return__ *C.GtkWidget
-	__cgo__return__ = C.gtk_notebook_get_menu_label(self.CPointer, __cgo__child)
+	__cgo__return__ = C.gtk_notebook_get_menu_label(self.CPointer, child.GetWidgetPointer())
 	if __cgo__return__ != nil {
 		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -15471,12 +14923,8 @@ Retrieves the text of the menu label for the page containing
 @child.
 */
 func (self *TraitNotebook) GetMenuLabelText(child IsWidget) (return__ string) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.gtk_notebook_get_menu_label_text(self.CPointer, __cgo__child)
+	__cgo__return__ = C.gtk_notebook_get_menu_label_text(self.CPointer, child.GetWidgetPointer())
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -15540,12 +14988,8 @@ func (self *TraitNotebook) GetShowTabs() (return__ bool) {
 Returns whether the tab contents can be detached from @notebook.
 */
 func (self *TraitNotebook) GetTabDetachable(child IsWidget) (return__ bool) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_notebook_get_tab_detachable(self.CPointer, __cgo__child)
+	__cgo__return__ = C.gtk_notebook_get_tab_detachable(self.CPointer, child.GetWidgetPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -15558,12 +15002,8 @@ Returns the tab label widget for the page @child.
 if no tab label has specifically been set for @child.
 */
 func (self *TraitNotebook) GetTabLabel(child IsWidget) (return__ *Widget) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	var __cgo__return__ *C.GtkWidget
-	__cgo__return__ = C.gtk_notebook_get_tab_label(self.CPointer, __cgo__child)
+	__cgo__return__ = C.gtk_notebook_get_tab_label(self.CPointer, child.GetWidgetPointer())
 	if __cgo__return__ != nil {
 		return__ = NewWidgetFromCPointer(unsafe.Pointer(reflect.ValueOf(__cgo__return__).Pointer()))
 	}
@@ -15575,12 +15015,8 @@ Retrieves the text of the tab label for the page containing
 @child.
 */
 func (self *TraitNotebook) GetTabLabelText(child IsWidget) (return__ string) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	var __cgo__return__ *C.gchar
-	__cgo__return__ = C.gtk_notebook_get_tab_label_text(self.CPointer, __cgo__child)
+	__cgo__return__ = C.gtk_notebook_get_tab_label_text(self.CPointer, child.GetWidgetPointer())
 	return__ = C.GoString((*C.char)(unsafe.Pointer(__cgo__return__)))
 	return
 }
@@ -15598,12 +15034,8 @@ func (self *TraitNotebook) GetTabPos() (return__ C.GtkPositionType) {
 Gets whether the tab can be reordered via drag and drop or not.
 */
 func (self *TraitNotebook) GetTabReorderable(child IsWidget) (return__ bool) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_notebook_get_tab_reorderable(self.CPointer, __cgo__child)
+	__cgo__return__ = C.gtk_notebook_get_tab_reorderable(self.CPointer, child.GetWidgetPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -15614,16 +15046,12 @@ func (self *TraitNotebook) GetTabReorderable(child IsWidget) (return__ bool) {
 Insert a page into @notebook at the given position.
 */
 func (self *TraitNotebook) InsertPage(child IsWidget, tab_label IsWidget, position int) (return__ int) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	var __cgo__tab_label *C.GtkWidget
 	if tab_label != nil {
 		__cgo__tab_label = tab_label.GetWidgetPointer()
 	}
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_notebook_insert_page(self.CPointer, __cgo__child, __cgo__tab_label, C.gint(position))
+	__cgo__return__ = C.gtk_notebook_insert_page(self.CPointer, child.GetWidgetPointer(), __cgo__tab_label, C.gint(position))
 	return__ = int(__cgo__return__)
 	return
 }
@@ -15633,10 +15061,6 @@ Insert a page into @notebook at the given position, specifying
 the widget to use as the label in the popup menu.
 */
 func (self *TraitNotebook) InsertPageMenu(child IsWidget, tab_label IsWidget, menu_label IsWidget, position int) (return__ int) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	var __cgo__tab_label *C.GtkWidget
 	if tab_label != nil {
 		__cgo__tab_label = tab_label.GetWidgetPointer()
@@ -15646,7 +15070,7 @@ func (self *TraitNotebook) InsertPageMenu(child IsWidget, tab_label IsWidget, me
 		__cgo__menu_label = menu_label.GetWidgetPointer()
 	}
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_notebook_insert_page_menu(self.CPointer, __cgo__child, __cgo__tab_label, __cgo__menu_label, C.gint(position))
+	__cgo__return__ = C.gtk_notebook_insert_page_menu(self.CPointer, child.GetWidgetPointer(), __cgo__tab_label, __cgo__menu_label, C.gint(position))
 	return__ = int(__cgo__return__)
 	return
 }
@@ -15665,12 +15089,8 @@ Finds the index of the page which contains the given child
 widget.
 */
 func (self *TraitNotebook) PageNum(child IsWidget) (return__ int) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_notebook_page_num(self.CPointer, __cgo__child)
+	__cgo__return__ = C.gtk_notebook_page_num(self.CPointer, child.GetWidgetPointer())
 	return__ = int(__cgo__return__)
 	return
 }
@@ -15697,16 +15117,12 @@ func (self *TraitNotebook) PopupEnable() {
 Prepends a page to @notebook.
 */
 func (self *TraitNotebook) PrependPage(child IsWidget, tab_label IsWidget) (return__ int) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	var __cgo__tab_label *C.GtkWidget
 	if tab_label != nil {
 		__cgo__tab_label = tab_label.GetWidgetPointer()
 	}
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_notebook_prepend_page(self.CPointer, __cgo__child, __cgo__tab_label)
+	__cgo__return__ = C.gtk_notebook_prepend_page(self.CPointer, child.GetWidgetPointer(), __cgo__tab_label)
 	return__ = int(__cgo__return__)
 	return
 }
@@ -15716,10 +15132,6 @@ Prepends a page to @notebook, specifying the widget to use as the
 label in the popup menu.
 */
 func (self *TraitNotebook) PrependPageMenu(child IsWidget, tab_label IsWidget, menu_label IsWidget) (return__ int) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	var __cgo__tab_label *C.GtkWidget
 	if tab_label != nil {
 		__cgo__tab_label = tab_label.GetWidgetPointer()
@@ -15729,7 +15141,7 @@ func (self *TraitNotebook) PrependPageMenu(child IsWidget, tab_label IsWidget, m
 		__cgo__menu_label = menu_label.GetWidgetPointer()
 	}
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_notebook_prepend_page_menu(self.CPointer, __cgo__child, __cgo__tab_label, __cgo__menu_label)
+	__cgo__return__ = C.gtk_notebook_prepend_page_menu(self.CPointer, child.GetWidgetPointer(), __cgo__tab_label, __cgo__menu_label)
 	return__ = int(__cgo__return__)
 	return
 }
@@ -15759,11 +15171,7 @@ children in the list or negative, @child will be moved to the end
 of the list.
 */
 func (self *TraitNotebook) ReorderChild(child IsWidget, position int) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	C.gtk_notebook_reorder_child(self.CPointer, __cgo__child, C.gint(position))
+	C.gtk_notebook_reorder_child(self.CPointer, child.GetWidgetPointer(), C.gint(position))
 	return
 }
 
@@ -15776,11 +15184,7 @@ Note that action widgets are “internal” children of the notebook and thus
 not included in the list returned from gtk_container_foreach().
 */
 func (self *TraitNotebook) SetActionWidget(widget IsWidget, pack_type C.GtkPackType) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
-	C.gtk_notebook_set_action_widget(self.CPointer, __cgo__widget, pack_type)
+	C.gtk_notebook_set_action_widget(self.CPointer, widget.GetWidgetPointer(), pack_type)
 	return
 }
 
@@ -15815,15 +15219,11 @@ func (self *TraitNotebook) SetGroupName(group_name string) {
 Changes the menu label for the page containing @child.
 */
 func (self *TraitNotebook) SetMenuLabel(child IsWidget, menu_label IsWidget) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	var __cgo__menu_label *C.GtkWidget
 	if menu_label != nil {
 		__cgo__menu_label = menu_label.GetWidgetPointer()
 	}
-	C.gtk_notebook_set_menu_label(self.CPointer, __cgo__child, __cgo__menu_label)
+	C.gtk_notebook_set_menu_label(self.CPointer, child.GetWidgetPointer(), __cgo__menu_label)
 	return
 }
 
@@ -15831,12 +15231,8 @@ func (self *TraitNotebook) SetMenuLabel(child IsWidget, menu_label IsWidget) {
 Creates a new label and sets it as the menu label of @child.
 */
 func (self *TraitNotebook) SetMenuLabelText(child IsWidget, menu_text string) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	__cgo__menu_text := (*C.gchar)(unsafe.Pointer(C.CString(menu_text)))
-	C.gtk_notebook_set_menu_label_text(self.CPointer, __cgo__child, __cgo__menu_text)
+	C.gtk_notebook_set_menu_label_text(self.CPointer, child.GetWidgetPointer(), __cgo__menu_text)
 	C.free(unsafe.Pointer(__cgo__menu_text))
 	return
 }
@@ -15921,15 +15317,11 @@ If you want a notebook to accept drags from other widgets,
 you will have to set your own DnD code to do it.
 */
 func (self *TraitNotebook) SetTabDetachable(child IsWidget, detachable bool) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	__cgo__detachable := C.gboolean(0)
 	if detachable {
 		__cgo__detachable = C.gboolean(1)
 	}
-	C.gtk_notebook_set_tab_detachable(self.CPointer, __cgo__child, __cgo__detachable)
+	C.gtk_notebook_set_tab_detachable(self.CPointer, child.GetWidgetPointer(), __cgo__detachable)
 	return
 }
 
@@ -15939,15 +15331,11 @@ If %NULL is specified for @tab_label, then the page will
 have the label “page N”.
 */
 func (self *TraitNotebook) SetTabLabel(child IsWidget, tab_label IsWidget) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	var __cgo__tab_label *C.GtkWidget
 	if tab_label != nil {
 		__cgo__tab_label = tab_label.GetWidgetPointer()
 	}
-	C.gtk_notebook_set_tab_label(self.CPointer, __cgo__child, __cgo__tab_label)
+	C.gtk_notebook_set_tab_label(self.CPointer, child.GetWidgetPointer(), __cgo__tab_label)
 	return
 }
 
@@ -15956,12 +15344,8 @@ Creates a new label and sets it as the tab label for the page
 containing @child.
 */
 func (self *TraitNotebook) SetTabLabelText(child IsWidget, tab_text string) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	__cgo__tab_text := (*C.gchar)(unsafe.Pointer(C.CString(tab_text)))
-	C.gtk_notebook_set_tab_label_text(self.CPointer, __cgo__child, __cgo__tab_text)
+	C.gtk_notebook_set_tab_label_text(self.CPointer, child.GetWidgetPointer(), __cgo__tab_text)
 	C.free(unsafe.Pointer(__cgo__tab_text))
 	return
 }
@@ -15980,15 +15364,11 @@ Sets whether the notebook tab can be reordered
 via drag and drop or not.
 */
 func (self *TraitNotebook) SetTabReorderable(child IsWidget, reorderable bool) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	__cgo__reorderable := C.gboolean(0)
 	if reorderable {
 		__cgo__reorderable = C.gboolean(1)
 	}
-	C.gtk_notebook_set_tab_reorderable(self.CPointer, __cgo__child, __cgo__reorderable)
+	C.gtk_notebook_set_tab_reorderable(self.CPointer, child.GetWidgetPointer(), __cgo__reorderable)
 	return
 }
 
@@ -16107,11 +15487,7 @@ The position at which @widget is placed is determined
 from its #GtkWidget:halign and #GtkWidget:valign properties.
 */
 func (self *TraitOverlay) AddOverlay(widget IsWidget) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
-	C.gtk_overlay_add_overlay(self.CPointer, __cgo__widget)
+	C.gtk_overlay_add_overlay(self.CPointer, widget.GetWidgetPointer())
 	return
 }
 
@@ -16388,11 +15764,7 @@ equivalent to
 `gtk_paned_pack1 (paned, child, FALSE, TRUE)`.
 */
 func (self *TraitPaned) Add1(child IsWidget) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	C.gtk_paned_add1(self.CPointer, __cgo__child)
+	C.gtk_paned_add1(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
@@ -16402,11 +15774,7 @@ is equivalent to
 `gtk_paned_pack2 (paned, child, TRUE, TRUE)`.
 */
 func (self *TraitPaned) Add2(child IsWidget) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	C.gtk_paned_add2(self.CPointer, __cgo__child)
+	C.gtk_paned_add2(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
@@ -16459,10 +15827,6 @@ func (self *TraitPaned) GetPosition() (return__ int) {
 Adds a child to the top or left pane.
 */
 func (self *TraitPaned) Pack1(child IsWidget, resize bool, shrink bool) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	__cgo__resize := C.gboolean(0)
 	if resize {
 		__cgo__resize = C.gboolean(1)
@@ -16471,7 +15835,7 @@ func (self *TraitPaned) Pack1(child IsWidget, resize bool, shrink bool) {
 	if shrink {
 		__cgo__shrink = C.gboolean(1)
 	}
-	C.gtk_paned_pack1(self.CPointer, __cgo__child, __cgo__resize, __cgo__shrink)
+	C.gtk_paned_pack1(self.CPointer, child.GetWidgetPointer(), __cgo__resize, __cgo__shrink)
 	return
 }
 
@@ -16479,10 +15843,6 @@ func (self *TraitPaned) Pack1(child IsWidget, resize bool, shrink bool) {
 Adds a child to the bottom or right pane.
 */
 func (self *TraitPaned) Pack2(child IsWidget, resize bool, shrink bool) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	__cgo__resize := C.gboolean(0)
 	if resize {
 		__cgo__resize = C.gboolean(1)
@@ -16491,7 +15851,7 @@ func (self *TraitPaned) Pack2(child IsWidget, resize bool, shrink bool) {
 	if shrink {
 		__cgo__shrink = C.gboolean(1)
 	}
-	C.gtk_paned_pack2(self.CPointer, __cgo__child, __cgo__resize, __cgo__shrink)
+	C.gtk_paned_pack2(self.CPointer, child.GetWidgetPointer(), __cgo__resize, __cgo__shrink)
 	return
 }
 
@@ -18813,11 +18173,7 @@ indicates the size of the visible area of the widget being scrolled.
 The page size affects the size of the scrollbar slider.
 */
 func (self *TraitRange) SetAdjustment(adjustment IsAdjustment) {
-	var __cgo__adjustment *C.GtkAdjustment
-	if adjustment != nil {
-		__cgo__adjustment = adjustment.GetAdjustmentPointer()
-	}
-	C.gtk_range_set_adjustment(self.CPointer, __cgo__adjustment)
+	C.gtk_range_set_adjustment(self.CPointer, adjustment.GetAdjustmentPointer())
 	return
 }
 
@@ -19724,11 +19080,7 @@ for the #GtkScaleButton’s scale.
 See gtk_range_set_adjustment() for details.
 */
 func (self *TraitScaleButton) SetAdjustment(adjustment IsAdjustment) {
-	var __cgo__adjustment *C.GtkAdjustment
-	if adjustment != nil {
-		__cgo__adjustment = adjustment.GetAdjustmentPointer()
-	}
-	C.gtk_scale_button_set_adjustment(self.CPointer, __cgo__adjustment)
+	C.gtk_scale_button_set_adjustment(self.CPointer, adjustment.GetAdjustmentPointer())
 	return
 }
 
@@ -19936,11 +19288,7 @@ func (self *TraitScrolledWindow) SetCaptureButtonPress(capture_button_press bool
 Sets the #GtkAdjustment for the horizontal scrollbar.
 */
 func (self *TraitScrolledWindow) SetHadjustment(hadjustment IsAdjustment) {
-	var __cgo__hadjustment *C.GtkAdjustment
-	if hadjustment != nil {
-		__cgo__hadjustment = hadjustment.GetAdjustmentPointer()
-	}
-	C.gtk_scrolled_window_set_hadjustment(self.CPointer, __cgo__hadjustment)
+	C.gtk_scrolled_window_set_hadjustment(self.CPointer, hadjustment.GetAdjustmentPointer())
 	return
 }
 
@@ -20023,11 +19371,7 @@ func (self *TraitScrolledWindow) SetShadowType(type_ C.GtkShadowType) {
 Sets the #GtkAdjustment for the vertical scrollbar.
 */
 func (self *TraitScrolledWindow) SetVadjustment(vadjustment IsAdjustment) {
-	var __cgo__vadjustment *C.GtkAdjustment
-	if vadjustment != nil {
-		__cgo__vadjustment = vadjustment.GetAdjustmentPointer()
-	}
-	C.gtk_scrolled_window_set_vadjustment(self.CPointer, __cgo__vadjustment)
+	C.gtk_scrolled_window_set_vadjustment(self.CPointer, vadjustment.GetAdjustmentPointer())
 	return
 }
 
@@ -20077,11 +19421,7 @@ This is only required if the entry isn’t the direct child of the
 search bar (as in our main example).
 */
 func (self *TraitSearchBar) ConnectEntry(entry IsEntry) {
-	var __cgo__entry *C.GtkEntry
-	if entry != nil {
-		__cgo__entry = entry.GetEntryPointer()
-	}
-	C.gtk_search_bar_connect_entry(self.CPointer, __cgo__entry)
+	C.gtk_search_bar_connect_entry(self.CPointer, entry.GetEntryPointer())
 	return
 }
 
@@ -20313,11 +19653,7 @@ When the widget is destroyed or no longer referenced elsewhere, it will
 be removed from the size group.
 */
 func (self *TraitSizeGroup) AddWidget(widget IsWidget) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
-	C.gtk_size_group_add_widget(self.CPointer, __cgo__widget)
+	C.gtk_size_group_add_widget(self.CPointer, widget.GetWidgetPointer())
 	return
 }
 
@@ -20351,11 +19687,7 @@ func (self *TraitSizeGroup) GetWidgets() (return__ *C.GSList) {
 Removes a widget from a #GtkSizeGroup.
 */
 func (self *TraitSizeGroup) RemoveWidget(widget IsWidget) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
-	C.gtk_size_group_remove_widget(self.CPointer, __cgo__widget)
+	C.gtk_size_group_remove_widget(self.CPointer, widget.GetWidgetPointer())
 	return
 }
 
@@ -20579,11 +19911,7 @@ func (self *TraitSpinButton) GetWrap() (return__ bool) {
 Replaces the #GtkAdjustment associated with @spin_button.
 */
 func (self *TraitSpinButton) SetAdjustment(adjustment IsAdjustment) {
-	var __cgo__adjustment *C.GtkAdjustment
-	if adjustment != nil {
-		__cgo__adjustment = adjustment.GetAdjustmentPointer()
-	}
-	C.gtk_spin_button_set_adjustment(self.CPointer, __cgo__adjustment)
+	C.gtk_spin_button_set_adjustment(self.CPointer, adjustment.GetAdjustmentPointer())
 	return
 }
 
@@ -20761,12 +20089,8 @@ Adds a child to @stack.
 The child is identified by the @name.
 */
 func (self *TraitStack) AddNamed(child IsWidget, name string) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
-	C.gtk_stack_add_named(self.CPointer, __cgo__child, __cgo__name)
+	C.gtk_stack_add_named(self.CPointer, child.GetWidgetPointer(), __cgo__name)
 	C.free(unsafe.Pointer(__cgo__name))
 	return
 }
@@ -20778,13 +20102,9 @@ will be used by #GtkStackSwitcher to represent
 @child in a tab bar, so it should be short.
 */
 func (self *TraitStack) AddTitled(child IsWidget, name string, title string) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
 	__cgo__name := (*C.gchar)(unsafe.Pointer(C.CString(name)))
 	__cgo__title := (*C.gchar)(unsafe.Pointer(C.CString(title)))
-	C.gtk_stack_add_titled(self.CPointer, __cgo__child, __cgo__name, __cgo__title)
+	C.gtk_stack_add_titled(self.CPointer, child.GetWidgetPointer(), __cgo__name, __cgo__title)
 	C.free(unsafe.Pointer(__cgo__name))
 	C.free(unsafe.Pointer(__cgo__title))
 	return
@@ -20923,11 +20243,7 @@ Note that the @child widget has to be visible itself
 child of @stack.
 */
 func (self *TraitStack) SetVisibleChild(child IsWidget) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	C.gtk_stack_set_visible_child(self.CPointer, __cgo__child)
+	C.gtk_stack_set_visible_child(self.CPointer, child.GetWidgetPointer())
 	return
 }
 
@@ -21667,15 +20983,11 @@ will be overwritten, if it is %FALSE, the older values
 will prevail.
 */
 func (self *TraitStyleProperties) Merge(props_to_merge IsStyleProperties, replace bool) {
-	var __cgo__props_to_merge *C.GtkStyleProperties
-	if props_to_merge != nil {
-		__cgo__props_to_merge = props_to_merge.GetStylePropertiesPointer()
-	}
 	__cgo__replace := C.gboolean(0)
 	if replace {
 		__cgo__replace = C.gboolean(1)
 	}
-	C.gtk_style_properties_merge(self.CPointer, __cgo__props_to_merge, __cgo__replace)
+	C.gtk_style_properties_merge(self.CPointer, props_to_merge.GetStylePropertiesPointer(), __cgo__replace)
 	return
 }
 
@@ -21850,11 +21162,7 @@ Emits the #GtkTextBuffer::mark-set signal as notification of the mark's
 initial placement.
 */
 func (self *TraitTextBuffer) AddMark(mark IsTextMark, where *C.GtkTextIter) {
-	var __cgo__mark *C.GtkTextMark
-	if mark != nil {
-		__cgo__mark = mark.GetTextMarkPointer()
-	}
-	C.gtk_text_buffer_add_mark(self.CPointer, __cgo__mark, where)
+	C.gtk_text_buffer_add_mark(self.CPointer, mark.GetTextMarkPointer(), where)
 	return
 }
 
@@ -21864,11 +21172,7 @@ contents of @buffer are available. In most cases, @clipboard will be
 the #GtkClipboard of type %GDK_SELECTION_PRIMARY for a view of @buffer.
 */
 func (self *TraitTextBuffer) AddSelectionClipboard(clipboard IsClipboard) {
-	var __cgo__clipboard *C.GtkClipboard
-	if clipboard != nil {
-		__cgo__clipboard = clipboard.GetClipboardPointer()
-	}
-	C.gtk_text_buffer_add_selection_clipboard(self.CPointer, __cgo__clipboard)
+	C.gtk_text_buffer_add_selection_clipboard(self.CPointer, clipboard.GetClipboardPointer())
 	return
 }
 
@@ -21878,11 +21182,7 @@ handler for the signal applies @tag to the given range.
 @start and @end do not have to be in order.
 */
 func (self *TraitTextBuffer) ApplyTag(tag IsTextTag, start *C.GtkTextIter, end *C.GtkTextIter) {
-	var __cgo__tag *C.GtkTextTag
-	if tag != nil {
-		__cgo__tag = tag.GetTextTagPointer()
-	}
-	C.gtk_text_buffer_apply_tag(self.CPointer, __cgo__tag, start, end)
+	C.gtk_text_buffer_apply_tag(self.CPointer, tag.GetTextTagPointer(), start, end)
 	return
 }
 
@@ -21952,11 +21252,7 @@ func (self *TraitTextBuffer) BeginUserAction() {
 Copies the currently-selected text to a clipboard.
 */
 func (self *TraitTextBuffer) CopyClipboard(clipboard IsClipboard) {
-	var __cgo__clipboard *C.GtkClipboard
-	if clipboard != nil {
-		__cgo__clipboard = clipboard.GetClipboardPointer()
-	}
-	C.gtk_text_buffer_copy_clipboard(self.CPointer, __cgo__clipboard)
+	C.gtk_text_buffer_copy_clipboard(self.CPointer, clipboard.GetClipboardPointer())
 	return
 }
 
@@ -22017,15 +21313,11 @@ Copies the currently-selected text to a clipboard, then deletes
 said text if it’s editable.
 */
 func (self *TraitTextBuffer) CutClipboard(clipboard IsClipboard, default_editable bool) {
-	var __cgo__clipboard *C.GtkClipboard
-	if clipboard != nil {
-		__cgo__clipboard = clipboard.GetClipboardPointer()
-	}
 	__cgo__default_editable := C.gboolean(0)
 	if default_editable {
 		__cgo__default_editable = C.gboolean(1)
 	}
-	C.gtk_text_buffer_cut_clipboard(self.CPointer, __cgo__clipboard, __cgo__default_editable)
+	C.gtk_text_buffer_cut_clipboard(self.CPointer, clipboard.GetClipboardPointer(), __cgo__default_editable)
 	return
 }
 
@@ -22073,11 +21365,7 @@ The #GtkTextBuffer::mark-deleted signal will be emitted as notification after
 the mark is deleted.
 */
 func (self *TraitTextBuffer) DeleteMark(mark IsTextMark) {
-	var __cgo__mark *C.GtkTextMark
-	if mark != nil {
-		__cgo__mark = mark.GetTextMarkPointer()
-	}
-	C.gtk_text_buffer_delete_mark(self.CPointer, __cgo__mark)
+	C.gtk_text_buffer_delete_mark(self.CPointer, mark.GetTextMarkPointer())
 	return
 }
 
@@ -22122,14 +21410,10 @@ gtk_text_buffer_register_deserialize_format() or
 gtk_text_buffer_register_deserialize_tagset() beforehand.
 */
 func (self *TraitTextBuffer) Deserialize(content_buffer IsTextBuffer, format C.GdkAtom, iter *C.GtkTextIter, data []byte, length int64) (return__ bool, __err__ error) {
-	var __cgo__content_buffer *C.GtkTextBuffer
-	if content_buffer != nil {
-		__cgo__content_buffer = content_buffer.GetTextBufferPointer()
-	}
 	__header__data := (*reflect.SliceHeader)(unsafe.Pointer(&data))
 	var __cgo_error__ *C.GError
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_text_buffer_deserialize(self.CPointer, __cgo__content_buffer, format, iter, (*C.guint8)(unsafe.Pointer(__header__data.Data)), C.gsize(length), &__cgo_error__)
+	__cgo__return__ = C.gtk_text_buffer_deserialize(self.CPointer, content_buffer.GetTextBufferPointer(), format, iter, (*C.guint8)(unsafe.Pointer(__header__data.Data)), C.gsize(length), &__cgo_error__)
 	return__ = __cgo__return__ == C.gboolean(1)
 	if __cgo_error__ != nil {
 		__err__ = errors.New(C.GoString((*C.char)(unsafe.Pointer(__cgo_error__.message))))
@@ -22273,11 +21557,7 @@ func (self *TraitTextBuffer) GetInsert() (return__ *TextMark) {
 Obtains the location of @anchor within @buffer.
 */
 func (self *TraitTextBuffer) GetIterAtChildAnchor(anchor IsTextChildAnchor) (iter C.GtkTextIter) {
-	var __cgo__anchor *C.GtkTextChildAnchor
-	if anchor != nil {
-		__cgo__anchor = anchor.GetTextChildAnchorPointer()
-	}
-	C.gtk_text_buffer_get_iter_at_child_anchor(self.CPointer, &iter, __cgo__anchor)
+	C.gtk_text_buffer_get_iter_at_child_anchor(self.CPointer, &iter, anchor.GetTextChildAnchorPointer())
 	return
 }
 
@@ -22316,11 +21596,7 @@ func (self *TraitTextBuffer) GetIterAtLineOffset(line_number int, char_offset in
 Initializes @iter with the current position of @mark.
 */
 func (self *TraitTextBuffer) GetIterAtMark(mark IsTextMark) (iter C.GtkTextIter) {
-	var __cgo__mark *C.GtkTextMark
-	if mark != nil {
-		__cgo__mark = mark.GetTextMarkPointer()
-	}
-	C.gtk_text_buffer_get_iter_at_mark(self.CPointer, &iter, __cgo__mark)
+	C.gtk_text_buffer_get_iter_at_mark(self.CPointer, &iter, mark.GetTextMarkPointer())
 	return
 }
 
@@ -22541,11 +21817,7 @@ alternative to this function. The buffer will add a reference to
 the anchor, so you can unref it after insertion.
 */
 func (self *TraitTextBuffer) InsertChildAnchor(iter *C.GtkTextIter, anchor IsTextChildAnchor) {
-	var __cgo__anchor *C.GtkTextChildAnchor
-	if anchor != nil {
-		__cgo__anchor = anchor.GetTextChildAnchorPointer()
-	}
-	C.gtk_text_buffer_insert_child_anchor(self.CPointer, iter, __cgo__anchor)
+	C.gtk_text_buffer_insert_child_anchor(self.CPointer, iter, anchor.GetTextChildAnchorPointer())
 	return
 }
 
@@ -22650,11 +21922,7 @@ Moves @mark to the new location @where. Emits the #GtkTextBuffer::mark-set
 signal as notification of the move.
 */
 func (self *TraitTextBuffer) MoveMark(mark IsTextMark, where *C.GtkTextIter) {
-	var __cgo__mark *C.GtkTextMark
-	if mark != nil {
-		__cgo__mark = mark.GetTextMarkPointer()
-	}
-	C.gtk_text_buffer_move_mark(self.CPointer, __cgo__mark, where)
+	C.gtk_text_buffer_move_mark(self.CPointer, mark.GetTextMarkPointer(), where)
 	return
 }
 
@@ -22679,15 +21947,11 @@ return, and at some point later after the main loop runs, the paste data will
 be inserted.
 */
 func (self *TraitTextBuffer) PasteClipboard(clipboard IsClipboard, override_location *C.GtkTextIter, default_editable bool) {
-	var __cgo__clipboard *C.GtkClipboard
-	if clipboard != nil {
-		__cgo__clipboard = clipboard.GetClipboardPointer()
-	}
 	__cgo__default_editable := C.gboolean(0)
 	if default_editable {
 		__cgo__default_editable = C.gboolean(1)
 	}
-	C.gtk_text_buffer_paste_clipboard(self.CPointer, __cgo__clipboard, override_location, __cgo__default_editable)
+	C.gtk_text_buffer_paste_clipboard(self.CPointer, clipboard.GetClipboardPointer(), override_location, __cgo__default_editable)
 	return
 }
 
@@ -22782,11 +22046,7 @@ Removes a #GtkClipboard added with
 gtk_text_buffer_add_selection_clipboard().
 */
 func (self *TraitTextBuffer) RemoveSelectionClipboard(clipboard IsClipboard) {
-	var __cgo__clipboard *C.GtkClipboard
-	if clipboard != nil {
-		__cgo__clipboard = clipboard.GetClipboardPointer()
-	}
-	C.gtk_text_buffer_remove_selection_clipboard(self.CPointer, __cgo__clipboard)
+	C.gtk_text_buffer_remove_selection_clipboard(self.CPointer, clipboard.GetClipboardPointer())
 	return
 }
 
@@ -22796,11 +22056,7 @@ removes all occurrences of @tag from the given range. @start and
 @end don’t have to be in order.
 */
 func (self *TraitTextBuffer) RemoveTag(tag IsTextTag, start *C.GtkTextIter, end *C.GtkTextIter) {
-	var __cgo__tag *C.GtkTextTag
-	if tag != nil {
-		__cgo__tag = tag.GetTextTagPointer()
-	}
-	C.gtk_text_buffer_remove_tag(self.CPointer, __cgo__tag, start, end)
+	C.gtk_text_buffer_remove_tag(self.CPointer, tag.GetTextTagPointer(), start, end)
 	return
 }
 
@@ -22838,13 +22094,9 @@ gtk_text_buffer_register_serialize_format() or
 gtk_text_buffer_register_serialize_tagset() beforehand.
 */
 func (self *TraitTextBuffer) Serialize(content_buffer IsTextBuffer, format C.GdkAtom, start *C.GtkTextIter, end *C.GtkTextIter) (length int64, return__ []byte) {
-	var __cgo__content_buffer *C.GtkTextBuffer
-	if content_buffer != nil {
-		__cgo__content_buffer = content_buffer.GetTextBufferPointer()
-	}
 	var __cgo__length C.gsize
 	var __cgo__return__ *C.guint8
-	__cgo__return__ = C.gtk_text_buffer_serialize(self.CPointer, __cgo__content_buffer, format, start, end, &__cgo__length)
+	__cgo__return__ = C.gtk_text_buffer_serialize(self.CPointer, content_buffer.GetTextBufferPointer(), format, start, end, &__cgo__length)
 	length = int64(__cgo__length)
 	defer func() { return__ = C.GoBytes(unsafe.Pointer(__cgo__return__), C.int(length)) }()
 	return
@@ -23099,12 +22351,8 @@ in the table.
 the same name as an already-added tag.
 */
 func (self *TraitTextTagTable) Add(tag IsTextTag) (return__ bool) {
-	var __cgo__tag *C.GtkTextTag
-	if tag != nil {
-		__cgo__tag = tag.GetTextTagPointer()
-	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_text_tag_table_add(self.CPointer, __cgo__tag)
+	__cgo__return__ = C.gtk_text_tag_table_add(self.CPointer, tag.GetTextTagPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -23150,11 +22398,7 @@ removed, so the tag will end up destroyed if you don’t have a reference to
 it.
 */
 func (self *TraitTextTagTable) Remove(tag IsTextTag) {
-	var __cgo__tag *C.GtkTextTag
-	if tag != nil {
-		__cgo__tag = tag.GetTextTagPointer()
-	}
-	C.gtk_text_tag_table_remove(self.CPointer, __cgo__tag)
+	C.gtk_text_tag_table_remove(self.CPointer, tag.GetTextTagPointer())
 	return
 }
 
@@ -23174,15 +22418,7 @@ func NewTraitTextView(p unsafe.Pointer) *TraitTextView {
 Adds a child widget in the text buffer, at the given @anchor.
 */
 func (self *TraitTextView) AddChildAtAnchor(child IsWidget, anchor IsTextChildAnchor) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	var __cgo__anchor *C.GtkTextChildAnchor
-	if anchor != nil {
-		__cgo__anchor = anchor.GetTextChildAnchorPointer()
-	}
-	C.gtk_text_view_add_child_at_anchor(self.CPointer, __cgo__child, __cgo__anchor)
+	C.gtk_text_view_add_child_at_anchor(self.CPointer, child.GetWidgetPointer(), anchor.GetTextChildAnchorPointer())
 	return
 }
 
@@ -23199,11 +22435,7 @@ placing a child in one of the scrollable windows (border windows or
 text window) it will move with the scrolling as needed.
 */
 func (self *TraitTextView) AddChildInWindow(child IsWidget, which_window C.GtkTextWindowType, xpos int, ypos int) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	C.gtk_text_view_add_child_in_window(self.CPointer, __cgo__child, which_window, C.gint(xpos), C.gint(ypos))
+	C.gtk_text_view_add_child_in_window(self.CPointer, child.GetWidgetPointer(), which_window, C.gint(xpos), C.gint(ypos))
 	return
 }
 
@@ -23654,11 +22886,7 @@ func (self *TraitTextView) ImContextFilterKeypress(event *C.GdkEventKey) (return
 Updates the position of a child, as for gtk_text_view_add_child_in_window().
 */
 func (self *TraitTextView) MoveChild(child IsWidget, xpos int, ypos int) {
-	var __cgo__child *C.GtkWidget
-	if child != nil {
-		__cgo__child = child.GetWidgetPointer()
-	}
-	C.gtk_text_view_move_child(self.CPointer, __cgo__child, C.gint(xpos), C.gint(ypos))
+	C.gtk_text_view_move_child(self.CPointer, child.GetWidgetPointer(), C.gint(xpos), C.gint(ypos))
 	return
 }
 
@@ -23667,12 +22895,8 @@ Moves a mark within the buffer so that it's
 located within the currently-visible text area.
 */
 func (self *TraitTextView) MoveMarkOnscreen(mark IsTextMark) (return__ bool) {
-	var __cgo__mark *C.GtkTextMark
-	if mark != nil {
-		__cgo__mark = mark.GetTextMarkPointer()
-	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_text_view_move_mark_onscreen(self.CPointer, __cgo__mark)
+	__cgo__return__ = C.gtk_text_view_move_mark_onscreen(self.CPointer, mark.GetTextMarkPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -23724,11 +22948,7 @@ Scrolls @text_view the minimum distance such that @mark is contained
 within the visible area of the widget.
 */
 func (self *TraitTextView) ScrollMarkOnscreen(mark IsTextMark) {
-	var __cgo__mark *C.GtkTextMark
-	if mark != nil {
-		__cgo__mark = mark.GetTextMarkPointer()
-	}
-	C.gtk_text_view_scroll_mark_onscreen(self.CPointer, __cgo__mark)
+	C.gtk_text_view_scroll_mark_onscreen(self.CPointer, mark.GetTextMarkPointer())
 	return
 }
 
@@ -23769,15 +22989,11 @@ screen for purposes of this function is reduced by a margin of size
 @within_margin.
 */
 func (self *TraitTextView) ScrollToMark(mark IsTextMark, within_margin float64, use_align bool, xalign float64, yalign float64) {
-	var __cgo__mark *C.GtkTextMark
-	if mark != nil {
-		__cgo__mark = mark.GetTextMarkPointer()
-	}
 	__cgo__use_align := C.gboolean(0)
 	if use_align {
 		__cgo__use_align = C.gboolean(1)
 	}
-	C.gtk_text_view_scroll_to_mark(self.CPointer, __cgo__mark, C.gdouble(within_margin), __cgo__use_align, C.gdouble(xalign), C.gdouble(yalign))
+	C.gtk_text_view_scroll_to_mark(self.CPointer, mark.GetTextMarkPointer(), C.gdouble(within_margin), __cgo__use_align, C.gdouble(xalign), C.gdouble(yalign))
 	return
 }
 
@@ -24667,11 +23883,7 @@ should also be used with gtk_tool_item_get_proxy_menu_item().
 */
 func (self *TraitToolItem) SetProxyMenuItem(menu_item_id string, menu_item IsWidget) {
 	__cgo__menu_item_id := (*C.gchar)(unsafe.Pointer(C.CString(menu_item_id)))
-	var __cgo__menu_item *C.GtkWidget
-	if menu_item != nil {
-		__cgo__menu_item = menu_item.GetWidgetPointer()
-	}
-	C.gtk_tool_item_set_proxy_menu_item(self.CPointer, __cgo__menu_item_id, __cgo__menu_item)
+	C.gtk_tool_item_set_proxy_menu_item(self.CPointer, __cgo__menu_item_id, menu_item.GetWidgetPointer())
 	C.free(unsafe.Pointer(__cgo__menu_item_id))
 	return
 }
@@ -24804,12 +24016,8 @@ func (self *TraitToolItemGroup) GetHeaderRelief() (return__ C.GtkReliefStyle) {
 Gets the position of @item in @group as index.
 */
 func (self *TraitToolItemGroup) GetItemPosition(item IsToolItem) (return__ int) {
-	var __cgo__item *C.GtkToolItem
-	if item != nil {
-		__cgo__item = item.GetToolItemPointer()
-	}
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_tool_item_group_get_item_position(self.CPointer, __cgo__item)
+	__cgo__return__ = C.gtk_tool_item_group_get_item_position(self.CPointer, item.GetToolItemPointer())
 	return__ = int(__cgo__return__)
 	return
 }
@@ -24863,11 +24071,7 @@ func (self *TraitToolItemGroup) GetNthItem(index uint) (return__ *ToolItem) {
 Inserts @item at @position in the list of children of @group.
 */
 func (self *TraitToolItemGroup) Insert(item IsToolItem, position int) {
-	var __cgo__item *C.GtkToolItem
-	if item != nil {
-		__cgo__item = item.GetToolItemPointer()
-	}
-	C.gtk_tool_item_group_insert(self.CPointer, __cgo__item, C.gint(position))
+	C.gtk_tool_item_group_insert(self.CPointer, item.GetToolItemPointer(), C.gint(position))
 	return
 }
 
@@ -24904,11 +24108,7 @@ func (self *TraitToolItemGroup) SetHeaderRelief(style C.GtkReliefStyle) {
 Sets the position of @item in the list of children of @group.
 */
 func (self *TraitToolItemGroup) SetItemPosition(item IsToolItem, position int) {
-	var __cgo__item *C.GtkToolItem
-	if item != nil {
-		__cgo__item = item.GetToolItemPointer()
-	}
-	C.gtk_tool_item_group_set_item_position(self.CPointer, __cgo__item, C.gint(position))
+	C.gtk_tool_item_group_set_item_position(self.CPointer, item.GetToolItemPointer(), C.gint(position))
 	return
 }
 
@@ -24929,11 +24129,7 @@ The label widget is displayed in the header of the group, in place
 of the usual label.
 */
 func (self *TraitToolItemGroup) SetLabelWidget(label_widget IsWidget) {
-	var __cgo__label_widget *C.GtkWidget
-	if label_widget != nil {
-		__cgo__label_widget = label_widget.GetWidgetPointer()
-	}
-	C.gtk_tool_item_group_set_label_widget(self.CPointer, __cgo__label_widget)
+	C.gtk_tool_item_group_set_label_widget(self.CPointer, label_widget.GetWidgetPointer())
 	return
 }
 
@@ -24955,11 +24151,7 @@ and sets @widget as a drag destination for drags from @palette.
 See gtk_drag_dest_set().
 */
 func (self *TraitToolPalette) AddDragDest(widget IsWidget, flags C.GtkDestDefaults, targets C.GtkToolPaletteDragTargets, actions C.GdkDragAction) {
-	var __cgo__widget *C.GtkWidget
-	if widget != nil {
-		__cgo__widget = widget.GetWidgetPointer()
-	}
-	C.gtk_tool_palette_add_drag_dest(self.CPointer, __cgo__widget, flags, targets, actions)
+	C.gtk_tool_palette_add_drag_dest(self.CPointer, widget.GetWidgetPointer(), flags, targets, actions)
 	return
 }
 
@@ -25006,12 +24198,8 @@ Gets whether @group is exclusive or not.
 See gtk_tool_palette_set_exclusive().
 */
 func (self *TraitToolPalette) GetExclusive(group IsToolItemGroup) (return__ bool) {
-	var __cgo__group *C.GtkToolItemGroup
-	if group != nil {
-		__cgo__group = group.GetToolItemGroupPointer()
-	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_tool_palette_get_exclusive(self.CPointer, __cgo__group)
+	__cgo__return__ = C.gtk_tool_palette_get_exclusive(self.CPointer, group.GetToolItemGroupPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -25021,12 +24209,8 @@ Gets whether group should be given extra space.
 See gtk_tool_palette_set_expand().
 */
 func (self *TraitToolPalette) GetExpand(group IsToolItemGroup) (return__ bool) {
-	var __cgo__group *C.GtkToolItemGroup
-	if group != nil {
-		__cgo__group = group.GetToolItemGroupPointer()
-	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_tool_palette_get_expand(self.CPointer, __cgo__group)
+	__cgo__return__ = C.gtk_tool_palette_get_expand(self.CPointer, group.GetToolItemGroupPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -25036,12 +24220,8 @@ Gets the position of @group in @palette as index.
 See gtk_tool_palette_set_group_position().
 */
 func (self *TraitToolPalette) GetGroupPosition(group IsToolItemGroup) (return__ int) {
-	var __cgo__group *C.GtkToolItemGroup
-	if group != nil {
-		__cgo__group = group.GetToolItemGroupPointer()
-	}
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_tool_palette_get_group_position(self.CPointer, __cgo__group)
+	__cgo__return__ = C.gtk_tool_palette_get_group_position(self.CPointer, group.GetToolItemGroupPointer())
 	return__ = int(__cgo__return__)
 	return
 }
@@ -25083,15 +24263,11 @@ Sets whether the group should be exclusive or not.
 If an exclusive group is expanded all other groups are collapsed.
 */
 func (self *TraitToolPalette) SetExclusive(group IsToolItemGroup, exclusive bool) {
-	var __cgo__group *C.GtkToolItemGroup
-	if group != nil {
-		__cgo__group = group.GetToolItemGroupPointer()
-	}
 	__cgo__exclusive := C.gboolean(0)
 	if exclusive {
 		__cgo__exclusive = C.gboolean(1)
 	}
-	C.gtk_tool_palette_set_exclusive(self.CPointer, __cgo__group, __cgo__exclusive)
+	C.gtk_tool_palette_set_exclusive(self.CPointer, group.GetToolItemGroupPointer(), __cgo__exclusive)
 	return
 }
 
@@ -25099,15 +24275,11 @@ func (self *TraitToolPalette) SetExclusive(group IsToolItemGroup, exclusive bool
 Sets whether the group should be given extra space.
 */
 func (self *TraitToolPalette) SetExpand(group IsToolItemGroup, expand bool) {
-	var __cgo__group *C.GtkToolItemGroup
-	if group != nil {
-		__cgo__group = group.GetToolItemGroupPointer()
-	}
 	__cgo__expand := C.gboolean(0)
 	if expand {
 		__cgo__expand = C.gboolean(1)
 	}
-	C.gtk_tool_palette_set_expand(self.CPointer, __cgo__group, __cgo__expand)
+	C.gtk_tool_palette_set_expand(self.CPointer, group.GetToolItemGroupPointer(), __cgo__expand)
 	return
 }
 
@@ -25117,11 +24289,7 @@ If position is 0 the group will become the first child, if position is
 -1 it will become the last child.
 */
 func (self *TraitToolPalette) SetGroupPosition(group IsToolItemGroup, position int) {
-	var __cgo__group *C.GtkToolItemGroup
-	if group != nil {
-		__cgo__group = group.GetToolItemGroupPointer()
-	}
-	C.gtk_tool_palette_set_group_position(self.CPointer, __cgo__group, C.gint(position))
+	C.gtk_tool_palette_set_group_position(self.CPointer, group.GetToolItemGroupPointer(), C.gint(position))
 	return
 }
 
@@ -25199,12 +24367,8 @@ Returns the position of @item on the toolbar, starting from 0.
 It is an error if @item is not a child of the toolbar.
 */
 func (self *TraitToolbar) GetItemIndex(item IsToolItem) (return__ int) {
-	var __cgo__item *C.GtkToolItem
-	if item != nil {
-		__cgo__item = item.GetToolItemPointer()
-	}
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_toolbar_get_item_index(self.CPointer, __cgo__item)
+	__cgo__return__ = C.gtk_toolbar_get_item_index(self.CPointer, item.GetToolItemPointer())
 	return__ = int(__cgo__return__)
 	return
 }
@@ -25267,11 +24431,7 @@ Insert a #GtkToolItem into the toolbar at position @pos. If @pos is
 negative, the item is appended to the end of the toolbar.
 */
 func (self *TraitToolbar) Insert(item IsToolItem, pos int) {
-	var __cgo__item *C.GtkToolItem
-	if item != nil {
-		__cgo__item = item.GetToolItemPointer()
-	}
-	C.gtk_toolbar_insert(self.CPointer, __cgo__item, C.gint(pos))
+	C.gtk_toolbar_insert(self.CPointer, item.GetToolItemPointer(), C.gint(pos))
 	return
 }
 
@@ -26185,12 +25345,8 @@ mode enabled, then @column must have its “sizing” property set to be
 GTK_TREE_VIEW_COLUMN_FIXED.
 */
 func (self *TraitTreeView) AppendColumn(column IsTreeViewColumn) (return__ int) {
-	var __cgo__column *C.GtkTreeViewColumn
-	if column != nil {
-		__cgo__column = column.GetTreeViewColumnPointer()
-	}
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_tree_view_append_column(self.CPointer, __cgo__column)
+	__cgo__return__ = C.gtk_tree_view_append_column(self.CPointer, column.GetTreeViewColumnPointer())
 	return__ = int(__cgo__return__)
 	return
 }
@@ -26777,12 +25933,8 @@ This inserts the @column into the @tree_view at @position.  If @position is
 set to be GTK_TREE_VIEW_COLUMN_FIXED.
 */
 func (self *TraitTreeView) InsertColumn(column IsTreeViewColumn, position int) (return__ int) {
-	var __cgo__column *C.GtkTreeViewColumn
-	if column != nil {
-		__cgo__column = column.GetTreeViewColumnPointer()
-	}
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_tree_view_insert_column(self.CPointer, __cgo__column, C.gint(position))
+	__cgo__return__ = C.gtk_tree_view_insert_column(self.CPointer, column.GetTreeViewColumnPointer(), C.gint(position))
 	return__ = int(__cgo__return__)
 	return
 }
@@ -26799,12 +25951,8 @@ If @tree_view has “fixed_height” mode enabled, then the new column will have
 */
 func (self *TraitTreeView) InsertColumnWithDataFunc(position int, title string, cell IsCellRenderer, func_ C.GtkTreeCellDataFunc, data unsafe.Pointer, dnotify C.GDestroyNotify) (return__ int) {
 	__cgo__title := (*C.gchar)(unsafe.Pointer(C.CString(title)))
-	var __cgo__cell *C.GtkCellRenderer
-	if cell != nil {
-		__cgo__cell = cell.GetCellRendererPointer()
-	}
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_tree_view_insert_column_with_data_func(self.CPointer, C.gint(position), __cgo__title, __cgo__cell, func_, (C.gpointer)(data), dnotify)
+	__cgo__return__ = C.gtk_tree_view_insert_column_with_data_func(self.CPointer, C.gint(position), __cgo__title, cell.GetCellRendererPointer(), func_, (C.gpointer)(data), dnotify)
 	C.free(unsafe.Pointer(__cgo__title))
 	return__ = int(__cgo__return__)
 	return
@@ -26868,15 +26016,11 @@ Moves @column to be after to @base_column.  If @base_column is %NULL, then
 @column is placed in the first position.
 */
 func (self *TraitTreeView) MoveColumnAfter(column IsTreeViewColumn, base_column IsTreeViewColumn) {
-	var __cgo__column *C.GtkTreeViewColumn
-	if column != nil {
-		__cgo__column = column.GetTreeViewColumnPointer()
-	}
 	var __cgo__base_column *C.GtkTreeViewColumn
 	if base_column != nil {
 		__cgo__base_column = base_column.GetTreeViewColumnPointer()
 	}
-	C.gtk_tree_view_move_column_after(self.CPointer, __cgo__column, __cgo__base_column)
+	C.gtk_tree_view_move_column_after(self.CPointer, column.GetTreeViewColumnPointer(), __cgo__base_column)
 	return
 }
 
@@ -26884,12 +26028,8 @@ func (self *TraitTreeView) MoveColumnAfter(column IsTreeViewColumn, base_column 
 Removes @column from @tree_view.
 */
 func (self *TraitTreeView) RemoveColumn(column IsTreeViewColumn) (return__ int) {
-	var __cgo__column *C.GtkTreeViewColumn
-	if column != nil {
-		__cgo__column = column.GetTreeViewColumnPointer()
-	}
 	var __cgo__return__ C.gint
-	__cgo__return__ = C.gtk_tree_view_remove_column(self.CPointer, __cgo__column)
+	__cgo__return__ = C.gtk_tree_view_remove_column(self.CPointer, column.GetTreeViewColumnPointer())
 	return__ = int(__cgo__return__)
 	return
 }
@@ -26898,11 +26038,7 @@ func (self *TraitTreeView) RemoveColumn(column IsTreeViewColumn) (return__ int) 
 Activates the cell determined by @path and @column.
 */
 func (self *TraitTreeView) RowActivated(path *C.GtkTreePath, column IsTreeViewColumn) {
-	var __cgo__column *C.GtkTreeViewColumn
-	if column != nil {
-		__cgo__column = column.GetTreeViewColumnPointer()
-	}
-	C.gtk_tree_view_row_activated(self.CPointer, path, __cgo__column)
+	C.gtk_tree_view_row_activated(self.CPointer, path, column.GetTreeViewColumnPointer())
 	return
 }
 
@@ -27098,11 +26234,7 @@ If you do not want expander arrow to appear in your tree, set the
 expander column to a hidden column.
 */
 func (self *TraitTreeView) SetExpanderColumn(column IsTreeViewColumn) {
-	var __cgo__column *C.GtkTreeViewColumn
-	if column != nil {
-		__cgo__column = column.GetTreeViewColumnPointer()
-	}
-	C.gtk_tree_view_set_expander_column(self.CPointer, __cgo__column)
+	C.gtk_tree_view_set_expander_column(self.CPointer, column.GetTreeViewColumnPointer())
 	return
 }
 
@@ -27340,10 +26472,6 @@ mouse cursor for this function to operate correctly.
 See also gtk_tree_view_set_tooltip_column() for a simpler alternative.
 */
 func (self *TraitTreeView) SetTooltipCell(tooltip IsTooltip, path *C.GtkTreePath, column IsTreeViewColumn, cell IsCellRenderer) {
-	var __cgo__tooltip *C.GtkTooltip
-	if tooltip != nil {
-		__cgo__tooltip = tooltip.GetTooltipPointer()
-	}
 	var __cgo__column *C.GtkTreeViewColumn
 	if column != nil {
 		__cgo__column = column.GetTreeViewColumnPointer()
@@ -27352,7 +26480,7 @@ func (self *TraitTreeView) SetTooltipCell(tooltip IsTooltip, path *C.GtkTreePath
 	if cell != nil {
 		__cgo__cell = cell.GetCellRendererPointer()
 	}
-	C.gtk_tree_view_set_tooltip_cell(self.CPointer, __cgo__tooltip, path, __cgo__column, __cgo__cell)
+	C.gtk_tree_view_set_tooltip_cell(self.CPointer, tooltip.GetTooltipPointer(), path, __cgo__column, __cgo__cell)
 	return
 }
 
@@ -27379,11 +26507,7 @@ See also gtk_tree_view_set_tooltip_column() for a simpler alternative.
 See also gtk_tooltip_set_tip_area().
 */
 func (self *TraitTreeView) SetTooltipRow(tooltip IsTooltip, path *C.GtkTreePath) {
-	var __cgo__tooltip *C.GtkTooltip
-	if tooltip != nil {
-		__cgo__tooltip = tooltip.GetTooltipPointer()
-	}
-	C.gtk_tree_view_set_tooltip_row(self.CPointer, __cgo__tooltip, path)
+	C.gtk_tree_view_set_tooltip_row(self.CPointer, tooltip.GetTooltipPointer(), path)
 	return
 }
 
@@ -27442,12 +26566,8 @@ if column 2 of the model contains strings, you could have the
 column 2.
 */
 func (self *TraitTreeViewColumn) AddAttribute(cell_renderer IsCellRenderer, attribute string, column int) {
-	var __cgo__cell_renderer *C.GtkCellRenderer
-	if cell_renderer != nil {
-		__cgo__cell_renderer = cell_renderer.GetCellRendererPointer()
-	}
 	__cgo__attribute := (*C.gchar)(unsafe.Pointer(C.CString(attribute)))
-	C.gtk_tree_view_column_add_attribute(self.CPointer, __cgo__cell_renderer, __cgo__attribute, C.gint(column))
+	C.gtk_tree_view_column_add_attribute(self.CPointer, cell_renderer.GetCellRendererPointer(), __cgo__attribute, C.gint(column))
 	C.free(unsafe.Pointer(__cgo__attribute))
 	return
 }
@@ -27458,14 +26578,10 @@ cell is not found in the column, @start_pos and @width are not changed and
 %FALSE is returned.
 */
 func (self *TraitTreeViewColumn) CellGetPosition(cell_renderer IsCellRenderer) (x_offset int, width int, return__ bool) {
-	var __cgo__cell_renderer *C.GtkCellRenderer
-	if cell_renderer != nil {
-		__cgo__cell_renderer = cell_renderer.GetCellRendererPointer()
-	}
 	var __cgo__x_offset C.gint
 	var __cgo__width C.gint
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_tree_view_column_cell_get_position(self.CPointer, __cgo__cell_renderer, &__cgo__x_offset, &__cgo__width)
+	__cgo__return__ = C.gtk_tree_view_column_cell_get_position(self.CPointer, cell_renderer.GetCellRendererPointer(), &__cgo__x_offset, &__cgo__width)
 	x_offset = int(__cgo__x_offset)
 	width = int(__cgo__width)
 	return__ = __cgo__return__ == C.gboolean(1)
@@ -27533,11 +26649,7 @@ Clears all existing attributes previously set with
 gtk_tree_view_column_set_attributes().
 */
 func (self *TraitTreeViewColumn) ClearAttributes(cell_renderer IsCellRenderer) {
-	var __cgo__cell_renderer *C.GtkCellRenderer
-	if cell_renderer != nil {
-		__cgo__cell_renderer = cell_renderer.GetCellRendererPointer()
-	}
-	C.gtk_tree_view_column_clear_attributes(self.CPointer, __cgo__cell_renderer)
+	C.gtk_tree_view_column_clear_attributes(self.CPointer, cell_renderer.GetCellRendererPointer())
 	return
 }
 
@@ -27555,11 +26667,7 @@ Sets the current keyboard focus to be at @cell, if the column contains
 2 or more editable and activatable cells.
 */
 func (self *TraitTreeViewColumn) FocusCell(cell IsCellRenderer) {
-	var __cgo__cell *C.GtkCellRenderer
-	if cell != nil {
-		__cgo__cell = cell.GetCellRendererPointer()
-	}
-	C.gtk_tree_view_column_focus_cell(self.CPointer, __cgo__cell)
+	C.gtk_tree_view_column_focus_cell(self.CPointer, cell.GetCellRendererPointer())
 	return
 }
 
@@ -27780,15 +26888,11 @@ is allocated no more space than it needs. Any unused space is divided
 evenly between cells for which @expand is %TRUE.
 */
 func (self *TraitTreeViewColumn) PackEnd(cell IsCellRenderer, expand bool) {
-	var __cgo__cell *C.GtkCellRenderer
-	if cell != nil {
-		__cgo__cell = cell.GetCellRendererPointer()
-	}
 	__cgo__expand := C.gboolean(0)
 	if expand {
 		__cgo__expand = C.gboolean(1)
 	}
-	C.gtk_tree_view_column_pack_end(self.CPointer, __cgo__cell, __cgo__expand)
+	C.gtk_tree_view_column_pack_end(self.CPointer, cell.GetCellRendererPointer(), __cgo__expand)
 	return
 }
 
@@ -27798,15 +26902,11 @@ the @cell is allocated no more space than it needs. Any unused space is divided
 evenly between cells for which @expand is %TRUE.
 */
 func (self *TraitTreeViewColumn) PackStart(cell IsCellRenderer, expand bool) {
-	var __cgo__cell *C.GtkCellRenderer
-	if cell != nil {
-		__cgo__cell = cell.GetCellRendererPointer()
-	}
 	__cgo__expand := C.gboolean(0)
 	if expand {
 		__cgo__expand = C.gboolean(1)
 	}
-	C.gtk_tree_view_column_pack_start(self.CPointer, __cgo__cell, __cgo__expand)
+	C.gtk_tree_view_column_pack_start(self.CPointer, cell.GetCellRendererPointer(), __cgo__expand)
 	return
 }
 
@@ -27839,11 +26939,7 @@ cell renderer as appropriate.  @func may be %NULL to remove an
 older one.
 */
 func (self *TraitTreeViewColumn) SetCellDataFunc(cell_renderer IsCellRenderer, func_ C.GtkTreeCellDataFunc, func_data unsafe.Pointer, destroy C.GDestroyNotify) {
-	var __cgo__cell_renderer *C.GtkCellRenderer
-	if cell_renderer != nil {
-		__cgo__cell_renderer = cell_renderer.GetCellRendererPointer()
-	}
-	C.gtk_tree_view_column_set_cell_data_func(self.CPointer, __cgo__cell_renderer, func_, (C.gpointer)(func_data), destroy)
+	C.gtk_tree_view_column_set_cell_data_func(self.CPointer, cell_renderer.GetCellRendererPointer(), func_, (C.gpointer)(func_data), destroy)
 	return
 }
 
@@ -28259,11 +27355,7 @@ gtk_menu_item_set_accel_path() instead.
 */
 func (self *TraitWidget) AddAccelerator(accel_signal string, accel_group IsAccelGroup, accel_key uint, accel_mods C.GdkModifierType, accel_flags C.GtkAccelFlags) {
 	__cgo__accel_signal := (*C.gchar)(unsafe.Pointer(C.CString(accel_signal)))
-	var __cgo__accel_group *C.GtkAccelGroup
-	if accel_group != nil {
-		__cgo__accel_group = accel_group.GetAccelGroupPointer()
-	}
-	C.gtk_widget_add_accelerator(self.CPointer, __cgo__accel_signal, __cgo__accel_group, C.guint(accel_key), accel_mods, accel_flags)
+	C.gtk_widget_add_accelerator(self.CPointer, __cgo__accel_signal, accel_group.GetAccelGroupPointer(), C.guint(accel_key), accel_mods, accel_flags)
 	C.free(unsafe.Pointer(__cgo__accel_signal))
 	return
 }
@@ -28295,11 +27387,7 @@ its internal state at this point as well, by using a connection
 to the #GtkWidget::destroy signal or a weak notifier.
 */
 func (self *TraitWidget) AddMnemonicLabel(label IsWidget) {
-	var __cgo__label *C.GtkWidget
-	if label != nil {
-		__cgo__label = label.GetWidgetPointer()
-	}
-	C.gtk_widget_add_mnemonic_label(self.CPointer, __cgo__label)
+	C.gtk_widget_add_mnemonic_label(self.CPointer, label.GetWidgetPointer())
 	return
 }
 
@@ -30087,12 +29175,8 @@ Determines whether @widget is somewhere inside @ancestor, possibly with
 intermediate containers.
 */
 func (self *TraitWidget) IsAncestor(ancestor IsWidget) (return__ bool) {
-	var __cgo__ancestor *C.GtkWidget
-	if ancestor != nil {
-		__cgo__ancestor = ancestor.GetWidgetPointer()
-	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_widget_is_ancestor(self.CPointer, __cgo__ancestor)
+	__cgo__return__ = C.gtk_widget_is_ancestor(self.CPointer, ancestor.GetWidgetPointer())
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -30493,12 +29577,8 @@ Removes an accelerator from @widget, previously installed with
 gtk_widget_add_accelerator().
 */
 func (self *TraitWidget) RemoveAccelerator(accel_group IsAccelGroup, accel_key uint, accel_mods C.GdkModifierType) (return__ bool) {
-	var __cgo__accel_group *C.GtkAccelGroup
-	if accel_group != nil {
-		__cgo__accel_group = accel_group.GetAccelGroupPointer()
-	}
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_widget_remove_accelerator(self.CPointer, __cgo__accel_group, C.guint(accel_key), accel_mods)
+	__cgo__return__ = C.gtk_widget_remove_accelerator(self.CPointer, accel_group.GetAccelGroupPointer(), C.guint(accel_key), accel_mods)
 	return__ = __cgo__return__ == C.gboolean(1)
 	return
 }
@@ -30510,11 +29590,7 @@ must have previously been added to the list with
 gtk_widget_add_mnemonic_label().
 */
 func (self *TraitWidget) RemoveMnemonicLabel(label IsWidget) {
-	var __cgo__label *C.GtkWidget
-	if label != nil {
-		__cgo__label = label.GetWidgetPointer()
-	}
-	C.gtk_widget_remove_mnemonic_label(self.CPointer, __cgo__label)
+	C.gtk_widget_remove_mnemonic_label(self.CPointer, label.GetWidgetPointer())
 	return
 }
 
@@ -31048,11 +30124,7 @@ to reflect its new location. The opposite function is
 gtk_widget_unparent().
 */
 func (self *TraitWidget) SetParent(parent IsWidget) {
-	var __cgo__parent *C.GtkWidget
-	if parent != nil {
-		__cgo__parent = parent.GetWidgetPointer()
-	}
-	C.gtk_widget_set_parent(self.CPointer, __cgo__parent)
+	C.gtk_widget_set_parent(self.CPointer, parent.GetWidgetPointer())
 	return
 }
 
@@ -31487,14 +30559,10 @@ operation, both widgets must be realized, and must share a common
 toplevel.
 */
 func (self *TraitWidget) TranslateCoordinates(dest_widget IsWidget, src_x int, src_y int) (dest_x int, dest_y int, return__ bool) {
-	var __cgo__dest_widget *C.GtkWidget
-	if dest_widget != nil {
-		__cgo__dest_widget = dest_widget.GetWidgetPointer()
-	}
 	var __cgo__dest_x C.gint
 	var __cgo__dest_y C.gint
 	var __cgo__return__ C.gboolean
-	__cgo__return__ = C.gtk_widget_translate_coordinates(self.CPointer, __cgo__dest_widget, C.gint(src_x), C.gint(src_y), &__cgo__dest_x, &__cgo__dest_y)
+	__cgo__return__ = C.gtk_widget_translate_coordinates(self.CPointer, dest_widget.GetWidgetPointer(), C.gint(src_x), C.gint(src_y), &__cgo__dest_x, &__cgo__dest_y)
 	dest_x = int(__cgo__dest_x)
 	dest_y = int(__cgo__dest_y)
 	return__ = __cgo__return__ == C.gboolean(1)
@@ -31626,11 +30694,7 @@ gtk_accel_groups_activate() on @window will activate accelerators
 in @accel_group.
 */
 func (self *TraitWindow) AddAccelGroup(accel_group IsAccelGroup) {
-	var __cgo__accel_group *C.GtkAccelGroup
-	if accel_group != nil {
-		__cgo__accel_group = accel_group.GetAccelGroupPointer()
-	}
-	C.gtk_window_add_accel_group(self.CPointer, __cgo__accel_group)
+	C.gtk_window_add_accel_group(self.CPointer, accel_group.GetAccelGroupPointer())
 	return
 }
 
@@ -31638,11 +30702,7 @@ func (self *TraitWindow) AddAccelGroup(accel_group IsAccelGroup) {
 Adds a mnemonic to this window.
 */
 func (self *TraitWindow) AddMnemonic(keyval uint, target IsWidget) {
-	var __cgo__target *C.GtkWidget
-	if target != nil {
-		__cgo__target = target.GetWidgetPointer()
-	}
-	C.gtk_window_add_mnemonic(self.CPointer, C.guint(keyval), __cgo__target)
+	C.gtk_window_add_mnemonic(self.CPointer, C.guint(keyval), target.GetWidgetPointer())
 	return
 }
 
@@ -32429,11 +31489,7 @@ func (self *TraitWindow) PropagateKeyEvent(event *C.GdkEventKey) (return__ bool)
 Reverses the effects of gtk_window_add_accel_group().
 */
 func (self *TraitWindow) RemoveAccelGroup(accel_group IsAccelGroup) {
-	var __cgo__accel_group *C.GtkAccelGroup
-	if accel_group != nil {
-		__cgo__accel_group = accel_group.GetAccelGroupPointer()
-	}
-	C.gtk_window_remove_accel_group(self.CPointer, __cgo__accel_group)
+	C.gtk_window_remove_accel_group(self.CPointer, accel_group.GetAccelGroupPointer())
 	return
 }
 
@@ -32441,11 +31497,7 @@ func (self *TraitWindow) RemoveAccelGroup(accel_group IsAccelGroup) {
 Removes a mnemonic from this window.
 */
 func (self *TraitWindow) RemoveMnemonic(keyval uint, target IsWidget) {
-	var __cgo__target *C.GtkWidget
-	if target != nil {
-		__cgo__target = target.GetWidgetPointer()
-	}
-	C.gtk_window_remove_mnemonic(self.CPointer, C.guint(keyval), __cgo__target)
+	C.gtk_window_remove_mnemonic(self.CPointer, C.guint(keyval), target.GetWidgetPointer())
 	return
 }
 
@@ -33260,11 +32312,7 @@ func NewTraitWindowGroup(p unsafe.Pointer) *TraitWindowGroup {
 Adds a window to a #GtkWindowGroup.
 */
 func (self *TraitWindowGroup) AddWindow(window IsWindow) {
-	var __cgo__window *C.GtkWindow
-	if window != nil {
-		__cgo__window = window.GetWindowPointer()
-	}
-	C.gtk_window_group_add_window(self.CPointer, __cgo__window)
+	C.gtk_window_group_add_window(self.CPointer, window.GetWindowPointer())
 	return
 }
 
@@ -33305,10 +32353,6 @@ func (self *TraitWindowGroup) ListWindows() (return__ *C.GList) {
 Removes a window from a #GtkWindowGroup.
 */
 func (self *TraitWindowGroup) RemoveWindow(window IsWindow) {
-	var __cgo__window *C.GtkWindow
-	if window != nil {
-		__cgo__window = window.GetWindowPointer()
-	}
-	C.gtk_window_group_remove_window(self.CPointer, __cgo__window)
+	C.gtk_window_group_remove_window(self.CPointer, window.GetWindowPointer())
 	return
 }
