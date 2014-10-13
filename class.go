@@ -111,14 +111,18 @@ func (self *Generator) GenClassTypes(ns *Namespace) {
 		TypeMapping[fs("in GoType *%s TypeName %s", goType, typeName)] = "Is" + typeName
 		TypeMapping[fs("out GoType *%s TypeName %s", goType, typeName)] = "*" + typeName
 		InParamMapping[fs("Is%s -> *%s", typeName, goType)] = func(param *Param) {
-			param.CgoBeforeStmt = fs(`var __cgo__%s %s
+			if param.AllowNone != "" {
+				param.CgoBeforeStmt = fs(`var __cgo__%s %s
 				if %s != nil {
 					__cgo__%s = %s.Get%sPointer()
 				}`, param.GoName, param.GoType,
-				param.GoName,
-				param.GoName, param.GoName, typeName,
-			)
-			param.CgoParam = fs("__cgo__%s", param.GoName)
+					param.GoName,
+					param.GoName, param.GoName, typeName,
+				)
+				param.CgoParam = fs("__cgo__%s", param.GoName)
+			} else {
+				param.CgoParam = fs("%s.Get%sPointer()", param.GoName, typeName)
+			}
 		}
 		OutParamMapping[fs("*%s -> *%s", goType, typeName)] = func(param *Param) {
 			param.CgoAfterStmt += fs(`if __cgo__%s != nil {
